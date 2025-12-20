@@ -239,7 +239,7 @@ export default function Header({
           </button>
 
           {isLayoutDropdownOpen && (
-            <div className="absolute top-full left-0 mt-2 w-72 bg-gray-800 border border-gray-700 rounded-lg shadow-xl z-50">
+            <div className="absolute top-full left-0 mt-2 w-72 max-h-[600px] overflow-y-auto bg-gray-800 border border-gray-700 rounded-lg shadow-xl z-50">
               {LAYOUT_OPTIONS.map((layout) => (
                 <button
                   key={layout.id}
