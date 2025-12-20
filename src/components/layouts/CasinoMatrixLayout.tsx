@@ -157,11 +157,22 @@ export default function CasinoMatrixLayout({
             className="h-20 mx-auto mb-1.5"
             style={{ filter: `drop-shadow(0 0 15px ${primaryColor}80)`, transform: 'scale(1.3)' }}
           />
-          <h1 className="text-3xl font-bold mb-1.5 tracking-wider" style={{ color: primaryColor, textShadow: `0 0 20px ${primaryColor}` }}>
-            {customHeaderText}
-          </h1>
-          <div className="text-xl opacity-80" style={{ color: secondaryColor }}>
-            DATE: {getCurrentDate()} | TIME: {customTimeLabel}
+          {/* Header Text Container with Background */}
+          <div
+            className="inline-block px-6 py-4 rounded-lg"
+            style={{
+              background: 'linear-gradient(135deg, rgba(0,0,0,0.85), rgba(10,15,10,0.9))',
+              border: `2px solid ${primaryColor}60`,
+              boxShadow: `0 0 30px ${primaryColor}40, inset 0 0 20px ${primaryColor}15`,
+              backdropFilter: 'blur(10px)'
+            }}
+          >
+            <h1 className="text-3xl font-bold mb-1.5 tracking-wider" style={{ color: primaryColor, textShadow: `0 0 20px ${primaryColor}` }}>
+              {customHeaderText}
+            </h1>
+            <div className="text-xl" style={{ color: secondaryColor, textShadow: `0 0 10px ${secondaryColor}80` }}>
+              DATE: {getCurrentDate()} | TIME: {customTimeLabel}
+            </div>
           </div>
         </div>
       </div>
