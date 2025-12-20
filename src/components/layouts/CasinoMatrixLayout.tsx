@@ -159,18 +159,26 @@ export default function CasinoMatrixLayout({
           />
           {/* Header Text Container with Background */}
           <div
-            className="inline-block px-6 py-4 rounded-lg"
+            className={`relative inline-block px-6 py-4 rounded-lg ${getBlurClass()}`}
             style={{
-              background: 'linear-gradient(135deg, rgba(0,0,0,0.85), rgba(10,15,10,0.9))',
-              border: `2px solid ${primaryColor}60`,
-              boxShadow: `0 0 30px ${primaryColor}40, inset 0 0 20px ${primaryColor}15`,
+              background: selectedCardStyle?.background || 'linear-gradient(135deg, rgba(0,0,0,0.85), rgba(10,15,10,0.9))',
+              border: selectedCardStyle?.border ? `${selectedCardStyle.border} ${primaryColor}` : `2px solid ${primaryColor}60`,
+              boxShadow: selectedCardStyle?.shadow ? (selectedCardStyle.shadow.includes('0 0 20px') ? `${selectedCardStyle.shadow} ${primaryColor}` : selectedCardStyle.shadow) : `0 0 30px ${primaryColor}40, inset 0 0 20px ${primaryColor}15`,
+              opacity: selectedCardStyle?.opacity || 1,
               backdropFilter: 'blur(10px)'
             }}
           >
-            <h1 className="text-3xl font-bold mb-1.5 tracking-wider" style={{ color: primaryColor, textShadow: `0 0 20px ${primaryColor}` }}>
+            {/* Pattern Overlay */}
+            {selectedCardStyle?.pattern && selectedCardStyle.pattern !== 'none' && (
+              <div
+                className="absolute inset-0 pointer-events-none rounded-lg"
+                style={{ backgroundImage: selectedCardStyle.pattern, backgroundRepeat: 'repeat' }}
+              />
+            )}
+            <h1 className="relative z-10 text-3xl font-bold mb-1.5 tracking-wider" style={{ color: primaryColor, textShadow: `0 0 20px ${primaryColor}` }}>
               {customHeaderText}
             </h1>
-            <div className="text-xl" style={{ color: secondaryColor, textShadow: `0 0 10px ${secondaryColor}80` }}>
+            <div className="relative z-10 text-xl" style={{ color: secondaryColor, textShadow: `0 0 10px ${secondaryColor}80` }}>
               DATE: {getCurrentDate()} | TIME: {customTimeLabel}
             </div>
           </div>
