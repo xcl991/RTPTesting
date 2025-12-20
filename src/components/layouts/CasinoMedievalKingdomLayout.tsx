@@ -619,6 +619,95 @@ export default function CasinoMedievalKingdomLayout({
           </div>
         </div>
       </div>
+
+      {/* Royal Telegram Scroll - Medieval Telegram Section */}
+      <div className="relative z-10 mt-4">
+        <div
+          className="relative p-4 flex items-center justify-center gap-3"
+          style={{
+            background: `linear-gradient(135deg, rgba(60,30,15,0.85), rgba(40,20,10,0.9))`,
+            border: `3px double ${primaryColor}`,
+            borderRadius: '8px',
+            boxShadow: `0 8px 24px rgba(0,0,0,0.7), inset 0 2px 0 rgba(255,215,0,0.15), 0 0 30px ${primaryColor}20`
+          }}
+        >
+          {/* Decorative Scroll Top */}
+          <div
+            className="absolute -top-2 left-1/2 transform -translate-x-1/2 px-6 py-1 text-xs font-bold"
+            style={{
+              background: `linear-gradient(90deg, ${primaryColor}, ${secondaryColor}, ${primaryColor})`,
+              color: '#1a0a00',
+              clipPath: 'polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%)',
+              boxShadow: `0 4px 8px rgba(0,0,0,0.6)`,
+              letterSpacing: '2px'
+            }}
+          >
+            ⚜️ ROYAL MESSENGER ⚜️
+          </div>
+
+          {/* Parchment Texture */}
+          <div
+            className="absolute inset-0 opacity-10 pointer-events-none"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0zm50 0h40v40H50zM0 50h40v40H0zm50 0h40v40H50z' fill='%23000' opacity='0.1'/%3E%3C/svg%3E")`,
+              backgroundSize: '50px 50px',
+              borderRadius: '8px'
+            }}
+          />
+
+          {/* Ornamental Corners */}
+          <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 opacity-60" style={{ borderColor: secondaryColor }} />
+          <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 opacity-60" style={{ borderColor: secondaryColor }} />
+          <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 opacity-60" style={{ borderColor: secondaryColor }} />
+          <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 opacity-60" style={{ borderColor: secondaryColor }} />
+
+          {/* Telegram Icon with Royal Seal */}
+          <div className="relative z-10 flex-shrink-0">
+            <div
+              className="relative w-12 h-12 rounded-full flex items-center justify-center"
+              style={{
+                background: `radial-gradient(circle, ${secondaryColor}, ${primaryColor})`,
+                border: `2px solid rgba(255,215,0,0.6)`,
+                boxShadow: `0 0 20px ${secondaryColor}, inset 0 2px 4px rgba(255,255,255,0.3)`
+              }}
+            >
+              <svg
+                viewBox="0 0 24 24"
+                className="w-7 h-7"
+                fill="#1a0a00"
+              >
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.03-1.99 1.27-5.62 3.72-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.05-.49-.82-.27-1.47-.42-1.42-.88.03-.24.37-.48 1.02-.73 3.99-1.74 6.66-2.89 8-3.45 3.82-1.66 4.61-1.95 5.13-1.96.11 0 .37.03.54.17.14.11.18.26.2.37.01.08.03.29.01.45z"/>
+              </svg>
+            </div>
+            {/* Corner ornaments on seal */}
+            <div className="absolute -top-1 -right-1 text-xs" style={{ color: secondaryColor }}>⚜</div>
+            <div className="absolute -bottom-1 -left-1 text-xs" style={{ color: primaryColor }}>⚜</div>
+          </div>
+
+          {/* Telegram Text with Medieval Styling */}
+          <div className="relative z-10">
+            <span
+              className="text-xl font-bold tracking-wider"
+              style={{
+                color: primaryColor,
+                textShadow: `0 0 15px ${primaryColor}, 0 2px 4px rgba(0,0,0,0.8)`,
+                fontFamily: 'serif',
+                letterSpacing: '2px'
+              }}
+            >
+              Join Komunitas Telegram : @{telegramUsername || selectedWebsite.name.toLowerCase().replace(/[^a-z0-9]/g, '')}
+            </span>
+          </div>
+
+          {/* Decorative Flourish */}
+          <div
+            className="absolute top-2 right-4 text-2xl opacity-40"
+            style={{ color: secondaryColor }}
+          >
+            🏰
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
