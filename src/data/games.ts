@@ -1119,7 +1119,12 @@ export const LAYOUT_OPTIONS: LayoutOption[] = [
   }
 ];
 
-// Total: 17 layout options available
+// Total: 15 layout options available
+// Debug verification
+if (typeof window !== 'undefined') {
+  console.log('📊 games.ts loaded - LAYOUT_OPTIONS count:', LAYOUT_OPTIONS.length);
+  console.log('📊 Medieval in export?', LAYOUT_OPTIONS.some(l => l.id === 'casinomedieval'));
+}
 
 export const TEXTURE_OPTIONS: TextureOption[] = [
   {
