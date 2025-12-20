@@ -114,15 +114,6 @@ export default function Header({
   const [websiteSearch, setWebsiteSearch] = useState('');
   const websiteInputRef = useRef<HTMLInputElement>(null);
 
-  // Debug: Log layout options on mount
-  useEffect(() => {
-    console.log('🏰 Total LAYOUT_OPTIONS:', LAYOUT_OPTIONS.length);
-    console.log('🏰 Has Medieval?', LAYOUT_OPTIONS.some(l => l.id === 'casinomedieval'));
-    if (!LAYOUT_OPTIONS.some(l => l.id === 'casinomedieval')) {
-      console.error('❌ MEDIEVAL LAYOUT MISSING FROM LAYOUT_OPTIONS!');
-    }
-  }, []);
-
   // Get current category name from selected background
   const getCurrentCategoryName = () => {
     // Check website-specific backgrounds first
