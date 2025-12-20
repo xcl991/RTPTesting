@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 
+// Updated: 2025-12-20 - Force rebuild for Medieval Kingdom layout
 const nextConfig: NextConfig = {
   output: "standalone",
   /* config options here */

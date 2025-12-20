@@ -1,5 +1,9 @@
 import { Game, RTPStyle, WebsiteOption, TimeSlot, LayoutOption, TextureOption, CardStyleOption, BackgroundCategory } from '@/types';
 
+// Version: 1.1.0 - Medieval Kingdom Layout Added
+// Last Updated: 2025-12-20
+// DO NOT CACHE THIS FILE
+
 export const GAMES_PRAGMATIC: Game[] = [
   {name: "Santa's Slay", src: "https://img.viva88athenae.com/pp/images/vs10santasl.png"},
   {name: "Starlight Archer 1000", src: "https://img.viva88athenae.com/pp/images/vs20stararx.png"},
