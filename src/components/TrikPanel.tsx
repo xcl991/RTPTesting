@@ -371,7 +371,7 @@ export default function TrikPanel({
                   <PatternDisplay pattern={item.pattern} iconSize={sizes.iconSize} />
                 </>
               ) : (
-                // Other layouts: name | 10x | pattern (automatic format - compact)
+                // Other layouts: name | value | pattern (automatic format - compact)
                 <div className="flex items-center justify-between leading-tight w-full">
                   <span className={`text-white ${sizes.itemName} font-semibold ${isMono ? 'font-mono' : ''} flex-1 text-left`}>
                     {item.name}
@@ -382,7 +382,7 @@ export default function TrikPanel({
                       className={`font-bold ${isMono ? 'font-mono' : ''} min-w-[40px] text-center`}
                       style={{ color: providerColor, fontSize: sizes.itemValue }}
                     >
-                      10x
+                      {item.value}
                     </span>
                     <span className="text-gray-500" style={{ fontSize: sizes.itemValue }}>|</span>
                     <PatternDisplay pattern={item.pattern} iconSize={sizes.iconSize} />
