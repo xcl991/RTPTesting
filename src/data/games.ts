@@ -1130,10 +1130,20 @@ export const LAYOUT_OPTIONS: LayoutOption[] = [
     id: "customizable2",
     name: "Custom Layout 2",
     description: "Layout dengan game dan trik gacor side by side (Pragmatic | PG Soft)"
+  },
+  {
+    id: "customizable3",
+    name: "Custom Layout 3",
+    description: "Layout neon cyberpunk dengan efek glow dan corner accents (struktur seperti Layout 1)"
+  },
+  {
+    id: "customizable4",
+    name: "Custom Layout 4",
+    description: "Layout glassmorphism holographic dengan efek glass dan rounded corners (struktur seperti Layout 2)"
   }
 ];
 
-// Total: 17 layout options available
+// Total: 19 layout options available
 
 export const TEXTURE_OPTIONS: TextureOption[] = [
   {

@@ -20,6 +20,8 @@ import CasinoMedievalKingdomLayout from './layouts/CasinoMedievalKingdomLayout';
 import SingleFeaturedLayout from './layouts/SingleFeaturedLayout';
 import CustomizableLayout from './layouts/CustomizableLayout';
 import CustomizableLayout2 from './layouts/CustomizableLayout2';
+import CustomizableLayout3 from './layouts/CustomizableLayout3';
+import CustomizableLayout4 from './layouts/CustomizableLayout4';
 import { RTPStyle, WebsiteOption, Game, LayoutOption, TextureOption, CardStyleOption, TrikConfig, MaxwinConfig, DefaultLayoutSizeConfig, FooterConfig } from '@/types';
 
 interface RTPPreviewProps {
@@ -206,6 +208,8 @@ const RTPPreview = forwardRef<HTMLDivElement, RTPPreviewProps>(({
         {selectedLayout.id === 'casinomedieval' && <CasinoMedievalKingdomLayout {...layoutProps} />}
         {selectedLayout.id === 'customizable' && <CustomizableLayout {...layoutProps} />}
         {selectedLayout.id === 'customizable2' && <CustomizableLayout2 {...layoutProps} />}
+        {selectedLayout.id === 'customizable3' && <CustomizableLayout3 {...layoutProps} />}
+        {selectedLayout.id === 'customizable4' && <CustomizableLayout4 {...layoutProps} />}
 
         {/* Floating Action Buttons */}
         <div
