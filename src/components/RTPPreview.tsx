@@ -122,7 +122,8 @@ const RTPPreview = forwardRef<HTMLDivElement, RTPPreviewProps>(({
     customHeaderText,
     headerFontSize,
     defaultLayoutSize,
-    footerConfig
+    footerConfig,
+    maxwinConfig
   };
 
   // All layouts now use 1000x1000 (1:1 ratio)

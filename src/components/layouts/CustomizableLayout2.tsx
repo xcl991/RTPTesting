@@ -1,6 +1,6 @@
 'use client';
 
-import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig } from '@/types';
+import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, MaxwinConfig } from '@/types';
 
 interface CustomizableLayout2Props {
   selectedWebsite: WebsiteOption;
@@ -19,6 +19,7 @@ interface CustomizableLayout2Props {
   headerFontSize: 'small' | 'medium' | 'large' | 'xlarge';
   defaultLayoutSize: DefaultLayoutSizeConfig;
   footerConfig: FooterConfig;
+  maxwinConfig?: MaxwinConfig;
 }
 
 // Game Card untuk layout 2 - ukuran lebih kecil untuk 3 game per provider
@@ -333,7 +334,8 @@ export default function CustomizableLayout2({
   telegramUsername,
   customHeaderText,
   headerFontSize,
-  footerConfig
+  footerConfig,
+  maxwinConfig
 }: CustomizableLayout2Props) {
   const getFontSizeClass = () => {
     switch (headerFontSize) {
@@ -484,6 +486,72 @@ export default function CustomizableLayout2({
             </div>
           )}
         </div>
+
+        {/* Row 3: Maxwin Info Full Width */}
+        {maxwinConfig?.enabled && (
+          <div
+            className="rounded-xl p-3"
+            style={{
+              background: selectedCardStyle?.background || 'linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(20,20,40,0.95) 100%)',
+              border: `2px solid ${selectedStyle.secondaryColor}`,
+              boxShadow: `0 0 15px ${selectedStyle.secondaryColor}30`
+            }}
+          >
+            {/* Heading 1 */}
+            <div
+              className="text-center mb-2 p-2 rounded-lg"
+              style={{
+                background: `linear-gradient(135deg, ${selectedStyle.primaryColor}20, ${selectedStyle.secondaryColor}20)`,
+                border: `1px solid ${selectedStyle.secondaryColor}`,
+                boxShadow: `0 0 8px ${selectedStyle.secondaryColor}20`
+              }}
+            >
+              <h2
+                className="text-xl font-black uppercase tracking-tight leading-tight"
+                style={{
+                  background: `linear-gradient(to bottom, ${selectedStyle.secondaryColor} 0%, ${selectedStyle.primaryColor} 50%, ${selectedStyle.primaryColor}aa 100%)`,
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent'
+                }}
+              >
+                {maxwinConfig.heading1 || 'KODE MAXWIN GACOR MALAM INI'}
+              </h2>
+            </div>
+
+            {/* Heading 2 */}
+            {maxwinConfig.heading2 && (
+              <div className="text-center mb-2">
+                <h3
+                  className="text-base font-bold uppercase tracking-tight leading-tight"
+                  style={{ color: selectedStyle.secondaryColor }}
+                >
+                  {maxwinConfig.heading2}
+                </h3>
+              </div>
+            )}
+
+            {/* Text Items - Horizontal Grid */}
+            {maxwinConfig.textItems && maxwinConfig.textItems.length > 0 && (
+              <div className="grid grid-cols-2 gap-2">
+                {maxwinConfig.textItems.map((text, index) => (
+                  text && (
+                    <div
+                      key={index}
+                      className="p-2 rounded-lg text-center"
+                      style={{
+                        background: 'rgba(0,0,0,0.5)',
+                        border: `1px solid ${selectedStyle.secondaryColor}50`,
+                        boxShadow: `0 0 4px ${selectedStyle.secondaryColor}20`
+                      }}
+                    >
+                      <p className="text-white font-semibold text-sm leading-tight">{text}</p>
+                    </div>
+                  )
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Footer - Telegram (Height: 40px) */}
