@@ -548,7 +548,7 @@ export default function CustomizableLayout6({
 
         {/* Trik Panel Row */}
         {(pragmaticTrik.enabled || pgSoftTrik.enabled) && (
-          <div className="flex gap-3 items-stretch" style={{ height: '320px' }}>
+          <div className="flex gap-3 items-stretch" style={{ height: '400px' }}>
             {pragmaticTrik.enabled && (
               <div className="flex-1">
                 <VegasTrikPanel
