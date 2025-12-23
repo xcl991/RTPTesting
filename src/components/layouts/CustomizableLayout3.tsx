@@ -213,9 +213,9 @@ function CyberpunkTrikPanel({
             <span
               className="font-black leading-tight"
               style={{
-                color: providerColor,
+                color: '#ff0000',
                 fontSize: `${sizes.depositKode}px`,
-                textShadow: `0 0 15px ${providerColor}`
+                textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 15px #ff0000'
               }}
             >
               {trik.depositKode}
@@ -226,7 +226,14 @@ function CyberpunkTrikPanel({
             <span className="text-gray-500 block leading-tight" style={{ fontSize: `${sizes.label}px` }}>
               PUTARAN BET
             </span>
-            <span className="font-bold leading-tight" style={{ color: providerColor, fontSize: `${sizes.value}px` }}>
+            <span
+              className="font-bold leading-tight"
+              style={{
+                color: '#ff0000',
+                fontSize: `${sizes.value}px`,
+                textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
+              }}
+            >
               {trik.putaranBetMin.toLocaleString()} - {trik.putaranBetMax.toLocaleString()}
             </span>
           </div>
