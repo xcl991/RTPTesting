@@ -444,7 +444,7 @@ export default function CustomizableLayout2({
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col gap-3 p-3 overflow-hidden" style={{ minHeight: 0 }}>
         {/* Row 1: Game Modals - Pragmatic | PG Soft */}
-        <div className="flex gap-3" style={{ height: '225px' }}>
+        <div className="flex gap-3" style={{ height: '240px' }}>
           <GameModal
             title="PRAGMATIC PLAY"
             games={selectedPragmaticGames}
