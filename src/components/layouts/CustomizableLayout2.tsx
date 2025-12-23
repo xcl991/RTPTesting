@@ -64,10 +64,10 @@ function GameCard({ game, rtp, style, cardSize }: { game: Game; rtp: number; sty
         }}
       >
         <h3
-          className="text-white font-bold text-[9px] leading-tight"
+          className="text-white font-bold text-[11px] leading-tight"
           style={{
             overflow: 'hidden',
-            height: '20px',
+            height: '22px',
             display: '-webkit-box',
             WebkitLineClamp: 2,
             WebkitBoxOrient: 'vertical'
@@ -157,9 +157,9 @@ function CompactTrikPanel({
         </h3>
       </div>
 
-      {/* Content */}
+      {/* Content - tidak pakai justify-between agar tidak spread */}
       <div
-        className="flex-1 flex flex-col justify-between overflow-hidden"
+        className="flex-1 flex flex-col overflow-hidden"
         style={{ padding: `${sizes.padding}px`, gap: `${sizes.gap}px` }}
       >
         {/* Deposit Kode & Putaran Bet - 1 Row */}
@@ -461,8 +461,8 @@ export default function CustomizableLayout2({
           />
         </div>
 
-        {/* Row 2: Trik Gacor Panels - Pragmatic | PG Soft */}
-        <div className="flex-1 flex gap-3" style={{ minHeight: 0 }}>
+        {/* Row 2: Trik Gacor Panels - Pragmatic | PG Soft (shrink-to-fit, same height) */}
+        <div className="flex gap-3 items-stretch">
           {pragmaticTrik.enabled && (
             <div className="flex-1">
               <CompactTrikPanel
