@@ -336,8 +336,8 @@ function NeonProviderSection({
     rtp: Math.floor(Math.random() * 13) + 86
   }));
 
-  // Trik panel 100px lebih kecil, provider modal lebih besar
-  const adjustedTrikWidth = trikPanelWidth - 100;
+  // Trik panel 170px lebih kecil, provider modal lebih besar
+  const adjustedTrikWidth = trikPanelWidth - 170;
   const baseAvailableWidth = trik.enabled ? (980 - adjustedTrikWidth - 16) : 980;
   const baseCardSize = Math.floor(baseAvailableWidth / 3.2);
   const cardSize = Math.floor(baseCardSize * 0.9);
