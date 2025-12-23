@@ -105,3 +105,9 @@ export interface DefaultLayoutSizeConfig {
   // Lock state
   isLocked: boolean; // Apakah size sudah di-lock
 }
+
+export interface FooterConfig {
+  footer1: string; // Footer utama (e.g., "Telegram: @username")
+  subFooter1: string; // Sub footer (e.g., "Hubungi kami untuk info lebih lanjut")
+  footer2: string; // Footer kedua (e.g., "© 2024 All Rights Reserved")
+}

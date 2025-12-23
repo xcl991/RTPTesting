@@ -18,7 +18,8 @@ import CasinoQuantumLayout from './layouts/CasinoQuantumLayout';
 import CasinoSpaceStationLayout from './layouts/CasinoSpaceStationLayout';
 import CasinoMedievalKingdomLayout from './layouts/CasinoMedievalKingdomLayout';
 import SingleFeaturedLayout from './layouts/SingleFeaturedLayout';
-import { RTPStyle, WebsiteOption, Game, LayoutOption, TextureOption, CardStyleOption, TrikConfig, MaxwinConfig, DefaultLayoutSizeConfig } from '@/types';
+import CustomizableLayout from './layouts/CustomizableLayout';
+import { RTPStyle, WebsiteOption, Game, LayoutOption, TextureOption, CardStyleOption, TrikConfig, MaxwinConfig, DefaultLayoutSizeConfig, FooterConfig } from '@/types';
 
 interface RTPPreviewProps {
   selectedWebsite: WebsiteOption;
@@ -44,6 +45,7 @@ interface RTPPreviewProps {
   customHeaderText: string;
   headerFontSize: 'small' | 'medium' | 'large' | 'xlarge';
   defaultLayoutSize: DefaultLayoutSizeConfig;
+  footerConfig: FooterConfig;
   // Screenshot actions
   onPrepareImage?: () => void;
   onDownload?: () => void;
@@ -81,6 +83,7 @@ const RTPPreview = forwardRef<HTMLDivElement, RTPPreviewProps>(({
   customHeaderText,
   headerFontSize,
   defaultLayoutSize,
+  footerConfig,
   onPrepareImage,
   onDownload,
   onCopy,
@@ -117,7 +120,8 @@ const RTPPreview = forwardRef<HTMLDivElement, RTPPreviewProps>(({
     telegramUsername,
     customHeaderText,
     headerFontSize,
-    defaultLayoutSize
+    defaultLayoutSize,
+    footerConfig
   };
 
   // All layouts now use 1000x1000 (1:1 ratio)
@@ -198,6 +202,7 @@ const RTPPreview = forwardRef<HTMLDivElement, RTPPreviewProps>(({
         {selectedLayout.id === 'casinoquantum' && <CasinoQuantumLayout {...layoutProps} />}
         {selectedLayout.id === 'casinospacestation' && <CasinoSpaceStationLayout {...layoutProps} />}
         {selectedLayout.id === 'casinomedieval' && <CasinoMedievalKingdomLayout {...layoutProps} />}
+        {selectedLayout.id === 'customizable' && <CustomizableLayout {...layoutProps} />}
 
         {/* Floating Action Buttons */}
         <div

@@ -1,0 +1,8 @@
+name = "rtp-gacor"
+compatibility_date = "2025-12-20"
+
+[site]
+bucket = ".vercel/output/static"
+
+[[pages_build_output_dir]]
+directory = ".vercel/output/static"

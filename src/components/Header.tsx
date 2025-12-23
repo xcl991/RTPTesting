@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { ChevronDown, Shuffle, Clock, Image, Palette, Hash, Layout, Search, Layers, ChevronRight, Sparkles, X, Check, ListChecks, Plus, Trash2 } from 'lucide-react';
 import { WEBSITES, RTP_STYLES, TIME_SLOTS, LAYOUT_OPTIONS, TEXTURE_OPTIONS, CARD_STYLE_OPTIONS, BACKGROUND_CATEGORIES } from '@/data/games';
-import { WebsiteOption, RTPStyle, TimeSlot, LayoutOption, TextureOption, CardStyleOption, BackgroundCategory, TrikConfig, TrikItem, Game, MaxwinConfig, DefaultLayoutSizeConfig } from '@/types';
+import { WebsiteOption, RTPStyle, TimeSlot, LayoutOption, TextureOption, CardStyleOption, BackgroundCategory, TrikConfig, TrikItem, Game, MaxwinConfig, DefaultLayoutSizeConfig, FooterConfig } from '@/types';
 
 interface HeaderProps {
   selectedWebsite: WebsiteOption;
@@ -51,6 +51,8 @@ interface HeaderProps {
   onHeaderFontSizeChange: (size: 'small' | 'medium' | 'large' | 'xlarge') => void;
   defaultLayoutSize: DefaultLayoutSizeConfig;
   onDefaultLayoutSizeChange: (config: DefaultLayoutSizeConfig) => void;
+  footerConfig: FooterConfig;
+  onFooterConfigChange: (config: FooterConfig) => void;
 }
 
 export default function Header({
@@ -98,7 +100,9 @@ export default function Header({
   headerFontSize,
   onHeaderFontSizeChange,
   defaultLayoutSize,
-  onDefaultLayoutSizeChange
+  onDefaultLayoutSizeChange,
+  footerConfig,
+  onFooterConfigChange
 }: HeaderProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isLayoutDropdownOpen, setIsLayoutDropdownOpen] = useState(false);
@@ -111,6 +115,7 @@ export default function Header({
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
   const [isMaxwinPanelOpen, setIsMaxwinPanelOpen] = useState(false);
   const [isFontSizeDropdownOpen, setIsFontSizeDropdownOpen] = useState(false);
+  const [isFooterPanelOpen, setIsFooterPanelOpen] = useState(false);
   const [websiteSearch, setWebsiteSearch] = useState('');
   const websiteInputRef = useRef<HTMLInputElement>(null);
 
@@ -866,6 +871,20 @@ export default function Header({
             Maxwin Info{maxwinConfig.buttonText ? ` - ${maxwinConfig.buttonText}` : ''}
           </button>
         )}
+
+        {/* Footer Config Button - Only for Customizable Layout */}
+        {selectedLayout.id === 'customizable' && (
+          <button
+            onClick={() => setIsFooterPanelOpen(!isFooterPanelOpen)}
+            className={`flex items-center gap-2 ${isFooterPanelOpen ? 'bg-rose-500' : 'bg-rose-600 hover:bg-rose-700'} text-white px-4 py-2 rounded-lg transition-colors font-semibold`}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="3" y1="15" x2="21" y2="15"></line>
+            </svg>
+            Footer Config
+          </button>
+        )}
       </div>
 
       {/* Trik Gacor Panel */}
@@ -1218,6 +1237,61 @@ export default function Header({
                 </div>
               </>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* Footer Config Panel - Only for Customizable Layout */}
+      {isFooterPanelOpen && selectedLayout.id === 'customizable' && (
+        <div className="mt-4 bg-gray-800 border border-gray-700 rounded-lg p-4">
+          <h3 className="text-lg font-semibold text-rose-400 mb-4">Konfigurasi Footer</h3>
+
+          <div className="space-y-4">
+            {/* Footer 1 */}
+            <div className="flex items-center gap-3">
+              <label className="text-white text-sm w-32">Footer 1:</label>
+              <input
+                type="text"
+                value={footerConfig.footer1}
+                onChange={(e) => onFooterConfigChange({ ...footerConfig, footer1: e.target.value })}
+                className="flex-1 px-3 py-2 bg-gray-700 text-white rounded border border-gray-600 focus:border-rose-500 focus:outline-none"
+                placeholder="Join Telegram: @username"
+              />
+            </div>
+
+            {/* Sub Footer 1 */}
+            <div className="flex items-center gap-3">
+              <label className="text-white text-sm w-32">Sub Footer 1:</label>
+              <input
+                type="text"
+                value={footerConfig.subFooter1}
+                onChange={(e) => onFooterConfigChange({ ...footerConfig, subFooter1: e.target.value })}
+                className="flex-1 px-3 py-2 bg-gray-700 text-white rounded border border-gray-600 focus:border-rose-500 focus:outline-none"
+                placeholder="Hubungi kami untuk info lebih lanjut"
+              />
+            </div>
+
+            {/* Footer 2 */}
+            <div className="flex items-center gap-3">
+              <label className="text-white text-sm w-32">Footer 2:</label>
+              <input
+                type="text"
+                value={footerConfig.footer2}
+                onChange={(e) => onFooterConfigChange({ ...footerConfig, footer2: e.target.value })}
+                className="flex-1 px-3 py-2 bg-gray-700 text-white rounded border border-gray-600 focus:border-rose-500 focus:outline-none"
+                placeholder="© 2024 All Rights Reserved"
+              />
+            </div>
+
+            {/* Preview */}
+            <div className="mt-4 p-3 bg-gray-900 rounded-lg border border-gray-600">
+              <p className="text-gray-400 text-xs mb-2">Preview:</p>
+              <div className="space-y-1">
+                <p className="text-rose-400 text-sm font-bold">{footerConfig.footer1 || '(Footer 1 kosong)'}</p>
+                <p className="text-gray-400 text-xs">{footerConfig.subFooter1 || '(Sub Footer kosong)'}</p>
+                <p className="text-gray-500 text-xs">{footerConfig.footer2 || '(Footer 2 kosong)'}</p>
+              </div>
+            </div>
           </div>
         </div>
       )}

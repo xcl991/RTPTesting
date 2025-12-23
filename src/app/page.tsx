@@ -6,7 +6,7 @@ import Header from '@/components/Header';
 import RTPPreview from '@/components/RTPPreview';
 import GameSelectorModal from '@/components/GameSelectorModal';
 import { WEBSITES, RTP_STYLES, BACKGROUND_CATEGORIES, GAMES_PRAGMATIC, GAMES_PGSOFT, LAYOUT_OPTIONS, TEXTURE_OPTIONS, CARD_STYLE_OPTIONS } from '@/data/games';
-import { WebsiteOption, RTPStyle, Game, LayoutOption, TextureOption, CardStyleOption, TrikConfig, MaxwinConfig, DefaultLayoutSizeConfig } from '@/types';
+import { WebsiteOption, RTPStyle, Game, LayoutOption, TextureOption, CardStyleOption, TrikConfig, MaxwinConfig, DefaultLayoutSizeConfig, FooterConfig } from '@/types';
 
 // Gold Tier Games - WAJIB muncul minimal 1 setiap acak
 const GOLD_TIER_PRAGMATIC = [
@@ -147,6 +147,13 @@ export default function Home() {
       'Raih jackpot maxwin!'
     ],
     buttonText: ''
+  });
+
+  // Footer Config for Customizable Layout
+  const [footerConfig, setFooterConfig] = useState<FooterConfig>({
+    footer1: '',
+    subFooter1: 'Ikuti trik & kode unik untuk mencapai jackpot maximal!',
+    footer2: ''
   });
 
   // Telegram Username
@@ -368,6 +375,20 @@ export default function Home() {
     isLocked: true
   });
 
+  // Customizable Layout - Full featured dengan semua customization
+  const [customizableLayoutSize, setCustomizableLayoutSize] = useState<DefaultLayoutSizeConfig>({
+    gameCardSize: 110,
+    gameGap: 8,
+    trikPanelWidth: 320,
+    providerLogoHeight: 28,
+    providerTitleSize: 14,
+    providerBadgeSize: 4,
+    modalPadding: 6,
+    headerPadding: 4,
+    headerMarginBottom: 1,
+    isLocked: false  // Allow resize
+  });
+
   // Default Layout Size Config (untuk layout lainnya yang belum dikonfigurasi)
   const [defaultLayoutSize, setDefaultLayoutSize] = useState<DefaultLayoutSizeConfig>({
     gameCardSize: 115,
@@ -509,6 +530,8 @@ export default function Home() {
         return casinoSpaceStationLayoutSize;
       case 'casinomedieval':
         return casinoMedievalLayoutSize;
+      case 'customizable':
+        return customizableLayoutSize;
       default:
         return defaultLayoutSize;
     }
@@ -548,6 +571,8 @@ export default function Home() {
         return setCasinoSpaceStationLayoutSize;
       case 'casinomedieval':
         return setCasinoMedievalLayoutSize;
+      case 'customizable':
+        return setCustomizableLayoutSize;
       default:
         return setDefaultLayoutSize;
     }
@@ -882,6 +907,8 @@ export default function Home() {
           onHeaderFontSizeChange={setHeaderFontSize}
           defaultLayoutSize={getCurrentLayoutSize()}
           onDefaultLayoutSizeChange={getCurrentLayoutSizeSetter()}
+          footerConfig={footerConfig}
+          onFooterConfigChange={setFooterConfig}
         />
 
         {/* Main Content */}
@@ -1071,6 +1098,7 @@ export default function Home() {
               customHeaderText={customHeaderText}
               headerFontSize={headerFontSize}
               defaultLayoutSize={getCurrentLayoutSize()}
+              footerConfig={footerConfig}
               onPrepareImage={prepareImage}
               onDownload={downloadImage}
               onCopy={copyToClipboard}

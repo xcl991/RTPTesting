@@ -1120,10 +1120,15 @@ export const LAYOUT_OPTIONS: LayoutOption[] = [
     id: "casinomedieval",
     name: "Casino Medieval Kingdom",
     description: "Layout medieval fantasy dengan castle theme, royal court & knight's hall"
+  },
+  {
+    id: "customizable",
+    name: "Custom Layout",
+    description: "Layout dengan header, footer, dan semua elemen yang bisa dikustomisasi"
   }
 ];
 
-// Total: 15 layout options available
+// Total: 16 layout options available
 
 export const TEXTURE_OPTIONS: TextureOption[] = [
   {
