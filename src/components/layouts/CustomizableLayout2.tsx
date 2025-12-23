@@ -117,12 +117,12 @@ function CompactTrikPanel({
   const itemCount = trik.trikItems?.length || 0;
   const totalRows = itemCount + 3;
 
-  // Font sizes untuk compact panel
+  // Font sizes untuk compact panel - DIPERBESAR +5px
   const getFontSize = () => {
-    if (totalRows <= 4) return { title: 18, label: 11, depositKode: 26, value: 14, itemName: 14, itemValue: 18, icon: 18, gap: 5, padding: 6 };
-    if (totalRows <= 5) return { title: 16, label: 10, depositKode: 22, value: 12, itemName: 12, itemValue: 16, icon: 16, gap: 4, padding: 5 };
-    if (totalRows <= 6) return { title: 14, label: 9, depositKode: 18, value: 11, itemName: 11, itemValue: 14, icon: 14, gap: 3, padding: 4 };
-    return { title: 12, label: 8, depositKode: 16, value: 10, itemName: 10, itemValue: 12, icon: 12, gap: 2, padding: 3 };
+    if (totalRows <= 4) return { title: 23, label: 16, depositKode: 31, value: 19, itemName: 19, itemValue: 23, icon: 23, gap: 5, padding: 6 };
+    if (totalRows <= 5) return { title: 21, label: 15, depositKode: 27, value: 17, itemName: 17, itemValue: 21, icon: 21, gap: 4, padding: 5 };
+    if (totalRows <= 6) return { title: 19, label: 14, depositKode: 23, value: 16, itemName: 16, itemValue: 19, icon: 19, gap: 3, padding: 4 };
+    return { title: 17, label: 13, depositKode: 21, value: 15, itemName: 15, itemValue: 17, icon: 17, gap: 2, padding: 3 };
   };
 
   const sizes = getFontSize();
@@ -296,7 +296,7 @@ function GameModal({
           className="font-bold"
           style={{
             color: providerColor,
-            fontSize: '16px',
+            fontSize: '18px',
             textShadow: `0 0 15px ${providerColor}80`
           }}
         >
