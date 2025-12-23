@@ -119,13 +119,13 @@ function AdaptiveTrikPanel({
   const itemCount = trik.trikItems?.length || 0;
   const totalRows = itemCount + 4; // deposit, putaran, fitur ganda, custom text
 
-  // Adaptive font sizes berdasarkan jumlah rows - DIPERBESAR
+  // Adaptive font sizes berdasarkan jumlah rows - itemValue: 25px, icon: 26px
   const getFontSize = () => {
-    if (totalRows <= 5) return { title: 24, label: 14, depositKode: 36, value: 20, itemName: 20, itemValue: 28, icon: 24, gap: 8, padding: 10 };
-    if (totalRows <= 6) return { title: 22, label: 13, depositKode: 32, value: 18, itemName: 18, itemValue: 26, icon: 22, gap: 7, padding: 8 };
-    if (totalRows <= 7) return { title: 20, label: 12, depositKode: 28, value: 16, itemName: 16, itemValue: 24, icon: 20, gap: 6, padding: 7 };
-    if (totalRows <= 8) return { title: 18, label: 11, depositKode: 24, value: 14, itemName: 14, itemValue: 22, icon: 18, gap: 5, padding: 6 };
-    return { title: 16, label: 10, depositKode: 20, value: 12, itemName: 12, itemValue: 20, icon: 16, gap: 4, padding: 5 };
+    if (totalRows <= 5) return { title: 24, label: 14, depositKode: 36, value: 20, itemName: 20, itemValue: 25, icon: 26, gap: 8, padding: 10 };
+    if (totalRows <= 6) return { title: 22, label: 13, depositKode: 32, value: 18, itemName: 18, itemValue: 23, icon: 24, gap: 7, padding: 8 };
+    if (totalRows <= 7) return { title: 20, label: 12, depositKode: 28, value: 16, itemName: 16, itemValue: 21, icon: 22, gap: 6, padding: 7 };
+    if (totalRows <= 8) return { title: 18, label: 11, depositKode: 24, value: 14, itemName: 14, itemValue: 19, icon: 20, gap: 5, padding: 6 };
+    return { title: 16, label: 10, depositKode: 20, value: 12, itemName: 12, itemValue: 17, icon: 18, gap: 4, padding: 5 };
   };
 
   const sizes = getFontSize();
@@ -208,30 +208,31 @@ function AdaptiveTrikPanel({
           </div>
         </div>
 
-        {/* Fitur Ganda - Hidden placeholder for PG Soft */}
-        <div
-          className="rounded-lg text-center"
-          style={{
-            background: 'rgba(0,0,0,0.5)',
-            padding: `${sizes.padding}px`,
-            visibility: hideFiturGanda ? 'hidden' : 'visible'
-          }}
-        >
-          <span
-            className="text-gray-400 block leading-tight"
-            style={{ fontSize: `${sizes.label}px` }}
+        {/* Fitur Ganda - Tidak render untuk PG Soft */}
+        {!hideFiturGanda && (
+          <div
+            className="rounded-lg text-center"
+            style={{
+              background: 'rgba(0,0,0,0.5)',
+              padding: `${sizes.padding}px`
+            }}
           >
-            FITUR GANDA
-          </span>
-          <span
-            className={`font-bold px-2 py-0.5 rounded-full inline-block ${
-              trik.fiturGanda ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
-            }`}
-            style={{ fontSize: `${sizes.value}px` }}
-          >
-            MODE {trik.fiturGanda ? 'ON' : 'OFF'}
-          </span>
-        </div>
+            <span
+              className="text-gray-400 block leading-tight"
+              style={{ fontSize: `${sizes.label}px` }}
+            >
+              FITUR GANDA
+            </span>
+            <span
+              className={`font-bold px-2 py-0.5 rounded-full inline-block ${
+                trik.fiturGanda ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
+              }`}
+              style={{ fontSize: `${sizes.value}px` }}
+            >
+              MODE {trik.fiturGanda ? 'ON' : 'OFF'}
+            </span>
+          </div>
+        )}
 
         {/* Trik Items - Horizontal: name (left) | value (center) | pattern (right) */}
         <div className="flex-1 flex flex-col justify-center" style={{ gap: `${sizes.gap}px` }}>
