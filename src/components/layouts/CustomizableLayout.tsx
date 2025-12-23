@@ -462,19 +462,25 @@ export default function CustomizableLayout({
           />
         </div>
 
-        {/* Time & Date - 1 Row, font diperbesar 5px, tanpa glow */}
+        {/* Time & Date - 1 Row, dengan outline hitam */}
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-3">
             <span
               className="font-bold text-white"
-              style={{ fontSize: '21px' }}
+              style={{
+                fontSize: '21px',
+                textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
+              }}
             >
               {customTimeLabel}
             </span>
             <span className="text-gray-400 text-xl">|</span>
             <span
               className="text-white font-medium"
-              style={{ fontSize: '19px' }}
+              style={{
+                fontSize: '19px',
+                textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
+              }}
             >
               {getCurrentDate()}
             </span>
