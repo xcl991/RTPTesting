@@ -165,46 +165,47 @@ function AdaptiveTrikPanel({
         className="flex-1 flex flex-col justify-between overflow-hidden"
         style={{ padding: `${sizes.padding}px`, gap: `${sizes.gap}px` }}
       >
-        {/* Deposit Kode */}
+        {/* Deposit Kode & Putaran Bet - 1 Row */}
         <div
-          className="rounded-lg text-center"
+          className="flex items-center gap-3 rounded-lg"
           style={{ background: 'rgba(0,0,0,0.5)', padding: `${sizes.padding}px` }}
         >
-          <span
-            className="text-gray-400 block leading-tight"
-            style={{ fontSize: `${sizes.label}px` }}
-          >
-            DEPOSIT KODE UNIK
-          </span>
-          <span
-            className="font-black leading-tight"
-            style={{
-              color: providerColor,
-              fontSize: `${sizes.depositKode}px`,
-              textShadow: `0 0 10px ${providerColor}`
-            }}
-          >
-            {trik.depositKode}
-          </span>
-        </div>
-
-        {/* Putaran Bet */}
-        <div
-          className="rounded-lg text-center"
-          style={{ background: 'rgba(0,0,0,0.5)', padding: `${sizes.padding}px` }}
-        >
-          <span
-            className="text-gray-400 block leading-tight"
-            style={{ fontSize: `${sizes.label}px` }}
-          >
-            PUTARAN BET
-          </span>
-          <span
-            className="font-bold leading-tight"
-            style={{ color: providerColor, fontSize: `${sizes.value}px` }}
-          >
-            {trik.putaranBetMin.toLocaleString()} - {trik.putaranBetMax.toLocaleString()}
-          </span>
+          {/* Deposit Kode - Left */}
+          <div className="flex-1 text-center">
+            <span
+              className="text-gray-400 block leading-tight"
+              style={{ fontSize: `${sizes.label}px` }}
+            >
+              DEPOSIT KODE
+            </span>
+            <span
+              className="font-black leading-tight"
+              style={{
+                color: providerColor,
+                fontSize: `${sizes.depositKode}px`,
+                textShadow: `0 0 10px ${providerColor}`
+              }}
+            >
+              {trik.depositKode}
+            </span>
+          </div>
+          {/* Separator */}
+          <div className="text-gray-600 text-2xl">|</div>
+          {/* Putaran Bet - Right */}
+          <div className="flex-1 text-center">
+            <span
+              className="text-gray-400 block leading-tight"
+              style={{ fontSize: `${sizes.label}px` }}
+            >
+              PUTARAN BET
+            </span>
+            <span
+              className="font-bold leading-tight"
+              style={{ color: providerColor, fontSize: `${sizes.value}px` }}
+            >
+              {trik.putaranBetMin.toLocaleString()} - {trik.putaranBetMax.toLocaleString()}
+            </span>
+          </div>
         </div>
 
         {/* Fitur Ganda - Hidden placeholder for PG Soft */}
