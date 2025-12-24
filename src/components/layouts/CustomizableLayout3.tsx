@@ -209,9 +209,9 @@ function CyberpunkTrikPanel({
         className="flex-1 flex flex-col overflow-hidden"
         style={{ padding: `${sizes.padding}px`, gap: `${sizes.gap}px` }}
       >
-        {/* Deposit Kode & Putaran Bet */}
+        {/* Deposit Kode | Fitur Ganda | Putaran Bet - 1 Row */}
         <div
-          className="flex items-center gap-3"
+          className="flex items-stretch gap-2"
           style={{
             background: `linear-gradient(90deg, ${providerColor}10, ${providerColor}20, ${providerColor}10)`,
             padding: `${sizes.padding}px`,
@@ -219,31 +219,57 @@ function CyberpunkTrikPanel({
             clipPath: 'polygon(5px 0, calc(100% - 5px) 0, 100% 5px, 100% calc(100% - 5px), calc(100% - 5px) 100%, 5px 100%, 0 calc(100% - 5px), 0 5px)'
           }}
         >
+          {/* Deposit Kode */}
           <div className="flex-1 text-center">
-            <span className="text-white block leading-tight" style={{ fontSize: `${sizes.label}px` }}>
+            <span className="text-white block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px` }}>
               DEPOSIT KODE
             </span>
             <span
               className="font-black leading-tight"
               style={{
                 color: '#ffffff',
-                fontSize: `${sizes.depositKode}px`,
+                fontSize: `${sizes.depositKode * 0.7}px`,
                 textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
               }}
             >
               {trik.depositKode}
             </span>
           </div>
-          <div style={{ width: '2px', height: '40px', background: `linear-gradient(180deg, transparent, ${providerColor}, transparent)` }} />
+
+          {/* Fitur Ganda - Center */}
+          <div
+            className="flex-1 text-center flex flex-col justify-center"
+            style={{
+              visibility: hideFiturGanda ? 'hidden' : 'visible',
+              pointerEvents: hideFiturGanda ? 'none' : 'auto'
+            }}
+          >
+            <span className="text-gray-500 block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px` }}>
+              FITUR GANDA
+            </span>
+            <span
+              className={`font-bold px-2 py-0.5 inline-block ${
+                trik.fiturGanda ? 'text-green-400' : 'text-red-400'
+              }`}
+              style={{
+                fontSize: `${sizes.value * 0.85}px`,
+                textShadow: trik.fiturGanda ? '0 0 10px #4ade80' : '0 0 10px #f87171'
+              }}
+            >
+              {trik.fiturGanda ? 'ON' : 'OFF'}
+            </span>
+          </div>
+
+          {/* Putaran Bet */}
           <div className="flex-1 text-center">
-            <span className="text-white block leading-tight" style={{ fontSize: `${sizes.label}px` }}>
+            <span className="text-white block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px` }}>
               PUTARAN BET
             </span>
             <span
               className="font-bold leading-tight"
               style={{
                 color: '#ffffff',
-                fontSize: `${sizes.value}px`,
+                fontSize: `${sizes.value * 0.85}px`,
                 textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
               }}
             >
@@ -251,33 +277,6 @@ function CyberpunkTrikPanel({
             </span>
           </div>
         </div>
-
-        {/* Fitur Ganda */}
-        {!hideFiturGanda && (
-          <div
-            className="text-center"
-            style={{
-              background: `linear-gradient(90deg, transparent, ${providerColor}15, transparent)`,
-              padding: `${sizes.padding}px`,
-              border: `1px solid ${providerColor}30`
-            }}
-          >
-            <span className="text-gray-500 block leading-tight" style={{ fontSize: `${sizes.label}px` }}>
-              FITUR GANDA
-            </span>
-            <span
-              className={`font-bold px-3 py-1 inline-block ${
-                trik.fiturGanda ? 'text-green-400' : 'text-red-400'
-              }`}
-              style={{
-                fontSize: `${sizes.value}px`,
-                textShadow: trik.fiturGanda ? '0 0 10px #4ade80' : '0 0 10px #f87171'
-              }}
-            >
-              MODE {trik.fiturGanda ? 'ON' : 'OFF'}
-            </span>
-          </div>
-        )}
 
         {/* Trik Items */}
         <div className="flex-1 flex flex-col justify-center" style={{ gap: `${sizes.gap}px` }}>

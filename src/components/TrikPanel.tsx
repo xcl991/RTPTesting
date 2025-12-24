@@ -274,63 +274,70 @@ export default function TrikPanel({
 
       {/* Content */}
       <div className={`${sizes.padding} flex-1 flex flex-col justify-between ${sizes.gap} relative z-10`}>
-        {/* Deposit Kode */}
-        <div className={`rounded-lg ${sizes.itemPadding} text-center`} style={{ background: styles.itemBg }}>
-          <span
-            className={`text-gray-400 block leading-tight ${isMono ? 'font-mono' : ''}`}
-            style={{ fontSize: sizes.label }}
-          >
-            {isMono ? 'DEPOSIT_KODE_UNIK' : 'DEPOSIT KODE UNIK'}
-          </span>
-          <span
-            className={`${sizes.depositKode} font-black leading-tight ${isMono ? 'font-mono' : ''}`}
+        {/* Row: Deposit Kode Unik | Fitur Ganda | Putaran Bet */}
+        <div className="flex gap-2 items-stretch">
+          {/* Deposit Kode Unik */}
+          <div className={`rounded-lg ${sizes.itemPadding} text-center flex-1`} style={{ background: styles.itemBg }}>
+            <span
+              className={`text-gray-400 block leading-tight ${isMono ? 'font-mono' : ''}`}
+              style={{ fontSize: sizes.label * 0.85 }}
+            >
+              {isMono ? 'DEPOSIT_KODE' : 'DEPOSIT KODE'}
+            </span>
+            <span
+              className={`font-black leading-tight ${isMono ? 'font-mono' : ''}`}
+              style={{
+                color: providerColor,
+                textShadow: `0 0 10px ${providerColor}`,
+                fontSize: trik.fontSize === 'xs' ? '18px' : trik.fontSize === 'sm' ? '22px' : '26px'
+              }}
+            >
+              {trik.depositKode}
+            </span>
+          </div>
+
+          {/* Fitur Ganda */}
+          <div
+            className={`rounded-lg ${sizes.itemPadding} text-center flex-1 flex flex-col justify-center`}
             style={{
-              color: providerColor,
-              textShadow: `0 0 10px ${providerColor}`
+              background: styles.itemBg,
+              visibility: hideFiturGanda ? 'hidden' : 'visible',
+              pointerEvents: hideFiturGanda ? 'none' : 'auto'
             }}
           >
-            {trik.depositKode}
-          </span>
-        </div>
+            <span
+              className={`text-gray-400 block leading-tight ${isMono ? 'font-mono' : ''}`}
+              style={{ fontSize: sizes.label * 0.85 }}
+            >
+              {isMono ? 'FITUR_GANDA' : 'FITUR GANDA'}
+            </span>
+            <span
+              className={`${sizes.badge} font-bold px-2 py-0.5 rounded-full inline-block ${isMono ? 'font-mono' : ''} ${
+                trik.fiturGanda ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
+              }`}
+            >
+              {trik.fiturGanda ? 'ON' : 'OFF'}
+            </span>
+          </div>
 
-        {/* Putaran Bet */}
-        <div className={`rounded-lg ${sizes.itemPadding} text-center`} style={{ background: styles.itemBg }}>
-          <span
-            className={`text-gray-400 block leading-tight ${isMono ? 'font-mono' : ''}`}
-            style={{ fontSize: sizes.label }}
-          >
-            {isMono ? 'PUTARAN_BET' : 'PUTARAN BET'}
-          </span>
-          <span
-            className={`${sizes.value} font-bold leading-tight ${isMono ? 'font-mono' : ''}`}
-            style={{ color: providerColor }}
-          >
-            {trik.putaranBetMin.toLocaleString()} - {trik.putaranBetMax.toLocaleString()}
-          </span>
-        </div>
-
-        {/* Fitur Ganda - Invisible placeholder for PG Soft to maintain equal height */}
-        <div
-          className={`rounded-lg ${sizes.itemPadding} text-center`}
-          style={{
-            background: styles.itemBg,
-            visibility: hideFiturGanda ? 'hidden' : 'visible',
-            pointerEvents: hideFiturGanda ? 'none' : 'auto'
-          }}
-        >
-          <span
-            className={`text-gray-400 block leading-tight ${isMono ? 'font-mono' : ''}`}
-            style={{ fontSize: sizes.label }}
-          >
-            {isMono ? 'FITUR_GANDA' : 'FITUR GANDA'}
-          </span>
-          <span
-            className={`${sizes.badge} font-bold px-2 py-0.5 rounded-full inline-block ${isMono ? 'font-mono' : ''} ${
-              trik.fiturGanda ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
-            }`}
-          >
-            MODE {trik.fiturGanda ? 'ON' : 'OFF'}
-          </span>
+          {/* Putaran Bet */}
+          <div className={`rounded-lg ${sizes.itemPadding} text-center flex-1`} style={{ background: styles.itemBg }}>
+            <span
+              className={`text-gray-400 block leading-tight ${isMono ? 'font-mono' : ''}`}
+              style={{ fontSize: sizes.label * 0.85 }}
+            >
+              {isMono ? 'PUTARAN_BET' : 'PUTARAN BET'}
+            </span>
+            <span
+              className={`font-bold leading-tight ${isMono ? 'font-mono' : ''}`}
+              style={{
+                color: providerColor,
+                fontSize: trik.fontSize === 'xs' ? '12px' : trik.fontSize === 'sm' ? '14px' : '16px'
+              }}
+            >
+              {trik.putaranBetMin.toLocaleString()} - {trik.putaranBetMax.toLocaleString()}
+            </span>
+          </div>
         </div>
 
         {/* Trik Items */}

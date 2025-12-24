@@ -205,64 +205,63 @@ function HolographicTrikPanel({
         className="flex-1 flex flex-col overflow-hidden relative z-10"
         style={{ padding: `${sizes.padding}px`, gap: `${sizes.gap}px` }}
       >
-        {/* Deposit Kode & Putaran Bet */}
+        {/* Deposit Kode | Fitur Ganda | Putaran Bet - 1 Row */}
         <div
-          className="flex items-center gap-2 rounded-2xl"
+          className="flex items-stretch gap-2 rounded-2xl"
           style={{
             background: 'rgba(255,255,255,0.05)',
             padding: `${sizes.padding}px`,
             border: '1px solid rgba(255,255,255,0.1)'
           }}
         >
+          {/* Deposit Kode */}
           <div className="flex-1 text-center">
-            <span className="text-gray-400 block leading-tight" style={{ fontSize: `${sizes.label}px` }}>
+            <span className="text-gray-400 block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px` }}>
               DEPOSIT KODE
             </span>
             <span
               className="font-black leading-tight"
               style={{
                 color: providerColor,
-                fontSize: `${sizes.depositKode}px`,
+                fontSize: `${sizes.depositKode * 0.7}px`,
                 textShadow: `0 0 15px ${providerColor}`
               }}
             >
               {trik.depositKode}
             </span>
           </div>
-          <div className="w-px h-10" style={{ background: `linear-gradient(180deg, transparent, ${providerColor}50, transparent)` }} />
+
+          {/* Fitur Ganda - Center */}
+          <div
+            className="flex-1 text-center flex flex-col justify-center"
+            style={{
+              visibility: hideFiturGanda ? 'hidden' : 'visible',
+              pointerEvents: hideFiturGanda ? 'none' : 'auto'
+            }}
+          >
+            <span className="text-gray-400 block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px` }}>
+              FITUR GANDA
+            </span>
+            <span
+              className={`font-bold px-2 py-0.5 rounded-full inline-block ${
+                trik.fiturGanda ? 'bg-green-500/30 text-green-400' : 'bg-red-500/30 text-red-400'
+              }`}
+              style={{ fontSize: `${sizes.value * 0.85}px` }}
+            >
+              {trik.fiturGanda ? 'ON' : 'OFF'}
+            </span>
+          </div>
+
+          {/* Putaran Bet */}
           <div className="flex-1 text-center">
-            <span className="text-gray-400 block leading-tight" style={{ fontSize: `${sizes.label}px` }}>
+            <span className="text-gray-400 block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px` }}>
               PUTARAN BET
             </span>
-            <span className="font-bold text-white leading-tight" style={{ fontSize: `${sizes.value}px` }}>
+            <span className="font-bold text-white leading-tight" style={{ fontSize: `${sizes.value * 0.85}px` }}>
               {trik.putaranBetMin.toLocaleString()} - {trik.putaranBetMax.toLocaleString()}
             </span>
           </div>
         </div>
-
-        {/* Fitur Ganda */}
-        {!hideFiturGanda && (
-          <div
-            className="rounded-2xl text-center"
-            style={{
-              background: 'rgba(255,255,255,0.05)',
-              padding: `${sizes.padding}px`,
-              border: '1px solid rgba(255,255,255,0.1)'
-            }}
-          >
-            <span className="text-gray-400 block leading-tight" style={{ fontSize: `${sizes.label}px` }}>
-              FITUR GANDA
-            </span>
-            <span
-              className={`font-bold px-4 py-1 rounded-full inline-block ${
-                trik.fiturGanda ? 'bg-green-500/30 text-green-400' : 'bg-red-500/30 text-red-400'
-              }`}
-              style={{ fontSize: `${sizes.value}px` }}
-            >
-              MODE {trik.fiturGanda ? 'ON' : 'OFF'}
-            </span>
-          </div>
-        )}
 
         {/* Trik Items */}
         <div className="flex-1 flex flex-col justify-center" style={{ gap: `${sizes.gap}px` }}>

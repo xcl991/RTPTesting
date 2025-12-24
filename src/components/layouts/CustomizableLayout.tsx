@@ -176,16 +176,16 @@ function AdaptiveTrikPanel({
         className="flex-1 flex flex-col justify-between overflow-hidden"
         style={{ padding: `${sizes.padding}px`, gap: `${sizes.gap}px` }}
       >
-        {/* Deposit Kode & Putaran Bet - 1 Row */}
+        {/* Deposit Kode | Fitur Ganda | Putaran Bet - 1 Row */}
         <div
-          className="flex items-center gap-3 rounded-lg"
+          className="flex items-stretch gap-2 rounded-lg"
           style={{ background: `${darkerPrimary}80`, padding: `${sizes.padding}px` }}
         >
           {/* Deposit Kode - Left */}
           <div className="flex-1 text-center">
             <span
               className="text-gray-400 block leading-tight"
-              style={{ fontSize: `${sizes.label}px` }}
+              style={{ fontSize: `${sizes.label * 0.9}px` }}
             >
               DEPOSIT KODE
             </span>
@@ -193,44 +193,25 @@ function AdaptiveTrikPanel({
               className="font-black leading-tight"
               style={{
                 color: providerColor,
-                fontSize: `${sizes.depositKode}px`,
+                fontSize: `${sizes.depositKode * 0.7}px`,
                 textShadow: `0 0 10px ${providerColor}`
               }}
             >
               {trik.depositKode}
             </span>
           </div>
-          {/* Separator */}
-          <div className="text-gray-600 text-2xl">|</div>
-          {/* Putaran Bet - Right */}
-          <div className="flex-1 text-center">
-            <span
-              className="text-gray-400 block leading-tight"
-              style={{ fontSize: `${sizes.label}px` }}
-            >
-              PUTARAN BET
-            </span>
-            <span
-              className="font-bold leading-tight"
-              style={{ color: providerColor, fontSize: `${sizes.value}px` }}
-            >
-              {trik.putaranBetMin.toLocaleString()} - {trik.putaranBetMax.toLocaleString()}
-            </span>
-          </div>
-        </div>
 
-        {/* Fitur Ganda - Tidak render untuk PG Soft */}
-        {!hideFiturGanda && (
+          {/* Fitur Ganda - Center (hidden for PG Soft) */}
           <div
-            className="rounded-lg text-center"
+            className="flex-1 text-center flex flex-col justify-center"
             style={{
-              background: `${darkerPrimary}80`,
-              padding: `${sizes.padding}px`
+              visibility: hideFiturGanda ? 'hidden' : 'visible',
+              pointerEvents: hideFiturGanda ? 'none' : 'auto'
             }}
           >
             <span
               className="text-gray-400 block leading-tight"
-              style={{ fontSize: `${sizes.label}px` }}
+              style={{ fontSize: `${sizes.label * 0.9}px` }}
             >
               FITUR GANDA
             </span>
@@ -238,12 +219,28 @@ function AdaptiveTrikPanel({
               className={`font-bold px-2 py-0.5 rounded-full inline-block ${
                 trik.fiturGanda ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
               }`}
-              style={{ fontSize: `${sizes.value}px` }}
+              style={{ fontSize: `${sizes.value * 0.85}px` }}
             >
-              MODE {trik.fiturGanda ? 'ON' : 'OFF'}
+              {trik.fiturGanda ? 'ON' : 'OFF'}
             </span>
           </div>
-        )}
+
+          {/* Putaran Bet - Right */}
+          <div className="flex-1 text-center">
+            <span
+              className="text-gray-400 block leading-tight"
+              style={{ fontSize: `${sizes.label * 0.9}px` }}
+            >
+              PUTARAN BET
+            </span>
+            <span
+              className="font-bold leading-tight"
+              style={{ color: providerColor, fontSize: `${sizes.value * 0.85}px` }}
+            >
+              {trik.putaranBetMin.toLocaleString()} - {trik.putaranBetMax.toLocaleString()}
+            </span>
+          </div>
+        </div>
 
         {/* Trik Items - Horizontal: name (left) | value (center) | pattern (right) */}
         <div className="flex-1 flex flex-col justify-center" style={{ gap: `${sizes.gap}px` }}>

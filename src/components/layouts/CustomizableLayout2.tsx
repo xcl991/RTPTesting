@@ -176,56 +176,59 @@ function CompactTrikPanel({
         className="flex-1 flex flex-col overflow-hidden"
         style={{ padding: `${sizes.padding}px`, gap: `${sizes.gap}px` }}
       >
-        {/* Deposit Kode & Putaran Bet - 1 Row */}
+        {/* Deposit Kode | Fitur Ganda | Putaran Bet - 1 Row */}
         <div
-          className="flex items-center gap-2 rounded-lg"
+          className="flex items-stretch gap-2 rounded-lg"
           style={{ background: `${darkerPrimary}80`, padding: `${sizes.padding}px` }}
         >
+          {/* Deposit Kode */}
           <div className="flex-1 text-center">
-            <span className="text-gray-400 block leading-tight" style={{ fontSize: `${sizes.label}px` }}>
+            <span className="text-gray-400 block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px` }}>
               DEPOSIT KODE
             </span>
             <span
               className="font-black leading-tight"
               style={{
                 color: providerColor,
-                fontSize: `${sizes.depositKode}px`,
+                fontSize: `${sizes.depositKode * 0.75}px`,
                 textShadow: `0 0 10px ${providerColor}`
               }}
             >
               {trik.depositKode}
             </span>
           </div>
-          <div className="text-gray-600 text-xl">|</div>
-          <div className="flex-1 text-center">
-            <span className="text-gray-400 block leading-tight" style={{ fontSize: `${sizes.label}px` }}>
-              PUTARAN BET
-            </span>
-            <span className="font-bold leading-tight" style={{ color: providerColor, fontSize: `${sizes.value}px` }}>
-              {trik.putaranBetMin.toLocaleString()} - {trik.putaranBetMax.toLocaleString()}
-            </span>
-          </div>
-        </div>
 
-        {/* Fitur Ganda */}
-        {!hideFiturGanda && (
+          {/* Fitur Ganda - Center */}
           <div
-            className="rounded-lg text-center"
-            style={{ background: `${darkerPrimary}80`, padding: `${sizes.padding}px` }}
+            className="flex-1 text-center flex flex-col justify-center"
+            style={{
+              visibility: hideFiturGanda ? 'hidden' : 'visible',
+              pointerEvents: hideFiturGanda ? 'none' : 'auto'
+            }}
           >
-            <span className="text-gray-400 block leading-tight" style={{ fontSize: `${sizes.label}px` }}>
+            <span className="text-gray-400 block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px` }}>
               FITUR GANDA
             </span>
             <span
               className={`font-bold px-2 py-0.5 rounded-full inline-block ${
                 trik.fiturGanda ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
               }`}
-              style={{ fontSize: `${sizes.value}px` }}
+              style={{ fontSize: `${sizes.value * 0.85}px` }}
             >
-              MODE {trik.fiturGanda ? 'ON' : 'OFF'}
+              {trik.fiturGanda ? 'ON' : 'OFF'}
             </span>
           </div>
-        )}
+
+          {/* Putaran Bet */}
+          <div className="flex-1 text-center">
+            <span className="text-gray-400 block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px` }}>
+              PUTARAN BET
+            </span>
+            <span className="font-bold leading-tight" style={{ color: providerColor, fontSize: `${sizes.value * 0.85}px` }}>
+              {trik.putaranBetMin.toLocaleString()} - {trik.putaranBetMax.toLocaleString()}
+            </span>
+          </div>
+        </div>
 
         {/* Trik Items */}
         <div className="flex-1 flex flex-col justify-center" style={{ gap: `${sizes.gap}px` }}>

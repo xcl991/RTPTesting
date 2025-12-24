@@ -241,9 +241,9 @@ function PokerTrikPanel({
         className="flex-1 flex flex-col overflow-hidden relative z-10"
         style={{ padding: `${sizes.padding}px`, gap: `${sizes.gap}px` }}
       >
-        {/* Deposit Kode & Putaran Bet */}
+        {/* Deposit Kode | Fitur Ganda | Putaran Bet - 1 Row */}
         <div
-          className="flex items-center gap-3"
+          className="flex items-stretch gap-2"
           style={{
             background: 'linear-gradient(90deg, rgba(0,0,0,0.4), rgba(0,0,0,0.6), rgba(0,0,0,0.4))',
             padding: `${sizes.padding}px`,
@@ -251,56 +251,54 @@ function PokerTrikPanel({
             border: `2px solid ${accentColor}80`
           }}
         >
+          {/* Deposit Kode */}
           <div className="flex-1 text-center">
-            <span className="block leading-tight font-semibold" style={{ fontSize: `${sizes.label}px`, color: `${accentColor}cc` }}>
+            <span className="block leading-tight font-semibold" style={{ fontSize: `${sizes.label * 0.9}px`, color: `${accentColor}cc` }}>
               DEPOSIT KODE
             </span>
             <span
               className="font-black leading-tight"
               style={{
                 color: '#fff',
-                fontSize: `${sizes.depositKode}px`,
+                fontSize: `${sizes.depositKode * 0.7}px`,
                 textShadow: '2px 2px 0 #000'
               }}
             >
               {trik.depositKode}
             </span>
           </div>
-          <div className="text-2xl" style={{ color: accentColor }}>♠</div>
+
+          {/* Fitur Ganda - Center */}
+          <div
+            className="flex-1 text-center flex flex-col justify-center"
+            style={{
+              visibility: hideFiturGanda ? 'hidden' : 'visible',
+              pointerEvents: hideFiturGanda ? 'none' : 'auto'
+            }}
+          >
+            <span className="block leading-tight font-semibold" style={{ fontSize: `${sizes.label * 0.9}px`, color: `${accentColor}cc` }}>
+              FITUR GANDA
+            </span>
+            <span
+              className={`font-bold px-2 py-0.5 inline-block rounded-full ${
+                trik.fiturGanda ? 'bg-green-600 text-white' : 'bg-red-600 text-white'
+              }`}
+              style={{ fontSize: `${sizes.value * 0.85}px` }}
+            >
+              {trik.fiturGanda ? 'ON' : 'OFF'}
+            </span>
+          </div>
+
+          {/* Putaran Bet */}
           <div className="flex-1 text-center">
-            <span className="block leading-tight font-semibold" style={{ fontSize: `${sizes.label}px`, color: `${accentColor}cc` }}>
+            <span className="block leading-tight font-semibold" style={{ fontSize: `${sizes.label * 0.9}px`, color: `${accentColor}cc` }}>
               PUTARAN BET
             </span>
-            <span className="font-bold leading-tight text-white" style={{ fontSize: `${sizes.value}px`, textShadow: '1px 1px 0 #000' }}>
+            <span className="font-bold leading-tight text-white" style={{ fontSize: `${sizes.value * 0.85}px`, textShadow: '1px 1px 0 #000' }}>
               {trik.putaranBetMin.toLocaleString()} - {trik.putaranBetMax.toLocaleString()}
             </span>
           </div>
         </div>
-
-        {/* Fitur Ganda */}
-        {!hideFiturGanda && (
-          <div
-            className="text-center"
-            style={{
-              background: 'rgba(0,0,0,0.4)',
-              padding: `${sizes.padding}px`,
-              borderRadius: '8px',
-              border: `1px solid ${accentColor}50`
-            }}
-          >
-            <span className="block leading-tight font-semibold" style={{ fontSize: `${sizes.label}px`, color: `${accentColor}cc` }}>
-              FITUR GANDA
-            </span>
-            <span
-              className={`font-bold px-3 py-1 inline-block rounded-full ${
-                trik.fiturGanda ? 'bg-green-600 text-white' : 'bg-red-600 text-white'
-              }`}
-              style={{ fontSize: `${sizes.value}px` }}
-            >
-              MODE {trik.fiturGanda ? 'ON' : 'OFF'}
-            </span>
-          </div>
-        )}
 
         {/* Trik Items */}
         <div className="flex-1 flex flex-col justify-center" style={{ gap: `${sizes.gap}px` }}>
