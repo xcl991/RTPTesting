@@ -574,8 +574,8 @@ export default function CustomizableLayout4({
               <h2
                 className="text-xl font-black uppercase tracking-wide"
                 style={{
-                  color: 'white',
-                  textShadow: `0 0 20px ${selectedStyle.secondaryColor}`
+                  color: '#ffffff',
+                  textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
                 }}
               >
                 {maxwinConfig.heading1 || 'KODE MAXWIN GACOR MALAM INI'}
@@ -585,7 +585,7 @@ export default function CustomizableLayout4({
             {/* Heading 2 */}
             {maxwinConfig.heading2 && (
               <div className="text-center mb-3 relative z-10">
-                <h3 className="text-base font-bold uppercase text-gray-300">
+                <h3 className="text-base font-bold uppercase" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
                   {maxwinConfig.heading2}
                 </h3>
               </div>
@@ -604,7 +604,7 @@ export default function CustomizableLayout4({
                         border: '1px solid rgba(255,255,255,0.1)'
                       }}
                     >
-                      <p className="text-white font-semibold text-sm">{text}</p>
+                      <p className="font-semibold text-sm" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>{text}</p>
                     </div>
                   )
                 ))}

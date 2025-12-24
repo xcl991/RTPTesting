@@ -344,7 +344,7 @@ export default function SingleFeaturedLayout({
                         boxShadow: "0 0 4px " + secondaryColor + "20"
                       }}
                     >
-                      <p className="text-white font-semibold text-sm leading-tight">{text}</p>
+                      <p className="font-semibold text-sm leading-tight" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>{text}</p>
                     </div>
                   )
                 ))}

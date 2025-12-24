@@ -594,15 +594,15 @@ export default function CustomizableLayout6({
               <h3
                 className="font-black uppercase"
                 style={{
-                  color: primaryColor,
+                  color: '#ffffff',
                   fontSize: '20px',
-                  textShadow: `0 0 10px ${primaryColor}, 0 0 20px ${primaryColor}`
+                  textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
                 }}
               >
                 🏆 {maxwinConfig.heading1 || 'MAXWIN INFO'} 🏆
               </h3>
               {maxwinConfig.heading2 && (
-                <p className="text-sm" style={{ color: `${primaryColor}cc`, textShadow: `0 0 5px ${primaryColor}50` }}>
+                <p className="text-sm" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
                   {maxwinConfig.heading2}
                 </p>
               )}
@@ -620,7 +620,7 @@ export default function CustomizableLayout6({
                   >
                     <span
                       className="font-bold text-sm"
-                      style={{ color: primaryColor, textShadow: `0 0 5px ${primaryColor}50` }}
+                      style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
                     >
                       {item}
                     </span>

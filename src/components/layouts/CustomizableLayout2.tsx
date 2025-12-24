@@ -542,9 +542,8 @@ export default function CustomizableLayout2({
               <h2
                 className="text-xl font-black uppercase tracking-tight leading-tight"
                 style={{
-                  background: `linear-gradient(to bottom, ${secondaryColor} 0%, ${primaryColor} 50%, ${primaryColor}aa 100%)`,
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent'
+                  color: '#ffffff',
+                  textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
                 }}
               >
                 {maxwinConfig.heading1 || 'KODE MAXWIN GACOR MALAM INI'}
@@ -556,7 +555,7 @@ export default function CustomizableLayout2({
               <div className="text-center mb-2">
                 <h3
                   className="text-base font-bold uppercase tracking-tight leading-tight"
-                  style={{ color: secondaryColor }}
+                  style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
                 >
                   {maxwinConfig.heading2}
                 </h3>
@@ -577,7 +576,7 @@ export default function CustomizableLayout2({
                         boxShadow: `0 0 4px ${secondaryColor}20`
                       }}
                     >
-                      <p className="text-white font-semibold text-sm leading-tight">{text}</p>
+                      <p className="font-semibold text-sm leading-tight" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>{text}</p>
                     </div>
                   )
                 ))}
