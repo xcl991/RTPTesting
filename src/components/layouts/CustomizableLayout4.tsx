@@ -205,7 +205,7 @@ function HolographicTrikPanel({
         className="flex-1 flex flex-col overflow-hidden relative z-10"
         style={{ padding: `${sizes.padding}px`, gap: `${sizes.gap}px` }}
       >
-        {/* Deposit Kode | Fitur Ganda | Putaran Bet - 1 Row */}
+        {/* Deposit Kode | Fitur Ganda | Putaran Bet - 1 Row - With black outline */}
         <div
           className="flex items-stretch gap-2 rounded-2xl"
           style={{
@@ -216,7 +216,7 @@ function HolographicTrikPanel({
         >
           {/* Deposit Kode */}
           <div className="flex-1 text-center">
-            <span className="text-gray-400 block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px` }}>
+            <span className="text-gray-400 block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               DEPOSIT KODE
             </span>
             <span
@@ -224,7 +224,7 @@ function HolographicTrikPanel({
               style={{
                 color: providerColor,
                 fontSize: `${sizes.depositKode * 0.7}px`,
-                textShadow: `0 0 15px ${providerColor}`
+                textShadow: `-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 15px ${providerColor}`
               }}
             >
               {trik.depositKode}
@@ -239,14 +239,14 @@ function HolographicTrikPanel({
               pointerEvents: hideFiturGanda ? 'none' : 'auto'
             }}
           >
-            <span className="text-gray-400 block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px` }}>
+            <span className="text-gray-400 block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               FITUR GANDA
             </span>
             <span
               className={`font-bold px-2 py-0.5 rounded-full inline-block ${
                 trik.fiturGanda ? 'bg-green-500/30 text-green-400' : 'bg-red-500/30 text-red-400'
               }`}
-              style={{ fontSize: `${sizes.value * 0.85}px` }}
+              style={{ fontSize: `${sizes.value * 0.85}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
             >
               {trik.fiturGanda ? 'ON' : 'OFF'}
             </span>
@@ -254,10 +254,10 @@ function HolographicTrikPanel({
 
           {/* Putaran Bet */}
           <div className="flex-1 text-center">
-            <span className="text-gray-400 block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px` }}>
+            <span className="text-gray-400 block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               PUTARAN BET
             </span>
-            <span className="font-bold text-white leading-tight" style={{ fontSize: `${sizes.value * 0.85}px` }}>
+            <span className="font-bold text-white leading-tight" style={{ fontSize: `${sizes.value * 0.85}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               {trik.putaranBetMin.toLocaleString()} - {trik.putaranBetMax.toLocaleString()}
             </span>
           </div>

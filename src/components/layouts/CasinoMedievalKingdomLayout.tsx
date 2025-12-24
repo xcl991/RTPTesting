@@ -50,17 +50,18 @@ function MedievalGameCard({ game, rtp, primaryColor, secondaryColor, sealNumber,
       <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 opacity-60" style={{ borderColor: secondaryColor }} />
       <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 opacity-60" style={{ borderColor: secondaryColor }} />
 
-      {/* Crown Status Badge */}
+      {/* Crown Status Badge - Smaller */}
       <div
-        className="absolute -top-3 left-1/2 transform -translate-x-1/2 px-3 py-1 text-xs font-bold z-20"
+        className="absolute -top-2 left-1/2 transform -translate-x-1/2 px-2 py-0.5 z-20"
         style={{
           background: `linear-gradient(135deg, ${primaryColor}, ${secondaryColor})`,
           color: '#1a0a00',
-          borderRadius: '12px',
-          border: '2px solid rgba(255,215,0,0.5)',
-          boxShadow: `0 4px 8px rgba(0,0,0,0.4), 0 0 15px ${primaryColor}80`,
+          borderRadius: '8px',
+          border: '1px solid rgba(255,215,0,0.5)',
+          boxShadow: `0 2px 4px rgba(0,0,0,0.4), 0 0 8px ${primaryColor}80`,
           fontFamily: 'serif',
-          letterSpacing: '1px'
+          fontSize: '9px',
+          fontWeight: 'bold'
         }}
       >
         👑 {rtp}%
@@ -450,7 +451,7 @@ export default function CasinoMedievalKingdomLayout({
                     className="h-12"
                     style={{
                       filter: `drop-shadow(0 4px 6px ${primaryColor}80) brightness(1.1)`,
-                      transform: 'scale(1.3)',
+                      transform: 'scale(2.0)',
                       transformOrigin: 'center'
                     }}
                     alt="Pragmatic Play"
@@ -461,16 +462,6 @@ export default function CasinoMedievalKingdomLayout({
                   >
                     ⚔️
                   </div>
-                </div>
-
-                <div
-                  className="text-center text-xs font-bold mt-1 tracking-widest"
-                  style={{
-                    color: primaryColor,
-                    textShadow: `0 2px 4px rgba(0,0,0,0.8), 0 0 10px ${primaryColor}60`
-                  }}
-                >
-                  👑 ROYAL COURT 👑
                 </div>
               </div>
             </div>
@@ -574,7 +565,7 @@ export default function CasinoMedievalKingdomLayout({
                     className="h-12"
                     style={{
                       filter: `drop-shadow(0 4px 6px ${secondaryColor}80) brightness(1.1)`,
-                      transform: 'scale(1.3)',
+                      transform: 'scale(2.0)',
                       transformOrigin: 'center'
                     }}
                     alt="PG Soft"
@@ -585,16 +576,6 @@ export default function CasinoMedievalKingdomLayout({
                   >
                     🛡️
                   </div>
-                </div>
-
-                <div
-                  className="text-center text-xs font-bold mt-1 tracking-widest"
-                  style={{
-                    color: secondaryColor,
-                    textShadow: `0 2px 4px rgba(0,0,0,0.8), 0 0 10px ${secondaryColor}60`
-                  }}
-                >
-                  🗡️ KNIGHT&apos;S HALL 🗡️
                 </div>
               </div>
             </div>

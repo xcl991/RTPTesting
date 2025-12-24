@@ -484,8 +484,8 @@ export default function CustomizableLayout6({
 
       {/* Content Area */}
       <div className="flex-1 flex flex-col gap-2 p-2 overflow-hidden" style={{ minHeight: 0 }}>
-        {/* Game Modal Row */}
-        <div className="flex gap-3" style={{ height: '240px' }}>
+        {/* Game Modal Row - Height increased by 10% */}
+        <div className="flex gap-3" style={{ height: '264px' }}>
           {/* Pragmatic Games */}
           <div
             className="flex-1 overflow-hidden p-3 relative"

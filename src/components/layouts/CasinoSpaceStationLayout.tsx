@@ -414,6 +414,89 @@ export default function CasinoSpaceStationLayout({
           </div>
         </div>
       </div>
+
+      {/* Space Station Telegram Footer */}
+      <div className="relative z-10 mt-3">
+        <div
+          className="relative p-4 flex items-center justify-center gap-4 overflow-hidden"
+          style={{
+            background: `linear-gradient(90deg, ${darkPrimary}cc, ${darkerPrimary}ee, ${darkPrimary}cc)`,
+            border: `2px solid ${primaryColor}60`,
+            borderRadius: '8px',
+            boxShadow: `0 0 30px ${primaryColor}40, inset 0 0 40px ${primaryColor}10`
+          }}
+        >
+          {/* Animated scan line effect */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: `linear-gradient(180deg, transparent 0%, ${primaryColor}08 50%, transparent 100%)`,
+              backgroundSize: '100% 4px'
+            }}
+          />
+
+          {/* Hexagonal pattern overlay */}
+          <div
+            className="absolute inset-0 opacity-20 pointer-events-none"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 5L30 10L30 20L20 25L10 20L10 10Z' fill='none' stroke='${encodeURIComponent(primaryColor)}' stroke-width='0.5' opacity='0.5'/%3E%3C/svg%3E")`,
+              backgroundSize: '40px 40px'
+            }}
+          />
+
+          {/* Status indicators left */}
+          <div className="flex items-center gap-2 absolute left-4">
+            <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+            <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: primaryColor, animationDelay: '0.3s' }} />
+            <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: secondaryColor, animationDelay: '0.6s' }} />
+          </div>
+
+          {/* Telegram Icon with Space Frame */}
+          <div
+            className="relative w-12 h-12 rounded-lg flex items-center justify-center"
+            style={{
+              background: `linear-gradient(135deg, ${primaryColor}40, ${secondaryColor}40)`,
+              border: `2px solid ${primaryColor}`,
+              boxShadow: `0 0 20px ${primaryColor}80, inset 0 0 10px ${primaryColor}40`
+            }}
+          >
+            <svg
+              viewBox="0 0 24 24"
+              className="w-7 h-7"
+              fill={primaryColor}
+              style={{ filter: `drop-shadow(0 0 5px ${primaryColor})` }}
+            >
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.03-1.99 1.27-5.62 3.72-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.05-.49-.82-.27-1.47-.42-1.42-.88.03-.24.37-.48 1.02-.73 3.99-1.74 6.66-2.89 8-3.45 3.82-1.66 4.61-1.95 5.13-1.96.11 0 .37.03.54.17.14.11.18.26.2.37.01.08.03.29.01.45z"/>
+            </svg>
+          </div>
+
+          {/* Telegram Text */}
+          <div className="relative z-10 flex flex-col items-start">
+            <span
+              className="text-xs font-mono uppercase tracking-widest opacity-70"
+              style={{ color: secondaryColor }}
+            >
+              [COMM_CHANNEL]
+            </span>
+            <span
+              className="text-lg font-bold font-mono tracking-wider"
+              style={{
+                color: primaryColor,
+                textShadow: `0 0 10px ${primaryColor}, 0 0 20px ${primaryColor}50`
+              }}
+            >
+              @{telegramUsername || selectedWebsite.name.toLowerCase().replace(/[^a-z0-9]/g, '')}
+            </span>
+          </div>
+
+          {/* Status indicators right */}
+          <div className="flex items-center gap-2 absolute right-4">
+            <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: secondaryColor, animationDelay: '0.9s' }} />
+            <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: primaryColor, animationDelay: '1.2s' }} />
+            <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" style={{ animationDelay: '1.5s' }} />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
