@@ -429,13 +429,13 @@ export default function CustomizableLayout6({
         </div>
       </div>
 
-      {/* Header 2 - Logo, Time, Date */}
+      {/* Header 2 - Logo, Time, Date - Same color */}
       <div
         className="flex-shrink-0 flex items-center justify-between px-4"
         style={{
           height: '45px',
           background: `linear-gradient(90deg, ${darkerPrimary}, ${darkPrimary}, ${darkerPrimary})`,
-          borderBottom: `2px solid ${accentColor}50`
+          borderBottom: `2px solid ${primaryColor}50`
         }}
       >
         {/* Logo */}
@@ -457,7 +457,7 @@ export default function CustomizableLayout6({
           <div className="flex items-center gap-3">
             <span
               className="font-bold"
-              style={{ fontSize: '20px', color: accentColor, textShadow: `0 0 10px ${accentColor}` }}
+              style={{ fontSize: '20px', color: primaryColor, textShadow: `0 0 10px ${primaryColor}` }}
             >
               {customTimeLabel}
             </span>
@@ -496,9 +496,9 @@ export default function CustomizableLayout6({
               boxShadow: `0 0 30px ${primaryColor}50, inset 0 0 40px rgba(0,0,0,0.5)`
             }}
           >
-            {/* Neon corner dots */}
+            {/* Neon corner dots - Same color */}
             <div className="absolute top-2 left-2 w-2 h-2 rounded-full" style={{ backgroundColor: primaryColor, boxShadow: `0 0 10px ${primaryColor}` }} />
-            <div className="absolute top-2 right-2 w-2 h-2 rounded-full" style={{ backgroundColor: accentColor, boxShadow: `0 0 10px ${accentColor}` }} />
+            <div className="absolute top-2 right-2 w-2 h-2 rounded-full" style={{ backgroundColor: primaryColor, boxShadow: `0 0 10px ${primaryColor}` }} />
 
             <div className="text-center mb-2">
               <h2
@@ -519,26 +519,26 @@ export default function CustomizableLayout6({
             </div>
           </div>
 
-          {/* PG Soft Games */}
+          {/* PG Soft Games - Same color as Pragmatic */}
           <div
             className="flex-1 overflow-hidden p-3 relative"
             style={{
-              background: `linear-gradient(135deg, ${adjustColor(accentColor, -50)} 0%, ${adjustColor(accentColor, -60)} 100%)`,
+              background: `linear-gradient(135deg, ${darkPrimary} 0%, ${darkerPrimary} 100%)`,
               borderRadius: '20px',
-              border: `3px solid ${accentColor}`,
-              boxShadow: `0 0 30px ${accentColor}50, inset 0 0 40px rgba(0,0,0,0.5)`
+              border: `3px solid ${primaryColor}`,
+              boxShadow: `0 0 30px ${primaryColor}50, inset 0 0 40px rgba(0,0,0,0.5)`
             }}
           >
-            <div className="absolute top-2 left-2 w-2 h-2 rounded-full" style={{ backgroundColor: accentColor, boxShadow: `0 0 10px ${accentColor}` }} />
+            <div className="absolute top-2 left-2 w-2 h-2 rounded-full" style={{ backgroundColor: primaryColor, boxShadow: `0 0 10px ${primaryColor}` }} />
             <div className="absolute top-2 right-2 w-2 h-2 rounded-full" style={{ backgroundColor: primaryColor, boxShadow: `0 0 10px ${primaryColor}` }} />
 
             <div className="text-center mb-2">
               <h2
                 className="font-black tracking-wider"
                 style={{
-                  color: accentColor,
+                  color: primaryColor,
                   fontSize: '20px',
-                  textShadow: `0 0 10px ${accentColor}, 0 0 20px ${accentColor}`
+                  textShadow: `0 0 10px ${primaryColor}, 0 0 20px ${primaryColor}`
                 }}
               >
                 🎰 PG SOFT 🎰
@@ -546,7 +546,7 @@ export default function CustomizableLayout6({
             </div>
             <div className="flex gap-2 justify-center">
               {pgSoftGamesWithRtp.map((game, index) => (
-                <VegasGameCard key={`pgsoft-${index}`} game={game} rtp={game.rtp} cardSize={cardSize} primaryColor={accentColor} accentColor={primaryColor} />
+                <VegasGameCard key={`pgsoft-${index}`} game={game} rtp={game.rtp} cardSize={cardSize} primaryColor={primaryColor} accentColor={primaryColor} />
               ))}
             </div>
           </div>
@@ -561,7 +561,7 @@ export default function CustomizableLayout6({
                   trik={pragmaticTrik}
                   providerColor={primaryColor}
                   primaryColor={primaryColor}
-                  accentColor={accentColor}
+                  accentColor={primaryColor}
                 />
               </div>
             )}
@@ -569,9 +569,9 @@ export default function CustomizableLayout6({
               <div className="flex-1">
                 <VegasTrikPanel
                   trik={pgSoftTrik}
-                  providerColor={accentColor}
+                  providerColor={primaryColor}
                   primaryColor={primaryColor}
-                  accentColor={accentColor}
+                  accentColor={primaryColor}
                   hideFiturGanda={true}
                 />
               </div>
@@ -579,30 +579,30 @@ export default function CustomizableLayout6({
           </div>
         )}
 
-        {/* Maxwin Info Section */}
+        {/* Maxwin Info Section - Same color */}
         {maxwinConfig?.enabled && (
           <div
             className="flex-shrink-0 p-3"
             style={{
               background: `linear-gradient(135deg, ${darkPrimary} 0%, ${darkerPrimary} 100%)`,
               borderRadius: '16px',
-              border: `2px solid ${accentColor}`,
-              boxShadow: `0 0 20px ${accentColor}50`
+              border: `2px solid ${primaryColor}`,
+              boxShadow: `0 0 20px ${primaryColor}50`
             }}
           >
             <div className="text-center mb-2">
               <h3
                 className="font-black uppercase"
                 style={{
-                  color: accentColor,
+                  color: primaryColor,
                   fontSize: '20px',
-                  textShadow: `0 0 10px ${accentColor}, 0 0 20px ${accentColor}`
+                  textShadow: `0 0 10px ${primaryColor}, 0 0 20px ${primaryColor}`
                 }}
               >
                 🏆 {maxwinConfig.heading1 || 'MAXWIN INFO'} 🏆
               </h3>
               {maxwinConfig.heading2 && (
-                <p className="text-sm" style={{ color: `${accentColor}cc`, textShadow: `0 0 5px ${accentColor}50` }}>
+                <p className="text-sm" style={{ color: `${primaryColor}cc`, textShadow: `0 0 5px ${primaryColor}50` }}>
                   {maxwinConfig.heading2}
                 </p>
               )}
@@ -614,13 +614,13 @@ export default function CustomizableLayout6({
                     key={index}
                     className="text-center py-2 px-3 rounded-lg"
                     style={{
-                      background: `${accentColor}15`,
-                      border: `1px solid ${accentColor}50`
+                      background: `${primaryColor}15`,
+                      border: `1px solid ${primaryColor}50`
                     }}
                   >
                     <span
                       className="font-bold text-sm"
-                      style={{ color: accentColor, textShadow: `0 0 5px ${accentColor}50` }}
+                      style={{ color: primaryColor, textShadow: `0 0 5px ${primaryColor}50` }}
                     >
                       {item}
                     </span>
@@ -632,7 +632,7 @@ export default function CustomizableLayout6({
         )}
       </div>
 
-      {/* Footer - Vegas Style */}
+      {/* Footer - Vegas Style - Same color */}
       <div className="flex-shrink-0">
         <div
           className="flex items-center justify-center gap-3 px-4"
@@ -643,12 +643,12 @@ export default function CustomizableLayout6({
           }}
         >
           <SlotSymbols />
-          <svg width="18" height="18" viewBox="0 0 24 24" fill={accentColor} style={{ filter: `drop-shadow(0 0 5px ${accentColor})` }}>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill={primaryColor} style={{ filter: `drop-shadow(0 0 5px ${primaryColor})` }}>
             <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 11.944 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
           </svg>
           <span
             className="text-sm font-bold"
-            style={{ color: accentColor, textShadow: `0 0 5px ${accentColor}` }}
+            style={{ color: primaryColor, textShadow: `0 0 5px ${primaryColor}` }}
           >
             {footerConfig.footer1 || `Join: @${telegramUsername || selectedWebsite.name.toLowerCase().replace(/[^a-z0-9]/g, '')}`}
           </span>
