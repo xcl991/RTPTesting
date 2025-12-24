@@ -162,9 +162,9 @@ function AdaptiveTrikPanel({
         <h3
           className="font-black uppercase tracking-wider"
           style={{
-            color: providerColor,
+            color: '#ffffff',
             fontSize: `${sizes.title}px`,
-            textShadow: `0 0 10px ${providerColor}, 0 0 20px ${providerColor}50`
+            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
           }}
         >
           {trik.title || 'TRIK GACOR'}
@@ -184,17 +184,17 @@ function AdaptiveTrikPanel({
           {/* Deposit Kode - Left */}
           <div className="flex-1 text-center">
             <span
-              className="text-gray-400 block leading-tight"
-              style={{ fontSize: `${sizes.label * 0.9}px` }}
+              className="block leading-tight"
+              style={{ fontSize: `${sizes.label * 0.9}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
             >
               DEPOSIT KODE
             </span>
             <span
               className="font-black leading-tight"
               style={{
-                color: providerColor,
+                color: '#ffffff',
                 fontSize: `${sizes.depositKode * 0.7}px`,
-                textShadow: `0 0 10px ${providerColor}`
+                textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
               }}
             >
               {trik.depositKode}
@@ -210,16 +210,16 @@ function AdaptiveTrikPanel({
             }}
           >
             <span
-              className="text-gray-400 block leading-tight"
-              style={{ fontSize: `${sizes.label * 0.9}px` }}
+              className="block leading-tight"
+              style={{ fontSize: `${sizes.label * 0.9}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
             >
               FITUR GANDA
             </span>
             <span
               className={`font-bold px-2 py-0.5 rounded-full inline-block ${
-                trik.fiturGanda ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
+                trik.fiturGanda ? 'bg-green-500/20' : 'bg-red-500/20'
               }`}
-              style={{ fontSize: `${sizes.value * 0.85}px` }}
+              style={{ fontSize: `${sizes.value * 0.85}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
             >
               {trik.fiturGanda ? 'ON' : 'OFF'}
             </span>
@@ -228,14 +228,14 @@ function AdaptiveTrikPanel({
           {/* Putaran Bet - Right */}
           <div className="flex-1 text-center">
             <span
-              className="text-gray-400 block leading-tight"
-              style={{ fontSize: `${sizes.label * 0.9}px` }}
+              className="block leading-tight"
+              style={{ fontSize: `${sizes.label * 0.9}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
             >
               PUTARAN BET
             </span>
             <span
               className="font-bold leading-tight"
-              style={{ color: providerColor, fontSize: `${sizes.value * 0.85}px` }}
+              style={{ color: '#ffffff', fontSize: `${sizes.value * 0.85}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
             >
               {trik.putaranBetMin.toLocaleString()} - {trik.putaranBetMax.toLocaleString()}
             </span>
@@ -252,15 +252,15 @@ function AdaptiveTrikPanel({
             >
               {/* Item Name - Left */}
               <span
-                className="text-white font-semibold flex-1 text-left"
-                style={{ fontSize: `${sizes.itemName}px` }}
+                className="font-semibold flex-1 text-left"
+                style={{ fontSize: `${sizes.itemName}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
               >
                 {item.name}
               </span>
               {/* Value - Center */}
               <span
                 className="font-bold flex-1 text-center"
-                style={{ color: providerColor, fontSize: `${sizes.itemValue}px` }}
+                style={{ color: '#ffffff', fontSize: `${sizes.itemValue}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
               >
                 {item.value}
               </span>
@@ -285,8 +285,8 @@ function AdaptiveTrikPanel({
             <p
               className="font-bold uppercase leading-tight"
               style={{
-                color: providerColor,
-                textShadow: `0 0 5px ${providerColor}50`,
+                color: '#ffffff',
+                textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
                 fontSize: `${sizes.value}px`
               }}
             >

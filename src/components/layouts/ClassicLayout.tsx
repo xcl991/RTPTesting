@@ -134,7 +134,7 @@ export default function ClassicLayout({
 
       {/* Header */}
       <div className="relative z-10 pt-4 pb-2 text-center">
-        <div className="text-white font-bold text-base tracking-widest mb-1 drop-shadow-md">
+        <div className="font-bold text-base tracking-widest mb-1 drop-shadow-md" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
           {getCurrentDate()}
         </div>
         <h1
@@ -142,10 +142,8 @@ export default function ClassicLayout({
           style={{
             fontFamily: "'Anton', sans-serif",
             letterSpacing: '2px',
-            background: `linear-gradient(to bottom, ${secondaryColor} 0%, ${primaryColor} 50%, ${primaryColor}aa 100%)`,
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            filter: 'drop-shadow(2px 2px 0px rgba(0,0,0,0.8))'
+            color: '#ffffff',
+            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
           }}
         >
           {customHeaderText}
@@ -160,7 +158,7 @@ export default function ClassicLayout({
               border: `1px solid ${primaryColor}80`
             }}
           >
-            <span className="text-base font-black text-white tracking-widest">
+            <span className="text-base font-black tracking-widest" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               {customTimeLabel}
             </span>
           </div>

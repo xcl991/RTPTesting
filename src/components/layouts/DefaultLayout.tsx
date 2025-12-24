@@ -75,21 +75,21 @@ export default function DefaultLayout({
           <h1
             className={`${getFontSizeClass()} font-black mb-2 uppercase tracking-wider`}
             style={{
-              color: selectedStyle.primaryColor,
-              textShadow: `0 0 20px ${selectedStyle.primaryColor}, 0 0 40px ${selectedStyle.primaryColor}50`
+              color: '#ffffff',
+              textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
             }}
           >
             {customHeaderText}
           </h1>
           <div className="flex items-center gap-2 justify-end">
-            <span className="text-white text-base">
+            <span className="text-base" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               {getCurrentDate()}
             </span>
             <span
               className="text-base font-bold"
               style={{
-                color: selectedStyle.secondaryColor,
-                textShadow: `0 0 10px ${selectedStyle.secondaryColor}`
+                color: '#ffffff',
+                textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
               }}
             >
               {customTimeLabel}
@@ -186,7 +186,7 @@ export default function DefaultLayout({
           </svg>
           <span
             className="text-2xl font-bold"
-            style={{ color: selectedStyle.primaryColor }}
+            style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
           >
             Join Komunitas Telegram : @{telegramUsername || selectedWebsite.name.toLowerCase().replace(/[^a-z0-9]/g, '')}
           </span>

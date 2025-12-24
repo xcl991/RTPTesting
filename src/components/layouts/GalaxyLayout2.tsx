@@ -194,17 +194,15 @@ export default function GalaxyLayout2({
         <h1
           className={getFontSizeClass() + " font-bold uppercase tracking-widest mb-1"}
           style={{
-            background: "linear-gradient(90deg, " + primaryColor + ", " + secondaryColor + ", " + primaryColor + ")",
-            backgroundSize: "200% auto",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent"
+            color: '#ffffff',
+            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
           }}
         >
           {customHeaderText}
         </h1>
         <div className="flex items-center justify-center gap-2">
-          <span className="text-base" style={{ color: primaryColor }}>{getCurrentDate()}</span>
-          <span className="text-base" style={{ color: secondaryColor }}>{customTimeLabel}</span>
+          <span className="text-base" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>{getCurrentDate()}</span>
+          <span className="text-base" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>{customTimeLabel}</span>
         </div>
       </div>
 
@@ -367,7 +365,8 @@ export default function GalaxyLayout2({
                   fontSize: '24px',
                   fontWeight: 700,
                   lineHeight: '24px',
-                  color: primaryColor,
+                  color: '#ffffff',
+                  textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
                   whiteSpace: 'nowrap'
                 }}
               >

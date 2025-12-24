@@ -46,7 +46,7 @@ function FuturisticGameCard({ game, rtp, style, cardSize, darkPrimary, darkerPri
         className="p-2"
         style={{ background: `linear-gradient(to bottom, ${darkPrimary}, ${darkerPrimary})` }}
       >
-        <h3 className="text-white font-bold text-base text-center truncate">
+        <h3 className="font-bold text-base text-center truncate" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
           {game.name}
         </h3>
       </div>
@@ -156,10 +156,8 @@ export default function FuturisticLayout({
             className="font-bold uppercase tracking-wide mb-1"
             style={{
               fontFamily: "'Orbitron', sans-serif",
-              background: 'linear-gradient(to right, #ffffff, #e2e8f0)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              textShadow: '0 0 20px rgba(255,255,255,0.3)',
+              color: '#ffffff',
+              textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
               fontSize: '21px'  // text-base (16px) + 5px = 21px
             }}
           >
@@ -172,10 +170,10 @@ export default function FuturisticLayout({
               borderLeft: `4px solid ${selectedStyle.secondaryColor}`
             }}
           >
-            <span className="text-base text-gray-400 font-semibold">
+            <span className="text-base font-semibold" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               {getCurrentDate()}
             </span>
-            <span className="text-base font-bold" style={{ color: selectedStyle.primaryColor, textShadow: `0 0 10px ${selectedStyle.primaryColor}` }}>
+            <span className="text-base font-bold" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               {customTimeLabel}
             </span>
           </div>

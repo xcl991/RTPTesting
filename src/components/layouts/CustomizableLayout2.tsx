@@ -162,9 +162,9 @@ function CompactTrikPanel({
         <h3
           className="font-black uppercase tracking-wider"
           style={{
-            color: providerColor,
+            color: '#ffffff',
             fontSize: `${sizes.title}px`,
-            textShadow: `0 0 10px ${providerColor}, 0 0 20px ${providerColor}50`
+            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
           }}
         >
           {trik.title || 'TRIK GACOR'}
@@ -183,15 +183,15 @@ function CompactTrikPanel({
         >
           {/* Deposit Kode */}
           <div className="flex-1 text-center">
-            <span className="text-gray-400 block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px` }}>
+            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               DEPOSIT KODE
             </span>
             <span
               className="font-black leading-tight"
               style={{
-                color: providerColor,
+                color: '#ffffff',
                 fontSize: `${sizes.depositKode * 0.75}px`,
-                textShadow: `0 0 10px ${providerColor}`
+                textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
               }}
             >
               {trik.depositKode}
@@ -206,14 +206,14 @@ function CompactTrikPanel({
               pointerEvents: hideFiturGanda ? 'none' : 'auto'
             }}
           >
-            <span className="text-gray-400 block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px` }}>
+            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               FITUR GANDA
             </span>
             <span
               className={`font-bold px-2 py-0.5 rounded-full inline-block ${
-                trik.fiturGanda ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
+                trik.fiturGanda ? 'bg-green-500/20' : 'bg-red-500/20'
               }`}
-              style={{ fontSize: `${sizes.value * 0.85}px` }}
+              style={{ fontSize: `${sizes.value * 0.85}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
             >
               {trik.fiturGanda ? 'ON' : 'OFF'}
             </span>
@@ -221,10 +221,10 @@ function CompactTrikPanel({
 
           {/* Putaran Bet */}
           <div className="flex-1 text-center">
-            <span className="text-gray-400 block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px` }}>
+            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               PUTARAN BET
             </span>
-            <span className="font-bold leading-tight" style={{ color: providerColor, fontSize: `${sizes.value * 0.85}px` }}>
+            <span className="font-bold leading-tight" style={{ color: '#ffffff', fontSize: `${sizes.value * 0.85}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               {trik.putaranBetMin.toLocaleString()} - {trik.putaranBetMax.toLocaleString()}
             </span>
           </div>
@@ -238,10 +238,10 @@ function CompactTrikPanel({
               className="flex items-center rounded"
               style={{ background: `${darkerPrimary}80`, padding: `${sizes.padding}px ${sizes.padding * 1.5}px` }}
             >
-              <span className="text-white font-semibold flex-1 text-left" style={{ fontSize: `${sizes.itemName}px` }}>
+              <span className="font-semibold flex-1 text-left" style={{ fontSize: `${sizes.itemName}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
                 {item.name}
               </span>
-              <span className="font-bold flex-1 text-center" style={{ color: providerColor, fontSize: `${sizes.itemValue}px` }}>
+              <span className="font-bold flex-1 text-center" style={{ color: '#ffffff', fontSize: `${sizes.itemValue}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
                 {item.value}
               </span>
               <div className="flex-1 flex justify-end">
@@ -264,8 +264,8 @@ function CompactTrikPanel({
             <p
               className="font-bold uppercase leading-tight"
               style={{
-                color: providerColor,
-                textShadow: `0 0 5px ${providerColor}50`,
+                color: '#ffffff',
+                textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
                 fontSize: `${sizes.value}px`
               }}
             >
@@ -314,9 +314,9 @@ function GameModal({
         <h2
           className="font-bold"
           style={{
-            color: providerColor,
+            color: '#ffffff',
             fontSize: '18px',
-            textShadow: `0 0 15px ${providerColor}80`
+            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
           }}
         >
           {title}
@@ -414,8 +414,8 @@ export default function CustomizableLayout2({
         <h1
           className={`${getFontSizeClass()} font-black uppercase tracking-wider leading-tight text-center flex-1`}
           style={{
-            color: primaryColor,
-            textShadow: `0 0 20px ${primaryColor}, 0 0 40px ${primaryColor}50, 0 2px 4px ${darkerPrimary}`
+            color: '#ffffff',
+            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
           }}
         >
           {customHeaderText}
@@ -602,7 +602,7 @@ export default function CustomizableLayout2({
           </svg>
           <span
             className="text-base font-bold"
-            style={{ color: primaryColor }}
+            style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
           >
             {footerConfig.footer1 || `Join Telegram: @${telegramUsername || selectedWebsite.name.toLowerCase().replace(/[^a-z0-9]/g, '')}`}
           </span>

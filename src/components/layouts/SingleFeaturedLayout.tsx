@@ -28,7 +28,7 @@ function CompactGameCard({ game, rtp, primaryColor, secondaryColor, label }: Cas
       <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 rounded-br" style={{ borderColor: secondaryColor }} />
 
       <div className="p-1 flex flex-col items-center">
-        <div className="text-[9px] font-bold mb-0.5 px-1 text-center leading-tight" style={{ color: secondaryColor, width: "200px" }}>{label}</div>
+        <div className="text-[9px] font-bold mb-0.5 px-1 text-center leading-tight" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000', width: "200px" }}>{label}</div>
         <div className="relative flex items-center justify-center bg-black/30 rounded" style={{ width: "200px", height: "200px" }}>
           <img
             src={game.src}
@@ -40,7 +40,7 @@ function CompactGameCard({ game, rtp, primaryColor, secondaryColor, label }: Cas
             }}
           />
         </div>
-        <h3 className="font-semibold text-[9px] text-center truncate mt-0.5 px-1 leading-tight" style={{ color: primaryColor, width: "200px" }}>{game.name}</h3>
+        <h3 className="font-semibold text-[9px] text-center truncate mt-0.5 px-1 leading-tight" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000', width: "200px" }}>{game.name}</h3>
       </div>
     </div>
   );
@@ -167,12 +167,12 @@ export default function SingleFeaturedLayout({
           className="mx-auto mb-0.5"
           style={{ height: "47px", filter: "drop-shadow(0 0 8px " + primaryColor + "cc)" }}
         />
-        <h1 className="font-bold uppercase tracking-wide mb-0.5" style={{ fontSize: "18.4px", background: "linear-gradient(to bottom, " + secondaryColor + ", " + primaryColor + ")", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+        <h1 className="font-bold uppercase tracking-wide mb-0.5" style={{ fontSize: "18.4px", color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
           {customHeaderText}
         </h1>
         <div className="flex items-center justify-center gap-2 text-xs">
-          <span style={{ color: primaryColor }}>{getCurrentDate()}</span>
-          <span style={{ color: secondaryColor }}>{customTimeLabel}</span>
+          <span style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>{getCurrentDate()}</span>
+          <span style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>{customTimeLabel}</span>
         </div>
       </div>
 
@@ -314,9 +314,8 @@ export default function SingleFeaturedLayout({
                 <h2
                   className="text-xl font-black uppercase tracking-tight leading-tight"
                   style={{
-                    background: "linear-gradient(to bottom, " + secondaryColor + " 0%, " + primaryColor + " 50%, " + primaryColor + "aa 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent"
+                    color: '#ffffff',
+                    textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
                   }}
                 >
                   {maxwinConfig.heading1 || 'KODE MAXWIN GACOR MALAM INI 6.917'}
@@ -326,7 +325,7 @@ export default function SingleFeaturedLayout({
               {/* Heading 2 */}
               {maxwinConfig.heading2 && (
                 <div className="text-center mb-0.5">
-                  <h3 className="text-base font-bold uppercase tracking-tight leading-tight" style={{ color: secondaryColor }}>
+                  <h3 className="text-base font-bold uppercase tracking-tight leading-tight" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
                     {maxwinConfig.heading2}
                   </h3>
                 </div>
@@ -368,7 +367,7 @@ export default function SingleFeaturedLayout({
           <svg width="18" height="18" viewBox="0 0 24 24" fill={primaryColor}>
             <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 11.944 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
           </svg>
-          <span className="text-sm font-semibold" style={{ color: primaryColor }}>
+          <span className="text-sm font-semibold" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
             @{telegramUsername || selectedWebsite.name.toUpperCase().replace(/[^A-Z0-9]/g, '')}
           </span>
         </div>

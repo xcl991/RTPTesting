@@ -222,9 +222,9 @@ function PokerTrikPanel({
           <h3
             className="font-black uppercase tracking-wider"
             style={{
-              color: accentColor,
+              color: '#ffffff',
               fontSize: `${sizes.title}px`,
-              textShadow: '2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000'
+              textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
             }}
           >
             {trik.title || 'TRIK GACOR'}
@@ -253,15 +253,15 @@ function PokerTrikPanel({
         >
           {/* Deposit Kode */}
           <div className="flex-1 text-center">
-            <span className="block leading-tight font-semibold" style={{ fontSize: `${sizes.label * 0.9 + 3}px`, color: `${accentColor}cc` }}>
+            <span className="block leading-tight font-semibold" style={{ fontSize: `${sizes.label * 0.9 + 3}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               DEPOSIT KODE
             </span>
             <span
               className="font-black leading-tight"
               style={{
-                color: '#fff',
+                color: '#ffffff',
                 fontSize: `${sizes.depositKode * 0.7 + 3}px`,
-                textShadow: '2px 2px 0 #000'
+                textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
               }}
             >
               {trik.depositKode}
@@ -276,14 +276,14 @@ function PokerTrikPanel({
               pointerEvents: hideFiturGanda ? 'none' : 'auto'
             }}
           >
-            <span className="block leading-tight font-semibold" style={{ fontSize: `${sizes.label * 0.9 + 3}px`, color: `${accentColor}cc` }}>
+            <span className="block leading-tight font-semibold" style={{ fontSize: `${sizes.label * 0.9 + 3}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               FITUR GANDA
             </span>
             <span
               className={`font-bold px-2 py-0.5 inline-block rounded-full ${
-                trik.fiturGanda ? 'bg-green-600 text-white' : 'bg-red-600 text-white'
+                trik.fiturGanda ? 'bg-green-600' : 'bg-red-600'
               }`}
-              style={{ fontSize: `${sizes.value * 0.85 + 3}px` }}
+              style={{ fontSize: `${sizes.value * 0.85 + 3}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
             >
               {trik.fiturGanda ? 'ON' : 'OFF'}
             </span>
@@ -291,10 +291,10 @@ function PokerTrikPanel({
 
           {/* Putaran Bet */}
           <div className="flex-1 text-center">
-            <span className="block leading-tight font-semibold" style={{ fontSize: `${sizes.label * 0.9 + 3}px`, color: `${accentColor}cc` }}>
+            <span className="block leading-tight font-semibold" style={{ fontSize: `${sizes.label * 0.9 + 3}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               PUTARAN BET
             </span>
-            <span className="font-bold leading-tight text-white" style={{ fontSize: `${sizes.value * 0.85 + 3}px`, textShadow: '1px 1px 0 #000' }}>
+            <span className="font-bold leading-tight" style={{ fontSize: `${sizes.value * 0.85 + 3}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               {trik.putaranBetMin.toLocaleString()} - {trik.putaranBetMax.toLocaleString()}
             </span>
           </div>
@@ -313,10 +313,10 @@ function PokerTrikPanel({
                 borderLeft: `4px solid ${accentColor}`
               }}
             >
-              <span className="text-white font-semibold flex-1 text-left" style={{ fontSize: `${sizes.itemName}px` }}>
+              <span className="font-semibold flex-1 text-left" style={{ fontSize: `${sizes.itemName}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
                 {item.name}
               </span>
-              <span className="font-bold flex-1 text-center" style={{ fontSize: `${sizes.itemValue}px`, color: accentColor }}>
+              <span className="font-bold flex-1 text-center" style={{ fontSize: `${sizes.itemValue}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
                 {item.value}
               </span>
               <div className="flex-1 flex justify-end">
@@ -339,7 +339,7 @@ function PokerTrikPanel({
           >
             <p
               className="font-bold uppercase leading-tight"
-              style={{ fontSize: `${sizes.value}px`, textShadow: '1px 1px 0 #000', color: accentColor }}
+              style={{ fontSize: `${sizes.value}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
             >
               {trik.customText}
             </p>
@@ -410,9 +410,9 @@ function PokerProviderSection({
             <h2
               className="font-black tracking-wider"
               style={{
-                color: accentColor,
+                color: '#ffffff',
                 fontSize: '22px',
-                textShadow: '2px 2px 0 #000, -1px -1px 0 #000'
+                textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
               }}
             >
               {title}
@@ -508,8 +508,8 @@ export default function CustomizableLayout5({
         <h1
           className={`${getFontSizeClass()} font-black uppercase tracking-wider leading-tight text-center`}
           style={{
-            color: accentColor,
-            textShadow: '3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000'
+            color: '#ffffff',
+            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
           }}
         >
           {customHeaderText}
@@ -547,14 +547,14 @@ export default function CustomizableLayout5({
           <div className="flex items-center gap-3">
             <span
               className="font-bold"
-              style={{ fontSize: '20px', textShadow: '1px 1px 0 #000', color: accentColor }}
+              style={{ fontSize: '20px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
             >
               {customTimeLabel}
             </span>
-            <span style={{ color: `${accentColor}80` }}>|</span>
+            <span style={{ color: '#ffffff' }}>|</span>
             <span
               className="font-medium"
-              style={{ fontSize: '18px', textShadow: '1px 1px 0 #000', color: `${accentColor}cc` }}
+              style={{ fontSize: '18px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
             >
               {getCurrentDate()}
             </span>
@@ -612,7 +612,7 @@ export default function CustomizableLayout5({
           </svg>
           <span
             className="text-sm font-bold"
-            style={{ textShadow: '1px 1px 0 #000', color: accentColor }}
+            style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
           >
             {footerConfig.footer1 || `Join: @${telegramUsername || selectedWebsite.name.toLowerCase().replace(/[^a-z0-9]/g, '')}`}
           </span>

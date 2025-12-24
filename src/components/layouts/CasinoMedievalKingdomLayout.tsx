@@ -116,9 +116,9 @@ function MedievalGameCard({ game, rtp, primaryColor, secondaryColor, sealNumber,
           <div
             className="text-xs font-bold mb-1 truncate px-1"
             style={{
-              color: primaryColor,
+              color: '#ffffff',
               fontFamily: 'serif',
-              textShadow: `0 2px 4px rgba(0,0,0,0.8), 0 0 8px ${primaryColor}60`,
+              textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
               letterSpacing: '0.5px'
             }}
           >
@@ -336,8 +336,8 @@ export default function CasinoMedievalKingdomLayout({
               <h1
                 className="text-xl font-bold tracking-wider mb-1"
                 style={{
-                  color: primaryColor,
-                  textShadow: `0 0 20px ${primaryColor}, 0 4px 8px rgba(0,0,0,0.8), 0 0 40px ${secondaryColor}`,
+                  color: '#ffffff',
+                  textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
                   letterSpacing: '3px'
                 }}
               >
@@ -347,7 +347,8 @@ export default function CasinoMedievalKingdomLayout({
                 <span
                   className="px-3 py-1 rounded"
                   style={{
-                    color: secondaryColor,
+                    color: '#ffffff',
+                    textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
                     background: 'rgba(0,0,0,0.5)',
                     border: `1px solid ${secondaryColor}40`,
                     fontFamily: 'serif',
@@ -359,7 +360,8 @@ export default function CasinoMedievalKingdomLayout({
                 <span
                   className="px-3 py-1 rounded"
                   style={{
-                    color: primaryColor,
+                    color: '#ffffff',
+                    textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
                     background: 'rgba(0,0,0,0.5)',
                     border: `1px solid ${primaryColor}40`,
                     fontFamily: 'serif',
@@ -686,8 +688,8 @@ export default function CasinoMedievalKingdomLayout({
             <span
               className="text-xl font-bold tracking-wider"
               style={{
-                color: primaryColor,
-                textShadow: `0 0 15px ${primaryColor}, 0 2px 4px rgba(0,0,0,0.8)`,
+                color: '#ffffff',
+                textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
                 fontFamily: 'serif',
                 letterSpacing: '2px'
               }}

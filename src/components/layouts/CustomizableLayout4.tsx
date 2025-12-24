@@ -216,15 +216,15 @@ function HolographicTrikPanel({
         >
           {/* Deposit Kode */}
           <div className="flex-1 text-center">
-            <span className="text-gray-400 block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               DEPOSIT KODE
             </span>
             <span
               className="font-black leading-tight"
               style={{
-                color: providerColor,
+                color: '#ffffff',
                 fontSize: `${sizes.depositKode * 0.7}px`,
-                textShadow: `-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 15px ${providerColor}`
+                textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
               }}
             >
               {trik.depositKode}
@@ -239,14 +239,14 @@ function HolographicTrikPanel({
               pointerEvents: hideFiturGanda ? 'none' : 'auto'
             }}
           >
-            <span className="text-gray-400 block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               FITUR GANDA
             </span>
             <span
               className={`font-bold px-2 py-0.5 rounded-full inline-block ${
-                trik.fiturGanda ? 'bg-green-500/30 text-green-400' : 'bg-red-500/30 text-red-400'
+                trik.fiturGanda ? 'bg-green-500/30' : 'bg-red-500/30'
               }`}
-              style={{ fontSize: `${sizes.value * 0.85}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+              style={{ fontSize: `${sizes.value * 0.85}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
             >
               {trik.fiturGanda ? 'ON' : 'OFF'}
             </span>
@@ -254,10 +254,10 @@ function HolographicTrikPanel({
 
           {/* Putaran Bet */}
           <div className="flex-1 text-center">
-            <span className="text-gray-400 block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               PUTARAN BET
             </span>
-            <span className="font-bold text-white leading-tight" style={{ fontSize: `${sizes.value * 0.85}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+            <span className="font-bold leading-tight" style={{ fontSize: `${sizes.value * 0.85}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               {trik.putaranBetMin.toLocaleString()} - {trik.putaranBetMax.toLocaleString()}
             </span>
           </div>
@@ -275,10 +275,10 @@ function HolographicTrikPanel({
                 border: '1px solid rgba(255,255,255,0.08)'
               }}
             >
-              <span className="text-white font-semibold flex-1 text-left" style={{ fontSize: `${sizes.itemName}px` }}>
+              <span className="font-semibold flex-1 text-left" style={{ fontSize: `${sizes.itemName}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
                 {item.name}
               </span>
-              <span className="font-bold flex-1 text-center" style={{ color: providerColor, fontSize: `${sizes.itemValue}px` }}>
+              <span className="font-bold flex-1 text-center" style={{ color: '#ffffff', fontSize: `${sizes.itemValue}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
                 {item.value}
               </span>
               <div className="flex-1 flex justify-end">
@@ -301,8 +301,9 @@ function HolographicTrikPanel({
             <p
               className="font-bold uppercase leading-tight"
               style={{
-                color: providerColor,
-                fontSize: `${sizes.value}px`
+                color: '#ffffff',
+                fontSize: `${sizes.value}px`,
+                textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
               }}
             >
               {trik.customText}
@@ -358,9 +359,9 @@ function GlassGameModal({
         <h2
           className="font-bold"
           style={{
-            color: 'white',
+            color: '#ffffff',
             fontSize: '18px',
-            textShadow: `0 0 20px ${providerColor}`
+            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
           }}
         >
           {title}
@@ -461,8 +462,8 @@ export default function CustomizableLayout4({
         <h1
           className={`${getFontSizeClass()} font-black uppercase tracking-wider leading-tight text-center flex-1`}
           style={{
-            color: 'white',
-            textShadow: `0 0 30px ${selectedStyle.primaryColor}, 0 0 60px ${selectedStyle.primaryColor}50`
+            color: '#ffffff',
+            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
           }}
         >
           {customHeaderText}
@@ -482,13 +483,13 @@ export default function CustomizableLayout4({
       >
         <div className="flex items-center gap-4">
           <span
-            className="font-bold text-white"
-            style={{ fontSize: '20px', textShadow: '0 0 10px rgba(255,255,255,0.5)' }}
+            className="font-bold"
+            style={{ fontSize: '20px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
           >
             {customTimeLabel}
           </span>
-          <span className="text-gray-500 text-xl">•</span>
-          <span className="text-white font-medium" style={{ fontSize: '18px' }}>
+          <span className="text-xl" style={{ color: '#ffffff' }}>•</span>
+          <span className="font-medium" style={{ fontSize: '18px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
             {getCurrentDate()}
           </span>
           {/* Live Indicator */}
@@ -626,7 +627,7 @@ export default function CustomizableLayout4({
           <svg width="20" height="20" viewBox="0 0 24 24" fill="white" style={{ opacity: 0.8 }}>
             <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 11.944 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
           </svg>
-          <span className="text-base font-bold text-white" style={{ opacity: 0.9 }}>
+          <span className="text-base font-bold" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
             {footerConfig.footer1 || `Join Telegram: @${telegramUsername || selectedWebsite.name.toLowerCase().replace(/[^a-z0-9]/g, '')}`}
           </span>
         </div>

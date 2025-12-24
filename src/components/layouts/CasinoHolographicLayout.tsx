@@ -66,9 +66,9 @@ function HolographicGameCard({ game, rtp, primaryColor, secondaryColor, moduleId
 
           <div className="text-center">
             <div className="text-xs font-bold mb-1.5 truncate" style={{
-              color: primaryColor,
+              color: '#ffffff',
               fontFamily: 'monospace',
-              textShadow: `0 0 8px ${primaryColor}`,
+              textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
               letterSpacing: '1px'
             }}>
               {game.name.toUpperCase()}
@@ -196,15 +196,14 @@ export default function CasinoHolographicLayout({
               style={{ height: '60px', filter: `drop-shadow(0 0 20px ${primaryColor}cc)` }}
             />
             <h1 className="text-lg font-black tracking-wider" style={{
-              background: `linear-gradient(45deg, ${primaryColor}, ${secondaryColor})`,
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent'
+              color: '#ffffff',
+              textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
             }}>
               {customHeaderText}
             </h1>
             <div className="flex items-center gap-2 text-sm">
-              <span style={{ color: secondaryColor }}>{getCurrentDate()}</span>
-              <span style={{ color: primaryColor }}>{customTimeLabel}</span>
+              <span style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>{getCurrentDate()}</span>
+              <span style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>{customTimeLabel}</span>
             </div>
           </div>
         </div>

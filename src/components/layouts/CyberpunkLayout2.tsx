@@ -195,7 +195,7 @@ export default function CyberpunkLayout2({
             <div className="w-3 h-3 rounded-full bg-yellow-500" />
             <div className="w-3 h-3 rounded-full bg-green-500" />
           </div>
-          <span className="font-mono text-sm ml-2" style={{ color: primaryColor }}>
+          <span className="font-mono text-sm ml-2" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
             CYBER_RTP_TERMINAL_v2.0
           </span>
         </div>
@@ -209,22 +209,22 @@ export default function CyberpunkLayout2({
               style={{ filter: `drop-shadow(0 0 15px ${primaryColor}cc)` }}
             />
             <div>
-              <div className="font-mono text-xs mb-1" style={{ color: primaryColor }}>
+              <div className="font-mono text-xs mb-1" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
                 {'>'} SYSTEM_INITIALIZED
               </div>
-              <h1 className={`${getFontSizeClass()} font-bold text-white`}>
+              <h1 className={`${getFontSizeClass()} font-bold`} style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
                 {customHeaderText}
               </h1>
-              <div className="font-mono text-xs mt-1" style={{ color: secondaryColor }}>
+              <div className="font-mono text-xs mt-1" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
                 {'>'} RTP_MONITORING_ACTIVE
               </div>
             </div>
           </div>
           <div className="text-right font-mono">
-            <div className="text-base" style={{ color: primaryColor }}>
+            <div className="text-base" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               DATE: {getCurrentDate()}
             </div>
-            <div className="text-base font-bold" style={{ color: secondaryColor }}>
+            <div className="text-base font-bold" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               TIME: {customTimeLabel}
             </div>
             <div className="flex items-center gap-2 mt-2 justify-end">
@@ -266,17 +266,17 @@ export default function CyberpunkLayout2({
               borderLeft: `4px solid ${primaryColor}`
             }}
           >
-            <span className="font-mono text-sm" style={{ color: primaryColor }}>{'>'}</span>
+            <span className="font-mono text-sm" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>{'>'}</span>
             <img
               src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgd6JBXF6-nJ7cAuYfPpx5tAckyV8KM5guWWeV-ZIHVCUluIE8As1b41nyGJE3FSsL__ImOQ3WOOmymZmvWzECCUR5Qagtg2OdKeatK2elfcSL4rZB-ARMUXCJyWuIY8j29KomqPboqtVqgXBGNyP5LKPgjlfNKkbhnXkgGrAaZ234uQBSauAMzOvQ7zSFq/w411-h274/Pragmatic-Play-logo.png"
               className="h-10"
               style={{ filter: `drop-shadow(0 0 5px ${primaryColor}80)`, transform: 'scale(1.3)' }}
               alt="Pragmatic Play"
             />
-            <span className="font-mono font-bold" style={{ color: primaryColor }}>
+            <span className="font-mono font-bold" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               PRAGMATIC_PLAY.exe
             </span>
-            <span className="font-mono text-sm ml-auto" style={{ color: primaryColor }}>
+            <span className="font-mono text-sm ml-auto" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               [{pragmaticGamesWithRTP.length} SLOTS LOADED]
             </span>
           </div>
@@ -333,17 +333,17 @@ export default function CyberpunkLayout2({
               borderLeft: `4px solid ${secondaryColor}`
             }}
           >
-            <span className="font-mono text-sm" style={{ color: secondaryColor }}>{'>'}</span>
+            <span className="font-mono text-sm" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>{'>'}</span>
             <img
               src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiyRL8QUJ4ATALDgUz3f6Xzp8WeH_7vGwGW6KYIdsi3gC_F9HkYiTABnlxysMEFraHBkUUnc71XGjXybY7EQNqlN3-Ddz480rPdcV_CWGie6bwGds0LzTZ7JClIkg-t-nCTzMOa_qJJQV_ARXE_dbQajerSg7IyDHiDRYswEQdyRQWs6pTlcFbsTNMzbn07/w539-h303/663b3b87ed4e2097a300be14_pg-soft.png"
               className="h-10"
               style={{ filter: `drop-shadow(0 0 5px ${secondaryColor}80)`, transform: 'scale(1.3)' }}
               alt="PG Soft"
             />
-            <span className="font-mono font-bold" style={{ color: secondaryColor }}>
+            <span className="font-mono font-bold" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               PG_SOFT.exe
             </span>
-            <span className="font-mono text-sm ml-auto" style={{ color: secondaryColor }}>
+            <span className="font-mono text-sm ml-auto" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               [{pgSoftGamesWithRTP.length} SLOTS LOADED]
             </span>
           </div>
@@ -383,14 +383,14 @@ export default function CyberpunkLayout2({
             borderBottom: `1px solid ${primaryColor}`
           }}
         >
-          <span style={{ color: primaryColor }}>{'>'}</span>
+          <span style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>{'>'}</span>
           <svg width="24" height="24" viewBox="0 0 24 24" fill={primaryColor}>
             <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 11.944 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
           </svg>
-          <span className="text-lg" style={{ color: primaryColor }}>
+          <span className="text-lg" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
             CONNECT: @{telegramUsername || selectedWebsite.name.toUpperCase().replace(/[^A-Z0-9]/g, '')}
           </span>
-          <span style={{ color: secondaryColor }}>_</span>
+          <span style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>_</span>
         </div>
       </div>
     </div>

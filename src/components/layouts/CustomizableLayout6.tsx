@@ -212,9 +212,9 @@ function VegasTrikPanel({
           <h3
             className="font-black uppercase tracking-wider"
             style={{
-              color: providerColor,
+              color: '#ffffff',
               fontSize: `${sizes.title}px`,
-              textShadow: `0 0 10px ${providerColor}, 0 0 20px ${providerColor}`
+              textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
             }}
           >
             {trik.title || 'TRIK GACOR'}
@@ -240,15 +240,15 @@ function VegasTrikPanel({
         >
           {/* Deposit Kode */}
           <div className="flex-1 text-center">
-            <span className="text-gray-400 block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px` }}>
+            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               DEPOSIT KODE
             </span>
             <span
               className="font-black leading-tight"
               style={{
-                color: accentColor,
+                color: '#ffffff',
                 fontSize: `${sizes.depositKode * 0.7}px`,
-                textShadow: `0 0 10px ${accentColor}`
+                textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
               }}
             >
               {trik.depositKode}
@@ -263,15 +263,15 @@ function VegasTrikPanel({
               pointerEvents: hideFiturGanda ? 'none' : 'auto'
             }}
           >
-            <span className="text-gray-400 block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px` }}>
+            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               FITUR GANDA
             </span>
             <span
               className="font-bold inline-block"
               style={{
-                color: trik.fiturGanda ? '#00ff00' : '#ff0000',
+                color: '#ffffff',
                 fontSize: `${sizes.value * 0.85}px`,
-                textShadow: trik.fiturGanda ? '0 0 10px #00ff00' : '0 0 10px #ff0000'
+                textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
               }}
             >
               {trik.fiturGanda ? '🍀 ON' : '❌ OFF'}
@@ -280,12 +280,12 @@ function VegasTrikPanel({
 
           {/* Putaran Bet */}
           <div className="flex-1 text-center">
-            <span className="text-gray-400 block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px` }}>
+            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               PUTARAN BET
             </span>
             <span
               className="font-bold leading-tight"
-              style={{ color: primaryColor, fontSize: `${sizes.value * 0.85}px`, textShadow: `0 0 5px ${primaryColor}` }}
+              style={{ color: '#ffffff', fontSize: `${sizes.value * 0.85}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
             >
               {trik.putaranBetMin.toLocaleString()} - {trik.putaranBetMax.toLocaleString()}
             </span>
@@ -305,12 +305,12 @@ function VegasTrikPanel({
                 borderLeft: `3px solid ${providerColor}`
               }}
             >
-              <span className="text-white font-semibold flex-1 text-left" style={{ fontSize: `${sizes.itemName}px` }}>
+              <span className="font-semibold flex-1 text-left" style={{ fontSize: `${sizes.itemName}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
                 {item.name}
               </span>
               <span
                 className="font-bold flex-1 text-center"
-                style={{ color: accentColor, fontSize: `${sizes.itemValue}px`, textShadow: `0 0 5px ${accentColor}50` }}
+                style={{ color: '#ffffff', fontSize: `${sizes.itemValue}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
               >
                 {item.value}
               </span>
@@ -334,9 +334,9 @@ function VegasTrikPanel({
             <p
               className="font-bold uppercase leading-tight"
               style={{
-                color: providerColor,
+                color: '#ffffff',
                 fontSize: `${sizes.value}px`,
-                textShadow: `0 0 5px ${providerColor}`
+                textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
               }}
             >
               🎰 {trik.customText} 🎰
@@ -418,8 +418,8 @@ export default function CustomizableLayout6({
         <h1
           className={`${getFontSizeClass()} font-black uppercase tracking-wider leading-tight text-center`}
           style={{
-            color: primaryColor,
-            textShadow: `0 0 10px ${primaryColor}, 0 0 20px ${primaryColor}, 0 0 40px ${primaryColor}, 0 0 80px ${primaryColor}`
+            color: '#ffffff',
+            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
           }}
         >
           {customHeaderText}
@@ -457,14 +457,14 @@ export default function CustomizableLayout6({
           <div className="flex items-center gap-3">
             <span
               className="font-bold"
-              style={{ fontSize: '20px', color: primaryColor, textShadow: `0 0 10px ${primaryColor}` }}
+              style={{ fontSize: '20px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
             >
               {customTimeLabel}
             </span>
-            <span style={{ color: primaryColor }}>|</span>
+            <span style={{ color: '#ffffff' }}>|</span>
             <span
               className="font-medium"
-              style={{ fontSize: '18px', color: primaryColor, textShadow: `0 0 5px ${primaryColor}50` }}
+              style={{ fontSize: '18px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
             >
               {getCurrentDate()}
             </span>
@@ -504,9 +504,9 @@ export default function CustomizableLayout6({
               <h2
                 className="font-black tracking-wider"
                 style={{
-                  color: primaryColor,
+                  color: '#ffffff',
                   fontSize: '20px',
-                  textShadow: `0 0 10px ${primaryColor}, 0 0 20px ${primaryColor}`
+                  textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
                 }}
               >
                 🎰 PRAGMATIC PLAY 🎰
@@ -536,9 +536,9 @@ export default function CustomizableLayout6({
               <h2
                 className="font-black tracking-wider"
                 style={{
-                  color: primaryColor,
+                  color: '#ffffff',
                   fontSize: '20px',
-                  textShadow: `0 0 10px ${primaryColor}, 0 0 20px ${primaryColor}`
+                  textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
                 }}
               >
                 🎰 PG SOFT 🎰
@@ -648,7 +648,7 @@ export default function CustomizableLayout6({
           </svg>
           <span
             className="text-sm font-bold"
-            style={{ color: primaryColor, textShadow: `0 0 5px ${primaryColor}` }}
+            style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
           >
             {footerConfig.footer1 || `Join: @${telegramUsername || selectedWebsite.name.toLowerCase().replace(/[^a-z0-9]/g, '')}`}
           </span>

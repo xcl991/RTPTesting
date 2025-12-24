@@ -78,9 +78,9 @@ function SpaceGameCard({ game, rtp, primaryColor, secondaryColor, bayNumber, dar
 
         <div className="text-center">
           <div className="text-xs font-bold mb-1 truncate" style={{
-            color: primaryColor,
+            color: '#ffffff',
             fontFamily: 'monospace',
-            textShadow: `0 0 6px ${primaryColor}`
+            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
           }}>
             {game.name.toUpperCase()}
           </div>
@@ -270,14 +270,14 @@ export default function CasinoSpaceStationLayout({
               style={{ height: '60px', filter: `drop-shadow(0 0 20px ${primaryColor}80)` }}
             />
             <h1 className="text-lg font-bold tracking-wider" style={{
-              color: primaryColor,
-              textShadow: `0 0 20px ${primaryColor}, 0 0 40px ${primaryColor}50`
+              color: '#ffffff',
+              textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
             }}>
               {customHeaderText}
             </h1>
             <div className="flex items-center gap-2 text-sm opacity-80">
-              <span style={{ color: secondaryColor }}>{getCurrentDate()}</span>
-              <span style={{ color: primaryColor }}>{customTimeLabel}</span>
+              <span style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>{getCurrentDate()}</span>
+              <span style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>{customTimeLabel}</span>
             </div>
           </div>
         </div>
@@ -474,15 +474,15 @@ export default function CasinoSpaceStationLayout({
           <div className="relative z-10 flex flex-col items-start">
             <span
               className="text-xs font-mono uppercase tracking-widest opacity-70"
-              style={{ color: secondaryColor }}
+              style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
             >
               [COMM_CHANNEL]
             </span>
             <span
               className="text-lg font-bold font-mono tracking-wider"
               style={{
-                color: primaryColor,
-                textShadow: `0 0 10px ${primaryColor}, 0 0 20px ${primaryColor}50`
+                color: '#ffffff',
+                textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
               }}
             >
               @{telegramUsername || selectedWebsite.name.toLowerCase().replace(/[^a-z0-9]/g, '')}

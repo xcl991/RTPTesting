@@ -54,8 +54,8 @@ function CyberpunkGameCard({ game, rtp, primaryColor, secondaryColor }: Cyberpun
 
         <div className="text-center">
           <div className="text-xs font-black tracking-wider truncate" style={{
-            color: primaryColor,
-            textShadow: `0 0 10px ${primaryColor}`,
+            color: '#ffffff',
+            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
             fontFamily: 'monospace'
           }}>
             {game.name.toUpperCase()}
@@ -180,12 +180,12 @@ export default function CasinoCyberpunkLayout({
               />
             </div>
             <h1 className="text-lg font-black tracking-wider" style={{
-              color: primaryColor,
-              textShadow: `0 0 10px ${primaryColor}, 0 0 20px ${primaryColor}`
+              color: '#ffffff',
+              textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
             }}>
               {customHeaderText}
             </h1>
-            <div className="text-sm font-mono opacity-80" style={{ color: secondaryColor }}>
+            <div className="text-sm font-mono opacity-80" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               {getCurrentDate()} | {customTimeLabel}
             </div>
           </div>

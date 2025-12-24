@@ -264,8 +264,8 @@ export default function TrikPanel({
         <h3
           className={`${sizes.title} font-black uppercase tracking-wider ${isMono ? 'font-mono' : ''}`}
           style={{
-            color: providerColor,
-            textShadow: `0 0 10px ${providerColor}, 0 0 20px ${providerColor}50`
+            color: '#ffffff',
+            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
           }}
         >
           {isMono ? `> ${trik.title.replace(/\s+/g, '_')}` : trik.title}
@@ -279,16 +279,16 @@ export default function TrikPanel({
           {/* Deposit Kode Unik */}
           <div className={`rounded-lg ${sizes.itemPadding} text-center flex-1`} style={{ background: styles.itemBg }}>
             <span
-              className={`text-gray-400 block leading-tight ${isMono ? 'font-mono' : ''}`}
-              style={{ fontSize: sizes.label * 0.85 }}
+              className={`block leading-tight ${isMono ? 'font-mono' : ''}`}
+              style={{ fontSize: sizes.label * 0.85, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
             >
               {isMono ? 'DEPOSIT_KODE' : 'DEPOSIT KODE'}
             </span>
             <span
               className={`font-black leading-tight ${isMono ? 'font-mono' : ''}`}
               style={{
-                color: providerColor,
-                textShadow: `0 0 10px ${providerColor}`,
+                color: '#ffffff',
+                textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
                 fontSize: trik.fontSize === 'xs' ? '18px' : trik.fontSize === 'sm' ? '22px' : '26px'
               }}
             >
@@ -306,15 +306,16 @@ export default function TrikPanel({
             }}
           >
             <span
-              className={`text-gray-400 block leading-tight ${isMono ? 'font-mono' : ''}`}
-              style={{ fontSize: sizes.label * 0.85 }}
+              className={`block leading-tight ${isMono ? 'font-mono' : ''}`}
+              style={{ fontSize: sizes.label * 0.85, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
             >
               {isMono ? 'FITUR_GANDA' : 'FITUR GANDA'}
             </span>
             <span
               className={`${sizes.badge} font-bold px-2 py-0.5 rounded-full inline-block ${isMono ? 'font-mono' : ''} ${
-                trik.fiturGanda ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
+                trik.fiturGanda ? 'bg-green-500/20' : 'bg-red-500/20'
               }`}
+              style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
             >
               {trik.fiturGanda ? 'ON' : 'OFF'}
             </span>
@@ -323,15 +324,16 @@ export default function TrikPanel({
           {/* Putaran Bet */}
           <div className={`rounded-lg ${sizes.itemPadding} text-center flex-1`} style={{ background: styles.itemBg }}>
             <span
-              className={`text-gray-400 block leading-tight ${isMono ? 'font-mono' : ''}`}
-              style={{ fontSize: sizes.label * 0.85 }}
+              className={`block leading-tight ${isMono ? 'font-mono' : ''}`}
+              style={{ fontSize: sizes.label * 0.85, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
             >
               {isMono ? 'PUTARAN_BET' : 'PUTARAN BET'}
             </span>
             <span
               className={`font-bold leading-tight ${isMono ? 'font-mono' : ''}`}
               style={{
-                color: providerColor,
+                color: '#ffffff',
+                textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
                 fontSize: trik.fontSize === 'xs' ? '12px' : trik.fontSize === 'sm' ? '14px' : '16px'
               }}
             >
@@ -351,10 +353,10 @@ export default function TrikPanel({
               {horizontalItems ? (
                 // Horizontal layout: name | value (centered) | pattern
                 <>
-                  <span className={`text-white ${sizes.itemName} font-semibold ${isMono ? 'font-mono' : ''} flex-shrink-0 flex-1 text-left`}>
+                  <span className={`${sizes.itemName} font-semibold ${isMono ? 'font-mono' : ''} flex-shrink-0 flex-1 text-left`} style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
                     {item.name}
                   </span>
-                  <span className={`font-bold ${isMono ? 'font-mono' : ''} flex-shrink-0 text-center min-w-[60px]`} style={{ color: providerColor, fontSize: variant === 'futuristic' ? '26px' : variant === 'classic' ? '22px' : '20px' }}>
+                  <span className={`font-bold ${isMono ? 'font-mono' : ''} flex-shrink-0 text-center min-w-[60px]`} style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000', fontSize: variant === 'futuristic' ? '26px' : variant === 'classic' ? '22px' : '20px' }}>
                     {item.value}
                   </span>
                   <div className="flex-shrink-0 flex-1 flex justify-end">
@@ -365,12 +367,12 @@ export default function TrikPanel({
                 // Casino Luxury (elegant) - Keep original format: name and value stacked
                 <>
                   <div className="flex flex-col leading-tight">
-                    <span className={`text-white ${sizes.itemName} font-semibold ${isMono ? 'font-mono' : ''}`}>
+                    <span className={`${sizes.itemName} font-semibold ${isMono ? 'font-mono' : ''}`} style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
                       {item.name}
                     </span>
                     <span
                       className={`font-bold ${isMono ? 'font-mono' : ''}`}
-                      style={{ color: providerColor, fontSize: sizes.itemValue }}
+                      style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000', fontSize: sizes.itemValue }}
                     >
                       {item.value}
                     </span>
@@ -380,18 +382,18 @@ export default function TrikPanel({
               ) : (
                 // Other layouts: name | value | pattern (automatic format - compact)
                 <div className="flex items-center justify-between leading-tight w-full">
-                  <span className={`text-white ${sizes.itemName} font-semibold ${isMono ? 'font-mono' : ''} flex-1 text-left`}>
+                  <span className={`${sizes.itemName} font-semibold ${isMono ? 'font-mono' : ''} flex-1 text-left`} style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
                     {item.name}
                   </span>
                   <div className="flex items-center gap-2 flex-shrink-0">
-                    <span className="text-gray-500" style={{ fontSize: sizes.itemValue }}>|</span>
+                    <span style={{ fontSize: sizes.itemValue, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>|</span>
                     <span
                       className={`font-bold ${isMono ? 'font-mono' : ''} min-w-[40px] text-center`}
-                      style={{ color: providerColor, fontSize: sizes.itemValue }}
+                      style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000', fontSize: sizes.itemValue }}
                     >
                       {item.value}
                     </span>
-                    <span className="text-gray-500" style={{ fontSize: sizes.itemValue }}>|</span>
+                    <span style={{ fontSize: sizes.itemValue, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>|</span>
                     <PatternDisplay pattern={item.pattern} iconSize={sizes.iconSize} />
                   </div>
                 </div>
@@ -412,8 +414,8 @@ export default function TrikPanel({
             <p
               className={`font-bold uppercase leading-tight ${isMono ? 'font-mono' : ''}`}
               style={{
-                color: providerColor,
-                textShadow: `0 0 5px ${providerColor}50`,
+                color: '#ffffff',
+                textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
                 fontSize: sizes.customText
               }}
             >

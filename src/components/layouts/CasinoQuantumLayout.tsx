@@ -77,9 +77,9 @@ function QuantumGameCard({ game, rtp, primaryColor, secondaryColor, quantumId, d
 
         <div className="text-center">
           <div className="text-xs font-bold mb-1 truncate" style={{
-            color: primaryColor,
+            color: '#ffffff',
             fontFamily: 'monospace',
-            textShadow: `0 0 6px ${primaryColor}`
+            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
           }}>
             {game.name.toUpperCase()}
           </div>
@@ -214,14 +214,14 @@ export default function CasinoQuantumLayout({
               style={{ height: '60px', filter: `drop-shadow(0 0 15px ${primaryColor}cc)` }}
             />
             <h1 className="text-lg font-black tracking-wider" style={{
-              color: primaryColor,
-              textShadow: `0 0 15px ${primaryColor}, 0 0 30px ${primaryColor}60`
+              color: '#ffffff',
+              textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
             }}>
               {customHeaderText}
             </h1>
             <div className="flex items-center gap-2 text-sm">
-              <span style={{ color: secondaryColor }}>{getCurrentDate()}</span>
-              <span style={{ color: primaryColor }}>{customTimeLabel}</span>
+              <span style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>{getCurrentDate()}</span>
+              <span style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>{customTimeLabel}</span>
             </div>
           </div>
         </div>
