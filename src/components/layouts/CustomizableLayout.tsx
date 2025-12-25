@@ -74,10 +74,10 @@ function GameCard3x1({ game, rtp, style, cardSize, darkPrimary }: { game: Game; 
         }}
       >
         <h3
-          className="text-white font-bold text-[10px] leading-tight"
+          className="text-white font-bold text-[15px] leading-tight"
           style={{
             overflow: 'hidden',
-            height: '22px',
+            height: '26px',
             display: '-webkit-box',
             WebkitLineClamp: 2,
             WebkitBoxOrient: 'vertical'
@@ -176,16 +176,16 @@ function AdaptiveTrikPanel({
         className="flex-1 flex flex-col justify-between overflow-hidden"
         style={{ padding: `${sizes.padding}px`, gap: `${sizes.gap}px` }}
       >
-        {/* Deposit Kode | Fitur Ganda | Putaran Bet - 1 Row */}
+        {/* Deposit Kode | Fitur Ganda | Putaran Bet - 1 Row - +10% height */}
         <div
           className="flex items-stretch gap-2 rounded-lg"
-          style={{ background: `${darkerPrimary}80`, padding: `${sizes.padding}px` }}
+          style={{ background: `${darkerPrimary}80`, padding: `${Math.floor(sizes.padding * 1.10)}px` }}
         >
-          {/* Deposit Kode - Left */}
+          {/* Deposit Kode - Left - +7% font */}
           <div className="flex-1 text-center">
             <span
               className="block leading-tight"
-              style={{ fontSize: `${sizes.label * 0.9}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+              style={{ fontSize: `${sizes.label * 0.9 * 1.07}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
             >
               DEPOSIT KODE
             </span>
@@ -193,7 +193,7 @@ function AdaptiveTrikPanel({
               className="font-black leading-tight"
               style={{
                 color: '#ffffff',
-                fontSize: `${sizes.depositKode * 0.7}px`,
+                fontSize: `${sizes.depositKode * 0.7 * 1.07}px`,
                 textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
               }}
             >
@@ -201,7 +201,7 @@ function AdaptiveTrikPanel({
             </span>
           </div>
 
-          {/* Fitur Ganda - Center (hidden for PG Soft) */}
+          {/* Fitur Ganda - Center (hidden for PG Soft) - +7% font */}
           <div
             className="flex-1 text-center flex flex-col justify-center"
             style={{
@@ -211,7 +211,7 @@ function AdaptiveTrikPanel({
           >
             <span
               className="block leading-tight"
-              style={{ fontSize: `${sizes.label * 0.9}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+              style={{ fontSize: `${sizes.label * 0.9 * 1.07}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
             >
               FITUR GANDA
             </span>
@@ -219,23 +219,23 @@ function AdaptiveTrikPanel({
               className={`font-bold px-2 py-0.5 rounded-full inline-block ${
                 trik.fiturGanda ? 'bg-green-500/20' : 'bg-red-500/20'
               }`}
-              style={{ fontSize: `${sizes.value * 0.85}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+              style={{ fontSize: `${sizes.value * 0.85 * 1.07}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
             >
               {trik.fiturGanda ? 'ON' : 'OFF'}
             </span>
           </div>
 
-          {/* Putaran Bet - Right */}
+          {/* Putaran Bet - Right - +7% font */}
           <div className="flex-1 text-center">
             <span
               className="block leading-tight"
-              style={{ fontSize: `${sizes.label * 0.9}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+              style={{ fontSize: `${sizes.label * 0.9 * 1.07}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
             >
               PUTARAN BET
             </span>
             <span
               className="font-bold leading-tight"
-              style={{ color: '#ffffff', fontSize: `${sizes.value * 0.85}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+              style={{ color: '#ffffff', fontSize: `${sizes.value * 0.85 * 1.07}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
             >
               {trik.putaranBetMin.toLocaleString()} - {trik.putaranBetMax.toLocaleString()}
             </span>

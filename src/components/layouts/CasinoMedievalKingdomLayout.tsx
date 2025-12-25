@@ -255,10 +255,9 @@ export default function CasinoMedievalKingdomLayout({
     rtp: Math.floor(Math.random() * 13) + 86
   }));
 
-  const getCardWidthClass = (count: number) => {
-    if (count === 1) return 'w-[calc(50%-0.25rem)] md:w-[calc(50%-0.25rem)]';
-    if (count === 2) return 'w-[calc(50%-0.25rem)] md:w-[calc(45%-0.25rem)]';
-    return 'w-[calc(50%-0.25rem)] md:w-[calc(33.333%-0.34rem)]';
+  // 3x1 grid - always 3 cards per row
+  const getCardWidthClass = () => {
+    return 'w-[calc(33.333%-0.34rem)]';
   };
 
   return (
@@ -470,7 +469,7 @@ export default function CasinoMedievalKingdomLayout({
 
             <div className="relative z-10 flex flex-wrap justify-center gap-3">
               {pragmaticGamesWithRTP.map((game, index) => (
-                <div key={`pragmatic-${index}`} className={getCardWidthClass(pragmaticGamesWithRTP.length)}>
+                <div key={`pragmatic-${index}`} className={getCardWidthClass()}>
                   <MedievalGameCard
                     game={game}
                     rtp={game.rtp}
@@ -584,7 +583,7 @@ export default function CasinoMedievalKingdomLayout({
 
             <div className="relative z-10 flex flex-wrap justify-center gap-3">
               {pgSoftGamesWithRTP.map((game, index) => (
-                <div key={`pgsoft-${index}`} className={getCardWidthClass(pgSoftGamesWithRTP.length)}>
+                <div key={`pgsoft-${index}`} className={getCardWidthClass()}>
                   <MedievalGameCard
                     game={game}
                     rtp={game.rtp}
