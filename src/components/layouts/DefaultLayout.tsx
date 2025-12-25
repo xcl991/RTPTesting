@@ -416,6 +416,18 @@ export default function DefaultLayout({
               {getCurrentDate()}
             </span>
           </div>
+          {/* Maxwin Button */}
+          {maxwinConfig?.enabled && maxwinConfig.buttonText && (
+            <div
+              className="flex items-center gap-1.5 px-3 py-1 rounded-full"
+              style={{
+                background: 'linear-gradient(135deg, #a855f7, #7c3aed)',
+                boxShadow: '0 0 15px #a855f7'
+              }}
+            >
+              <span className="text-xs font-black text-white">{maxwinConfig.buttonText}</span>
+            </div>
+          )}
           {/* Badge */}
           <div
             className="flex items-center gap-1.5 px-3 py-1 rounded-full"

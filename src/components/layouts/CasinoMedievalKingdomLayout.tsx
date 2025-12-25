@@ -520,6 +520,22 @@ export default function CasinoMedievalKingdomLayout({
               {getCurrentDate()}
             </span>
           </div>
+          {/* Maxwin Button - Medieval Royal Style */}
+          {maxwinConfig?.enabled && maxwinConfig.buttonText && (
+            <div
+              className="flex items-center gap-1.5 px-3 py-1 rounded-full relative"
+              style={{
+                background: `linear-gradient(135deg, #d4af37, #ffd700, #d4af37)`,
+                border: `2px solid #ffd700`,
+                boxShadow: `0 4px 12px rgba(212,175,55,0.8), inset 0 1px 0 rgba(255,255,255,0.3)`
+              }}
+            >
+              <span className="text-xs font-black" style={{ color: '#1a0a00', fontFamily: 'serif' }}>👑 {maxwinConfig.buttonText}</span>
+              {/* Corner decorations */}
+              <div className="absolute -top-0.5 -left-0.5 w-1.5 h-1.5 border-t-2 border-l-2" style={{ borderColor: '#a855f7' }} />
+              <div className="absolute -bottom-0.5 -right-0.5 w-1.5 h-1.5 border-b-2 border-r-2" style={{ borderColor: '#a855f7' }} />
+            </div>
+          )}
           {/* RTP LIVE Badge - Royal Crest Style */}
           <div
             className="flex items-center gap-1.5 px-3 py-1 rounded relative"

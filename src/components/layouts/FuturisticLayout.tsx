@@ -522,6 +522,21 @@ export default function FuturisticLayout({
               {getCurrentDate()}
             </span>
           </div>
+          {/* Hexagonal Maxwin Badge */}
+          {maxwinConfig?.enabled && maxwinConfig.buttonText && (
+            <div
+              className="px-3 py-1 relative"
+              style={{
+                background: 'linear-gradient(135deg, #a855f790, #7c3aed50)',
+                border: '2px solid #a855f7',
+                clipPath: 'polygon(20% 0%, 80% 0%, 100% 50%, 80% 100%, 20% 100%, 0% 50%)',
+                boxShadow: '0 0 20px #a855f7, inset 0 0 10px #a855f740',
+                minWidth: '85px'
+              }}
+            >
+              <span className="text-xs font-black text-white tracking-widest" style={{ fontFamily: 'monospace', textShadow: '0 0 5px #a855f7' }}>{maxwinConfig.buttonText}</span>
+            </div>
+          )}
           {/* Hexagonal RTP LIVE Badge */}
           <div
             className="px-3 py-1 relative"

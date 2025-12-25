@@ -446,6 +446,19 @@ export default function ClassicLayout({
               {getCurrentDate()}
             </span>
           </div>
+          {/* Maxwin Button */}
+          {maxwinConfig?.enabled && maxwinConfig.buttonText && (
+            <div
+              className="px-3 py-1 relative"
+              style={{
+                background: 'linear-gradient(to bottom, #c084fc, #9333ea)',
+                border: '2px solid #a855f7',
+                boxShadow: '2px 2px 0 #000, inset 0 1px 2px rgba(255,255,255,0.2)'
+              }}
+            >
+              <span className="text-xs font-black text-white" style={{ textShadow: '1px 1px 0 #000', fontFamily: 'Georgia, serif' }}>{maxwinConfig.buttonText}</span>
+            </div>
+          )}
           {/* Badge */}
           <div
             className="px-3 py-1 relative"

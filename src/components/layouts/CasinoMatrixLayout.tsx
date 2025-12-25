@@ -405,6 +405,19 @@ export default function CasinoMatrixLayout({
               {getCurrentDate()}
             </span>
           </div>
+          {/* Maxwin Button - Matrix green glow with monospace font */}
+          {maxwinConfig?.enabled && maxwinConfig.buttonText && (
+            <div
+              className="flex items-center gap-1.5 px-3 py-1 rounded-full"
+              style={{
+                background: `linear-gradient(135deg, #00ff00, #00ff41)`,
+                boxShadow: `0 0 20px #00ff00, 0 0 10px #00ff41`,
+                border: '1px solid #00ff00'
+              }}
+            >
+              <span className="text-xs font-black" style={{ color: '#000', fontFamily: 'monospace' }}>{maxwinConfig.buttonText}</span>
+            </div>
+          )}
           {/* RTP LIVE Badge */}
           <div
             className="flex items-center gap-1.5 px-3 py-1 rounded-full"

@@ -487,6 +487,29 @@ export default function CyberLayout({
               {getCurrentDate()}
             </span>
           </div>
+          {/* Maxwin Button */}
+          {maxwinConfig?.enabled && maxwinConfig.buttonText && (
+            <div
+              className="flex items-center gap-1.5 px-3 py-1 relative"
+              style={{
+                background: `linear-gradient(135deg, #ff0080, #8000ff)`,
+                boxShadow: `0 0 15px #ff0080, 0 0 5px #8000ff`,
+                clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
+                borderLeft: `2px solid #ff0080`,
+                borderRight: `2px solid #8000ff`
+              }}
+            >
+              {/* Circuit pattern overlay */}
+              <div
+                className="absolute inset-0 opacity-20 pointer-events-none"
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Cpath d='M0 10h10M10 0v10M10 10h10M10 10v10' stroke='white' fill='none'/%3E%3C/svg%3E")`,
+                  backgroundSize: '20px 20px'
+                }}
+              />
+              <span className="text-xs font-black text-white uppercase relative z-10" style={{ textShadow: '0 0 5px #000, 1px 1px 2px #000' }}>{maxwinConfig.buttonText}</span>
+            </div>
+          )}
           {/* RTP LIVE Badge - Angular badge with circuit pattern */}
           <div
             className="flex items-center gap-1.5 px-3 py-1 relative"

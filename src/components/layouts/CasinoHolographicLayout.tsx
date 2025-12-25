@@ -517,6 +517,29 @@ export default function CasinoHolographicLayout({
               {getCurrentDate()}
             </span>
           </div>
+          {/* Maxwin Button - Holographic rainbow shimmer effect */}
+          {maxwinConfig?.enabled && maxwinConfig.buttonText && (
+            <div
+              className="flex items-center gap-1.5 px-3 py-1 rounded-full relative"
+              style={{
+                background: `linear-gradient(135deg, ${primaryColor}50, ${secondaryColor}50, #ff00ff50, #00ffff50)`,
+                backdropFilter: 'blur(10px)',
+                border: `2px solid transparent`,
+                borderImage: `linear-gradient(135deg, ${primaryColor}, ${secondaryColor}, #ff00ff, #00ffff) 1`,
+                boxShadow: `0 0 20px ${primaryColor}60, 0 0 30px ${secondaryColor}40, inset 0 0 20px rgba(255,255,255,0.15)`
+              }}
+            >
+              {/* Holographic shimmer animation */}
+              <div
+                className="absolute inset-0 rounded-full pointer-events-none opacity-60"
+                style={{
+                  background: `linear-gradient(90deg, transparent 10%, ${primaryColor}50 30%, ${secondaryColor}50 50%, #ff00ff50 70%, transparent 90%)`,
+                  backgroundSize: '300% 100%'
+                }}
+              />
+              <span className="text-xs font-black text-white relative z-10" style={{ textShadow: '0 0 10px rgba(0,0,0,0.8), 1px 1px 2px #000' }}>{maxwinConfig.buttonText}</span>
+            </div>
+          )}
           {/* RTP LIVE indicator - Prism/rainbow effect */}
           <div
             className="flex items-center gap-1.5 px-3 py-1 rounded-full relative"

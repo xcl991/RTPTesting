@@ -574,6 +574,29 @@ export default function CasinoCyberpunkLayout({
             </span>
           </div>
 
+          {/* Maxwin Button - Cyberpunk Glitch Style */}
+          {maxwinConfig?.enabled && maxwinConfig.buttonText && (
+            <div
+              className="flex items-center gap-1.5 px-3 py-1 relative"
+              style={{
+                background: `linear-gradient(135deg, #ff00ff, #00ffff, #ff00ff)`,
+                border: `1px solid #00ffff`,
+                boxShadow: `0 0 20px #ff00ff80, 0 0 10px #00ffff60, inset 0 0 15px rgba(0,255,255,0.2)`,
+                borderRadius: '2px',
+                clipPath: 'polygon(4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px)'
+              }}
+            >
+              <div className="absolute top-0 left-0 w-1 h-1 border-t border-l" style={{ borderColor: '#ff00ff' }} />
+              <div className="absolute bottom-0 right-0 w-1 h-1 border-b border-r" style={{ borderColor: '#ff00ff' }} />
+              <div className="w-1.5 h-1.5 animate-pulse" style={{ background: '#ff00ff', boxShadow: '0 0 8px #ff00ff', clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)' }} />
+              <span className="text-xs font-black text-white relative" style={{ fontFamily: 'monospace', letterSpacing: '0.1em' }}>
+                {maxwinConfig.buttonText}
+              </span>
+              {/* Scanning line animation */}
+              <div className="absolute inset-0 opacity-30 pointer-events-none" style={{ background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, #00ffff 2px, #00ffff 3px)' }} />
+            </div>
+          )}
+
           {/* RTP LIVE Badge - Cyberpunk Style */}
           <div
             className="flex items-center gap-1.5 px-3 py-1 relative"

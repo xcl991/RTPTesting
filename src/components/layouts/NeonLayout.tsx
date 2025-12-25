@@ -488,6 +488,20 @@ export default function NeonLayout({
               {getCurrentDate()}
             </span>
           </div>
+          {/* Maxwin Button */}
+          {maxwinConfig?.enabled && maxwinConfig.buttonText && (
+            <div
+              className="flex items-center gap-1.5 px-3 py-1 rounded-full"
+              style={{
+                background: `linear-gradient(135deg, #a855f7, #7c3aed)`,
+                boxShadow: `0 0 15px #a855f7, 0 0 25px #a855f780, 0 0 35px #a855f760`,
+                border: `2px solid #a855f7`,
+                animation: 'pulse 2s ease-in-out infinite'
+              }}
+            >
+              <span className="text-xs font-black text-white" style={{ textShadow: '0 0 5px #a855f7' }}>{maxwinConfig.buttonText}</span>
+            </div>
+          )}
           {/* RTP LIVE badge with pulsing glow */}
           <div
             className="flex items-center gap-1.5 px-3 py-1 rounded-full"

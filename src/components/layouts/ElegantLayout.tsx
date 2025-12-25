@@ -514,6 +514,20 @@ export default function ElegantLayout({
               {getCurrentDate()}
             </span>
           </div>
+          {/* Maxwin Button */}
+          {maxwinConfig?.enabled && maxwinConfig.buttonText && (
+            <div
+              className="flex items-center gap-1.5 px-3 py-1 rounded"
+              style={{
+                background: `linear-gradient(135deg, #d4af37e6, #c9a72ae6)`,
+                boxShadow: `0 0 12px #d4af3760, inset 0 1px 0 rgba(255,255,255,0.25), inset 0 -1px 0 rgba(0,0,0,0.25)`,
+                border: `1px solid #d4af37`,
+                borderRadius: '4px'
+              }}
+            >
+              <span style={{ fontFamily: 'Georgia, serif', fontSize: '11px', fontWeight: 700, color: '#ffffff', letterSpacing: '0.5px', textShadow: '0 1px 2px rgba(0,0,0,0.5)' }}>{maxwinConfig.buttonText}</span>
+            </div>
+          )}
           {/* RTP LIVE badge */}
           <div
             className="flex items-center gap-1.5 px-3 py-1 rounded"

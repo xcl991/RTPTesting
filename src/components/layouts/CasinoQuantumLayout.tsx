@@ -552,18 +552,35 @@ export default function CasinoQuantumLayout({
           </span>
         </div>
 
-        {/* RTP LIVE Badge */}
-        <div
-          className="flex items-center gap-1.5 px-3 py-1 rounded relative z-10"
-          style={{
-            background: primaryColor,
-            boxShadow: `0 0 15px ${primaryColor}, 0 0 8px ${secondaryColor}`,
-            border: `1px solid ${secondaryColor}`
-          }}
-        >
-          <div className="w-2 h-2 rounded-full bg-white animate-pulse" style={{ boxShadow: `0 0 6px ${secondaryColor}` }} />
-          <span className="text-xs font-black text-black">RTP LIVE</span>
-          <div className="absolute -top-1 -right-1 w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: secondaryColor, boxShadow: `0 0 6px ${secondaryColor}` }} />
+        <div className="flex items-center gap-2 relative z-10">
+          {/* Maxwin Button */}
+          {maxwinConfig?.enabled && maxwinConfig.buttonText && (
+            <div
+              className="flex items-center gap-1.5 px-3 py-1 rounded-full"
+              style={{
+                background: `linear-gradient(135deg, #a855f7, #7c3aed)`,
+                boxShadow: `0 0 15px #a855f7, 0 0 8px #6366f1`,
+                border: '1px solid #c084fc'
+              }}
+            >
+              <span style={{ fontSize: '14px' }}>⚛</span>
+              <span className="text-xs font-black text-white">{maxwinConfig.buttonText}</span>
+            </div>
+          )}
+
+          {/* RTP LIVE Badge */}
+          <div
+            className="flex items-center gap-1.5 px-3 py-1 rounded"
+            style={{
+              background: primaryColor,
+              boxShadow: `0 0 15px ${primaryColor}, 0 0 8px ${secondaryColor}`,
+              border: `1px solid ${secondaryColor}`
+            }}
+          >
+            <div className="w-2 h-2 rounded-full bg-white animate-pulse" style={{ boxShadow: `0 0 6px ${secondaryColor}` }} />
+            <span className="text-xs font-black text-black">RTP LIVE</span>
+            <div className="absolute -top-1 -right-1 w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: secondaryColor, boxShadow: `0 0 6px ${secondaryColor}` }} />
+          </div>
         </div>
       </div>
 

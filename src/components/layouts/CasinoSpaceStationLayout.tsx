@@ -492,7 +492,7 @@ export default function CasinoSpaceStationLayout({
           />
         </div>
 
-        {/* Time, Date & RTP LIVE Badge */}
+        {/* Time, Date & Badges */}
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-3">
             <span
@@ -509,6 +509,22 @@ export default function CasinoSpaceStationLayout({
               {getCurrentDate()}
             </span>
           </div>
+
+          {/* Maxwin Button - Space Command Style */}
+          {maxwinConfig?.enabled && maxwinConfig.buttonText && (
+            <div
+              className="flex items-center gap-1.5 px-3 py-1 rounded"
+              style={{
+                background: `linear-gradient(135deg, #0ea5e9dd, ${adjustColor('#0ea5e9', 20)})`,
+                border: '2px solid #38bdf8',
+                boxShadow: '0 0 15px #0ea5e980, inset 0 0 10px rgba(255,255,255,0.1)'
+              }}
+            >
+              <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" style={{ boxShadow: '0 0 6px #fff' }} />
+              <span className="text-xs font-black text-white" style={{ fontFamily: 'monospace' }}>{maxwinConfig.buttonText}</span>
+            </div>
+          )}
+
           {/* RTP LIVE Badge - Mission Control Style */}
           <div
             className="flex items-center gap-1.5 px-3 py-1 rounded"
