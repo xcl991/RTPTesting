@@ -92,8 +92,8 @@ function PokerGameCard({ game, rtp, cardSize, accentColor }: { game: Game; rtp: 
       <div className="absolute bottom-1 left-1" style={{ color: accentColor, fontSize: '10px', fontWeight: 'bold' }}>♣</div>
       <div className="absolute bottom-1 right-1 text-red-500 text-[10px] font-bold">♦</div>
 
-      {/* Game Image - Height +5% */}
-      <div className="relative w-full overflow-hidden" style={{ height: `${Math.floor(cardSize * 1.05)}px` }}>
+      {/* Game Image */}
+      <div className="relative w-full overflow-hidden" style={{ height: `${cardSize}px` }}>
         <img
           src={game.src}
           alt={game.name}
@@ -378,7 +378,7 @@ function PokerProviderSection({
   const adjustedTrikWidth = trikPanelWidth - 150;
   const baseAvailableWidth = trik.enabled ? (980 - adjustedTrikWidth - 16) : 980;
   const baseCardSize = Math.floor(baseAvailableWidth / 3.2);
-  const cardSize = Math.floor(baseCardSize * 0.9 * 1.15); // +15% modal height
+  const cardSize = Math.floor(baseCardSize * 0.9);
 
   const darkPrimary = adjustColor(primaryColor, -30);
   const darkerPrimary = adjustColor(primaryColor, -50);

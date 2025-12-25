@@ -50,8 +50,8 @@ function NeonGameCard({ game, rtp, style, cardSize, darkPrimary, darkerPrimary }
       <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2" style={{ borderColor: style.secondaryColor }} />
       <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2" style={{ borderColor: style.secondaryColor }} />
 
-      {/* Game Image - +5% height */}
-      <div className="relative w-full overflow-hidden" style={{ height: `${Math.floor(cardSize * 1.05)}px` }}>
+      {/* Game Image */}
+      <div className="relative w-full overflow-hidden" style={{ height: `${cardSize}px` }}>
         <img
           src={game.src}
           alt={game.name}
@@ -209,26 +209,26 @@ function CyberpunkTrikPanel({
         className="flex-1 flex flex-col overflow-hidden"
         style={{ padding: `${sizes.padding}px`, gap: `${sizes.gap}px` }}
       >
-        {/* Deposit Kode | Fitur Ganda | Putaran Bet - 1 Row - +10% height */}
+        {/* Deposit Kode | Fitur Ganda | Putaran Bet - 1 Row */}
         <div
           className="flex items-stretch gap-2"
           style={{
             background: `linear-gradient(90deg, ${providerColor}10, ${providerColor}20, ${providerColor}10)`,
-            padding: `${Math.floor(sizes.padding * 1.10)}px`,
+            padding: `${sizes.padding}px`,
             border: `1px solid ${providerColor}40`,
             clipPath: 'polygon(5px 0, calc(100% - 5px) 0, 100% 5px, 100% calc(100% - 5px), calc(100% - 5px) 100%, 5px 100%, 0 calc(100% - 5px), 0 5px)'
           }}
         >
-          {/* Deposit Kode - +7% font */}
+          {/* Deposit Kode */}
           <div className="flex-1 text-center">
-            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9 * 1.07}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               DEPOSIT KODE
             </span>
             <span
               className="font-black leading-tight"
               style={{
                 color: '#ffffff',
-                fontSize: `${sizes.depositKode * 0.7 * 1.07}px`,
+                fontSize: `${sizes.depositKode * 0.7}px`,
                 textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
               }}
             >
@@ -236,7 +236,7 @@ function CyberpunkTrikPanel({
             </span>
           </div>
 
-          {/* Fitur Ganda - Center - +7% font */}
+          {/* Fitur Ganda - Center */}
           <div
             className="flex-1 text-center flex flex-col justify-center"
             style={{
@@ -244,7 +244,7 @@ function CyberpunkTrikPanel({
               pointerEvents: hideFiturGanda ? 'none' : 'auto'
             }}
           >
-            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9 * 1.07}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               FITUR GANDA
             </span>
             <span
@@ -252,7 +252,7 @@ function CyberpunkTrikPanel({
                 trik.fiturGanda ? 'bg-green-500/20' : 'bg-red-500/20'
               }`}
               style={{
-                fontSize: `${sizes.value * 0.85 * 1.07}px`,
+                fontSize: `${sizes.value * 0.85}px`,
                 color: '#ffffff',
                 textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
               }}
@@ -261,16 +261,16 @@ function CyberpunkTrikPanel({
             </span>
           </div>
 
-          {/* Putaran Bet - +7% font */}
+          {/* Putaran Bet */}
           <div className="flex-1 text-center">
-            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9 * 1.07}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               PUTARAN BET
             </span>
             <span
               className="font-bold leading-tight"
               style={{
                 color: '#ffffff',
-                fontSize: `${sizes.value * 0.85 * 1.07}px`,
+                fontSize: `${sizes.value * 0.85}px`,
                 textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
               }}
             >
@@ -364,7 +364,7 @@ function NeonProviderSection({
   const adjustedTrikWidth = trikPanelWidth - 170;
   const baseAvailableWidth = trik.enabled ? (980 - adjustedTrikWidth - 16) : 980;
   const baseCardSize = Math.floor(baseAvailableWidth / 3.2);
-  const cardSize = Math.floor(baseCardSize * 0.9 * 1.15); // +15% modal height
+  const cardSize = Math.floor(baseCardSize * 0.9);
 
   return (
     <div className="flex-1 flex gap-3 overflow-hidden items-center" style={{ minHeight: 0 }}>

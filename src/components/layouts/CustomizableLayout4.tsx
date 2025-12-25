@@ -56,8 +56,8 @@ function GlassGameCard({ game, rtp, style, cardSize }: { game: Game; rtp: number
         }}
       />
 
-      {/* Game Image - +5% height */}
-      <div className="relative w-full overflow-hidden rounded-t-xl" style={{ height: `${Math.floor(cardSize * 1.05) + 5}px` }}>
+      {/* Game Image */}
+      <div className="relative w-full overflow-hidden rounded-t-xl" style={{ height: `${cardSize + 5}px` }}>
         <img
           src={game.src}
           alt={game.name}
@@ -151,25 +151,23 @@ function HolographicTrikPanel({
   const totalRows = itemCount + 3;
   const darkPrimary = adjustColor(style.primaryColor, -70);
 
-  // Font sizes +5%
   const getFontSize = () => {
-    if (totalRows <= 4) return { title: 24, label: 17, depositKode: 33, value: 20, itemName: 20, itemValue: 24, icon: 24, gap: 5, padding: 6 };
-    if (totalRows <= 5) return { title: 22, label: 16, depositKode: 28, value: 18, itemName: 18, itemValue: 22, icon: 22, gap: 4, padding: 5 };
-    if (totalRows <= 6) return { title: 20, label: 15, depositKode: 24, value: 17, itemName: 17, itemValue: 20, icon: 20, gap: 3, padding: 4 };
-    return { title: 18, label: 14, depositKode: 22, value: 16, itemName: 16, itemValue: 18, icon: 18, gap: 2, padding: 3 };
+    if (totalRows <= 4) return { title: 23, label: 16, depositKode: 31, value: 19, itemName: 19, itemValue: 23, icon: 23, gap: 5, padding: 6 };
+    if (totalRows <= 5) return { title: 21, label: 15, depositKode: 27, value: 17, itemName: 17, itemValue: 21, icon: 21, gap: 4, padding: 5 };
+    if (totalRows <= 6) return { title: 19, label: 14, depositKode: 23, value: 16, itemName: 16, itemValue: 19, icon: 19, gap: 3, padding: 4 };
+    return { title: 17, label: 13, depositKode: 21, value: 15, itemName: 15, itemValue: 17, icon: 17, gap: 2, padding: 3 };
   };
 
   const sizes = getFontSize();
 
   return (
     <div
-      className="rounded-3xl overflow-hidden flex flex-col relative"
+      className="h-full rounded-3xl overflow-hidden flex flex-col relative"
       style={{
         background: 'linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02))',
         backdropFilter: 'blur(20px)',
         border: `2px solid ${providerColor}60`,
-        boxShadow: `0 8px 32px ${providerColor}20, inset 0 0 60px ${darkPrimary}4D`,
-        minHeight: '115%' // +15% trik modal height
+        boxShadow: `0 8px 32px ${providerColor}20, inset 0 0 60px ${darkPrimary}4D`
       }}
     >
       {/* Rainbow border effect */}
@@ -425,7 +423,7 @@ export default function CustomizableLayout4({
   const darkerPrimary = adjustColor(primaryColor, -85);
   const darkSecondary = adjustColor(secondaryColor, -70);
 
-  const cardSize = Math.floor(140 * 1.10); // +10% modal height
+  const cardSize = 140;
 
   return (
     <div

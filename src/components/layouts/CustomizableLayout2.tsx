@@ -43,8 +43,8 @@ function GameCard({ game, rtp, style, cardSize }: { game: Game; rtp: number; sty
         flexShrink: 0
       }}
     >
-      {/* Game Image - +5% height */}
-      <div className="relative w-full overflow-hidden" style={{ height: `${Math.floor(cardSize * 1.05) + 5}px` }}>
+      {/* Game Image - tinggi +5px */}
+      <div className="relative w-full overflow-hidden" style={{ height: `${cardSize + 5}px` }}>
         <img
           src={game.src}
           alt={game.name}
@@ -131,12 +131,12 @@ function CompactTrikPanel({
   const itemCount = trik.trikItems?.length || 0;
   const totalRows = itemCount + 3;
 
-  // Font sizes untuk compact panel - DIPERBESAR +5px, then +7%
+  // Font sizes untuk compact panel - DIPERBESAR +5px
   const getFontSize = () => {
-    if (totalRows <= 4) return { title: 25, label: 17, depositKode: 33, value: 20, itemName: 20, itemValue: 25, icon: 25, gap: 5, padding: 6 };
-    if (totalRows <= 5) return { title: 22, label: 16, depositKode: 29, value: 18, itemName: 18, itemValue: 22, icon: 22, gap: 4, padding: 5 };
-    if (totalRows <= 6) return { title: 20, label: 15, depositKode: 25, value: 17, itemName: 17, itemValue: 20, icon: 20, gap: 3, padding: 4 };
-    return { title: 18, label: 14, depositKode: 22, value: 16, itemName: 16, itemValue: 18, icon: 18, gap: 2, padding: 3 };
+    if (totalRows <= 4) return { title: 23, label: 16, depositKode: 31, value: 19, itemName: 19, itemValue: 23, icon: 23, gap: 5, padding: 6 };
+    if (totalRows <= 5) return { title: 21, label: 15, depositKode: 27, value: 17, itemName: 17, itemValue: 21, icon: 21, gap: 4, padding: 5 };
+    if (totalRows <= 6) return { title: 19, label: 14, depositKode: 23, value: 16, itemName: 16, itemValue: 19, icon: 19, gap: 3, padding: 4 };
+    return { title: 17, label: 13, depositKode: 21, value: 15, itemName: 15, itemValue: 17, icon: 17, gap: 2, padding: 3 };
   };
 
   const sizes = getFontSize();
@@ -147,8 +147,7 @@ function CompactTrikPanel({
       style={{
         background: cardStyle?.background || `linear-gradient(135deg, ${darkerPrimary} 0%, ${darkPrimary} 100%)`,
         border: `2px solid ${providerColor}`,
-        boxShadow: `0 0 15px ${providerColor}30, inset 0 0 20px ${darkerPrimary}80`,
-        minHeight: '115%' // +15% trik modal height
+        boxShadow: `0 0 15px ${providerColor}30, inset 0 0 20px ${darkerPrimary}80`
       }}
     >
       {/* Header */}
@@ -374,8 +373,8 @@ export default function CustomizableLayout2({
   const darkerPrimary = adjustColor(primaryColor, -85);
   const darkSecondary = adjustColor(secondaryColor, -70);
 
-  // Card size untuk 3 game per side (total 6 games dalam 1 row) - +15% modal height
-  const cardSize = Math.floor(140 * 1.15);
+  // Card size untuk 3 game per side (total 6 games dalam 1 row)
+  const cardSize = 140;
 
   return (
     <div
