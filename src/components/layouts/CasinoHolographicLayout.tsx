@@ -1,7 +1,6 @@
 'use client';
 
-import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig } from '@/types';
-import TrikPanel from '../TrikPanel';
+import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig } from '@/types';
 
 // Helper function to create darker/lighter colors from hex
 function adjustColor(hex: string, percent: number): string {
@@ -12,78 +11,306 @@ function adjustColor(hex: string, percent: number): string {
   return `#${(1 << 24 | r << 16 | g << 8 | b).toString(16).slice(1)}`;
 }
 
-interface HolographicGameCardProps {
-  game: Game;
-  rtp: number;
-  primaryColor: string;
-  secondaryColor: string;
-  moduleId: string;
+// Jackpot Badge
+function JackpotBadge({ rtp }: { rtp: number }) {
+  const bgColor = rtp >= 95 ? '#22c55e' : rtp >= 90 ? '#eab308' : '#ef4444';
+
+  return (
+    <div
+      className="px-2 py-1 font-black text-[11px] text-white"
+      style={{
+        background: `linear-gradient(135deg, ${bgColor}, ${bgColor}dd)`,
+        borderRadius: '4px',
+        boxShadow: `0 0 10px ${bgColor}, 0 2px 4px rgba(0,0,0,0.5)`,
+        border: '1px solid rgba(255,255,255,0.3)'
+      }}
+    >
+      {rtp}% HOT
+    </div>
+  );
 }
 
-function HolographicGameCard({ game, rtp, primaryColor, secondaryColor, moduleId }: HolographicGameCardProps) {
+// Holographic Game Card
+function HolographicGameCard({ game, rtp, cardSize, primaryColor, secondaryColor }: { game: Game; rtp: number; cardSize: number; primaryColor: string; secondaryColor: string }) {
   return (
-    <div className="relative group cursor-pointer transform-gpu transition-all duration-500 hover:scale-105">
-      <div
-        className="relative rounded-2xl overflow-hidden"
-        style={{
-          background: `linear-gradient(135deg, ${primaryColor}10, ${secondaryColor}10, ${primaryColor}10)`,
-          border: `1px solid ${primaryColor}40`,
-          boxShadow: `0 0 30px ${primaryColor}30, 0 0 60px ${secondaryColor}20, inset 0 0 30px rgba(255,255,255,0.05)`,
-          backdropFilter: 'blur(10px)'
-        }}
-      >
-        {/* Module ID */}
-        <div
-          className="absolute top-2 left-2 px-2 py-1 text-xs font-mono font-bold z-20"
-          style={{
-            background: `linear-gradient(135deg, ${primaryColor}, ${secondaryColor})`,
-            color: '#000',
-            borderRadius: '4px',
-            boxShadow: `0 0 15px ${primaryColor}`
-          }}
-        >
-          {moduleId}
-        </div>
+    <div
+      className="relative overflow-hidden"
+      style={{
+        width: `${cardSize}px`,
+        flexShrink: 0,
+        background: `linear-gradient(135deg, ${primaryColor}10, ${secondaryColor}10, ${primaryColor}10)`,
+        borderRadius: '16px',
+        border: `1px solid ${primaryColor}40`,
+        boxShadow: `0 0 30px ${primaryColor}30, 0 0 60px ${secondaryColor}20, inset 0 0 30px rgba(255,255,255,0.05)`,
+        backdropFilter: 'blur(10px)'
+      }}
+    >
+      {/* Holographic corner lights */}
+      <div className="absolute top-0 left-0 w-3 h-3 rounded-full" style={{ backgroundColor: primaryColor, boxShadow: `0 0 10px ${primaryColor}, 0 0 20px ${primaryColor}` }} />
+      <div className="absolute top-0 right-0 w-3 h-3 rounded-full" style={{ backgroundColor: secondaryColor, boxShadow: `0 0 10px ${secondaryColor}, 0 0 20px ${secondaryColor}` }} />
 
-        {/* Connection Points */}
-        <div className="absolute top-2 right-2 flex gap-1 z-20">
-          <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: primaryColor, boxShadow: `0 0 10px ${primaryColor}` }} />
-          <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: secondaryColor, boxShadow: `0 0 10px ${secondaryColor}`, animationDelay: '0.5s' }} />
-        </div>
-
-        <div className="relative p-3">
-          <div className="w-full aspect-square mb-1.5 relative overflow-hidden rounded-xl bg-black/40">
-            <img
-              src={game.src}
-              alt={game.name}
-              className="w-full h-full object-contain"
-              onError={(e) => {
-                (e.target as HTMLImageElement).src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect width='200' height='200' fill='%23001a33'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%2300ffff' font-family='monospace' font-size='10'%3E[NO_IMAGE]%3C/text%3E%3C/svg%3E";
-              }}
-            />
-
-          </div>
-
-          <div className="text-center">
-            <div className="text-xs font-bold mb-1.5 truncate" style={{
-              color: '#ffffff',
-              fontFamily: 'monospace',
-              textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
-              letterSpacing: '1px'
-            }}>
-              {game.name.toUpperCase()}
-            </div>
-          </div>
-        </div>
-
-        {/* Hover Frame */}
-        <div
-          className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-          style={{
-            border: `2px solid ${primaryColor}`,
-            boxShadow: `0 0 20px ${primaryColor} inset, 0 0 40px ${secondaryColor} inset`
+      {/* Game Image */}
+      <div className="relative w-full overflow-hidden" style={{ height: `${cardSize}px`, borderRadius: '12px 12px 0 0' }}>
+        <img
+          src={game.src}
+          alt={game.name}
+          className="w-full h-full object-cover"
+          onError={(e) => {
+            (e.target as HTMLImageElement).src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23001a33"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2300ffff" font-family="monospace" font-size="10"%3E[NO_IMAGE]%3C/text%3E%3C/svg%3E';
           }}
         />
+        {/* RTP Badge */}
+        <div className="absolute top-1 right-1">
+          <JackpotBadge rtp={rtp} />
+        </div>
+        {/* Holographic overlay effect */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: `linear-gradient(180deg, ${primaryColor}20 0%, transparent 20%, transparent 80%, ${secondaryColor}20 100%)`
+          }}
+        />
+      </div>
+
+      {/* Game Name */}
+      <div
+        className="p-2 text-center"
+        style={{
+          background: `rgba(0,0,0,0.4)`,
+          backdropFilter: 'blur(5px)'
+        }}
+      >
+        <h3
+          className="text-[13px] font-bold leading-tight"
+          style={{
+            color: '#ffffff',
+            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
+            overflow: 'hidden',
+            height: '28px',
+            display: '-webkit-box',
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: 'vertical'
+          }}
+        >
+          {game.name}
+        </h3>
+      </div>
+    </div>
+  );
+}
+
+// Pattern Display
+function PatternDisplay({ pattern, size }: { pattern: string; size: number }) {
+  return (
+    <div className="flex items-center gap-0.5">
+      {pattern.split('').map((char, index) => (
+        <span key={index}>
+          {char === 'V' ? (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="3">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          ) : (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="3">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          )}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+// Holographic Trik Panel
+function HolographicTrikPanel({
+  trik,
+  providerColor,
+  primaryColor,
+  secondaryColor,
+  hideFiturGanda = false
+}: {
+  trik: TrikConfig;
+  providerColor: string;
+  primaryColor: string;
+  secondaryColor: string;
+  hideFiturGanda?: boolean;
+}) {
+  const itemCount = trik.trikItems?.length || 0;
+  const totalRows = itemCount + 4;
+
+  const getFontSize = () => {
+    if (totalRows <= 5) return { title: 24, label: 14, depositKode: 36, value: 20, itemName: 20, itemValue: 24, icon: 26, gap: 8, padding: 10 };
+    if (totalRows <= 6) return { title: 22, label: 13, depositKode: 32, value: 18, itemName: 18, itemValue: 22, icon: 24, gap: 7, padding: 9 };
+    if (totalRows <= 7) return { title: 20, label: 12, depositKode: 28, value: 16, itemName: 16, itemValue: 20, icon: 22, gap: 6, padding: 8 };
+    return { title: 18, label: 11, depositKode: 24, value: 14, itemName: 14, itemValue: 18, icon: 20, gap: 5, padding: 7 };
+  };
+
+  const sizes = getFontSize();
+
+  return (
+    <div
+      className="h-full overflow-hidden flex flex-col relative"
+      style={{
+        background: `linear-gradient(135deg, ${primaryColor}15, ${secondaryColor}15, ${primaryColor}15)`,
+        borderRadius: '16px',
+        border: `1px solid ${providerColor}60`,
+        boxShadow: `0 0 20px ${providerColor}40, inset 0 0 30px rgba(255,255,255,0.05)`,
+        backdropFilter: 'blur(15px)'
+      }}
+    >
+      {/* Holographic shimmer effect */}
+      <div
+        className="absolute inset-0 pointer-events-none rounded-[13px]"
+        style={{
+          background: `linear-gradient(45deg, transparent 40%, ${providerColor}20 50%, transparent 60%)`,
+          backgroundSize: '200% 200%'
+        }}
+      />
+
+      {/* Header */}
+      <div
+        className="text-center flex-shrink-0 relative"
+        style={{ padding: `${sizes.padding + 2}px ${sizes.padding}px ${sizes.padding}px` }}
+      >
+        <div className="flex items-center justify-center gap-2">
+          <span className="text-lg">💎</span>
+          <h3
+            className="font-black uppercase tracking-wider"
+            style={{
+              color: '#ffffff',
+              fontSize: `${sizes.title}px`,
+              textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
+            }}
+          >
+            {trik.title || 'TRIK GACOR'}
+          </h3>
+          <span className="text-lg">💎</span>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div
+        className="flex-1 flex flex-col overflow-hidden relative z-10"
+        style={{ padding: `${sizes.padding}px`, gap: `${sizes.gap}px` }}
+      >
+        {/* Deposit Kode | Fitur Ganda | Putaran Bet - 1 Row */}
+        <div
+          className="flex items-stretch gap-2"
+          style={{
+            background: 'rgba(0,0,0,0.4)',
+            backdropFilter: 'blur(10px)',
+            padding: `${sizes.padding + 5}px`,
+            borderRadius: '12px',
+            border: `1px solid ${providerColor}50`
+          }}
+        >
+          {/* Deposit Kode */}
+          <div className="flex-1 text-center">
+            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9 + 3}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+              DEPOSIT KODE
+            </span>
+            <span
+              className="font-black leading-tight"
+              style={{
+                color: '#ffffff',
+                fontSize: `${sizes.depositKode * 0.7 + 3}px`,
+                textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
+              }}
+            >
+              {trik.depositKode}
+            </span>
+          </div>
+
+          {/* Fitur Ganda - Center */}
+          <div
+            className="flex-1 text-center flex flex-col justify-center"
+            style={{
+              visibility: hideFiturGanda ? 'hidden' : 'visible',
+              pointerEvents: hideFiturGanda ? 'none' : 'auto'
+            }}
+          >
+            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9 + 3}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+              FITUR GANDA
+            </span>
+            <span
+              className="font-bold inline-block"
+              style={{
+                color: '#ffffff',
+                fontSize: `${sizes.value * 0.85 + 3}px`,
+                textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
+              }}
+            >
+              {trik.fiturGanda ? '🍀 ON' : '❌ OFF'}
+            </span>
+          </div>
+
+          {/* Putaran Bet */}
+          <div className="flex-1 text-center">
+            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9 + 3}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+              PUTARAN BET
+            </span>
+            <span
+              className="font-bold leading-tight"
+              style={{ color: '#ffffff', fontSize: `${sizes.value * 0.85 + 3}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+            >
+              {trik.putaranBetMin.toLocaleString()} - {trik.putaranBetMax.toLocaleString()}
+            </span>
+          </div>
+        </div>
+
+        {/* Trik Items */}
+        <div className="flex-1 flex flex-col justify-center" style={{ gap: `${sizes.gap}px` }}>
+          {trik.trikItems && trik.trikItems.map((item, index) => (
+            <div
+              key={index}
+              className="flex items-center"
+              style={{
+                background: `linear-gradient(90deg, ${providerColor}15, ${providerColor}25, ${providerColor}15)`,
+                backdropFilter: 'blur(5px)',
+                padding: `${sizes.padding}px`,
+                borderRadius: '8px',
+                borderLeft: `3px solid ${providerColor}`
+              }}
+            >
+              <span className="font-semibold flex-1 text-left" style={{ fontSize: `${sizes.itemName}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+                {item.name}
+              </span>
+              <span
+                className="font-bold flex-1 text-center"
+                style={{ color: '#ffffff', fontSize: `${sizes.itemValue}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+              >
+                {item.value}
+              </span>
+              <div className="flex-1 flex justify-end">
+                {item.pattern && <PatternDisplay pattern={item.pattern} size={sizes.icon} />}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Custom Text */}
+        {trik.customText && (
+          <div
+            className="text-center"
+            style={{
+              background: `linear-gradient(90deg, transparent, ${providerColor}30, transparent)`,
+              backdropFilter: 'blur(5px)',
+              padding: `${sizes.padding}px`,
+              borderRadius: '8px'
+            }}
+          >
+            <p
+              className="font-bold uppercase leading-tight"
+              style={{
+                color: '#ffffff',
+                fontSize: `${sizes.value}px`,
+                textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
+              }}
+            >
+              💎 {trik.customText} 💎
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -105,6 +332,7 @@ interface CasinoHolographicLayoutProps {
   customHeaderText: string;
   headerFontSize: 'small' | 'medium' | 'large' | 'xlarge';
   defaultLayoutSize: DefaultLayoutSizeConfig;
+  footerConfig?: FooterConfig;
 }
 
 export default function CasinoHolographicLayout({
@@ -113,62 +341,51 @@ export default function CasinoHolographicLayout({
   customTimeLabel,
   selectedPragmaticGames,
   selectedPgSoftGames,
-  pragmaticCount,
-  pgSoftCount,
   getCurrentDate,
-  selectedCardStyle,
   pragmaticTrik,
   pgSoftTrik,
   telegramUsername,
   customHeaderText,
   headerFontSize,
-  defaultLayoutSize
+  footerConfig
 }: CasinoHolographicLayoutProps) {
   const getFontSizeClass = () => {
     switch (headerFontSize) {
-      case 'small': return 'text-base';
-      case 'medium': return 'text-base';
-      case 'large': return 'text-base';
-      case 'xlarge': return 'text-base';
+      case 'small': return 'text-lg';
+      case 'medium': return 'text-xl';
+      case 'large': return 'text-2xl';
+      case 'xlarge': return 'text-3xl';
     }
   };
 
   const primaryColor = selectedStyle.primaryColor;
   const secondaryColor = selectedStyle.secondaryColor;
-  const darkPrimary = adjustColor(primaryColor, -80);
-  const darkerPrimary = adjustColor(primaryColor, -90);
 
-  const getBlurClass = () => {
-    if (!selectedCardStyle?.blur || selectedCardStyle.blur === 'none') return '';
-    return selectedCardStyle.blur;
-  };
+  // Card size for 3 games per side
+  const cardSize = 145;
 
-  const getSectionStyle = (color: string) => ({
-    background: selectedCardStyle?.background || undefined,
-    border: selectedCardStyle?.border ? `${selectedCardStyle.border} ${color}` : undefined,
-    opacity: selectedCardStyle?.opacity || 1,
-    boxShadow: selectedCardStyle?.shadow ? (selectedCardStyle.shadow.includes('0 0 20px') ? `${selectedCardStyle.shadow} ${color}` : selectedCardStyle.shadow) : undefined
-  });
-
-  const pragmaticGamesWithRTP = selectedPragmaticGames.slice(0, pragmaticCount).map(game => ({
+  // Generate RTP for games
+  const pragmaticGamesWithRtp = selectedPragmaticGames.slice(0, 3).map(game => ({
     ...game,
     rtp: Math.floor(Math.random() * 13) + 86
   }));
 
-  const pgSoftGamesWithRTP = selectedPgSoftGames.slice(0, pgSoftCount).map(game => ({
+  const pgSoftGamesWithRtp = selectedPgSoftGames.slice(0, 3).map(game => ({
     ...game,
     rtp: Math.floor(Math.random() * 13) + 86
   }));
-
-  const getCardWidthClass = (count: number) => {
-    if (count === 1) return 'w-[calc(50%-0.25rem)] md:w-[calc(50%-0.25rem)]';
-    if (count === 2) return 'w-[calc(50%-0.25rem)] md:w-[calc(45%-0.25rem)]';
-    return 'w-[calc(50%-0.25rem)] md:w-[calc(33.333%-0.34rem)]';
-  };
 
   return (
-    <div className="relative z-10 flex flex-col min-h-full p-3" style={{ fontFamily: 'monospace' }}>
-      {/* Grid Mesh */}
+    <div
+      className="relative z-10 flex flex-col"
+      style={{
+        fontFamily: 'monospace',
+        height: '1000px',
+        width: '1000px',
+        overflow: 'hidden'
+      }}
+    >
+      {/* Grid Mesh Background */}
       <div
         className="absolute inset-0 opacity-10 pointer-events-none"
         style={{
@@ -177,142 +394,222 @@ export default function CasinoHolographicLayout({
         }}
       />
 
-      {/* Holographic Header */}
-      <div className="relative z-10 mb-2">
-        <div
-          className="p-3 rounded-2xl"
+      {/* Header 1 - Holographic Title */}
+      <div
+        className="flex-shrink-0 flex items-center justify-center px-4 relative"
+        style={{
+          height: '55px',
+          background: `linear-gradient(135deg, ${primaryColor}20, ${secondaryColor}20, ${primaryColor}20)`,
+          backdropFilter: 'blur(10px)',
+          borderBottom: `2px solid ${primaryColor}40`,
+          boxShadow: `0 0 20px ${primaryColor}30, inset 0 0 30px rgba(255,255,255,0.05)`
+        }}
+      >
+        {/* Holographic decorations */}
+        <div className="absolute left-4 flex gap-2">
+          <div className="w-3 h-3 rounded-full" style={{ backgroundColor: primaryColor, boxShadow: `0 0 10px ${primaryColor}` }} />
+          <div className="w-3 h-3 rounded-full" style={{ backgroundColor: secondaryColor, boxShadow: `0 0 10px ${secondaryColor}` }} />
+        </div>
+        <h1
+          className={`${getFontSizeClass()} font-black uppercase tracking-wider leading-tight text-center`}
           style={{
-            background: `${darkPrimary}66`,
-            backdropFilter: 'blur(10px)',
-            border: `1px solid ${primaryColor}40`,
-            display: 'flex',
-            alignItems: 'center'
+            color: '#ffffff',
+            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
           }}
         >
-          <div className="flex items-center justify-between w-full">
-            <img
-              src={selectedWebsite.logo}
-              alt={selectedWebsite.name}
-              style={{ height: '60px', filter: `drop-shadow(0 0 20px ${primaryColor}cc)` }}
-            />
-            <h1 className="text-lg font-black tracking-wider" style={{
-              color: '#ffffff',
-              textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
-            }}>
-              {customHeaderText}
-            </h1>
-            <div className="flex items-center gap-2 text-sm">
-              <span style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>{getCurrentDate()}</span>
-              <span style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>{customTimeLabel}</span>
-            </div>
+          {customHeaderText}
+        </h1>
+        <div className="absolute right-4 flex gap-2">
+          <div className="w-3 h-3 rounded-full" style={{ backgroundColor: secondaryColor, boxShadow: `0 0 10px ${secondaryColor}` }} />
+          <div className="w-3 h-3 rounded-full" style={{ backgroundColor: primaryColor, boxShadow: `0 0 10px ${primaryColor}` }} />
+        </div>
+      </div>
+
+      {/* Header 2 - Logo, Time, Date, RTP LIVE badge */}
+      <div
+        className="flex-shrink-0 flex items-center justify-between px-4"
+        style={{
+          height: '45px',
+          background: `linear-gradient(135deg, ${primaryColor}15, ${secondaryColor}15)`,
+          backdropFilter: 'blur(10px)',
+          borderBottom: `1px solid ${primaryColor}30`
+        }}
+      >
+        {/* Logo */}
+        <div className="flex items-center gap-2">
+          <div className="w-2 h-2 rounded-full" style={{ backgroundColor: primaryColor, boxShadow: `0 0 8px ${primaryColor}` }} />
+          <img
+            src={selectedWebsite.logo}
+            alt={`${selectedWebsite.name} logo`}
+            className="h-9 object-contain"
+            style={{ filter: `drop-shadow(0 0 10px ${primaryColor}80)` }}
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="80"%3E%3Crect width="200" height="80" fill="%23001a33"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2300ffff" font-family="monospace" font-size="14"%3E' + selectedWebsite.name + '%3C/text%3E%3C/svg%3E';
+            }}
+          />
+        </div>
+
+        {/* Time & Date */}
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
+            <span
+              className="font-bold"
+              style={{ fontSize: '20px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+            >
+              {customTimeLabel}
+            </span>
+            <span style={{ color: '#ffffff' }}>|</span>
+            <span
+              className="font-medium"
+              style={{ fontSize: '18px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+            >
+              {getCurrentDate()}
+            </span>
+          </div>
+          {/* RTP LIVE indicator */}
+          <div
+            className="flex items-center gap-1.5 px-3 py-1 rounded-full"
+            style={{
+              background: `linear-gradient(135deg, ${primaryColor}40, ${secondaryColor}40)`,
+              backdropFilter: 'blur(10px)',
+              border: `1px solid ${primaryColor}60`,
+              boxShadow: `0 0 15px ${primaryColor}50`
+            }}
+          >
+            <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: '#22c55e', boxShadow: '0 0 8px #22c55e' }} />
+            <span className="text-xs font-black text-white">RTP LIVE</span>
           </div>
         </div>
       </div>
 
-      {/* Main Content - 2 Column Grid */}
-      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-2 flex-1">
-        {/* Pragmatic Play - Alpha Matrix */}
-        <div>
+      {/* Content Area */}
+      <div className="flex-1 flex flex-col gap-2 p-2 overflow-hidden" style={{ minHeight: 0 }}>
+        {/* Game Modal Row */}
+        <div className="flex gap-3" style={{ height: '264px' }}>
+          {/* Pragmatic Games */}
           <div
-            className={`relative rounded p-3 ${getBlurClass()}`}
+            className="flex-1 overflow-hidden p-3 relative"
             style={{
-              ...getSectionStyle(primaryColor),
-              border: `1px solid ${primaryColor}30`,
-              background: `${darkPrimary}99`
+              background: `linear-gradient(135deg, ${primaryColor}15, ${secondaryColor}10, ${primaryColor}15)`,
+              backdropFilter: 'blur(15px)',
+              borderRadius: '20px',
+              border: `1px solid ${primaryColor}40`,
+              boxShadow: `0 0 30px ${primaryColor}30, inset 0 0 40px rgba(255,255,255,0.05)`
             }}
           >
-            {/* Pattern Overlay */}
-            {selectedCardStyle?.pattern && selectedCardStyle.pattern !== 'none' && (
-              <div
-                className="absolute inset-0 pointer-events-none rounded-2xl"
-                style={{ backgroundImage: selectedCardStyle.pattern, backgroundRepeat: 'repeat' }}
-              />
-            )}
-            <div className="relative z-10 flex items-center justify-center mb-1.5" style={{ overflow: 'visible' }}>
-              <img
-                src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgd6JBXF6-nJ7cAuYfPpx5tAckyV8KM5guWWeV-ZIHVCUluIE8As1b41nyGJE3FSsL__ImOQ3WOOmymZmvWzECCUR5Qagtg2OdKeatK2elfcSL4rZB-ARMUXCJyWuIY8j29KomqPboqtVqgXBGNyP5LKPgjlfNKkbhnXkgGrAaZ234uQBSauAMzOvQ7zSFq/w411-h274/Pragmatic-Play-logo.png"
-                className="h-10"
-                style={{ filter: `drop-shadow(0 0 10px ${primaryColor}80)`, transform: 'scale(2.5)' }}
-                alt="Pragmatic Play"
-              />
+            {/* Holographic corner dots */}
+            <div className="absolute top-2 left-2 w-2 h-2 rounded-full" style={{ backgroundColor: primaryColor, boxShadow: `0 0 10px ${primaryColor}` }} />
+            <div className="absolute top-2 right-2 w-2 h-2 rounded-full" style={{ backgroundColor: secondaryColor, boxShadow: `0 0 10px ${secondaryColor}` }} />
+
+            <div className="text-center mb-2">
+              <h2
+                className="font-black tracking-wider"
+                style={{
+                  color: '#ffffff',
+                  fontSize: '20px',
+                  textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
+                }}
+              >
+                💎 PRAGMATIC PLAY 💎
+              </h2>
             </div>
-            <div className="relative z-10 flex flex-wrap justify-center gap-2">
-              {pragmaticGamesWithRTP.map((game, index) => (
-                <div key={`pragmatic-${index}`} className={getCardWidthClass(pragmaticGamesWithRTP.length)}>
-                  <HolographicGameCard
-                    game={game}
-                    rtp={game.rtp}
-                    primaryColor={primaryColor}
-                    secondaryColor={secondaryColor}
-                    moduleId={`PRG-${(index + 1).toString().padStart(3, '0')}`}
-                  />
-                </div>
+            <div className="flex gap-2 justify-center">
+              {pragmaticGamesWithRtp.map((game, index) => (
+                <HolographicGameCard key={`pragmatic-${index}`} game={game} rtp={game.rtp} cardSize={cardSize} primaryColor={primaryColor} secondaryColor={secondaryColor} />
               ))}
             </div>
+          </div>
+
+          {/* PG Soft Games */}
+          <div
+            className="flex-1 overflow-hidden p-3 relative"
+            style={{
+              background: `linear-gradient(135deg, ${secondaryColor}15, ${primaryColor}10, ${secondaryColor}15)`,
+              backdropFilter: 'blur(15px)',
+              borderRadius: '20px',
+              border: `1px solid ${secondaryColor}40`,
+              boxShadow: `0 0 30px ${secondaryColor}30, inset 0 0 40px rgba(255,255,255,0.05)`
+            }}
+          >
+            <div className="absolute top-2 left-2 w-2 h-2 rounded-full" style={{ backgroundColor: secondaryColor, boxShadow: `0 0 10px ${secondaryColor}` }} />
+            <div className="absolute top-2 right-2 w-2 h-2 rounded-full" style={{ backgroundColor: primaryColor, boxShadow: `0 0 10px ${primaryColor}` }} />
+
+            <div className="text-center mb-2">
+              <h2
+                className="font-black tracking-wider"
+                style={{
+                  color: '#ffffff',
+                  fontSize: '20px',
+                  textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
+                }}
+              >
+                💎 PG SOFT 💎
+              </h2>
+            </div>
+            <div className="flex gap-2 justify-center">
+              {pgSoftGamesWithRtp.map((game, index) => (
+                <HolographicGameCard key={`pgsoft-${index}`} game={game} rtp={game.rtp} cardSize={cardSize} primaryColor={secondaryColor} secondaryColor={primaryColor} />
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Trik Panel Row */}
+        {(pragmaticTrik.enabled || pgSoftTrik.enabled) && (
+          <div className="flex gap-3 items-stretch" style={{ height: '400px' }}>
             {pragmaticTrik.enabled && (
-              <div className="relative z-10 mt-4">
-                <TrikPanel
+              <div className="flex-1">
+                <HolographicTrikPanel
                   trik={pragmaticTrik}
                   providerColor={primaryColor}
-                  fontFamily="monospace"
-                  cardStyle={selectedCardStyle}
-                  variant="galaxy"
+                  primaryColor={primaryColor}
+                  secondaryColor={secondaryColor}
+                />
+              </div>
+            )}
+            {pgSoftTrik.enabled && (
+              <div className="flex-1">
+                <HolographicTrikPanel
+                  trik={pgSoftTrik}
+                  providerColor={secondaryColor}
+                  primaryColor={secondaryColor}
+                  secondaryColor={primaryColor}
+                  hideFiturGanda={true}
                 />
               </div>
             )}
           </div>
-        </div>
+        )}
+      </div>
 
-        {/* PG Soft - Beta Matrix */}
-        <div>
-          <div
-            className={`relative rounded p-3 ${getBlurClass()}`}
-            style={{
-              ...getSectionStyle(secondaryColor),
-              border: `1px solid ${secondaryColor}30`,
-              background: `${darkPrimary}99`
-            }}
+      {/* Footer - Holographic Style */}
+      <div className="flex-shrink-0">
+        <div
+          className="flex items-center justify-center gap-3 px-4"
+          style={{
+            height: '40px',
+            background: `linear-gradient(135deg, ${primaryColor}20, ${secondaryColor}20, ${primaryColor}20)`,
+            backdropFilter: 'blur(10px)',
+            borderTop: `2px solid ${primaryColor}40`,
+            boxShadow: `0 0 20px ${primaryColor}30, inset 0 0 30px rgba(255,255,255,0.05)`
+          }}
+        >
+          <div className="flex gap-2">
+            <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: primaryColor, boxShadow: `0 0 8px ${primaryColor}` }} />
+            <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: secondaryColor, boxShadow: `0 0 8px ${secondaryColor}`, animationDelay: '0.5s' }} />
+          </div>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill={primaryColor} style={{ filter: `drop-shadow(0 0 5px ${primaryColor})` }}>
+            <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 11.944 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+          </svg>
+          <span
+            className="text-sm font-bold"
+            style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
           >
-            {/* Pattern Overlay */}
-            {selectedCardStyle?.pattern && selectedCardStyle.pattern !== 'none' && (
-              <div
-                className="absolute inset-0 pointer-events-none rounded-2xl"
-                style={{ backgroundImage: selectedCardStyle.pattern, backgroundRepeat: 'repeat' }}
-              />
-            )}
-            <div className="relative z-10 flex items-center justify-center mb-1.5" style={{ overflow: 'visible' }}>
-              <img
-                src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiyRL8QUJ4ATALDgUz3f6Xzp8WeH_7vGwGW6KYIdsi3gC_F9HkYiTABnlxysMEFraHBkUUnc71XGjXybY7EQNqlN3-Ddz480rPdcV_CWGie6bwGds0LzTZ7JClIkg-t-nCTzMOa_qJJQV_ARXE_dbQajerSg7IyDHiDRYswEQdyRQWs6pTlcFbsTNMzbn07/w539-h303/663b3b87ed4e2097a300be14_pg-soft.png"
-                className="h-10"
-                style={{ filter: `drop-shadow(0 0 10px ${secondaryColor}80)`, transform: 'scale(2.5)' }}
-                alt="PG Soft"
-              />
-            </div>
-            <div className="relative z-10 flex flex-wrap justify-center gap-2">
-              {pgSoftGamesWithRTP.map((game, index) => (
-                <div key={`pgsoft-${index}`} className={getCardWidthClass(pgSoftGamesWithRTP.length)}>
-                  <HolographicGameCard
-                    game={game}
-                    rtp={game.rtp}
-                    primaryColor={secondaryColor}
-                    secondaryColor={primaryColor}
-                    moduleId={`PGS-${(index + 1).toString().padStart(3, '0')}`}
-                  />
-                </div>
-              ))}
-            </div>
-            {pgSoftTrik.enabled && (
-              <div className="relative z-10 mt-4">
-                <TrikPanel
-                  trik={pgSoftTrik}
-                hideFiturGanda={true}
-                  providerColor={secondaryColor}
-                  fontFamily="monospace"
-                  cardStyle={selectedCardStyle}
-                  variant="galaxy"
-                />
-              </div>
-            )}
+            {footerConfig?.footer1 || `Join: @${telegramUsername || selectedWebsite.name.toLowerCase().replace(/[^a-z0-9]/g, '')}`}
+          </span>
+          <div className="flex gap-2">
+            <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: secondaryColor, boxShadow: `0 0 8px ${secondaryColor}`, animationDelay: '0.25s' }} />
+            <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: primaryColor, boxShadow: `0 0 8px ${primaryColor}`, animationDelay: '0.75s' }} />
           </div>
         </div>
       </div>

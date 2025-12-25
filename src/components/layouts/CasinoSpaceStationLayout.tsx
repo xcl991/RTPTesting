@@ -1,8 +1,25 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig } from '@/types';
-import TrikPanel from '../TrikPanel';
+import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig } from '@/types';
+
+interface CasinoSpaceStationLayoutProps {
+  selectedWebsite: WebsiteOption;
+  selectedStyle: RTPStyle;
+  customTimeLabel: string;
+  selectedPragmaticGames: Game[];
+  selectedPgSoftGames: Game[];
+  pragmaticCount: number;
+  pgSoftCount: number;
+  getCurrentDate: () => string;
+  selectedCardStyle: CardStyleOption;
+  pragmaticTrik: TrikConfig;
+  pgSoftTrik: TrikConfig;
+  telegramUsername: string;
+  customHeaderText: string;
+  headerFontSize: 'small' | 'medium' | 'large' | 'xlarge';
+  defaultLayoutSize: DefaultLayoutSizeConfig;
+  footerConfig?: FooterConfig;
+}
 
 // Helper function to create darker/lighter colors from hex
 function adjustColor(hex: string, percent: number): string {
@@ -13,20 +30,14 @@ function adjustColor(hex: string, percent: number): string {
   return `#${(1 << 24 | r << 16 | g << 8 | b).toString(16).slice(1)}`;
 }
 
-interface SpaceGameCardProps {
-  game: Game;
-  rtp: number;
-  primaryColor: string;
-  secondaryColor: string;
-  bayNumber: number;
-  darkBackground: string;
-}
-
-function SpaceGameCard({ game, rtp, primaryColor, secondaryColor, bayNumber, darkBackground }: SpaceGameCardProps) {
+// Space Game Card Component
+function SpaceGameCard({ game, rtp, primaryColor, secondaryColor, bayNumber, darkBackground }: { game: Game; rtp: number; primaryColor: string; secondaryColor: string; bayNumber: number; darkBackground: string }) {
   return (
     <div
-      className="relative group cursor-pointer"
+      className="relative overflow-hidden"
       style={{
+        width: '145px',
+        flexShrink: 0,
         background: `linear-gradient(135deg, ${darkBackground}e6, ${darkBackground}f2)`,
         border: `1px solid ${primaryColor}60`,
         borderRadius: '8px',
@@ -63,6 +74,7 @@ function SpaceGameCard({ game, rtp, primaryColor, secondaryColor, bayNumber, dar
         BAY-{bayNumber.toString().padStart(3, '0')}
       </div>
 
+      {/* Game Image */}
       <div className="relative z-10 p-3">
         <div className="w-full aspect-square mb-1.5 relative overflow-hidden bg-black/60" style={{ borderRadius: '8px' }}>
           <img
@@ -73,9 +85,23 @@ function SpaceGameCard({ game, rtp, primaryColor, secondaryColor, bayNumber, dar
               (e.target as HTMLImageElement).src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect width='200' height='200' fill='%23001428'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%234da6ff' font-family='monospace' font-size='10'%3E[NO_IMAGE]%3C/text%3E%3C/svg%3E";
             }}
           />
-
+          {/* RTP Badge */}
+          <div className="absolute top-1 right-1">
+            <div
+              className="px-2 py-1 font-black text-[11px] text-white"
+              style={{
+                background: rtp >= 95 ? '#22c55e' : rtp >= 90 ? '#eab308' : '#ef4444',
+                borderRadius: '4px',
+                boxShadow: `0 0 10px ${rtp >= 95 ? '#22c55e' : rtp >= 90 ? '#eab308' : '#ef4444'}`,
+                border: '1px solid rgba(255,255,255,0.3)'
+              }}
+            >
+              {rtp}%
+            </div>
+          </div>
         </div>
 
+        {/* Game Name */}
         <div className="text-center">
           <div className="text-xs font-bold mb-1 truncate" style={{
             color: '#ffffff',
@@ -89,7 +115,7 @@ function SpaceGameCard({ game, rtp, primaryColor, secondaryColor, bayNumber, dar
 
       {/* Hover Frame */}
       <div
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+        className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none"
         style={{
           border: `2px solid ${primaryColor}`,
           boxShadow: `0 0 30px ${primaryColor} inset`,
@@ -100,22 +126,219 @@ function SpaceGameCard({ game, rtp, primaryColor, secondaryColor, bayNumber, dar
   );
 }
 
-interface CasinoSpaceStationLayoutProps {
-  selectedWebsite: WebsiteOption;
-  selectedStyle: RTPStyle;
-  customTimeLabel: string;
-  selectedPragmaticGames: Game[];
-  selectedPgSoftGames: Game[];
-  pragmaticCount: number;
-  pgSoftCount: number;
-  getCurrentDate: () => string;
-  selectedCardStyle: CardStyleOption;
-  pragmaticTrik: TrikConfig;
-  pgSoftTrik: TrikConfig;
-  telegramUsername: string;
-  customHeaderText: string;
-  headerFontSize: 'small' | 'medium' | 'large' | 'xlarge';
-  defaultLayoutSize: DefaultLayoutSizeConfig;
+// Pattern Display
+function PatternDisplay({ pattern, size }: { pattern: string; size: number }) {
+  return (
+    <div className="flex items-center gap-0.5">
+      {pattern.split('').map((char, index) => (
+        <span key={index}>
+          {char === 'V' ? (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="3">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          ) : (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="3">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          )}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+// Space Station Trik Panel
+function SpaceTrikPanel({
+  trik,
+  providerColor,
+  primaryColor,
+  darkBackground,
+  hideFiturGanda = false
+}: {
+  trik: TrikConfig;
+  providerColor: string;
+  primaryColor: string;
+  darkBackground: string;
+  hideFiturGanda?: boolean;
+}) {
+  const itemCount = trik.trikItems?.length || 0;
+  const totalRows = itemCount + 4;
+
+  const getFontSize = () => {
+    if (totalRows <= 5) return { title: 24, label: 14, depositKode: 36, value: 20, itemName: 20, itemValue: 24, icon: 26, gap: 8, padding: 10 };
+    if (totalRows <= 6) return { title: 22, label: 13, depositKode: 32, value: 18, itemName: 18, itemValue: 22, icon: 24, gap: 7, padding: 9 };
+    if (totalRows <= 7) return { title: 20, label: 12, depositKode: 28, value: 16, itemName: 16, itemValue: 20, icon: 22, gap: 6, padding: 8 };
+    return { title: 18, label: 11, depositKode: 24, value: 14, itemName: 14, itemValue: 18, icon: 20, gap: 5, padding: 7 };
+  };
+
+  const sizes = getFontSize();
+
+  return (
+    <div
+      className="h-full overflow-hidden flex flex-col relative"
+      style={{
+        background: `linear-gradient(135deg, ${darkBackground}e6, ${darkBackground}f2)`,
+        borderRadius: '8px',
+        border: `1px solid ${providerColor}60`,
+        boxShadow: `0 0 30px ${providerColor}40, inset 0 0 20px rgba(0,50,100,0.3)`
+      }}
+    >
+      {/* Hexagonal Grid Overlay */}
+      <div
+        className="absolute inset-0 opacity-20 pointer-events-none"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 5L30 10L30 20L20 25L10 20L10 10Z' fill='none' stroke='${encodeURIComponent(primaryColor)}' stroke-width='0.5' opacity='0.3'/%3E%3C/svg%3E")`,
+          backgroundSize: '40px 40px',
+          borderRadius: '8px'
+        }}
+      />
+
+      {/* Header */}
+      <div
+        className="text-center flex-shrink-0 relative z-10"
+        style={{ padding: `${sizes.padding + 2}px ${sizes.padding}px ${sizes.padding}px` }}
+      >
+        <div className="flex items-center justify-center gap-2">
+          <span className="text-lg">⚡</span>
+          <h3
+            className="font-black uppercase tracking-wider"
+            style={{
+              color: '#ffffff',
+              fontSize: `${sizes.title}px`,
+              fontFamily: 'monospace',
+              textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
+            }}
+          >
+            {trik.title || 'TRIK GACOR'}
+          </h3>
+          <span className="text-lg">⚡</span>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div
+        className="flex-1 flex flex-col overflow-hidden relative z-10"
+        style={{ padding: `${sizes.padding}px`, gap: `${sizes.gap}px` }}
+      >
+        {/* Deposit Kode | Fitur Ganda | Putaran Bet - 1 Row */}
+        <div
+          className="flex items-stretch gap-2"
+          style={{
+            background: 'rgba(0,0,0,0.5)',
+            padding: `${sizes.padding + 5}px`,
+            borderRadius: '8px',
+            border: `1px solid ${providerColor}50`
+          }}
+        >
+          {/* Deposit Kode */}
+          <div className="flex-1 text-center">
+            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9 + 3}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+              DEPOSIT KODE
+            </span>
+            <span
+              className="font-black leading-tight"
+              style={{
+                color: '#ffffff',
+                fontSize: `${sizes.depositKode * 0.7 + 3}px`,
+                textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
+              }}
+            >
+              {trik.depositKode}
+            </span>
+          </div>
+
+          {/* Fitur Ganda - Center */}
+          <div
+            className="flex-1 text-center flex flex-col justify-center"
+            style={{
+              visibility: hideFiturGanda ? 'hidden' : 'visible',
+              pointerEvents: hideFiturGanda ? 'none' : 'auto'
+            }}
+          >
+            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9 + 3}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+              FITUR GANDA
+            </span>
+            <span
+              className="font-bold inline-block"
+              style={{
+                color: '#ffffff',
+                fontSize: `${sizes.value * 0.85 + 3}px`,
+                textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
+              }}
+            >
+              {trik.fiturGanda ? '⚡ ON' : '❌ OFF'}
+            </span>
+          </div>
+
+          {/* Putaran Bet */}
+          <div className="flex-1 text-center">
+            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9 + 3}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+              PUTARAN BET
+            </span>
+            <span
+              className="font-bold leading-tight"
+              style={{ color: '#ffffff', fontSize: `${sizes.value * 0.85 + 3}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+            >
+              {trik.putaranBetMin.toLocaleString()} - {trik.putaranBetMax.toLocaleString()}
+            </span>
+          </div>
+        </div>
+
+        {/* Trik Items */}
+        <div className="flex-1 flex flex-col justify-center" style={{ gap: `${sizes.gap}px` }}>
+          {trik.trikItems && trik.trikItems.map((item, index) => (
+            <div
+              key={index}
+              className="flex items-center"
+              style={{
+                background: `linear-gradient(90deg, ${providerColor}15, ${providerColor}25, ${providerColor}15)`,
+                padding: `${sizes.padding}px`,
+                borderRadius: '8px',
+                borderLeft: `3px solid ${providerColor}`
+              }}
+            >
+              <span className="font-semibold flex-1 text-left" style={{ fontSize: `${sizes.itemName}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+                {item.name}
+              </span>
+              <span
+                className="font-bold flex-1 text-center"
+                style={{ color: '#ffffff', fontSize: `${sizes.itemValue}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+              >
+                {item.value}
+              </span>
+              <div className="flex-1 flex justify-end">
+                {item.pattern && <PatternDisplay pattern={item.pattern} size={sizes.icon} />}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Custom Text */}
+        {trik.customText && (
+          <div
+            className="text-center"
+            style={{
+              background: `linear-gradient(90deg, transparent, ${providerColor}30, transparent)`,
+              padding: `${sizes.padding}px`,
+              borderRadius: '8px'
+            }}
+          >
+            <p
+              className="font-bold uppercase leading-tight"
+              style={{
+                color: '#ffffff',
+                fontSize: `${sizes.value}px`,
+                textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
+              }}
+            >
+              ⚡ {trik.customText} ⚡
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
 
 export default function CasinoSpaceStationLayout({
@@ -124,123 +347,53 @@ export default function CasinoSpaceStationLayout({
   customTimeLabel,
   selectedPragmaticGames,
   selectedPgSoftGames,
-  pragmaticCount,
-  pgSoftCount,
   getCurrentDate,
-  selectedCardStyle,
   pragmaticTrik,
   pgSoftTrik,
   telegramUsername,
   customHeaderText,
   headerFontSize,
-  defaultLayoutSize
+  footerConfig
 }: CasinoSpaceStationLayoutProps) {
-  // Refs untuk trik panel containers
-  const pragmaticTrikRef = useRef<HTMLDivElement>(null);
-  const pgSoftTrikRef = useRef<HTMLDivElement>(null);
-  const [trikMinHeight, setTrikMinHeight] = useState<number>(0);
-
-  // Sync trik panel heights
-  useEffect(() => {
-    if (!pragmaticTrik.enabled || !pgSoftTrik.enabled) {
-      // Only sync if both panels are enabled
-      return;
-    }
-
-    const syncTrikHeights = () => {
-      if (pragmaticTrikRef.current && pgSoftTrikRef.current) {
-        // Reset min-height to measure natural heights
-        pragmaticTrikRef.current.style.minHeight = 'auto';
-        pgSoftTrikRef.current.style.minHeight = 'auto';
-
-        // Force reflow to ensure accurate measurements
-        void pragmaticTrikRef.current.offsetHeight;
-        void pgSoftTrikRef.current.offsetHeight;
-
-        // Use requestAnimationFrame for accurate measurements after render
-        requestAnimationFrame(() => {
-          if (pragmaticTrikRef.current && pgSoftTrikRef.current) {
-            const pragmaticHeight = pragmaticTrikRef.current.offsetHeight;
-            const pgSoftHeight = pgSoftTrikRef.current.offsetHeight;
-
-            // Set min-height to the maximum of both
-            const maxHeight = Math.max(pragmaticHeight, pgSoftHeight);
-
-            if (maxHeight > 0) {
-              setTrikMinHeight(maxHeight);
-            }
-          }
-        });
-      }
-    };
-
-    // Initial sync with delay
-    const timeoutId = setTimeout(syncTrikHeights, 200);
-
-    // Setup ResizeObserver for continuous monitoring
-    const resizeObserver = new ResizeObserver(() => {
-      syncTrikHeights();
-    });
-
-    if (pragmaticTrikRef.current) {
-      resizeObserver.observe(pragmaticTrikRef.current);
-    }
-    if (pgSoftTrikRef.current) {
-      resizeObserver.observe(pgSoftTrikRef.current);
-    }
-
-    return () => {
-      clearTimeout(timeoutId);
-      resizeObserver.disconnect();
-    };
-  }, [pragmaticTrik, pgSoftTrik]);
-
   const getFontSizeClass = () => {
     switch (headerFontSize) {
-      case 'small': return 'text-base';
-      case 'medium': return 'text-base';
-      case 'large': return 'text-base';
-      case 'xlarge': return 'text-base';
+      case 'small': return 'text-lg';
+      case 'medium': return 'text-xl';
+      case 'large': return 'text-2xl';
+      case 'xlarge': return 'text-3xl';
     }
   };
 
   const primaryColor = selectedStyle.primaryColor;
   const secondaryColor = selectedStyle.secondaryColor;
-
   const darkPrimary = adjustColor(primaryColor, -80);
   const darkerPrimary = adjustColor(primaryColor, -90);
   const darkSecondary = adjustColor(secondaryColor, -80);
 
-  const getBlurClass = () => {
-    if (!selectedCardStyle?.blur || selectedCardStyle.blur === 'none') return '';
-    return selectedCardStyle.blur;
-  };
+  // Card size 145px for 3 games
+  const cardSize = 145;
 
-  const getSectionStyle = (color: string) => ({
-    background: selectedCardStyle?.background || undefined,
-    border: selectedCardStyle?.border ? `${selectedCardStyle.border} ${color}` : undefined,
-    opacity: selectedCardStyle?.opacity || 1,
-    boxShadow: selectedCardStyle?.shadow ? (selectedCardStyle.shadow.includes('0 0 20px') ? `${selectedCardStyle.shadow} ${color}` : selectedCardStyle.shadow) : undefined
-  });
-
-  const pragmaticGamesWithRTP = selectedPragmaticGames.slice(0, pragmaticCount).map(game => ({
+  // Generate RTP for games (3 games each)
+  const pragmaticGamesWithRTP = selectedPragmaticGames.slice(0, 3).map(game => ({
     ...game,
     rtp: Math.floor(Math.random() * 13) + 86
   }));
 
-  const pgSoftGamesWithRTP = selectedPgSoftGames.slice(0, pgSoftCount).map(game => ({
+  const pgSoftGamesWithRTP = selectedPgSoftGames.slice(0, 3).map(game => ({
     ...game,
     rtp: Math.floor(Math.random() * 13) + 86
   }));
-
-  const getCardWidthClass = (count: number) => {
-    if (count === 1) return 'w-[calc(50%-0.25rem)] md:w-[calc(50%-0.25rem)]';
-    if (count === 2) return 'w-[calc(50%-0.25rem)] md:w-[calc(45%-0.25rem)]';
-    return 'w-[calc(50%-0.25rem)] md:w-[calc(33.333%-0.34rem)]';
-  };
 
   return (
-    <div className="relative z-10 flex flex-col min-h-full p-3" style={{ fontFamily: 'monospace' }}>
+    <div
+      className="relative z-10 flex flex-col"
+      style={{
+        fontFamily: 'monospace',
+        height: '1000px',
+        width: '1000px',
+        overflow: 'hidden'
+      }}
+    >
       {/* Space Nebula Effect */}
       <div
         className="absolute inset-0 opacity-20 pointer-events-none"
@@ -250,75 +403,132 @@ export default function CasinoSpaceStationLayout({
         }}
       />
 
-      {/* Station Header */}
-      <div className="relative z-10 mb-3">
-        <div
-          className="p-3"
+      {/* Header 1 - Title (55px) */}
+      <div
+        className="flex-shrink-0 flex items-center justify-center px-4 relative z-10"
+        style={{
+          height: '55px',
+          background: `${darkPrimary}99`,
+          backdropFilter: 'blur(5px)',
+          border: `1px solid ${primaryColor}50`,
+          borderBottom: `2px solid ${primaryColor}`
+        }}
+      >
+        <h1
+          className={`${getFontSizeClass()} font-black uppercase tracking-wider leading-tight text-center`}
           style={{
-            background: `${darkPrimary}99`,
-            backdropFilter: 'blur(5px)',
-            border: `1px solid ${primaryColor}50`,
-            borderRadius: '8px',
-            display: 'flex',
-            alignItems: 'center'
+            color: '#ffffff',
+            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
           }}
         >
-          <div className="flex items-center justify-between w-full">
-            <img
-              src={selectedWebsite.logo}
-              alt={selectedWebsite.name}
-              style={{ height: '60px', filter: `drop-shadow(0 0 20px ${primaryColor}80)` }}
-            />
-            <h1 className="text-lg font-bold tracking-wider" style={{
-              color: '#ffffff',
-              textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
-            }}>
-              {customHeaderText}
-            </h1>
-            <div className="flex items-center gap-2 text-sm opacity-80">
-              <span style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>{getCurrentDate()}</span>
-              <span style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>{customTimeLabel}</span>
-            </div>
+          {customHeaderText}
+        </h1>
+      </div>
+
+      {/* Header 2 - Logo, Time, Date, RTP LIVE Badge (45px) */}
+      <div
+        className="flex-shrink-0 flex items-center justify-between px-4 relative z-10"
+        style={{
+          height: '45px',
+          background: `${darkPrimary}99`,
+          backdropFilter: 'blur(5px)',
+          borderBottom: `1px solid ${primaryColor}50`
+        }}
+      >
+        {/* Logo */}
+        <div className="flex items-center gap-2">
+          <img
+            src={selectedWebsite.logo}
+            alt={`${selectedWebsite.name} logo`}
+            className="h-9 object-contain"
+            style={{ filter: `drop-shadow(0 0 5px ${primaryColor})` }}
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="80"%3E%3Crect width="200" height="80" fill="%23333"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="white" font-family="Arial" font-size="14"%3E' + selectedWebsite.name + '%3C/text%3E%3C/svg%3E';
+            }}
+          />
+        </div>
+
+        {/* Time, Date & RTP LIVE Badge */}
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
+            <span
+              className="font-bold"
+              style={{ fontSize: '20px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+            >
+              {customTimeLabel}
+            </span>
+            <span style={{ color: '#ffffff' }}>|</span>
+            <span
+              className="font-medium"
+              style={{ fontSize: '18px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+            >
+              {getCurrentDate()}
+            </span>
+          </div>
+          {/* RTP LIVE Badge */}
+          <div
+            className="flex items-center gap-1.5 px-3 py-1 rounded-full"
+            style={{
+              background: `linear-gradient(135deg, ${primaryColor}, ${adjustColor(primaryColor, 20)})`,
+              boxShadow: `0 0 15px ${primaryColor}`
+            }}
+          >
+            <span className="text-xs font-black text-white">⚡ RTP LIVE</span>
           </div>
         </div>
       </div>
 
-      {/* Main Docking Bays - 2 Column Grid */}
-      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-3 flex-1">
-        {/* Pragmatic Play - Alpha Wing */}
-        <div>
+      {/* Content Area */}
+      <div className="flex-1 flex flex-col gap-2 p-2 overflow-hidden relative z-10" style={{ minHeight: 0 }}>
+        {/* Game Modal Row (264px height) */}
+        <div className="flex gap-3" style={{ height: '264px' }}>
+          {/* Pragmatic Play */}
           <div
-            className={`relative p-3 ${getBlurClass()}`}
+            className="flex-1 overflow-hidden p-3 relative"
             style={{
-              ...getSectionStyle(primaryColor),
-              border: `1px solid ${primaryColor}30`,
               background: `${darkPrimary}99`,
-              borderRadius: '8px'
+              borderRadius: '12px',
+              border: `2px solid ${primaryColor}60`,
+              boxShadow: `0 0 30px ${primaryColor}40, inset 0 0 20px rgba(0,50,100,0.3)`
             }}
           >
-          {/* Pattern Overlay */}
-          {selectedCardStyle?.pattern && selectedCardStyle.pattern !== 'none' && (
+            {/* Hexagonal Grid Overlay */}
             <div
-              className="absolute inset-0 pointer-events-none"
+              className="absolute inset-0 opacity-20 pointer-events-none"
               style={{
-                backgroundImage: selectedCardStyle.pattern,
-                backgroundRepeat: 'repeat',
-                borderRadius: '8px'
+                backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 5L30 10L30 20L20 25L10 20L10 10Z' fill='none' stroke='${encodeURIComponent(primaryColor)}' stroke-width='0.5' opacity='0.3'/%3E%3C/svg%3E")`,
+                backgroundSize: '40px 40px',
+                borderRadius: '12px'
               }}
             />
-          )}
-          <div className="relative z-10 flex items-center justify-center mb-3" style={{ overflow: 'visible' }}>
-            <img
-              src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgd6JBXF6-nJ7cAuYfPpx5tAckyV8KM5guWWeV-ZIHVCUluIE8As1b41nyGJE3FSsL__ImOQ3WOOmymZmvWzECCUR5Qagtg2OdKeatK2elfcSL4rZB-ARMUXCJyWuIY8j29KomqPboqtVqgXBGNyP5LKPgjlfNKkbhnXkgGrAaZ234uQBSauAMzOvQ7zSFq/w411-h274/Pragmatic-Play-logo.png"
-              className="h-10"
-              style={{ filter: `drop-shadow(0 0 10px ${primaryColor}80)`, transform: 'scale(2.5)' }}
-              alt="Pragmatic Play"
-            />
-          </div>
-          <div className="relative z-10 flex flex-wrap justify-center gap-2">
-            {pragmaticGamesWithRTP.map((game, index) => (
-              <div key={`pragmatic-${index}`} className={getCardWidthClass(pragmaticGamesWithRTP.length)}>
+
+            {/* Status Indicators */}
+            <div className="absolute top-2 left-2 flex gap-1 z-20">
+              <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+              <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: primaryColor }} />
+            </div>
+            <div className="absolute top-2 right-2 flex gap-1 z-20">
+              <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: primaryColor, animationDelay: '0.5s' }} />
+              <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" style={{ animationDelay: '0.5s' }} />
+            </div>
+
+            <div className="text-center mb-2 relative z-10">
+              <h2
+                className="font-black tracking-wider"
+                style={{
+                  color: '#ffffff',
+                  fontSize: '20px',
+                  fontFamily: 'monospace',
+                  textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
+                }}
+              >
+                🚀 PRAGMATIC PLAY 🚀
+              </h2>
+            </div>
+            <div className="flex gap-2 justify-center relative z-10">
+              {pragmaticGamesWithRTP.map((game, index) => (
                 <SpaceGameCard
+                  key={`pragmatic-${index}`}
                   game={game}
                   rtp={game.rtp}
                   primaryColor={primaryColor}
@@ -326,103 +536,105 @@ export default function CasinoSpaceStationLayout({
                   bayNumber={index + 1}
                   darkBackground={darkerPrimary}
                 />
-              </div>
-            ))}
-          </div>
-          {pragmaticTrik.enabled && (
-            <div
-              ref={pragmaticTrikRef}
-              className="relative z-10 mt-3"
-              style={{
-                minHeight: pragmaticTrik.enabled && pgSoftTrik.enabled ? `${trikMinHeight}px` : 'auto'
-              }}
-            >
-              <TrikPanel
-                trik={pragmaticTrik}
-                providerColor={primaryColor}
-                fontFamily="monospace"
-                cardStyle={selectedCardStyle}
-                variant="galaxy"
-              />
+              ))}
             </div>
-          )}
+          </div>
+
+          {/* PG Soft */}
+          <div
+            className="flex-1 overflow-hidden p-3 relative"
+            style={{
+              background: `${darkSecondary}99`,
+              borderRadius: '12px',
+              border: `2px solid ${secondaryColor}60`,
+              boxShadow: `0 0 30px ${secondaryColor}40, inset 0 0 20px rgba(0,50,100,0.3)`
+            }}
+          >
+            {/* Hexagonal Grid Overlay */}
+            <div
+              className="absolute inset-0 opacity-20 pointer-events-none"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 5L30 10L30 20L20 25L10 20L10 10Z' fill='none' stroke='${encodeURIComponent(secondaryColor)}' stroke-width='0.5' opacity='0.3'/%3E%3C/svg%3E")`,
+                backgroundSize: '40px 40px',
+                borderRadius: '12px'
+              }}
+            />
+
+            {/* Status Indicators */}
+            <div className="absolute top-2 left-2 flex gap-1 z-20">
+              <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+              <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: secondaryColor }} />
+            </div>
+            <div className="absolute top-2 right-2 flex gap-1 z-20">
+              <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: secondaryColor, animationDelay: '0.5s' }} />
+              <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" style={{ animationDelay: '0.5s' }} />
+            </div>
+
+            <div className="text-center mb-2 relative z-10">
+              <h2
+                className="font-black tracking-wider"
+                style={{
+                  color: '#ffffff',
+                  fontSize: '20px',
+                  fontFamily: 'monospace',
+                  textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
+                }}
+              >
+                🛸 PG SOFT 🛸
+              </h2>
+            </div>
+            <div className="flex gap-2 justify-center relative z-10">
+              {pgSoftGamesWithRTP.map((game, index) => (
+                <SpaceGameCard
+                  key={`pgsoft-${index}`}
+                  game={game}
+                  rtp={game.rtp}
+                  primaryColor={secondaryColor}
+                  secondaryColor={primaryColor}
+                  bayNumber={index + 101}
+                  darkBackground={adjustColor(secondaryColor, -90)}
+                />
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* PG Soft - Beta Wing */}
-        <div>
-          <div
-            className={`relative p-3 ${getBlurClass()}`}
-            style={{
-              ...getSectionStyle(secondaryColor),
-              border: `1px solid ${secondaryColor}30`,
-              background: `${darkSecondary}99`,
-              borderRadius: '8px'
-            }}
-          >
-            {/* Pattern Overlay */}
-            {selectedCardStyle?.pattern && selectedCardStyle.pattern !== 'none' && (
-              <div
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                  backgroundImage: selectedCardStyle.pattern,
-                  backgroundRepeat: 'repeat',
-                  borderRadius: '8px'
-                }}
-              />
+        {/* Trik Panel Row (400px height) */}
+        {(pragmaticTrik.enabled || pgSoftTrik.enabled) && (
+          <div className="flex gap-3 items-stretch" style={{ height: '400px' }}>
+            {pragmaticTrik.enabled && (
+              <div className="flex-1">
+                <SpaceTrikPanel
+                  trik={pragmaticTrik}
+                  providerColor={primaryColor}
+                  primaryColor={primaryColor}
+                  darkBackground={darkerPrimary}
+                />
+              </div>
             )}
-            <div className="relative z-10 flex items-center justify-center mb-3" style={{ overflow: 'visible' }}>
-              <img
-                src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiyRL8QUJ4ATALDgUz3f6Xzp8WeH_7vGwGW6KYIdsi3gC_F9HkYiTABnlxysMEFraHBkUUnc71XGjXybY7EQNqlN3-Ddz480rPdcV_CWGie6bwGds0LzTZ7JClIkg-t-nCTzMOa_qJJQV_ARXE_dbQajerSg7IyDHiDRYswEQdyRQWs6pTlcFbsTNMzbn07/w539-h303/663b3b87ed4e2097a300be14_pg-soft.png"
-                className="h-10"
-                style={{ filter: `drop-shadow(0 0 10px ${secondaryColor}80)`, transform: 'scale(2.5)' }}
-                alt="PG Soft"
-              />
-            </div>
-            <div className="relative z-10 flex flex-wrap justify-center gap-2">
-              {pgSoftGamesWithRTP.map((game, index) => (
-                <div key={`pgsoft-${index}`} className={getCardWidthClass(pgSoftGamesWithRTP.length)}>
-                  <SpaceGameCard
-                    game={game}
-                    rtp={game.rtp}
-                    primaryColor={secondaryColor}
-                    secondaryColor={primaryColor}
-                    bayNumber={index + 101}
-                    darkBackground={adjustColor(secondaryColor, -90)}
-                  />
-                </div>
-              ))}
-            </div>
             {pgSoftTrik.enabled && (
-              <div
-                ref={pgSoftTrikRef}
-                className="relative z-10 mt-3"
-                style={{
-                  minHeight: pragmaticTrik.enabled && pgSoftTrik.enabled ? `${trikMinHeight}px` : 'auto'
-                }}
-              >
-                <TrikPanel
+              <div className="flex-1">
+                <SpaceTrikPanel
                   trik={pgSoftTrik}
-                  hideFiturGanda={true}
                   providerColor={secondaryColor}
-                  fontFamily="monospace"
-                  cardStyle={selectedCardStyle}
-                  variant="galaxy"
+                  primaryColor={secondaryColor}
+                  darkBackground={adjustColor(secondaryColor, -90)}
+                  hideFiturGanda={true}
                 />
               </div>
             )}
           </div>
-        </div>
+        )}
       </div>
 
-      {/* Space Station Telegram Footer */}
-      <div className="relative z-10 mt-3">
+      {/* Footer - Space Station Telegram (40px) */}
+      <div className="flex-shrink-0 relative z-10">
         <div
-          className="relative p-4 flex items-center justify-center gap-4 overflow-hidden"
+          className="flex items-center justify-center gap-3 px-4"
           style={{
+            height: '40px',
             background: `linear-gradient(90deg, ${darkPrimary}cc, ${darkerPrimary}ee, ${darkPrimary}cc)`,
             border: `2px solid ${primaryColor}60`,
-            borderRadius: '8px',
             boxShadow: `0 0 30px ${primaryColor}40, inset 0 0 40px ${primaryColor}10`
           }}
         >
@@ -453,7 +665,7 @@ export default function CasinoSpaceStationLayout({
 
           {/* Telegram Icon with Space Frame */}
           <div
-            className="relative w-12 h-12 rounded-lg flex items-center justify-center"
+            className="relative w-10 h-10 rounded-lg flex items-center justify-center"
             style={{
               background: `linear-gradient(135deg, ${primaryColor}40, ${secondaryColor}40)`,
               border: `2px solid ${primaryColor}`,
@@ -462,7 +674,7 @@ export default function CasinoSpaceStationLayout({
           >
             <svg
               viewBox="0 0 24 24"
-              className="w-7 h-7"
+              className="w-6 h-6"
               fill={primaryColor}
               style={{ filter: `drop-shadow(0 0 5px ${primaryColor})` }}
             >
@@ -471,23 +683,12 @@ export default function CasinoSpaceStationLayout({
           </div>
 
           {/* Telegram Text */}
-          <div className="relative z-10 flex flex-col items-start">
-            <span
-              className="text-xs font-mono uppercase tracking-widest opacity-70"
-              style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
-            >
-              [COMM_CHANNEL]
-            </span>
-            <span
-              className="text-lg font-bold font-mono tracking-wider"
-              style={{
-                color: '#ffffff',
-                textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
-              }}
-            >
-              @{telegramUsername || selectedWebsite.name.toLowerCase().replace(/[^a-z0-9]/g, '')}
-            </span>
-          </div>
+          <span
+            className="text-sm font-bold relative z-10"
+            style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+          >
+            {footerConfig?.footer1 || `@${telegramUsername || selectedWebsite.name.toLowerCase().replace(/[^a-z0-9]/g, '')}`}
+          </span>
 
           {/* Status indicators right */}
           <div className="flex items-center gap-2 absolute right-4">
