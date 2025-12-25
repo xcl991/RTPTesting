@@ -241,12 +241,12 @@ function PokerTrikPanel({
         className="flex-1 flex flex-col overflow-hidden relative z-10"
         style={{ padding: `${sizes.padding}px`, gap: `${sizes.gap}px` }}
       >
-        {/* Deposit Kode | Fitur Ganda | Putaran Bet - 1 Row - Font +3px */}
+        {/* Deposit Kode | Fitur Ganda | Putaran Bet - 1 Row - Font +3px, Height +5px */}
         <div
           className="flex items-stretch gap-2"
           style={{
             background: 'linear-gradient(90deg, rgba(0,0,0,0.4), rgba(0,0,0,0.6), rgba(0,0,0,0.4))',
-            padding: `${sizes.padding}px`,
+            padding: `${sizes.padding + 5}px`,
             borderRadius: '12px',
             border: `2px solid ${accentColor}80`
           }}
