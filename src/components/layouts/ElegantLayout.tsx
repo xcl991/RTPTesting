@@ -515,18 +515,19 @@ export default function ElegantLayout({
             </span>
           </div>
           {/* Maxwin Button */}
-          {maxwinConfig?.enabled && maxwinConfig.buttonText && (
-            <div
-              className="flex items-center gap-1.5 px-3 py-1 rounded"
-              style={{
-                background: `linear-gradient(135deg, #d4af37e6, #c9a72ae6)`,
-                boxShadow: `0 0 12px #d4af3760, inset 0 1px 0 rgba(255,255,255,0.25), inset 0 -1px 0 rgba(0,0,0,0.25)`,
-                border: `1px solid #d4af37`,
-                borderRadius: '4px'
-              }}
+          {maxwinConfig?.enabled && (
+            <button
+              className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition-colors font-semibold"
             >
-              <span style={{ fontFamily: 'Georgia, serif', fontSize: '11px', fontWeight: 700, color: '#ffffff', letterSpacing: '0.5px', textShadow: '0 1px 2px rgba(0,0,0,0.5)' }}>{maxwinConfig.buttonText}</span>
-            </div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+                <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/>
+                <path d="M20 3v4"/>
+                <path d="M22 5h-4"/>
+                <path d="M4 17v2"/>
+                <path d="M5 18H3"/>
+              </svg>
+              Maxwin Info
+            </button>
           )}
           {/* RTP LIVE badge */}
           <div

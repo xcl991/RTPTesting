@@ -510,19 +510,20 @@ export default function CasinoSpaceStationLayout({
             </span>
           </div>
 
-          {/* Maxwin Button - Space Command Style */}
-          {maxwinConfig?.enabled && maxwinConfig.buttonText && (
-            <div
-              className="flex items-center gap-1.5 px-3 py-1 rounded"
-              style={{
-                background: `linear-gradient(135deg, #0ea5e9dd, ${adjustColor('#0ea5e9', 20)})`,
-                border: '2px solid #38bdf8',
-                boxShadow: '0 0 15px #0ea5e980, inset 0 0 10px rgba(255,255,255,0.1)'
-              }}
+          {/* Maxwin Button */}
+          {maxwinConfig?.enabled && (
+            <button
+              className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition-colors font-semibold"
             >
-              <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" style={{ boxShadow: '0 0 6px #fff' }} />
-              <span className="text-xs font-black text-white" style={{ fontFamily: 'monospace' }}>{maxwinConfig.buttonText}</span>
-            </div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+                <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/>
+                <path d="M20 3v4"/>
+                <path d="M22 5h-4"/>
+                <path d="M4 17v2"/>
+                <path d="M5 18H3"/>
+              </svg>
+              Maxwin Info
+            </button>
           )}
 
           {/* RTP LIVE Badge - Mission Control Style */}

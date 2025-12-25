@@ -517,28 +517,20 @@ export default function CasinoHolographicLayout({
               {getCurrentDate()}
             </span>
           </div>
-          {/* Maxwin Button - Holographic rainbow shimmer effect */}
-          {maxwinConfig?.enabled && maxwinConfig.buttonText && (
-            <div
-              className="flex items-center gap-1.5 px-3 py-1 rounded-full relative"
-              style={{
-                background: `linear-gradient(135deg, ${primaryColor}50, ${secondaryColor}50, #ff00ff50, #00ffff50)`,
-                backdropFilter: 'blur(10px)',
-                border: `2px solid transparent`,
-                borderImage: `linear-gradient(135deg, ${primaryColor}, ${secondaryColor}, #ff00ff, #00ffff) 1`,
-                boxShadow: `0 0 20px ${primaryColor}60, 0 0 30px ${secondaryColor}40, inset 0 0 20px rgba(255,255,255,0.15)`
-              }}
+          {/* Maxwin Button */}
+          {maxwinConfig?.enabled && (
+            <button
+              className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition-colors font-semibold"
             >
-              {/* Holographic shimmer animation */}
-              <div
-                className="absolute inset-0 rounded-full pointer-events-none opacity-60"
-                style={{
-                  background: `linear-gradient(90deg, transparent 10%, ${primaryColor}50 30%, ${secondaryColor}50 50%, #ff00ff50 70%, transparent 90%)`,
-                  backgroundSize: '300% 100%'
-                }}
-              />
-              <span className="text-xs font-black text-white relative z-10" style={{ textShadow: '0 0 10px rgba(0,0,0,0.8), 1px 1px 2px #000' }}>{maxwinConfig.buttonText}</span>
-            </div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+                <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/>
+                <path d="M20 3v4"/>
+                <path d="M22 5h-4"/>
+                <path d="M4 17v2"/>
+                <path d="M5 18H3"/>
+              </svg>
+              Maxwin Info
+            </button>
           )}
           {/* RTP LIVE indicator - Prism/rainbow effect */}
           <div

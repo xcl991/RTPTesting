@@ -447,17 +447,19 @@ export default function ClassicLayout({
             </span>
           </div>
           {/* Maxwin Button */}
-          {maxwinConfig?.enabled && maxwinConfig.buttonText && (
-            <div
-              className="px-3 py-1 relative"
-              style={{
-                background: 'linear-gradient(to bottom, #c084fc, #9333ea)',
-                border: '2px solid #a855f7',
-                boxShadow: '2px 2px 0 #000, inset 0 1px 2px rgba(255,255,255,0.2)'
-              }}
+          {maxwinConfig?.enabled && (
+            <button
+              className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition-colors font-semibold"
             >
-              <span className="text-xs font-black text-white" style={{ textShadow: '1px 1px 0 #000', fontFamily: 'Georgia, serif' }}>{maxwinConfig.buttonText}</span>
-            </div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+                <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/>
+                <path d="M20 3v4"/>
+                <path d="M22 5h-4"/>
+                <path d="M4 17v2"/>
+                <path d="M5 18H3"/>
+              </svg>
+              Maxwin Info
+            </button>
           )}
           {/* Badge */}
           <div
