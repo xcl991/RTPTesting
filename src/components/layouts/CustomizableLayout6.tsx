@@ -228,12 +228,12 @@ function VegasTrikPanel({
         className="flex-1 flex flex-col overflow-hidden relative z-10"
         style={{ padding: `${sizes.padding}px`, gap: `${sizes.gap}px` }}
       >
-        {/* Deposit Kode | Fitur Ganda | Putaran Bet - 1 Row */}
+        {/* Deposit Kode | Fitur Ganda | Putaran Bet - 1 Row - Height +5px */}
         <div
           className="flex items-stretch gap-2"
           style={{
             background: 'rgba(0,0,0,0.5)',
-            padding: `${sizes.padding}px`,
+            padding: `${sizes.padding + 5}px`,
             borderRadius: '12px',
             border: `1px solid ${providerColor}50`
           }}
