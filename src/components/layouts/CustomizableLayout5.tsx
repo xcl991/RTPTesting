@@ -129,7 +129,7 @@ function PokerGameCard({ game, rtp, cardSize, accentColor }: { game: Game; rtp: 
           style={{
             color: accentColor,
             overflow: 'hidden',
-            height: '28px',
+            height: '31px',
             display: '-webkit-box',
             WebkitLineClamp: 2,
             WebkitBoxOrient: 'vertical',
