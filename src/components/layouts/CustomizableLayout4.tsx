@@ -508,8 +508,8 @@ export default function CustomizableLayout4({
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col gap-3 p-3 overflow-hidden" style={{ minHeight: 0 }}>
-        {/* Row 1: Game Modals */}
-        <div className="flex gap-3" style={{ height: '240px' }}>
+        {/* Row 1: Game Modals - Height +5px */}
+        <div className="flex gap-3" style={{ height: '245px' }}>
           <GlassGameModal
             title="PRAGMATIC PLAY"
             games={selectedPragmaticGames}
@@ -526,8 +526,8 @@ export default function CustomizableLayout4({
           />
         </div>
 
-        {/* Row 2: Trik Gacor Panels */}
-        <div className="flex gap-3 items-stretch">
+        {/* Row 2: Trik Gacor Panels - Shifted down 10px */}
+        <div className="flex gap-3 items-stretch" style={{ marginTop: '10px' }}>
           {pragmaticTrik.enabled && (
             <div className="flex-1">
               <HolographicTrikPanel
