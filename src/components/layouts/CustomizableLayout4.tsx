@@ -550,10 +550,10 @@ export default function CustomizableLayout4({
           )}
         </div>
 
-        {/* Row 3: Maxwin Info */}
+        {/* Row 3: Maxwin Info - Height reduced by 25px */}
         {maxwinConfig?.enabled && (
           <div
-            className="rounded-3xl p-4 relative overflow-hidden"
+            className="rounded-3xl px-4 py-1 relative overflow-hidden"
             style={{
               background: 'linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02))',
               backdropFilter: 'blur(20px)',
@@ -570,7 +570,7 @@ export default function CustomizableLayout4({
             />
 
             {/* Heading 1 */}
-            <div className="text-center mb-3 relative z-10">
+            <div className="text-center mb-1 relative z-10">
               <h2
                 className="text-xl font-black uppercase tracking-wide"
                 style={{
@@ -584,7 +584,7 @@ export default function CustomizableLayout4({
 
             {/* Heading 2 */}
             {maxwinConfig.heading2 && (
-              <div className="text-center mb-3 relative z-10">
+              <div className="text-center mb-1 relative z-10">
                 <h3 className="text-base font-bold uppercase" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
                   {maxwinConfig.heading2}
                 </h3>
@@ -593,12 +593,12 @@ export default function CustomizableLayout4({
 
             {/* Text Items */}
             {maxwinConfig.textItems && maxwinConfig.textItems.length > 0 && (
-              <div className="grid grid-cols-2 gap-3 relative z-10">
+              <div className="grid grid-cols-2 gap-2 relative z-10">
                 {maxwinConfig.textItems.map((text, index) => (
                   text && (
                     <div
                       key={index}
-                      className="p-3 rounded-xl text-center"
+                      className="p-2 rounded-xl text-center"
                       style={{
                         background: 'rgba(255,255,255,0.05)',
                         border: '1px solid rgba(255,255,255,0.1)'
