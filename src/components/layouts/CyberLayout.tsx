@@ -1,6 +1,6 @@
 'use client';
 
-import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig } from '@/types';
+import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, MaxwinConfig } from '@/types';
 
 // Helper function to create darker/lighter colors from hex
 function adjustColor(hex: string, percent: number): string {
@@ -320,6 +320,7 @@ interface CyberLayoutProps {
   headerFontSize: 'small' | 'medium' | 'large' | 'xlarge';
   defaultLayoutSize: DefaultLayoutSizeConfig;
   footerConfig?: FooterConfig;
+  maxwinConfig?: MaxwinConfig;
 }
 
 export default function CyberLayout({
@@ -334,7 +335,8 @@ export default function CyberLayout({
   telegramUsername,
   customHeaderText,
   headerFontSize,
-  footerConfig
+  footerConfig,
+  maxwinConfig
 }: CyberLayoutProps) {
   const getFontSizeClass = () => {
     switch (headerFontSize) {
@@ -615,6 +617,100 @@ export default function CyberLayout({
           </div>
         )}
       </div>
+
+      {/* Maxwin Info Panel */}
+      {maxwinConfig?.enabled && (
+        <div
+          className="mx-4 mb-2 p-3 relative"
+          style={{
+            background: darkPrimary,
+            clipPath: 'polygon(0 15px, 15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%)',
+            border: `2px solid ${primaryColor}`,
+            boxShadow: `0 0 15px ${primaryColor}40`
+          }}
+        >
+          {/* Warning stripes pattern */}
+          <div
+            className="absolute inset-0 opacity-10 pointer-events-none"
+            style={{
+              backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 10px, ${primaryColor}60 10px, ${primaryColor}60 20px)`
+            }}
+          />
+
+          {/* Circuit pattern overlay */}
+          <div
+            className="absolute inset-0 pointer-events-none opacity-5"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cpath d='M0 20h20M20 0v20M20 20h20M20 20v20' stroke='${encodeURIComponent(primaryColor)}' fill='none'/%3E%3C/svg%3E")`,
+              backgroundSize: '40px 40px'
+            }}
+          />
+
+          {/* Corner Accents */}
+          <div className="absolute top-0 left-0 w-4 h-4" style={{ borderTop: `2px solid ${primaryColor}`, borderLeft: `2px solid ${primaryColor}` }} />
+          <div className="absolute top-0 right-0 w-4 h-4" style={{ borderTop: `2px solid #ff0000`, borderRight: `2px solid #ff0000` }} />
+          <div className="absolute bottom-0 left-0 w-4 h-4" style={{ borderBottom: `2px solid #00ffff`, borderLeft: `2px solid #00ffff` }} />
+          <div className="absolute bottom-0 right-0 w-4 h-4" style={{ borderBottom: `2px solid ${primaryColor}`, borderRight: `2px solid ${primaryColor}` }} />
+
+          {/* Heading 1 */}
+          <div className="text-center mb-2 relative z-10">
+            <h2
+              className="text-lg font-black uppercase tracking-wide"
+              style={{
+                color: '#ffffff',
+                textShadow: `2px 0 0 #ff0000, -2px 0 0 #00ffff, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 10px ${primaryColor}`
+              }}
+            >
+              {maxwinConfig.heading1 || 'KODE MAXWIN GACOR MALAM INI'}
+            </h2>
+          </div>
+
+          {/* Heading 2 */}
+          {maxwinConfig.heading2 && (
+            <div className="text-center mb-2 relative z-10">
+              <h3
+                className="text-sm font-bold uppercase"
+                style={{
+                  color: '#ffffff',
+                  textShadow: `1px 0 0 #ff0000, -1px 0 0 #00ffff, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000`
+                }}
+              >
+                {maxwinConfig.heading2}
+              </h3>
+            </div>
+          )}
+
+          {/* Text Items */}
+          {maxwinConfig.textItems && maxwinConfig.textItems.length > 0 && (
+            <div className="grid grid-cols-2 gap-2 relative z-10">
+              {maxwinConfig.textItems.map((text, index) => (
+                text && (
+                  <div
+                    key={index}
+                    className="p-2 text-center"
+                    style={{
+                      background: `linear-gradient(135deg, ${primaryColor}15, ${primaryColor}25, ${primaryColor}15)`,
+                      clipPath: 'polygon(0 6px, 6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%)',
+                      border: `1px solid ${primaryColor}60`,
+                      boxShadow: `0 0 8px ${primaryColor}30`
+                    }}
+                  >
+                    <p
+                      className="font-semibold text-xs"
+                      style={{
+                        color: '#ffffff',
+                        textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
+                      }}
+                    >
+                      {text}
+                    </p>
+                  </div>
+                )
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Footer (40px) */}
       <div className="flex-shrink-0">

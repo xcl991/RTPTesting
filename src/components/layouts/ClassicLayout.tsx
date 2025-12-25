@@ -1,6 +1,6 @@
 'use client';
 
-import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig } from '@/types';
+import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, MaxwinConfig } from '@/types';
 
 interface ClassicLayoutProps {
   selectedWebsite: WebsiteOption;
@@ -19,6 +19,7 @@ interface ClassicLayoutProps {
   headerFontSize: 'small' | 'medium' | 'large' | 'xlarge';
   defaultLayoutSize: DefaultLayoutSizeConfig;
   footerConfig?: FooterConfig;
+  maxwinConfig?: MaxwinConfig;
 }
 
 // Helper function to create darker/lighter colors from hex
@@ -328,7 +329,8 @@ export default function ClassicLayout({
   telegramUsername,
   customHeaderText,
   headerFontSize,
-  footerConfig
+  footerConfig,
+  maxwinConfig
 }: ClassicLayoutProps) {
   const getFontSizeClass = () => {
     switch (headerFontSize) {
@@ -542,6 +544,63 @@ export default function ClassicLayout({
           </div>
         )}
       </div>
+
+      {/* Maxwin Info Panel */}
+      {maxwinConfig?.enabled && (
+        <div
+          className="mx-4 mb-2 p-3"
+          style={{
+            background: '#1a1a1a',
+            border: '4px solid #000',
+            boxShadow: '6px 6px 0 #000',
+            borderRadius: '4px'
+          }}
+        >
+          {/* Heading 1 */}
+          <div className="text-center mb-2">
+            <h2
+              className="text-lg font-black uppercase tracking-wide"
+              style={{
+                color: primaryColor,
+                textShadow: '2px 2px 0 #000',
+                fontFamily: 'Georgia, serif'
+              }}
+            >
+              {maxwinConfig.heading1 || 'KODE MAXWIN GACOR MALAM INI'}
+            </h2>
+          </div>
+
+          {/* Heading 2 */}
+          {maxwinConfig.heading2 && (
+            <div className="text-center mb-2">
+              <h3 className="text-sm font-bold uppercase" style={{ color: '#ffffff', textShadow: '1px 1px 0 #000', fontFamily: 'Georgia, serif' }}>
+                {maxwinConfig.heading2}
+              </h3>
+            </div>
+          )}
+
+          {/* Text Items */}
+          {maxwinConfig.textItems && maxwinConfig.textItems.length > 0 && (
+            <div className="grid grid-cols-2 gap-2">
+              {maxwinConfig.textItems.map((text, index) => (
+                text && (
+                  <div
+                    key={index}
+                    className="p-2 text-center"
+                    style={{
+                      background: '#2a2a2a',
+                      border: '2px solid #000',
+                      borderLeft: `4px solid ${primaryColor}`
+                    }}
+                  >
+                    <p className="font-semibold text-xs" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000', fontFamily: 'Georgia, serif' }}>{text}</p>
+                  </div>
+                )
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Footer */}
       <div className="flex-shrink-0">

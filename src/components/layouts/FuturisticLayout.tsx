@@ -1,6 +1,6 @@
 'use client';
 
-import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig } from '@/types';
+import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, MaxwinConfig } from '@/types';
 
 interface FuturisticLayoutProps {
   selectedWebsite: WebsiteOption;
@@ -19,6 +19,7 @@ interface FuturisticLayoutProps {
   headerFontSize: 'small' | 'medium' | 'large' | 'xlarge';
   defaultLayoutSize: DefaultLayoutSizeConfig;
   footerConfig?: FooterConfig;
+  maxwinConfig?: MaxwinConfig;
 }
 
 // Helper function to create darker/lighter colors from hex
@@ -346,7 +347,8 @@ export default function FuturisticLayout({
   telegramUsername,
   customHeaderText,
   headerFontSize,
-  footerConfig
+  footerConfig,
+  maxwinConfig
 }: FuturisticLayoutProps) {
   const getFontSizeClass = () => {
     switch (headerFontSize) {
@@ -631,6 +633,65 @@ export default function FuturisticLayout({
           </div>
         )}
       </div>
+
+      {/* Maxwin Info Panel */}
+      {maxwinConfig?.enabled && (
+        <div
+          className="mx-4 mb-2 p-3"
+          style={{
+            background: `linear-gradient(180deg, ${darkPrimary}90, #000000cc)`,
+            borderRadius: '8px',
+            border: `2px solid ${primaryColor}60`,
+            clipPath: 'polygon(0 12px, 12px 0, calc(100% - 12px) 0, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0 calc(100% - 12px))',
+            boxShadow: `0 0 30px ${primaryColor}30, inset 0 0 20px rgba(0,0,0,0.7)`
+          }}
+        >
+          {/* Heading 1 */}
+          <div className="text-center mb-2">
+            <h2
+              className="text-lg font-black uppercase tracking-widest"
+              style={{
+                color: '#ffffff',
+                textShadow: `0 0 10px ${primaryColor}, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000`,
+                fontFamily: 'monospace'
+              }}
+            >
+              {maxwinConfig.heading1 || 'KODE MAXWIN GACOR MALAM INI'}
+            </h2>
+          </div>
+
+          {/* Heading 2 */}
+          {maxwinConfig.heading2 && (
+            <div className="text-center mb-2">
+              <h3 className="text-sm font-bold uppercase tracking-wider" style={{ color: primaryColor, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000', fontFamily: 'monospace' }}>
+                {maxwinConfig.heading2}
+              </h3>
+            </div>
+          )}
+
+          {/* Text Items */}
+          {maxwinConfig.textItems && maxwinConfig.textItems.length > 0 && (
+            <div className="grid grid-cols-2 gap-2">
+              {maxwinConfig.textItems.map((text, index) => (
+                text && (
+                  <div
+                    key={index}
+                    className="p-2 text-center rounded-md"
+                    style={{
+                      background: `linear-gradient(90deg, ${primaryColor}10, ${primaryColor}20, ${primaryColor}10)`,
+                      border: `1px solid ${primaryColor}30`,
+                      borderLeft: `2px solid ${primaryColor}`,
+                      borderRight: `2px solid ${primaryColor}`
+                    }}
+                  >
+                    <p className="font-semibold text-xs uppercase" style={{ color: '#ffffff', textShadow: `0 0 5px ${primaryColor}`, fontFamily: 'monospace' }}>{text}</p>
+                  </div>
+                )
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Footer */}
       <div className="flex-shrink-0 relative">

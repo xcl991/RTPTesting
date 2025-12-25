@@ -1,6 +1,6 @@
 'use client';
 
-import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig } from '@/types';
+import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, MaxwinConfig } from '@/types';
 
 // Helper function to create darker/lighter colors from hex
 function adjustColor(hex: string, percent: number): string {
@@ -333,6 +333,7 @@ interface CasinoHolographicLayoutProps {
   headerFontSize: 'small' | 'medium' | 'large' | 'xlarge';
   defaultLayoutSize: DefaultLayoutSizeConfig;
   footerConfig?: FooterConfig;
+  maxwinConfig?: MaxwinConfig;
 }
 
 export default function CasinoHolographicLayout({
@@ -347,7 +348,8 @@ export default function CasinoHolographicLayout({
   telegramUsername,
   customHeaderText,
   headerFontSize,
-  footerConfig
+  footerConfig,
+  maxwinConfig
 }: CasinoHolographicLayoutProps) {
   const getFontSizeClass = () => {
     switch (headerFontSize) {
@@ -639,6 +641,92 @@ export default function CasinoHolographicLayout({
           </div>
         )}
       </div>
+
+      {/* Maxwin Info Panel */}
+      {maxwinConfig?.enabled && (
+        <div
+          className="mx-4 mb-2 rounded-xl p-3 relative overflow-hidden"
+          style={{
+            background: `linear-gradient(135deg, ${primaryColor}15, ${secondaryColor}15, ${primaryColor}15)`,
+            backdropFilter: 'blur(15px)',
+            border: `2px solid transparent`,
+            borderImage: `linear-gradient(90deg, ${primaryColor}, #ff00ff, ${secondaryColor}, #00ffff, ${primaryColor}) 1`,
+            boxShadow: `0 0 30px ${primaryColor}30, 0 0 60px ${secondaryColor}20, inset 0 0 30px rgba(255,255,255,0.05)`
+          }}
+        >
+          {/* Holographic shimmer overlay */}
+          <div
+            className="absolute inset-0 pointer-events-none opacity-40"
+            style={{
+              background: `linear-gradient(45deg, transparent 30%, ${primaryColor}30 40%, ${secondaryColor}30 50%, #ff00ff30 60%, transparent 70%)`,
+              backgroundSize: '200% 200%'
+            }}
+          />
+          {/* Scanlines effect */}
+          <div
+            className="absolute inset-0 pointer-events-none opacity-15"
+            style={{
+              backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.1) 2px, rgba(255,255,255,0.1) 4px)`
+            }}
+          />
+
+          {/* Heading 1 */}
+          <div className="text-center mb-2 relative z-10">
+            <h2
+              className="text-lg font-black uppercase tracking-wide"
+              style={{
+                color: '#ffffff',
+                textShadow: `-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 20px ${primaryColor}, 0 0 40px ${secondaryColor}`
+              }}
+            >
+              {maxwinConfig.heading1 || 'KODE MAXWIN GACOR MALAM INI'}
+            </h2>
+          </div>
+
+          {/* Heading 2 */}
+          {maxwinConfig.heading2 && (
+            <div className="text-center mb-2 relative z-10">
+              <h3
+                className="text-base font-bold uppercase"
+                style={{
+                  color: '#ffffff',
+                  textShadow: `-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 15px ${secondaryColor}`
+                }}
+              >
+                {maxwinConfig.heading2}
+              </h3>
+            </div>
+          )}
+
+          {/* Text Items in 2-column grid */}
+          {maxwinConfig.textItems && maxwinConfig.textItems.length > 0 && (
+            <div className="grid grid-cols-2 gap-2 relative z-10">
+              {maxwinConfig.textItems.map((item, index) => (
+                <div
+                  key={index}
+                  className="text-center p-2 rounded-lg"
+                  style={{
+                    background: `linear-gradient(90deg, ${primaryColor}20, ${secondaryColor}20, ${primaryColor}20)`,
+                    backdropFilter: 'blur(5px)',
+                    border: `1px solid ${index % 2 === 0 ? primaryColor : secondaryColor}50`,
+                    boxShadow: `0 0 15px ${index % 2 === 0 ? primaryColor : secondaryColor}20`
+                  }}
+                >
+                  <p
+                    className="text-sm font-bold"
+                    style={{
+                      color: '#ffffff',
+                      textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
+                    }}
+                  >
+                    {item}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Footer - Holographic Style */}
       <div className="flex-shrink-0">

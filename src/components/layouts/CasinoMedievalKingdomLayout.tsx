@@ -1,6 +1,6 @@
 'use client';
 
-import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig } from '@/types';
+import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, MaxwinConfig } from '@/types';
 
 interface CasinoMedievalKingdomLayoutProps {
   selectedWebsite: WebsiteOption;
@@ -19,6 +19,7 @@ interface CasinoMedievalKingdomLayoutProps {
   headerFontSize: 'small' | 'medium' | 'large' | 'xlarge';
   defaultLayoutSize: DefaultLayoutSizeConfig;
   footerConfig?: FooterConfig;
+  maxwinConfig?: MaxwinConfig;
 }
 
 // Helper function to create darker/lighter colors from hex
@@ -359,7 +360,8 @@ export default function CasinoMedievalKingdomLayout({
   telegramUsername,
   customHeaderText,
   headerFontSize,
-  footerConfig
+  footerConfig,
+  maxwinConfig
 }: CasinoMedievalKingdomLayoutProps) {
   const getFontSizeClass = () => {
     switch (headerFontSize) {
@@ -635,6 +637,83 @@ export default function CasinoMedievalKingdomLayout({
           </div>
         )}
       </div>
+
+      {/* Maxwin Info Panel */}
+      {maxwinConfig?.enabled && (
+        <div
+          className="mx-4 mb-2 rounded-xl p-3 relative"
+          style={{
+            background: `linear-gradient(135deg, ${darkPrimary}d9, ${darkerPrimary}e6, ${darkPrimary}d9)`,
+            border: `3px double ${primaryColor}`,
+            boxShadow: `0 8px 24px rgba(0,0,0,0.7), inset 0 2px 0 rgba(255,215,0,0.15), 0 0 30px ${primaryColor}20`
+          }}
+        >
+          {/* Stone Texture */}
+          <div
+            className="absolute inset-0 opacity-10 pointer-events-none"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0zm50 0h40v40H50zM0 50h40v40H0zm50 0h40v40H50z' fill='%23000' opacity='0.1'/%3E%3C/svg%3E")`,
+              backgroundSize: '50px 50px',
+              borderRadius: '8px'
+            }}
+          />
+
+          {/* Ornamental Corners */}
+          <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 opacity-60" style={{ borderColor: secondaryColor }} />
+          <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 opacity-60" style={{ borderColor: secondaryColor }} />
+          <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 opacity-60" style={{ borderColor: secondaryColor }} />
+          <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 opacity-60" style={{ borderColor: secondaryColor }} />
+
+          {/* Heading 1 */}
+          <div className="text-center mb-2 relative z-10">
+            <h2 className="text-lg font-black uppercase tracking-wide" style={{
+              color: '#ffffff',
+              textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
+              fontFamily: 'serif'
+            }}>
+              🛡️ {maxwinConfig.heading1 || 'KODE MAXWIN GACOR MALAM INI'} 👑
+            </h2>
+          </div>
+
+          {/* Heading 2 */}
+          {maxwinConfig.heading2 && (
+            <div className="text-center mb-2 relative z-10">
+              <h3 className="text-base font-bold uppercase" style={{
+                color: secondaryColor,
+                textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
+                fontFamily: 'serif'
+              }}>
+                ⚔️ {maxwinConfig.heading2} ⚔️
+              </h3>
+            </div>
+          )}
+
+          {/* Text Items */}
+          {maxwinConfig.textItems && maxwinConfig.textItems.length > 0 && (
+            <div className="relative z-10" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              {maxwinConfig.textItems.map((item, index) => (
+                <div
+                  key={index}
+                  className="text-center p-2 rounded-lg"
+                  style={{
+                    background: `linear-gradient(90deg, ${primaryColor}15, ${primaryColor}25, ${primaryColor}15)`,
+                    border: `2px solid ${primaryColor}60`,
+                    borderLeft: `4px solid ${secondaryColor}`
+                  }}
+                >
+                  <span className="text-sm font-bold" style={{
+                    color: '#ffffff',
+                    textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
+                    fontFamily: 'serif'
+                  }}>
+                    👑 {item}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Footer - Telegram Info */}
       <div className="flex-shrink-0">

@@ -1,6 +1,6 @@
 'use client';
 
-import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig } from '@/types';
+import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, MaxwinConfig } from '@/types';
 
 interface CasinoCyberpunkLayoutProps {
   selectedWebsite: WebsiteOption;
@@ -19,6 +19,7 @@ interface CasinoCyberpunkLayoutProps {
   headerFontSize: 'small' | 'medium' | 'large' | 'xlarge';
   defaultLayoutSize: DefaultLayoutSizeConfig;
   footerConfig?: FooterConfig;
+  maxwinConfig?: MaxwinConfig;
 }
 
 // Helper function to create darker/lighter colors from hex
@@ -359,7 +360,8 @@ export default function CasinoCyberpunkLayout({
   telegramUsername,
   customHeaderText,
   headerFontSize,
-  footerConfig
+  footerConfig,
+  maxwinConfig
 }: CasinoCyberpunkLayoutProps) {
   const getFontSizeClass = () => {
     switch (headerFontSize) {
@@ -704,6 +706,119 @@ export default function CasinoCyberpunkLayout({
           </div>
         )}
       </div>
+
+      {/* Maxwin Info Panel */}
+      {maxwinConfig?.enabled && (
+        <div
+          className="mx-4 mb-2 rounded-xl p-3 relative"
+          style={{
+            background: `linear-gradient(135deg, rgba(0,0,0,0.95), ${primaryColor}20, rgba(0,0,0,0.95))`,
+            border: `2px solid ${primaryColor}`,
+            boxShadow: `0 0 30px ${primaryColor}60, 0 0 15px #ff00ff40, inset 0 0 40px rgba(0,0,0,0.5)`,
+            clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))'
+          }}
+        >
+          {/* Grid Pattern Overlay */}
+          <div
+            className="absolute inset-0 opacity-10 pointer-events-none"
+            style={{
+              backgroundImage: `linear-gradient(#ff00ff40 1px, transparent 1px), linear-gradient(90deg, #00ffff40 1px, transparent 1px)`,
+              backgroundSize: '20px 20px'
+            }}
+          />
+
+          {/* Scanning Lines */}
+          <div
+            className="absolute inset-0 opacity-20 pointer-events-none"
+            style={{
+              background: `repeating-linear-gradient(0deg, transparent, transparent 3px, ${primaryColor}30 3px, ${primaryColor}30 6px)`
+            }}
+          />
+
+          {/* Danger Stripes - Left */}
+          <div className="absolute left-0 top-0 bottom-0 w-2" style={{ background: 'repeating-linear-gradient(45deg, #ff00ff40, #ff00ff40 5px, transparent 5px, transparent 10px)' }} />
+
+          {/* Danger Stripes - Right */}
+          <div className="absolute right-0 top-0 bottom-0 w-2" style={{ background: 'repeating-linear-gradient(-45deg, #00ffff40, #00ffff40 5px, transparent 5px, transparent 10px)' }} />
+
+          {/* Corner Decorations */}
+          <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2" style={{ borderColor: '#ff00ff' }} />
+          <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2" style={{ borderColor: '#00ffff' }} />
+          <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2" style={{ borderColor: '#00ffff' }} />
+          <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2" style={{ borderColor: '#ff00ff' }} />
+
+          {/* Heading 1 */}
+          <div className="text-center mb-2 relative z-10">
+            <h2 className="text-lg font-black uppercase tracking-wide relative" style={{
+              color: '#ffffff',
+              textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 2px 0 0 #ff00ff, -2px 0 0 #00ffff, 0 0 20px ' + primaryColor,
+              fontFamily: 'monospace'
+            }}>
+              <span style={{
+                position: 'absolute',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                color: '#ff00ff',
+                opacity: 0.5,
+                clipPath: 'polygon(0 0, 100% 0, 100% 45%, 0 45%)'
+              }}>
+                {maxwinConfig.heading1 || 'KODE MAXWIN GACOR MALAM INI'}
+              </span>
+              <span style={{
+                position: 'absolute',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                color: '#00ffff',
+                opacity: 0.5,
+                clipPath: 'polygon(0 55%, 100% 55%, 100% 100%, 0 100%)'
+              }}>
+                {maxwinConfig.heading1 || 'KODE MAXWIN GACOR MALAM INI'}
+              </span>
+              {maxwinConfig.heading1 || 'KODE MAXWIN GACOR MALAM INI'}
+            </h2>
+          </div>
+
+          {/* Heading 2 */}
+          {maxwinConfig.heading2 && (
+            <div className="text-center mb-2 relative z-10">
+              <h3 className="text-base font-bold uppercase" style={{
+                color: '#00ffff',
+                textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 15px #00ffff',
+                fontFamily: 'monospace'
+              }}>
+                ⚠ {maxwinConfig.heading2} ⚠
+              </h3>
+            </div>
+          )}
+
+          {/* Text Items */}
+          {maxwinConfig.textItems && maxwinConfig.textItems.length > 0 && (
+            <div className="relative z-10" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              {maxwinConfig.textItems.map((item, index) => (
+                <div
+                  key={index}
+                  className="text-center p-2 rounded"
+                  style={{
+                    background: `linear-gradient(90deg, ${primaryColor}15, ${primaryColor}30, ${primaryColor}15)`,
+                    border: `1px solid ${primaryColor}`,
+                    borderLeft: `3px solid ${index % 2 === 0 ? '#ff00ff' : '#00ffff'}`,
+                    boxShadow: `0 0 10px ${primaryColor}40`,
+                    clipPath: 'polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%)'
+                  }}
+                >
+                  <span className="text-sm font-bold" style={{
+                    color: '#ffffff',
+                    textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
+                    fontFamily: 'monospace'
+                  }}>
+                    ◢ {item}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Footer (40px) - Telegram Info */}
       <div className="flex-shrink-0 relative z-10">

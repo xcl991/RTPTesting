@@ -1,6 +1,6 @@
 'use client';
 
-import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig } from '@/types';
+import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, MaxwinConfig } from '@/types';
 
 // Helper function to create darker/lighter colors from hex
 function adjustColor(hex: string, percent: number): string {
@@ -330,6 +330,7 @@ interface ElegantLayoutProps {
   headerFontSize: 'small' | 'medium' | 'large' | 'xlarge';
   defaultLayoutSize: DefaultLayoutSizeConfig;
   footerConfig?: FooterConfig;
+  maxwinConfig?: MaxwinConfig;
 }
 
 export default function ElegantLayout({
@@ -344,7 +345,8 @@ export default function ElegantLayout({
   telegramUsername,
   customHeaderText,
   headerFontSize,
-  footerConfig
+  footerConfig,
+  maxwinConfig
 }: ElegantLayoutProps) {
   const getFontSizeClass = () => {
     switch (headerFontSize) {
@@ -623,6 +625,92 @@ export default function ElegantLayout({
           </div>
         )}
       </div>
+
+      {/* Maxwin Info Panel */}
+      {maxwinConfig?.enabled && (
+        <div
+          className="mx-4 mb-2 rounded-xl p-3 relative"
+          style={{
+            background: `linear-gradient(145deg, ${darkPrimary}f2 0%, ${darkerPrimary} 100%)`,
+            border: `2px solid ${primaryColor}80`,
+            boxShadow: `0 4px 20px ${primaryColor}30, inset 0 2px 10px rgba(255,255,255,0.1)`
+          }}
+        >
+          {/* Elegant corner decorations */}
+          <div className="absolute top-2 left-2 w-2 h-2 rounded-full" style={{ backgroundColor: primaryColor, boxShadow: `0 0 8px ${primaryColor}` }} />
+          <div className="absolute top-2 right-2 w-2 h-2 rounded-full" style={{ backgroundColor: primaryColor, boxShadow: `0 0 8px ${primaryColor}` }} />
+          <div className="absolute bottom-2 left-2 w-2 h-2 rounded-full" style={{ backgroundColor: secondaryColor, boxShadow: `0 0 8px ${secondaryColor}` }} />
+          <div className="absolute bottom-2 right-2 w-2 h-2 rounded-full" style={{ backgroundColor: secondaryColor, boxShadow: `0 0 8px ${secondaryColor}` }} />
+
+          {/* Heading 1 */}
+          <div className="text-center mb-2">
+            <h2
+              className="text-lg font-black uppercase tracking-wide"
+              style={{
+                fontFamily: 'Georgia, serif',
+                color: '#ffffff',
+                background: `linear-gradient(135deg, ${primaryColor} 0%, ${adjustColor(primaryColor, 20)} 50%, ${primaryColor} 100%)`,
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                filter: `drop-shadow(0 0 8px ${primaryColor}60) drop-shadow(-1px -1px 0px #000) drop-shadow(1px -1px 0px #000) drop-shadow(-1px 1px 0px #000) drop-shadow(1px 1px 0px #000)`
+              }}
+            >
+              {maxwinConfig.heading1 || 'KODE MAXWIN GACOR MALAM INI'}
+            </h2>
+          </div>
+
+          {/* Heading 2 */}
+          {maxwinConfig.heading2 && (
+            <div className="text-center mb-2">
+              <h3
+                className="text-sm font-semibold uppercase"
+                style={{
+                  fontFamily: 'Georgia, serif',
+                  color: '#ffffff',
+                  background: `linear-gradient(135deg, ${secondaryColor} 0%, ${adjustColor(secondaryColor, 15)} 100%)`,
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  filter: `drop-shadow(0 0 6px ${secondaryColor}50) drop-shadow(-1px -1px 0px #000) drop-shadow(1px -1px 0px #000) drop-shadow(-1px 1px 0px #000) drop-shadow(1px 1px 0px #000)`
+                }}
+              >
+                {maxwinConfig.heading2}
+              </h3>
+            </div>
+          )}
+
+          {/* Text Items */}
+          {maxwinConfig.textItems && maxwinConfig.textItems.length > 0 && (
+            <div className="grid grid-cols-2 gap-2">
+              {maxwinConfig.textItems.map((text, index) => (
+                text && (
+                  <div
+                    key={index}
+                    className="p-2 rounded-lg text-center"
+                    style={{
+                      background: `linear-gradient(90deg, ${primaryColor}10, ${primaryColor}20, ${primaryColor}10)`,
+                      border: `1px solid ${primaryColor}40`,
+                      boxShadow: `0 2px 8px ${primaryColor}20`
+                    }}
+                  >
+                    <p
+                      className="font-semibold text-xs"
+                      style={{
+                        fontFamily: 'Georgia, serif',
+                        color: '#ffffff',
+                        textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
+                      }}
+                    >
+                      {text}
+                    </p>
+                  </div>
+                )
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Footer - Telegram Info (40px) */}
       <div className="flex-shrink-0">

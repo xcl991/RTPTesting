@@ -1,6 +1,6 @@
 'use client';
 
-import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig } from '@/types';
+import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, MaxwinConfig } from '@/types';
 
 interface CasinoSpaceStationLayoutProps {
   selectedWebsite: WebsiteOption;
@@ -19,6 +19,7 @@ interface CasinoSpaceStationLayoutProps {
   headerFontSize: 'small' | 'medium' | 'large' | 'xlarge';
   defaultLayoutSize: DefaultLayoutSizeConfig;
   footerConfig?: FooterConfig;
+  maxwinConfig?: MaxwinConfig;
 }
 
 // Helper function to create darker/lighter colors from hex
@@ -353,7 +354,8 @@ export default function CasinoSpaceStationLayout({
   telegramUsername,
   customHeaderText,
   headerFontSize,
-  footerConfig
+  footerConfig,
+  maxwinConfig
 }: CasinoSpaceStationLayoutProps) {
   const getFontSizeClass = () => {
     switch (headerFontSize) {
@@ -667,6 +669,90 @@ export default function CasinoSpaceStationLayout({
                 />
               </div>
             )}
+          </div>
+        )}
+
+        {/* Maxwin Info Panel */}
+        {maxwinConfig?.enabled && (
+          <div
+            className="mx-4 mb-2 rounded-xl p-3 relative overflow-hidden"
+            style={{
+              background: `linear-gradient(135deg, ${darkPrimary}e6, ${darkPrimary}f2)`,
+              border: `2px solid ${primaryColor}60`,
+              boxShadow: `0 0 30px ${primaryColor}40, inset 0 0 20px rgba(0,50,100,0.3)`
+            }}
+          >
+            {/* Hexagonal Grid Overlay */}
+            <div
+              className="absolute inset-0 opacity-20 pointer-events-none rounded-lg"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 5L30 10L30 20L20 25L10 20L10 10Z' fill='none' stroke='${encodeURIComponent(primaryColor)}' stroke-width='0.5' opacity='0.3'/%3E%3C/svg%3E")`,
+                backgroundSize: '40px 40px'
+              }}
+            />
+
+            {/* Star field effect - scattered stars */}
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='20' cy='20' r='1' fill='white' opacity='0.3'/%3E%3Ccircle cx='80' cy='15' r='0.5' fill='white' opacity='0.4'/%3E%3Ccircle cx='140' cy='25' r='0.7' fill='white' opacity='0.3'/%3E%3Ccircle cx='60' cy='50' r='0.6' fill='white' opacity='0.5'/%3E%3Ccircle cx='170' cy='60' r='0.4' fill='white' opacity='0.4'/%3E%3C/svg%3E")`,
+                backgroundSize: '200px 200px'
+              }}
+            />
+
+            {/* LED Indicators - left */}
+            <div className="absolute left-4 top-3 flex gap-1 z-20">
+              <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" style={{ boxShadow: '0 0 8px #4ade80' }} />
+              <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: primaryColor, boxShadow: `0 0 8px ${primaryColor}`, animationDelay: '0.3s' }} />
+              <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: secondaryColor, boxShadow: `0 0 8px ${secondaryColor}`, animationDelay: '0.6s' }} />
+            </div>
+
+            {/* LED Indicators - right */}
+            <div className="absolute right-4 top-3 flex gap-1 z-20">
+              <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: secondaryColor, boxShadow: `0 0 8px ${secondaryColor}`, animationDelay: '0.9s' }} />
+              <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: primaryColor, boxShadow: `0 0 8px ${primaryColor}`, animationDelay: '1.2s' }} />
+              <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" style={{ boxShadow: '0 0 8px #4ade80', animationDelay: '1.5s' }} />
+            </div>
+
+            <div className="relative z-10">
+              {/* Heading 1 */}
+              <div className="text-center mb-2">
+                <h2 className="text-lg font-black uppercase tracking-wide" style={{color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'}}>
+                  <span style={{ marginRight: '6px' }}>🚀</span>
+                  {maxwinConfig.heading1 || 'KODE MAXWIN GACOR MALAM INI'}
+                  <span style={{ marginLeft: '6px' }}>🚀</span>
+                </h2>
+              </div>
+
+              {/* Heading 2 */}
+              {maxwinConfig.heading2 && (
+                <div className="text-center mb-2">
+                  <h3 className="text-base font-bold uppercase" style={{color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'}}>
+                    {maxwinConfig.heading2}
+                  </h3>
+                </div>
+              )}
+
+              {/* Text Items */}
+              {maxwinConfig.textItems && maxwinConfig.textItems.length > 0 && (
+                <div className="space-y-1.5">
+                  {maxwinConfig.textItems.map((item, index) => (
+                    <div
+                      key={index}
+                      className="text-center py-1.5 px-3 rounded"
+                      style={{
+                        background: `linear-gradient(90deg, ${primaryColor}15, ${primaryColor}25, ${primaryColor}15)`,
+                        borderLeft: `3px solid ${primaryColor}`
+                      }}
+                    >
+                      <p className="text-sm font-semibold" style={{color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'}}>
+                        {item}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>
