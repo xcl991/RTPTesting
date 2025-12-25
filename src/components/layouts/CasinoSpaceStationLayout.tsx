@@ -403,45 +403,87 @@ export default function CasinoSpaceStationLayout({
         }}
       />
 
-      {/* Header 1 - Title (55px) */}
+      {/* Header 1 - Space Command Center Title (55px) */}
       <div
         className="flex-shrink-0 flex items-center justify-center px-4 relative z-10"
         style={{
           height: '55px',
-          background: `${darkPrimary}99`,
+          background: `radial-gradient(ellipse at center, ${darkPrimary}e6, ${darkerPrimary}f2), url("data:image/svg+xml,%3Csvg width='400' height='400' viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='10' cy='10' r='0.5' fill='white' opacity='0.3'/%3E%3Ccircle cx='80' cy='25' r='0.7' fill='white' opacity='0.4'/%3E%3Ccircle cx='150' cy='15' r='0.4' fill='white' opacity='0.5'/%3E%3Ccircle cx='220' cy='30' r='0.6' fill='white' opacity='0.3'/%3E%3Ccircle cx='300' cy='20' r='0.5' fill='white' opacity='0.4'/%3E%3Ccircle cx='45' cy='40' r='0.3' fill='white' opacity='0.6'/%3E%3Ccircle cx='360' cy='35' r='0.8' fill='white' opacity='0.3'/%3E%3C/svg%3E")`,
+          backgroundBlendMode: 'overlay',
           backdropFilter: 'blur(5px)',
-          border: `1px solid ${primaryColor}50`,
-          borderBottom: `2px solid ${primaryColor}`
+          border: `2px solid ${primaryColor}80`,
+          borderLeft: `4px solid ${primaryColor}`,
+          borderRight: `4px solid ${secondaryColor}`,
+          boxShadow: `0 4px 20px ${primaryColor}40, inset 0 0 30px rgba(0,50,100,0.2)`
         }}
       >
+        {/* Control Panel LED Indicators - Left */}
+        <div className="absolute left-4 flex gap-2">
+          <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" style={{ boxShadow: '0 0 8px #4ade80' }} />
+          <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: primaryColor, boxShadow: `0 0 8px ${primaryColor}`, animationDelay: '0.3s' }} />
+          <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: secondaryColor, boxShadow: `0 0 8px ${secondaryColor}`, animationDelay: '0.6s' }} />
+        </div>
+
+        {/* Constellation Pattern Decorations */}
+        <div className="absolute left-20 flex items-center gap-1 opacity-60">
+          <div className="w-1 h-1 rounded-full" style={{ background: primaryColor }} />
+          <div className="w-0.5 h-px" style={{ width: '12px', background: primaryColor }} />
+          <div className="w-1.5 h-1.5 rounded-full" style={{ background: primaryColor }} />
+        </div>
+
         <h1
           className={`${getFontSizeClass()} font-black uppercase tracking-wider leading-tight text-center`}
           style={{
             color: '#ffffff',
-            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
+            textShadow: `-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 20px ${primaryColor}80`,
+            fontFamily: 'monospace'
           }}
         >
           {customHeaderText}
         </h1>
+
+        {/* Constellation Pattern Decorations - Right */}
+        <div className="absolute right-20 flex items-center gap-1 opacity-60">
+          <div className="w-1.5 h-1.5 rounded-full" style={{ background: secondaryColor }} />
+          <div className="w-0.5 h-px" style={{ width: '12px', background: secondaryColor }} />
+          <div className="w-1 h-1 rounded-full" style={{ background: secondaryColor }} />
+        </div>
+
+        {/* Control Panel LED Indicators - Right */}
+        <div className="absolute right-4 flex gap-2">
+          <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: secondaryColor, boxShadow: `0 0 8px ${secondaryColor}`, animationDelay: '0.9s' }} />
+          <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: primaryColor, boxShadow: `0 0 8px ${primaryColor}`, animationDelay: '1.2s' }} />
+          <div className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" style={{ boxShadow: '0 0 8px #60a5fa', animationDelay: '1.5s' }} />
+        </div>
       </div>
 
-      {/* Header 2 - Logo, Time, Date, RTP LIVE Badge (45px) */}
+      {/* Header 2 - Mission Control Panel (45px) */}
       <div
         className="flex-shrink-0 flex items-center justify-between px-4 relative z-10"
         style={{
           height: '45px',
-          background: `${darkPrimary}99`,
+          background: `linear-gradient(90deg, ${darkerPrimary}dd, ${darkPrimary}ee, ${darkerPrimary}dd), url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='20' cy='20' r='1' fill='white' opacity='0.2'/%3E%3Ccircle cx='80' cy='15' r='0.5' fill='white' opacity='0.3'/%3E%3Ccircle cx='140' cy='25' r='0.7' fill='white' opacity='0.2'/%3E%3C/svg%3E")`,
+          backgroundBlendMode: 'overlay',
           backdropFilter: 'blur(5px)',
-          borderBottom: `1px solid ${primaryColor}50`
+          borderBottom: `2px solid ${primaryColor}60`,
+          boxShadow: `inset 0 0 20px rgba(0,50,100,0.15)`
         }}
       >
-        {/* Logo */}
+        {/* Technical Border Elements */}
+        <div className="absolute left-0 top-0 bottom-0 w-1" style={{ background: `linear-gradient(to bottom, ${primaryColor}, transparent)` }} />
+        <div className="absolute right-0 top-0 bottom-0 w-1" style={{ background: `linear-gradient(to bottom, transparent, ${secondaryColor})` }} />
+
+        {/* Logo with LED */}
         <div className="flex items-center gap-2">
+          <div className="flex flex-col gap-0.5">
+            <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" style={{ boxShadow: '0 0 6px #22d3ee' }} />
+            <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" style={{ boxShadow: '0 0 6px #4ade80', animationDelay: '0.5s' }} />
+          </div>
           <img
             src={selectedWebsite.logo}
             alt={`${selectedWebsite.name} logo`}
             className="h-9 object-contain"
-            style={{ filter: `drop-shadow(0 0 5px ${primaryColor})` }}
+            style={{ filter: `drop-shadow(0 0 8px ${primaryColor})` }}
             onError={(e) => {
               (e.target as HTMLImageElement).src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="80"%3E%3Crect width="200" height="80" fill="%23333"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="white" font-family="Arial" font-size="14"%3E' + selectedWebsite.name + '%3C/text%3E%3C/svg%3E';
             }}
@@ -453,27 +495,29 @@ export default function CasinoSpaceStationLayout({
           <div className="flex items-center gap-3">
             <span
               className="font-bold"
-              style={{ fontSize: '20px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+              style={{ fontSize: '20px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000', fontFamily: 'monospace' }}
             >
               {customTimeLabel}
             </span>
-            <span style={{ color: '#ffffff' }}>|</span>
+            <span style={{ color: primaryColor, opacity: 0.6 }}>|</span>
             <span
               className="font-medium"
-              style={{ fontSize: '18px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+              style={{ fontSize: '18px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000', fontFamily: 'monospace' }}
             >
               {getCurrentDate()}
             </span>
           </div>
-          {/* RTP LIVE Badge */}
+          {/* RTP LIVE Badge - Mission Control Style */}
           <div
-            className="flex items-center gap-1.5 px-3 py-1 rounded-full"
+            className="flex items-center gap-1.5 px-3 py-1 rounded"
             style={{
-              background: `linear-gradient(135deg, ${primaryColor}, ${adjustColor(primaryColor, 20)})`,
-              boxShadow: `0 0 15px ${primaryColor}`
+              background: `linear-gradient(135deg, ${primaryColor}dd, ${adjustColor(primaryColor, 20)})`,
+              border: `1px solid ${primaryColor}`,
+              boxShadow: `0 0 15px ${primaryColor}80, inset 0 0 10px rgba(255,255,255,0.1)`
             }}
           >
-            <span className="text-xs font-black text-white">⚡ RTP LIVE</span>
+            <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" style={{ boxShadow: '0 0 6px #fff' }} />
+            <span className="text-xs font-black text-white" style={{ fontFamily: 'monospace' }}>RTP LIVE</span>
           </div>
         </div>
       </div>

@@ -381,42 +381,79 @@ export default function CyberLayout({
         }}
       />
 
-      {/* Header 1 - Title (55px) */}
+      {/* Header 1 - Title (55px) - Cyberpunk 2077 Theme */}
       <div
-        className="flex-shrink-0 flex items-center justify-center px-4 relative"
+        className="flex-shrink-0 flex items-center justify-center px-4 relative overflow-hidden"
         style={{
           height: '55px',
           background: `linear-gradient(90deg, ${adjustColor(primaryColor, -70)}, ${darkPrimary}, ${adjustColor(primaryColor, -70)})`,
-          borderBottom: `2px solid ${primaryColor}`
+          borderBottom: `3px solid ${primaryColor}`,
+          borderTop: `2px solid ${primaryColor}80`
         }}
       >
+        {/* Warning stripes pattern */}
+        <div
+          className="absolute inset-0 opacity-20 pointer-events-none"
+          style={{
+            backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 10px, ${primaryColor}60 10px, ${primaryColor}60 20px)`
+          }}
+        />
+        {/* Circuit pattern decorations */}
+        <div
+          className="absolute left-0 top-0 bottom-0 w-12 opacity-30"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Cpath d='M0 15h15M15 0v15M15 15h15M15 15v15' stroke='${encodeURIComponent(primaryColor)}' fill='none'/%3E%3C/svg%3E")`,
+            backgroundSize: '30px 30px'
+          }}
+        />
+        <div
+          className="absolute right-0 top-0 bottom-0 w-12 opacity-30"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Cpath d='M0 15h15M15 0v15M15 15h15M15 15v15' stroke='${encodeURIComponent(primaryColor)}' fill='none'/%3E%3C/svg%3E")`,
+            backgroundSize: '30px 30px'
+          }}
+        />
+        {/* Data stream lines */}
+        <div className="absolute top-0 left-0 w-full h-0.5" style={{ background: `linear-gradient(90deg, transparent, ${primaryColor}, transparent)` }} />
+        <div className="absolute bottom-0 left-0 w-full h-0.5" style={{ background: `linear-gradient(90deg, transparent, #00ffff, transparent)` }} />
+
         <h1
-          className={`${getFontSizeClass()} font-black uppercase tracking-wider leading-tight text-center`}
+          className={`${getFontSizeClass()} font-black uppercase tracking-wider leading-tight text-center relative z-10`}
           style={{
             color: '#ffffff',
-            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
+            textShadow: `2px 0 0 #ff0000, -2px 0 0 #00ffff, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 10px ${primaryColor}`
           }}
         >
           {customHeaderText}
         </h1>
       </div>
 
-      {/* Header 2 - Logo, Time, Date, RTP LIVE (45px) */}
+      {/* Header 2 - Logo, Time, Date, RTP LIVE (45px) - Cyberpunk Theme */}
       <div
-        className="flex-shrink-0 flex items-center justify-between px-4"
+        className="flex-shrink-0 flex items-center justify-between px-4 relative overflow-hidden"
         style={{
           height: '45px',
           background: `linear-gradient(90deg, ${darkPrimary}, ${adjustColor(primaryColor, -50)}, ${darkPrimary})`,
           borderBottom: `2px solid ${primaryColor}50`
         }}
       >
+        {/* Warning stripes on borders - subtle */}
+        <div
+          className="absolute inset-0 opacity-10 pointer-events-none"
+          style={{
+            backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 8px, ${primaryColor}40 8px, ${primaryColor}40 16px)`
+          }}
+        />
+        {/* Data stream line effect */}
+        <div className="absolute bottom-0 left-0 w-full h-px" style={{ background: `linear-gradient(90deg, transparent, #ff0000, #00ffff, transparent)` }} />
+
         {/* Logo */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 relative z-10">
           <img
             src={selectedWebsite.logo}
             alt={`${selectedWebsite.name} logo`}
             className="h-9 object-contain"
-            style={{ filter: `drop-shadow(0 0 5px ${primaryColor})` }}
+            style={{ filter: `drop-shadow(0 0 8px ${primaryColor}) drop-shadow(0 0 3px #ff0000)` }}
             onError={(e) => {
               (e.target as HTMLImageElement).src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="80"%3E%3Crect width="200" height="80" fill="%23333"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="white" font-family="Arial" font-size="14"%3E' + selectedWebsite.name + '%3C/text%3E%3C/svg%3E';
             }}
@@ -424,32 +461,50 @@ export default function CyberLayout({
         </div>
 
         {/* Time & Date */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 relative z-10">
           <div className="flex items-center gap-3">
             <span
               className="font-bold"
-              style={{ fontSize: '20px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+              style={{
+                fontSize: '20px',
+                color: '#ffffff',
+                textShadow: `1px 0 0 #ff0000, -1px 0 0 #00ffff, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000`
+              }}
             >
               {customTimeLabel}
             </span>
-            <span style={{ color: '#ffffff' }}>|</span>
+            <span style={{ color: primaryColor }}>|</span>
             <span
               className="font-medium"
-              style={{ fontSize: '18px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+              style={{
+                fontSize: '18px',
+                color: '#ffffff',
+                textShadow: `1px 0 0 #ff000080, -1px 0 0 #00ffff80, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000`
+              }}
             >
               {getCurrentDate()}
             </span>
           </div>
-          {/* RTP LIVE Badge */}
+          {/* RTP LIVE Badge - Angular badge with circuit pattern */}
           <div
-            className="flex items-center gap-1.5 px-3 py-1"
+            className="flex items-center gap-1.5 px-3 py-1 relative"
             style={{
               background: `linear-gradient(135deg, ${primaryColor}, ${adjustColor(primaryColor, 20)})`,
-              boxShadow: `0 0 15px ${primaryColor}`,
-              clipPath: 'polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px)'
+              boxShadow: `0 0 15px ${primaryColor}, 0 0 5px #ff0000`,
+              clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
+              borderLeft: `2px solid #ff0000`,
+              borderRight: `2px solid #00ffff`
             }}
           >
-            <span className="text-xs font-black text-white uppercase">RTP LIVE</span>
+            {/* Circuit pattern overlay */}
+            <div
+              className="absolute inset-0 opacity-20 pointer-events-none"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Cpath d='M0 10h10M10 0v10M10 10h10M10 10v10' stroke='white' fill='none'/%3E%3C/svg%3E")`,
+                backgroundSize: '20px 20px'
+              }}
+            />
+            <span className="text-xs font-black text-white uppercase relative z-10" style={{ textShadow: '0 0 5px #000, 1px 1px 2px #000' }}>RTP LIVE</span>
           </div>
         </div>
       </div>

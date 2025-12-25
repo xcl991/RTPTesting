@@ -393,39 +393,105 @@ export default function FuturisticLayout({
 
       {/* Header 1 - Title */}
       <div
-        className="flex-shrink-0 flex items-center justify-center px-4 relative"
+        className="flex-shrink-0 flex items-center justify-center px-4 relative overflow-hidden"
         style={{
           height: '55px',
-          background: `linear-gradient(90deg, transparent, ${darkPrimary}80, transparent)`,
-          borderBottom: `2px solid ${primaryColor}60`
+          background: `linear-gradient(90deg, #000000, ${darkPrimary}60, #000000)`,
+          clipPath: 'polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%, 0 8px)',
+          borderTop: `2px solid ${primaryColor}`,
+          borderBottom: `2px solid ${primaryColor}`,
+          boxShadow: `0 0 20px ${primaryColor}40, inset 0 0 30px rgba(0,0,0,0.8)`
         }}
       >
-        {/* Corner decorations */}
-        <div className="absolute left-2 top-2 w-6 h-6 border-t-2 border-l-2" style={{ borderColor: primaryColor }} />
-        <div className="absolute right-2 top-2 w-6 h-6 border-t-2 border-r-2" style={{ borderColor: primaryColor }} />
+        {/* Scanning line animation effect */}
+        <div
+          className="absolute inset-0 opacity-30 pointer-events-none"
+          style={{
+            background: `linear-gradient(to bottom, transparent 0%, ${primaryColor}40 50%, transparent 100%)`,
+            animation: 'scan 3s linear infinite',
+            height: '100%'
+          }}
+        />
+
+        {/* Digital circuit pattern decorations - Left side */}
+        <div className="absolute left-0 top-0 bottom-0 w-16 flex flex-col justify-center gap-1 pl-2" style={{ opacity: 0.6 }}>
+          <div className="h-0.5" style={{ width: '40px', background: `linear-gradient(to right, transparent, ${primaryColor})` }} />
+          <div className="h-0.5" style={{ width: '30px', background: `linear-gradient(to right, transparent, ${primaryColor})` }} />
+          <div className="h-0.5" style={{ width: '35px', background: `linear-gradient(to right, transparent, ${primaryColor})` }} />
+        </div>
+
+        {/* Digital circuit pattern decorations - Right side */}
+        <div className="absolute right-0 top-0 bottom-0 w-16 flex flex-col justify-center gap-1 pr-2 items-end" style={{ opacity: 0.6 }}>
+          <div className="h-0.5" style={{ width: '40px', background: `linear-gradient(to left, transparent, ${primaryColor})` }} />
+          <div className="h-0.5" style={{ width: '30px', background: `linear-gradient(to left, transparent, ${primaryColor})` }} />
+          <div className="h-0.5" style={{ width: '35px', background: `linear-gradient(to left, transparent, ${primaryColor})` }} />
+        </div>
+
+        {/* Angular cut corners with glow */}
+        <div className="absolute left-0 top-0 w-2 h-2" style={{ background: primaryColor, boxShadow: `0 0 10px ${primaryColor}` }} />
+        <div className="absolute right-0 top-0 w-2 h-2" style={{ background: primaryColor, boxShadow: `0 0 10px ${primaryColor}` }} />
+
+        {/* Glowing tech lines at edges - Top */}
+        <div className="absolute top-0 left-12 right-12 h-0.5" style={{ background: `linear-gradient(to right, transparent, ${primaryColor}80, transparent)`, boxShadow: `0 0 8px ${primaryColor}` }} />
+
+        {/* Glowing tech lines at edges - Bottom */}
+        <div className="absolute bottom-0 left-12 right-12 h-0.5" style={{ background: `linear-gradient(to right, transparent, ${primaryColor}80, transparent)`, boxShadow: `0 0 8px ${primaryColor}` }} />
 
         <h1
-          className={`${getFontSizeClass()} font-black uppercase tracking-widest leading-tight text-center`}
+          className={`${getFontSizeClass()} font-black uppercase tracking-widest leading-tight text-center relative z-10`}
           style={{
             color: '#ffffff',
-            textShadow: `0 0 20px ${primaryColor}, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000`
+            textShadow: `0 0 20px ${primaryColor}, 0 0 40px ${primaryColor}80, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000`,
+            fontFamily: 'monospace'
           }}
         >
           {customHeaderText}
         </h1>
+
+        <style jsx>{`
+          @keyframes scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(200%); }
+          }
+        `}</style>
       </div>
 
       {/* Header 2 - Logo, Time, Date */}
       <div
-        className="flex-shrink-0 flex items-center justify-between px-4 relative"
+        className="flex-shrink-0 flex items-center justify-between px-4 relative overflow-hidden"
         style={{
           height: '45px',
-          background: `linear-gradient(90deg, ${darkPrimary}40, #00000080, ${darkPrimary}40)`,
-          borderBottom: `1px solid ${primaryColor}30`
+          background: `linear-gradient(90deg, #000000, ${darkPrimary}40, #000000)`,
+          clipPath: 'polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px), 0 6px)',
+          borderTop: `1px solid ${primaryColor}60`,
+          borderBottom: `1px solid ${primaryColor}60`,
+          boxShadow: `0 0 15px ${primaryColor}20, inset 0 0 20px rgba(0,0,0,0.7)`
         }}
       >
+        {/* Scanning line effect for Header 2 */}
+        <div
+          className="absolute inset-0 opacity-20 pointer-events-none"
+          style={{
+            background: `linear-gradient(to bottom, transparent 0%, ${primaryColor}30 50%, transparent 100%)`,
+            animation: 'scan 4s linear infinite',
+            height: '100%'
+          }}
+        />
+
+        {/* Digital circuit lines - Left */}
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-12 h-0.5" style={{ background: `linear-gradient(to right, transparent, ${primaryColor}60)`, boxShadow: `0 0 5px ${primaryColor}` }} />
+
+        {/* Digital circuit lines - Right */}
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-12 h-0.5" style={{ background: `linear-gradient(to left, transparent, ${primaryColor}60)`, boxShadow: `0 0 5px ${primaryColor}` }} />
+
+        {/* Angular corner accents */}
+        <div className="absolute left-1 top-1 w-4 h-4 border-t border-l" style={{ borderColor: `${primaryColor}80` }} />
+        <div className="absolute right-1 top-1 w-4 h-4 border-t border-r" style={{ borderColor: `${primaryColor}80` }} />
+        <div className="absolute left-1 bottom-1 w-4 h-4 border-b border-l" style={{ borderColor: `${primaryColor}80` }} />
+        <div className="absolute right-1 bottom-1 w-4 h-4 border-b border-r" style={{ borderColor: `${primaryColor}80` }} />
+
         {/* Logo */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 relative z-10">
           <img
             src={selectedWebsite.logo}
             alt={`${selectedWebsite.name} logo`}
@@ -438,35 +504,43 @@ export default function FuturisticLayout({
         </div>
 
         {/* Time & Date */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 relative z-10">
           <div className="flex items-center gap-3">
             <span
               className="font-bold tracking-wider"
-              style={{ fontSize: '20px', color: '#ffffff', textShadow: `0 0 10px ${primaryColor}` }}
+              style={{ fontSize: '20px', color: '#ffffff', textShadow: `0 0 10px ${primaryColor}`, fontFamily: 'monospace' }}
             >
               {customTimeLabel}
             </span>
-            <span style={{ color: primaryColor }}>|</span>
+            <span style={{ color: primaryColor, textShadow: `0 0 8px ${primaryColor}` }}>|</span>
             <span
               className="font-medium tracking-wider"
-              style={{ fontSize: '18px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+              style={{ fontSize: '18px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000', fontFamily: 'monospace' }}
             >
               {getCurrentDate()}
             </span>
           </div>
-          {/* Badge */}
+          {/* Hexagonal RTP LIVE Badge */}
           <div
-            className="px-3 py-1"
+            className="px-3 py-1 relative"
             style={{
-              background: `linear-gradient(135deg, ${primaryColor}80, ${primaryColor}40)`,
-              border: `1px solid ${primaryColor}`,
-              clipPath: 'polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%)',
-              boxShadow: `0 0 15px ${primaryColor}`
+              background: `linear-gradient(135deg, ${primaryColor}90, ${primaryColor}50)`,
+              border: `2px solid ${primaryColor}`,
+              clipPath: 'polygon(20% 0%, 80% 0%, 100% 50%, 80% 100%, 20% 100%, 0% 50%)',
+              boxShadow: `0 0 20px ${primaryColor}, inset 0 0 10px ${primaryColor}40`,
+              minWidth: '85px'
             }}
           >
-            <span className="text-xs font-black text-white tracking-widest">RTP LIVE</span>
+            <span className="text-xs font-black text-white tracking-widest" style={{ fontFamily: 'monospace', textShadow: `0 0 5px ${primaryColor}` }}>RTP LIVE</span>
           </div>
         </div>
+
+        <style jsx>{`
+          @keyframes scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(200%); }
+          }
+        `}</style>
       </div>
 
       {/* Content Area */}

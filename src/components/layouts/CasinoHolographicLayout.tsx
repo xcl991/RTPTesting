@@ -394,55 +394,96 @@ export default function CasinoHolographicLayout({
         }}
       />
 
-      {/* Header 1 - Holographic Title */}
+      {/* Header 1 - Holographic Title (55px) - Hologram Projection Theme */}
       <div
-        className="flex-shrink-0 flex items-center justify-center px-4 relative"
+        className="flex-shrink-0 flex items-center justify-center px-4 relative overflow-hidden"
         style={{
           height: '55px',
           background: `linear-gradient(135deg, ${primaryColor}20, ${secondaryColor}20, ${primaryColor}20)`,
           backdropFilter: 'blur(10px)',
-          borderBottom: `2px solid ${primaryColor}40`,
+          borderBottom: `3px solid transparent`,
+          borderImage: `linear-gradient(90deg, ${primaryColor}, #ff00ff, ${secondaryColor}, #00ffff, ${primaryColor}) 1`,
           boxShadow: `0 0 20px ${primaryColor}30, inset 0 0 30px rgba(255,255,255,0.05)`
         }}
       >
+        {/* Holographic shimmer overlay */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-40"
+          style={{
+            background: `linear-gradient(45deg, transparent 30%, ${primaryColor}30 40%, ${secondaryColor}30 50%, #ff00ff30 60%, transparent 70%)`,
+            backgroundSize: '200% 200%'
+          }}
+        />
+        {/* Scanlines effect */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-15"
+          style={{
+            backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.1) 2px, rgba(255,255,255,0.1) 4px)`
+          }}
+        />
+        {/* Holographic grid pattern */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-10"
+          style={{
+            backgroundImage: `linear-gradient(${primaryColor}30 1px, transparent 1px), linear-gradient(90deg, ${secondaryColor}30 1px, transparent 1px)`,
+            backgroundSize: '30px 30px'
+          }}
+        />
         {/* Holographic decorations */}
         <div className="absolute left-4 flex gap-2">
-          <div className="w-3 h-3 rounded-full" style={{ backgroundColor: primaryColor, boxShadow: `0 0 10px ${primaryColor}` }} />
-          <div className="w-3 h-3 rounded-full" style={{ backgroundColor: secondaryColor, boxShadow: `0 0 10px ${secondaryColor}` }} />
+          <div className="w-3 h-3 rounded-full" style={{ backgroundColor: primaryColor, boxShadow: `0 0 15px ${primaryColor}, 0 0 30px ${primaryColor}80` }} />
+          <div className="w-3 h-3 rounded-full" style={{ backgroundColor: secondaryColor, boxShadow: `0 0 15px ${secondaryColor}, 0 0 30px ${secondaryColor}80` }} />
         </div>
         <h1
-          className={`${getFontSizeClass()} font-black uppercase tracking-wider leading-tight text-center`}
+          className={`${getFontSizeClass()} font-black uppercase tracking-wider leading-tight text-center relative z-10`}
           style={{
             color: '#ffffff',
-            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
+            textShadow: `-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 20px ${primaryColor}, 0 0 40px ${secondaryColor}, 0 4px 8px rgba(0,0,0,0.5)`
           }}
         >
           {customHeaderText}
         </h1>
         <div className="absolute right-4 flex gap-2">
-          <div className="w-3 h-3 rounded-full" style={{ backgroundColor: secondaryColor, boxShadow: `0 0 10px ${secondaryColor}` }} />
-          <div className="w-3 h-3 rounded-full" style={{ backgroundColor: primaryColor, boxShadow: `0 0 10px ${primaryColor}` }} />
+          <div className="w-3 h-3 rounded-full" style={{ backgroundColor: secondaryColor, boxShadow: `0 0 15px ${secondaryColor}, 0 0 30px ${secondaryColor}80` }} />
+          <div className="w-3 h-3 rounded-full" style={{ backgroundColor: primaryColor, boxShadow: `0 0 15px ${primaryColor}, 0 0 30px ${primaryColor}80` }} />
         </div>
       </div>
 
-      {/* Header 2 - Logo, Time, Date, RTP LIVE badge */}
+      {/* Header 2 - Logo, Time, Date, RTP LIVE badge (45px) - Hologram Theme */}
       <div
-        className="flex-shrink-0 flex items-center justify-between px-4"
+        className="flex-shrink-0 flex items-center justify-between px-4 relative overflow-hidden"
         style={{
           height: '45px',
           background: `linear-gradient(135deg, ${primaryColor}15, ${secondaryColor}15)`,
           backdropFilter: 'blur(10px)',
-          borderBottom: `1px solid ${primaryColor}30`
+          borderBottom: `2px solid transparent`,
+          borderImage: `linear-gradient(90deg, ${primaryColor}60, ${secondaryColor}60, #ff00ff60, ${primaryColor}60) 1`
         }}
       >
+        {/* Scanlines effect */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-10"
+          style={{
+            backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.1) 2px, rgba(255,255,255,0.1) 4px)`
+          }}
+        />
+        {/* Holographic grid pattern - subtle */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-5"
+          style={{
+            backgroundImage: `linear-gradient(${primaryColor}20 1px, transparent 1px), linear-gradient(90deg, ${secondaryColor}20 1px, transparent 1px)`,
+            backgroundSize: '25px 25px'
+          }}
+        />
+
         {/* Logo */}
-        <div className="flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full" style={{ backgroundColor: primaryColor, boxShadow: `0 0 8px ${primaryColor}` }} />
+        <div className="flex items-center gap-2 relative z-10">
+          <div className="w-2 h-2 rounded-full" style={{ backgroundColor: primaryColor, boxShadow: `0 0 12px ${primaryColor}, 0 0 24px ${primaryColor}80` }} />
           <img
             src={selectedWebsite.logo}
             alt={`${selectedWebsite.name} logo`}
             className="h-9 object-contain"
-            style={{ filter: `drop-shadow(0 0 10px ${primaryColor}80)` }}
+            style={{ filter: `drop-shadow(0 0 10px ${primaryColor}80) drop-shadow(0 0 20px ${secondaryColor}60)` }}
             onError={(e) => {
               (e.target as HTMLImageElement).src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="80"%3E%3Crect width="200" height="80" fill="%23001a33"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2300ffff" font-family="monospace" font-size="14"%3E' + selectedWebsite.name + '%3C/text%3E%3C/svg%3E';
             }}
@@ -450,34 +491,51 @@ export default function CasinoHolographicLayout({
         </div>
 
         {/* Time & Date */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 relative z-10">
           <div className="flex items-center gap-3">
             <span
               className="font-bold"
-              style={{ fontSize: '20px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+              style={{
+                fontSize: '20px',
+                color: '#ffffff',
+                textShadow: `-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 10px ${primaryColor}, 0 2px 4px rgba(0,0,0,0.5)`
+              }}
             >
               {customTimeLabel}
             </span>
             <span style={{ color: '#ffffff' }}>|</span>
             <span
               className="font-medium"
-              style={{ fontSize: '18px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+              style={{
+                fontSize: '18px',
+                color: '#ffffff',
+                textShadow: `-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 8px ${secondaryColor}, 0 2px 4px rgba(0,0,0,0.5)`
+              }}
             >
               {getCurrentDate()}
             </span>
           </div>
-          {/* RTP LIVE indicator */}
+          {/* RTP LIVE indicator - Prism/rainbow effect */}
           <div
-            className="flex items-center gap-1.5 px-3 py-1 rounded-full"
+            className="flex items-center gap-1.5 px-3 py-1 rounded-full relative"
             style={{
-              background: `linear-gradient(135deg, ${primaryColor}40, ${secondaryColor}40)`,
+              background: `linear-gradient(135deg, ${primaryColor}40, ${secondaryColor}40, #ff00ff40)`,
               backdropFilter: 'blur(10px)',
-              border: `1px solid ${primaryColor}60`,
-              boxShadow: `0 0 15px ${primaryColor}50`
+              border: `2px solid transparent`,
+              borderImage: `linear-gradient(135deg, ${primaryColor}, ${secondaryColor}, #ff00ff, #00ffff) 1`,
+              boxShadow: `0 0 15px ${primaryColor}50, 0 0 25px ${secondaryColor}30, inset 0 0 15px rgba(255,255,255,0.1)`
             }}
           >
-            <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: '#22c55e', boxShadow: '0 0 8px #22c55e' }} />
-            <span className="text-xs font-black text-white">RTP LIVE</span>
+            {/* Holographic shimmer on badge */}
+            <div
+              className="absolute inset-0 rounded-full pointer-events-none opacity-50"
+              style={{
+                background: `linear-gradient(90deg, transparent 20%, ${primaryColor}40 40%, ${secondaryColor}40 60%, transparent 80%)`,
+                backgroundSize: '200% 100%'
+              }}
+            />
+            <div className="w-2 h-2 rounded-full animate-pulse relative z-10" style={{ backgroundColor: '#22c55e', boxShadow: '0 0 8px #22c55e, 0 0 16px #22c55e80' }} />
+            <span className="text-xs font-black text-white relative z-10" style={{ textShadow: '0 0 8px rgba(0,0,0,0.8), 1px 1px 2px #000' }}>RTP LIVE</span>
           </div>
         </div>
       </div>

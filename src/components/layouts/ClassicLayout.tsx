@@ -368,16 +368,30 @@ export default function ClassicLayout({
         className="flex-shrink-0 flex items-center justify-center px-4 relative"
         style={{
           height: '55px',
-          background: primaryColor,
-          borderBottom: '4px solid #000',
-          boxShadow: '0 4px 0 #000'
+          background: `linear-gradient(to bottom, ${adjustColor(primaryColor, 15)}, ${primaryColor}, ${adjustColor(primaryColor, -10)})`,
+          borderTop: '3px solid #d4af37',
+          borderBottom: '3px solid #d4af37',
+          boxShadow: 'inset 0 2px 4px rgba(212, 175, 55, 0.3), 0 4px 0 #000'
         }}
       >
+        {/* Art Deco Corner Ornaments - Top Left */}
+        <div className="absolute top-0 left-0 text-2xl leading-none" style={{ color: '#d4af37', textShadow: '1px 1px 2px rgba(0,0,0,0.5)', padding: '2px 0 0 4px' }}>⚜</div>
+
+        {/* Art Deco Corner Ornaments - Top Right */}
+        <div className="absolute top-0 right-0 text-2xl leading-none" style={{ color: '#d4af37', textShadow: '1px 1px 2px rgba(0,0,0,0.5)', padding: '2px 4px 0 0' }}>⚜</div>
+
+        {/* Art Deco Corner Ornaments - Bottom Left */}
+        <div className="absolute bottom-0 left-0 text-2xl leading-none" style={{ color: '#d4af37', textShadow: '1px 1px 2px rgba(0,0,0,0.5)', padding: '0 0 2px 4px', transform: 'rotate(180deg)' }}>⚜</div>
+
+        {/* Art Deco Corner Ornaments - Bottom Right */}
+        <div className="absolute bottom-0 right-0 text-2xl leading-none" style={{ color: '#d4af37', textShadow: '1px 1px 2px rgba(0,0,0,0.5)', padding: '0 4px 2px 0', transform: 'rotate(180deg)' }}>⚜</div>
+
         <h1
           className={`${getFontSizeClass()} font-black uppercase tracking-wider leading-tight text-center`}
           style={{
             color: '#ffffff',
-            textShadow: '3px 3px 0 #000'
+            textShadow: '3px 3px 0 #000, 0 0 10px rgba(212, 175, 55, 0.5)',
+            fontFamily: 'Georgia, serif'
           }}
         >
           {customHeaderText}
@@ -386,13 +400,21 @@ export default function ClassicLayout({
 
       {/* Header 2 - Logo, Time, Date */}
       <div
-        className="flex-shrink-0 flex items-center justify-between px-4"
+        className="flex-shrink-0 flex items-center justify-between px-4 relative"
         style={{
           height: '45px',
-          background: '#1a1a1a',
-          borderBottom: '3px solid #000'
+          background: `linear-gradient(to bottom, #2a2a2a, #1a1a1a)`,
+          borderTop: '2px solid #d4af37',
+          borderBottom: '2px solid #d4af37',
+          boxShadow: 'inset 0 1px 2px rgba(212, 175, 55, 0.2)'
         }}
       >
+        {/* Decorative corner elements using pseudo-element style borders */}
+        <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2" style={{ borderColor: '#d4af37' }} />
+        <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2" style={{ borderColor: '#d4af37' }} />
+        <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2" style={{ borderColor: '#d4af37' }} />
+        <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2" style={{ borderColor: '#d4af37' }} />
+
         {/* Logo */}
         <div className="flex items-center gap-2">
           <img
@@ -410,28 +432,28 @@ export default function ClassicLayout({
           <div className="flex items-center gap-3">
             <span
               className="font-bold"
-              style={{ fontSize: '20px', color: '#ffffff', textShadow: '2px 2px 0 #000' }}
+              style={{ fontSize: '20px', color: '#ffffff', textShadow: '2px 2px 0 #000', fontFamily: 'Georgia, serif' }}
             >
               {customTimeLabel}
             </span>
-            <span style={{ color: '#ffffff' }}>|</span>
+            <span style={{ color: '#d4af37', fontSize: '20px' }}>|</span>
             <span
               className="font-medium"
-              style={{ fontSize: '18px', color: '#ffffff', textShadow: '1px 1px 0 #000' }}
+              style={{ fontSize: '18px', color: '#ffffff', textShadow: '1px 1px 0 #000', fontFamily: 'Georgia, serif' }}
             >
               {getCurrentDate()}
             </span>
           </div>
           {/* Badge */}
           <div
-            className="px-3 py-1"
+            className="px-3 py-1 relative"
             style={{
-              background: primaryColor,
-              border: '2px solid #000',
-              boxShadow: '2px 2px 0 #000'
+              background: `linear-gradient(to bottom, ${adjustColor(primaryColor, 10)}, ${primaryColor})`,
+              border: '2px solid #d4af37',
+              boxShadow: '2px 2px 0 #000, inset 0 1px 2px rgba(255,255,255,0.2)'
             }}
           >
-            <span className="text-xs font-black text-white" style={{ textShadow: '1px 1px 0 #000' }}>RTP LIVE</span>
+            <span className="text-xs font-black text-white" style={{ textShadow: '1px 1px 0 #000', fontFamily: 'Georgia, serif' }}>RTP LIVE</span>
           </div>
         </div>
       </div>

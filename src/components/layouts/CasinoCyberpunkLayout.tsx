@@ -408,93 +408,194 @@ export default function CasinoCyberpunkLayout({
         }}
       />
 
-      {/* Header 1 - Title (55px) */}
+      {/* Header 1 - Neon Dystopia Title with Glitch Effect (55px) */}
       <div
-        className="flex-shrink-0 flex items-center justify-center px-4 relative z-10"
+        className="flex-shrink-0 flex items-center justify-center px-4 relative z-10 overflow-hidden"
         style={{
           height: '55px',
-          background: `linear-gradient(90deg, ${adjustColor(primaryColor, -70)}, ${darkerPrimary}, ${adjustColor(primaryColor, -70)})`,
+          background: `linear-gradient(90deg, ${adjustColor(primaryColor, -80)}dd, ${darkerPrimary}ee, ${adjustColor(primaryColor, -80)}dd), url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' y='0' width='2' height='2' fill='%23ff00ff' opacity='0.1'/%3E%3Crect x='30' y='10' width='3' height='1' fill='%2300ffff' opacity='0.15'/%3E%3Crect x='60' y='5' width='1' height='3' fill='%23ff00ff' opacity='0.1'/%3E%3Crect x='80' y='15' width='2' height='2' fill='%2300ffff' opacity='0.1'/%3E%3C/svg%3E")`,
+          backgroundBlendMode: 'overlay',
           borderBottom: `3px solid ${primaryColor}`,
-          boxShadow: `0 0 20px ${primaryColor}40`
+          borderTop: `1px solid #ff00ff40`,
+          boxShadow: `0 0 30px ${primaryColor}60, 0 0 10px #ff00ff40, inset 0 0 20px rgba(0,0,0,0.6)`,
+          clipPath: 'polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%)'
         }}
       >
-        {/* Status Indicators */}
-        <div className="absolute left-4 flex gap-1">
-          <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
-          <div className="w-2 h-2 bg-yellow-500 rounded-full animate-pulse" />
-          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+        {/* Danger stripe borders */}
+        <div className="absolute left-0 top-0 bottom-0 w-3" style={{ background: 'repeating-linear-gradient(45deg, #ffff00, #ffff00 5px, #000 5px, #000 10px)', opacity: 0.3 }} />
+        <div className="absolute right-0 top-0 bottom-0 w-3" style={{ background: 'repeating-linear-gradient(-45deg, #ff00ff, #ff00ff 5px, #000 5px, #000 10px)', opacity: 0.3 }} />
+
+        {/* Grunge overlay texture */}
+        <div
+          className="absolute inset-0 opacity-20 pointer-events-none"
+          style={{
+            background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,0,255,0.1) 2px, rgba(255,0,255,0.1) 4px)'
+          }}
+        />
+
+        {/* Warning symbols - Left */}
+        <div className="absolute left-6 flex flex-col gap-1 opacity-70">
+          <div className="flex items-center gap-1">
+            <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" style={{ boxShadow: '0 0 10px #ef4444' }} />
+            <span className="text-xs font-bold" style={{ color: '#ff00ff' }}>⚠</span>
+          </div>
+          <div className="flex items-center gap-1">
+            <div className="w-2 h-2 bg-yellow-500 rounded-full animate-pulse" style={{ boxShadow: '0 0 10px #eab308', animationDelay: '0.5s' }} />
+            <span className="text-xs font-bold" style={{ color: '#00ffff' }}>◢</span>
+          </div>
+        </div>
+
+        {/* Augmented reality HUD elements */}
+        <div className="absolute left-24 opacity-60">
+          <div className="flex items-center gap-1">
+            <div className="w-6 h-px" style={{ background: `linear-gradient(to right, #ff00ff, transparent)` }} />
+            <div className="w-1 h-1 border border-cyan-400" />
+          </div>
         </div>
 
         <h1
-          className={`${getFontSizeClass()} font-black uppercase tracking-wider leading-tight text-center`}
+          className={`${getFontSizeClass()} font-black uppercase tracking-wider leading-tight text-center relative`}
           style={{
             color: '#ffffff',
-            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
+            textShadow: `-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 2px 0 0 #ff00ff, -2px 0 0 #00ffff, 0 0 20px ${primaryColor}`,
+            fontFamily: 'monospace',
+            letterSpacing: '0.15em'
           }}
         >
+          <span style={{
+            position: 'absolute',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            color: '#ff00ff',
+            opacity: 0.5,
+            clipPath: 'polygon(0 0, 100% 0, 100% 45%, 0 45%)'
+          }}>
+            {customHeaderText}
+          </span>
+          <span style={{
+            position: 'absolute',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            color: '#00ffff',
+            opacity: 0.5,
+            clipPath: 'polygon(0 55%, 100% 55%, 100% 100%, 0 100%)'
+          }}>
+            {customHeaderText}
+          </span>
           {customHeaderText}
         </h1>
 
-        {/* Corner Decorations */}
-        <div className="absolute right-4 flex gap-1">
-          <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: primaryColor, boxShadow: `0 0 10px ${primaryColor}` }} />
-          <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: secondaryColor, boxShadow: `0 0 10px ${secondaryColor}` }} />
+        {/* Augmented reality HUD elements - Right */}
+        <div className="absolute right-24 opacity-60">
+          <div className="flex items-center gap-1">
+            <div className="w-1 h-1 border border-pink-500" />
+            <div className="w-6 h-px" style={{ background: `linear-gradient(to left, #00ffff, transparent)` }} />
+          </div>
+        </div>
+
+        {/* Warning symbols - Right */}
+        <div className="absolute right-6 flex flex-col gap-1 opacity-70">
+          <div className="flex items-center gap-1">
+            <span className="text-xs font-bold" style={{ color: '#00ffff' }}>◣</span>
+            <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: '#ff00ff', boxShadow: '0 0 10px #ff00ff', animationDelay: '0.7s' }} />
+          </div>
+          <div className="flex items-center gap-1">
+            <span className="text-xs font-bold" style={{ color: '#ff00ff' }}>⚠</span>
+            <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" style={{ boxShadow: '0 0 10px #22d3ee', animationDelay: '1s' }} />
+          </div>
         </div>
       </div>
 
-      {/* Header 2 - Logo, Time, Date, RTP LIVE Badge (45px) */}
+      {/* Header 2 - Cyberpunk HUD Panel (45px) */}
       <div
         className="flex-shrink-0 flex items-center justify-between px-4 relative z-10"
         style={{
           height: '45px',
-          background: `linear-gradient(90deg, ${darkerPrimary}, ${darkPrimary}, ${darkerPrimary})`,
-          borderBottom: `2px solid ${primaryColor}50`
+          background: `linear-gradient(90deg, ${darkerPrimary}dd, ${darkPrimary}ee, ${darkerPrimary}dd), repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255,0,255,0.05) 50px, rgba(255,0,255,0.05) 100px)`,
+          backgroundBlendMode: 'overlay',
+          borderBottom: `2px solid ${primaryColor}60`,
+          borderTop: `1px solid #00ffff20`,
+          boxShadow: `0 4px 20px rgba(0,0,0,0.5), inset 0 0 30px rgba(0,0,0,0.3)`
         }}
       >
-        {/* Logo */}
+        {/* Glitch line decorations */}
+        <div className="absolute top-0 left-0 w-full h-px" style={{ background: `linear-gradient(90deg, transparent, #ff00ff80, #00ffff80, #ff00ff80, transparent)` }} />
+
+        {/* Danger stripe - Left */}
+        <div className="absolute left-0 top-0 bottom-0 w-2" style={{ background: 'repeating-linear-gradient(45deg, #ff00ff30, #ff00ff30 3px, transparent 3px, transparent 6px)' }} />
+
+        {/* Logo with Neon Accent */}
         <div className="flex items-center gap-2">
-          <div className="w-1 h-6" style={{ backgroundColor: primaryColor, boxShadow: `0 0 10px ${primaryColor}` }} />
-          <img
-            src={selectedWebsite.logo}
-            alt={`${selectedWebsite.name} logo`}
-            className="h-9 object-contain"
-            style={{ filter: `drop-shadow(0 0 5px ${primaryColor})` }}
-            onError={(e) => {
-              (e.target as HTMLImageElement).src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="80"%3E%3Crect width="200" height="80" fill="%23333"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="white" font-family="Arial" font-size="14"%3E' + selectedWebsite.name + '%3C/text%3E%3C/svg%3E';
-            }}
-          />
+          <div className="flex flex-col gap-0.5">
+            <div className="w-1 h-2" style={{ backgroundColor: '#ff00ff', boxShadow: '0 0 10px #ff00ff' }} />
+            <div className="w-1 h-2" style={{ backgroundColor: '#00ffff', boxShadow: '0 0 10px #00ffff' }} />
+          </div>
+          <div className="relative">
+            <img
+              src={selectedWebsite.logo}
+              alt={`${selectedWebsite.name} logo`}
+              className="h-9 object-contain"
+              style={{ filter: `drop-shadow(0 0 8px ${primaryColor}) drop-shadow(2px 0 0 #ff00ff) drop-shadow(-2px 0 0 #00ffff)` }}
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="80"%3E%3Crect width="200" height="80" fill="%23333"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="white" font-family="Arial" font-size="14"%3E' + selectedWebsite.name + '%3C/text%3E%3C/svg%3E';
+              }}
+            />
+            {/* Glitch overlay on logo */}
+            <div className="absolute inset-0 opacity-20" style={{ background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, #ff00ff 2px, #ff00ff 4px)' }} />
+          </div>
+          <div className="flex gap-0.5">
+            <div className="w-0.5 h-4" style={{ backgroundColor: '#ff00ff', opacity: 0.5 }} />
+            <div className="w-0.5 h-3" style={{ backgroundColor: '#00ffff', opacity: 0.6 }} />
+            <div className="w-0.5 h-5" style={{ backgroundColor: '#ff00ff', opacity: 0.4 }} />
+          </div>
         </div>
 
-        {/* Time & Date */}
+        {/* Time & Date with Glitch Effect */}
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 relative">
             <span
-              className="font-bold"
-              style={{ fontSize: '20px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+              className="font-bold relative"
+              style={{ fontSize: '20px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 10px #ff00ff', fontFamily: 'monospace' }}
             >
               {customTimeLabel}
             </span>
-            <span style={{ color: primaryColor }}>|</span>
+            <div className="flex flex-col items-center gap-0.5">
+              <div className="w-px h-2" style={{ backgroundColor: '#ff00ff' }} />
+              <div className="w-1 h-1" style={{ backgroundColor: '#00ffff', boxShadow: '0 0 5px #00ffff' }} />
+              <div className="w-px h-2" style={{ backgroundColor: '#ff00ff' }} />
+            </div>
             <span
               className="font-medium"
-              style={{ fontSize: '18px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+              style={{ fontSize: '18px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 10px #00ffff', fontFamily: 'monospace' }}
             >
               {getCurrentDate()}
             </span>
           </div>
-          {/* RTP LIVE Badge */}
+
+          {/* RTP LIVE Badge - Cyberpunk Style */}
           <div
-            className="flex items-center gap-1.5 px-3 py-1"
+            className="flex items-center gap-1.5 px-3 py-1 relative"
             style={{
-              background: `linear-gradient(135deg, ${primaryColor}, ${adjustColor(primaryColor, 20)})`,
-              boxShadow: `0 0 15px ${primaryColor}`,
-              borderRadius: '4px',
-              clipPath: 'polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px))'
+              background: `linear-gradient(135deg, ${primaryColor}dd, ${adjustColor(primaryColor, 20)}dd)`,
+              border: `1px solid #ff00ff`,
+              boxShadow: `0 0 20px ${primaryColor}80, 0 0 10px #ff00ff60, inset 0 0 15px rgba(255,0,255,0.2)`,
+              borderRadius: '2px',
+              clipPath: 'polygon(4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px)'
             }}
           >
-            <span className="text-xs font-black text-white">RTP LIVE</span>
+            <div className="absolute top-0 left-0 w-1 h-1 border-t border-l" style={{ borderColor: '#00ffff' }} />
+            <div className="absolute bottom-0 right-0 w-1 h-1 border-b border-r" style={{ borderColor: '#00ffff' }} />
+            <div className="w-1.5 h-1.5 animate-pulse" style={{ background: '#00ffff', boxShadow: '0 0 8px #00ffff', clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)' }} />
+            <span className="text-xs font-black text-white relative" style={{ fontFamily: 'monospace', letterSpacing: '0.1em' }}>
+              RTP LIVE
+            </span>
+            {/* Scanning line animation */}
+            <div className="absolute inset-0 opacity-30 pointer-events-none" style={{ background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, #ff00ff 2px, #ff00ff 3px)' }} />
           </div>
         </div>
+
+        {/* Danger stripe - Right */}
+        <div className="absolute right-0 top-0 bottom-0 w-2" style={{ background: 'repeating-linear-gradient(-45deg, #00ffff30, #00ffff30 3px, transparent 3px, transparent 6px)' }} />
       </div>
 
       {/* Content Area */}

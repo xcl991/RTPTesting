@@ -396,75 +396,135 @@ export default function ElegantLayout({
 
       {/* Header 1 - Title (55px) */}
       <div
-        className="flex-shrink-0 flex items-center justify-center px-4 relative"
+        className="flex-shrink-0 flex items-center justify-center px-4 relative overflow-hidden"
         style={{
           height: '55px',
-          background: `linear-gradient(135deg, ${primaryColor}15, rgba(0,0,0,0.7))`,
-          borderBottom: `2px solid ${primaryColor}80`,
-          boxShadow: `0 2px 10px ${primaryColor}20`
+          background: `linear-gradient(135deg, rgba(20,20,20,0.95), rgba(40,35,30,0.95))`,
+          backgroundImage: `linear-gradient(135deg, rgba(20,20,20,0.95), rgba(40,35,30,0.95)), repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.02) 10px, rgba(255,255,255,0.02) 20px)`,
+          borderBottom: `1px solid ${primaryColor}`,
+          borderTop: `1px solid ${primaryColor}60`,
+          boxShadow: `0 2px 15px ${primaryColor}30, inset 0 1px 0 rgba(255,255,255,0.1)`
         }}
       >
-        <h1
-          className={`${getFontSizeClass()} font-bold uppercase tracking-wider leading-tight text-center`}
+        {/* Diamond pattern overlay */}
+        <div
+          className="absolute inset-0 opacity-10"
           style={{
-            color: '#ffffff',
-            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 0L40 20L20 40L0 20z' fill='${encodeURIComponent(primaryColor)}' fill-opacity='0.3'/%3E%3C/svg%3E")`,
+            backgroundSize: '40px 40px'
+          }}
+        />
+
+        {/* Decorative diamond icons */}
+        <div className="absolute left-6 flex items-center gap-1.5">
+          <span style={{ color: primaryColor, fontSize: '14px', textShadow: `0 0 8px ${primaryColor}` }}>♦</span>
+          <span style={{ color: primaryColor, fontSize: '12px', textShadow: `0 0 6px ${primaryColor}` }}>✧</span>
+        </div>
+
+        <h1
+          className={`${getFontSizeClass()} uppercase tracking-wider leading-tight text-center relative z-10`}
+          style={{
+            fontFamily: 'Georgia, serif',
+            fontWeight: 600,
+            background: `linear-gradient(135deg, ${primaryColor} 0%, ${adjustColor(primaryColor, 20)} 50%, ${primaryColor} 100%)`,
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+            textShadow: '0 2px 4px rgba(0,0,0,0.5)',
+            filter: `drop-shadow(0 0 8px ${primaryColor}60) drop-shadow(0 2px 4px rgba(0,0,0,0.5))`
           }}
         >
           {customHeaderText}
         </h1>
+
+        <div className="absolute right-6 flex items-center gap-1.5">
+          <span style={{ color: primaryColor, fontSize: '12px', textShadow: `0 0 6px ${primaryColor}` }}>✧</span>
+          <span style={{ color: primaryColor, fontSize: '14px', textShadow: `0 0 8px ${primaryColor}` }}>♦</span>
+        </div>
       </div>
 
       {/* Header 2 - Logo, Time, Date, RTP LIVE badge (45px) */}
       <div
-        className="flex-shrink-0 flex items-center justify-between px-4"
+        className="flex-shrink-0 flex items-center justify-between px-4 relative overflow-hidden"
         style={{
           height: '45px',
-          background: `linear-gradient(135deg, ${darkPrimary}, ${darkerPrimary})`,
-          borderBottom: `1px solid ${primaryColor}50`
+          background: `linear-gradient(135deg, rgba(30,28,25,0.95), rgba(45,40,35,0.95))`,
+          backgroundImage: `linear-gradient(135deg, rgba(30,28,25,0.95), rgba(45,40,35,0.95)), repeating-linear-gradient(90deg, transparent, transparent 8px, rgba(255,255,255,0.01) 8px, rgba(255,255,255,0.01) 16px)`,
+          borderBottom: `1px solid ${primaryColor}80`,
+          borderTop: `1px solid ${primaryColor}40`,
+          boxShadow: `0 2px 12px ${primaryColor}25, inset 0 1px 0 rgba(255,255,255,0.08)`
         }}
       >
-        {/* Logo */}
-        <div className="flex items-center gap-2">
+        {/* Marble texture hint overlay */}
+        <div
+          className="absolute inset-0 opacity-5"
+          style={{
+            backgroundImage: `radial-gradient(circle at 20% 50%, ${primaryColor}40 0%, transparent 50%), radial-gradient(circle at 80% 50%, ${primaryColor}30 0%, transparent 50%)`
+          }}
+        />
+
+        {/* Logo with elegant divider */}
+        <div className="flex items-center gap-3 relative z-10">
+          <span style={{ color: primaryColor, fontSize: '16px', opacity: 0.6 }}>✧</span>
           <img
             src={selectedWebsite.logo}
             alt={`${selectedWebsite.name} logo`}
             className="h-8 object-contain"
-            style={{ filter: `drop-shadow(0 0 5px ${primaryColor})` }}
+            style={{ filter: `drop-shadow(0 0 6px ${primaryColor}80) drop-shadow(0 2px 4px rgba(0,0,0,0.4))` }}
             onError={(e) => {
               (e.target as HTMLImageElement).src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="80"%3E%3Crect width="200" height="80" fill="%23333"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="white" font-family="Arial" font-size="14"%3E' + selectedWebsite.name + '%3C/text%3E%3C/svg%3E';
             }}
           />
+          <div style={{ width: '1px', height: '24px', background: `linear-gradient(to bottom, transparent, ${primaryColor}80, transparent)` }} />
         </div>
 
         {/* Time & Date */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 relative z-10">
+          <div style={{ width: '1px', height: '24px', background: `linear-gradient(to bottom, transparent, ${primaryColor}60, transparent)` }} />
           <div className="flex items-center gap-3">
             <span
-              className="font-semibold"
-              style={{ fontSize: '16px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+              style={{
+                fontFamily: 'Georgia, serif',
+                fontSize: '17px',
+                fontWeight: 600,
+                background: `linear-gradient(135deg, ${primaryColor}, ${adjustColor(primaryColor, 15)})`,
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                filter: `drop-shadow(0 0 4px ${primaryColor}60) drop-shadow(0 1px 2px rgba(0,0,0,0.5))`
+              }}
             >
               {customTimeLabel}
             </span>
-            <span style={{ color: primaryColor }}>|</span>
+            <span style={{ color: primaryColor, opacity: 0.5, fontSize: '12px' }}>♦</span>
             <span
-              className="font-medium"
-              style={{ fontSize: '14px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+              style={{
+                fontFamily: 'Georgia, serif',
+                fontSize: '15px',
+                fontWeight: 500,
+                background: `linear-gradient(135deg, ${primaryColor}dd, ${adjustColor(primaryColor, 10)}dd)`,
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                filter: `drop-shadow(0 0 3px ${primaryColor}50) drop-shadow(0 1px 2px rgba(0,0,0,0.4))`
+              }}
             >
               {getCurrentDate()}
             </span>
           </div>
           {/* RTP LIVE badge */}
           <div
-            className="flex items-center gap-1.5 px-3 py-1 rounded-full"
+            className="flex items-center gap-1.5 px-3 py-1 rounded"
             style={{
-              background: `linear-gradient(135deg, ${primaryColor}cc, ${adjustColor(primaryColor, 20)}cc)`,
-              boxShadow: `0 0 10px ${primaryColor}50, inset 0 1px 2px rgba(255,255,255,0.2)`,
-              border: `1px solid ${primaryColor}`
+              background: `linear-gradient(135deg, ${primaryColor}e6, ${adjustColor(primaryColor, 20)}e6)`,
+              boxShadow: `0 0 12px ${primaryColor}60, inset 0 1px 0 rgba(255,255,255,0.25), inset 0 -1px 0 rgba(0,0,0,0.25)`,
+              border: `1px solid ${primaryColor}`,
+              borderRadius: '4px'
             }}
           >
-            <span className="text-xs font-bold text-white">RTP LIVE</span>
+            <span style={{ fontFamily: 'Georgia, serif', fontSize: '11px', fontWeight: 700, color: '#ffffff', letterSpacing: '0.5px', textShadow: '0 1px 2px rgba(0,0,0,0.5)' }}>RTP LIVE</span>
           </div>
+          <span style={{ color: primaryColor, fontSize: '16px', opacity: 0.6 }}>✧</span>
         </div>
       </div>
 

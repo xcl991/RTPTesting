@@ -401,45 +401,60 @@ export default function NeonLayout({
         style={{
           height: '55px',
           background: `linear-gradient(90deg, ${adjustColor(primaryColor, -70)}, ${darkerPrimary}, ${adjustColor(primaryColor, -70)})`,
-          borderBottom: `3px solid ${primaryColor}`,
-          boxShadow: `0 0 20px ${primaryColor}40`
+          border: `3px solid ${primaryColor}`,
+          boxShadow: `0 0 10px ${primaryColor}, 0 0 20px ${primaryColor}80, 0 0 30px ${primaryColor}60, inset 0 0 15px ${primaryColor}30`
         }}
       >
-        {/* Neon light decorations */}
-        <div className="absolute left-4">
-          <SlotSymbols />
+        {/* Neon corner lights */}
+        <div className="absolute top-1 left-1 w-2 h-2 rounded-full" style={{ backgroundColor: primaryColor, boxShadow: `0 0 10px ${primaryColor}, 0 0 20px ${primaryColor}` }} />
+        <div className="absolute top-1 right-1 w-2 h-2 rounded-full" style={{ backgroundColor: primaryColor, boxShadow: `0 0 10px ${primaryColor}, 0 0 20px ${primaryColor}` }} />
+        <div className="absolute bottom-1 left-1 w-2 h-2 rounded-full" style={{ backgroundColor: primaryColor, boxShadow: `0 0 10px ${primaryColor}, 0 0 20px ${primaryColor}` }} />
+        <div className="absolute bottom-1 right-1 w-2 h-2 rounded-full" style={{ backgroundColor: primaryColor, boxShadow: `0 0 10px ${primaryColor}, 0 0 20px ${primaryColor}` }} />
+
+        {/* Neon bar lines on sides */}
+        <div className="absolute left-4 flex items-center gap-1">
+          <span style={{ color: primaryColor, fontSize: '16px', textShadow: `0 0 8px ${primaryColor}, 0 0 12px ${primaryColor}` }}>━━━━</span>
         </div>
         <h1
           className={`${getFontSizeClass()} font-black uppercase tracking-wider leading-tight text-center`}
           style={{
             color: '#ffffff',
-            textShadow: `-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 20px ${primaryColor}`
+            textShadow: `0 0 10px ${primaryColor}, 0 0 20px ${primaryColor}, 0 0 30px ${primaryColor}, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000`
           }}
         >
           {customHeaderText}
         </h1>
-        <div className="absolute right-4">
-          <SlotSymbols />
+        <div className="absolute right-4 flex items-center gap-1">
+          <span style={{ color: primaryColor, fontSize: '16px', textShadow: `0 0 8px ${primaryColor}, 0 0 12px ${primaryColor}` }}>━━━━</span>
         </div>
       </div>
 
       {/* Header 2 - Logo, Time, Date, RTP LIVE - 45px */}
       <div
-        className="flex-shrink-0 flex items-center justify-between px-4"
+        className="flex-shrink-0 flex items-center justify-between px-4 relative"
         style={{
           height: '45px',
           background: `linear-gradient(90deg, ${darkerPrimary}, ${darkPrimary}, ${darkerPrimary})`,
-          borderBottom: `2px solid ${primaryColor}50`
+          border: `2px solid ${primaryColor}`,
+          borderTop: 'none',
+          boxShadow: `0 0 8px ${primaryColor}60, 0 0 15px ${primaryColor}40, inset 0 0 10px ${primaryColor}20`
         }}
       >
-        {/* Logo */}
+        {/* Neon corner lights */}
+        <div className="absolute top-1 left-1 w-1.5 h-1.5 rounded-full" style={{ backgroundColor: accentColor, boxShadow: `0 0 8px ${accentColor}, 0 0 15px ${accentColor}` }} />
+        <div className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full" style={{ backgroundColor: accentColor, boxShadow: `0 0 8px ${accentColor}, 0 0 15px ${accentColor}` }} />
+        <div className="absolute bottom-1 left-1 w-1.5 h-1.5 rounded-full" style={{ backgroundColor: accentColor, boxShadow: `0 0 8px ${accentColor}, 0 0 15px ${accentColor}` }} />
+        <div className="absolute bottom-1 right-1 w-1.5 h-1.5 rounded-full" style={{ backgroundColor: accentColor, boxShadow: `0 0 8px ${accentColor}, 0 0 15px ${accentColor}` }} />
+
+        {/* Logo with neon bar */}
         <div className="flex items-center gap-2">
+          <span style={{ color: primaryColor, fontSize: '14px', textShadow: `0 0 6px ${primaryColor}, 0 0 10px ${primaryColor}` }}>━━</span>
           <span className="text-xl">🎰</span>
           <img
             src={selectedWebsite.logo}
             alt={`${selectedWebsite.name} logo`}
             className="h-9 object-contain"
-            style={{ filter: `drop-shadow(0 0 5px ${primaryColor})` }}
+            style={{ filter: `drop-shadow(0 0 8px ${primaryColor}) drop-shadow(0 0 12px ${primaryColor})` }}
             onError={(e) => {
               (e.target as HTMLImageElement).src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="80"%3E%3Crect width="200" height="80" fill="%23333"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="white" font-family="Arial" font-size="14"%3E' + selectedWebsite.name + '%3C/text%3E%3C/svg%3E';
             }}
@@ -451,28 +466,39 @@ export default function NeonLayout({
           <div className="flex items-center gap-3">
             <span
               className="font-bold"
-              style={{ fontSize: '20px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+              style={{
+                fontSize: '20px',
+                color: '#ffffff',
+                textShadow: `0 0 8px ${primaryColor}, 0 0 12px ${primaryColor}, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000`
+              }}
             >
               {customTimeLabel}
             </span>
-            <span style={{ color: '#ffffff' }}>|</span>
+            <span style={{ color: primaryColor, textShadow: `0 0 8px ${primaryColor}` }}>|</span>
             <span
               className="font-medium"
-              style={{ fontSize: '18px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+              style={{
+                fontSize: '18px',
+                color: '#ffffff',
+                textShadow: `0 0 6px ${accentColor}, 0 0 10px ${accentColor}, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000`
+              }}
             >
               {getCurrentDate()}
             </span>
           </div>
-          {/* RTP LIVE badge */}
+          {/* RTP LIVE badge with pulsing glow */}
           <div
             className="flex items-center gap-1.5 px-3 py-1 rounded-full"
             style={{
               background: `linear-gradient(135deg, ${primaryColor}, ${adjustColor(primaryColor, 20)})`,
-              boxShadow: `0 0 15px ${primaryColor}`
+              boxShadow: `0 0 15px ${primaryColor}, 0 0 25px ${primaryColor}80, 0 0 35px ${primaryColor}60`,
+              border: `2px solid ${primaryColor}`,
+              animation: 'pulse 2s ease-in-out infinite'
             }}
           >
-            <span className="text-xs font-black text-white">RTP LIVE</span>
+            <span className="text-xs font-black text-white" style={{ textShadow: `0 0 5px ${primaryColor}` }}>RTP LIVE</span>
           </div>
+          <span style={{ color: primaryColor, fontSize: '14px', textShadow: `0 0 6px ${primaryColor}, 0 0 10px ${primaryColor}` }}>━━</span>
         </div>
       </div>
 

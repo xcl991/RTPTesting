@@ -304,40 +304,82 @@ export default function CasinoMatrixLayout({
 
       {/* Header 1 - Title */}
       <div
-        className="flex-shrink-0 flex items-center justify-center px-4 relative z-10"
+        className="flex-shrink-0 flex items-center justify-center px-4 relative z-10 overflow-hidden"
         style={{
           height: '55px',
           background: `linear-gradient(90deg, ${darkerPrimary}, ${darkPrimary}, ${darkerPrimary})`,
-          borderBottom: `2px solid ${primaryColor}50`
+          borderBottom: `2px solid #00ff41`
         }}
       >
-        <h1
-          className={`${getFontSizeClass()} font-black uppercase tracking-wider leading-tight text-center`}
+        {/* Matrix code rain effect background */}
+        <div
+          className="absolute inset-0 opacity-20"
           style={{
-            color: '#ffffff',
-            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
+            backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 1px, #00ff0015 1px, #00ff0015 2px), repeating-linear-gradient(90deg, transparent, transparent 8px, #00ff4110 8px, #00ff4110 9px)`,
+            backgroundSize: '100% 4px, 10px 100%'
+          }}
+        />
+        {/* Binary overlay texture */}
+        <div
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='0' y='12' font-family='monospace' font-size='10' fill='%2300ff00'%3E01101%3C/text%3E%3C/svg%3E")`,
+            backgroundSize: '60px 20px'
+          }}
+        />
+        <h1
+          className={`${getFontSizeClass()} font-black uppercase tracking-wider leading-tight text-center relative z-10`}
+          style={{
+            color: '#00ff00',
+            textShadow: '0 0 10px #00ff00, 0 0 20px #00ff41, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
+            fontFamily: 'monospace'
           }}
         >
           {customHeaderText}
         </h1>
+        {/* Digital rain effect decorations */}
+        <div className="absolute left-4 top-0 bottom-0 flex items-center gap-1 opacity-30">
+          <div style={{ width: '2px', height: '100%', background: 'linear-gradient(to bottom, transparent, #00ff00, transparent)' }} />
+          <div style={{ width: '1px', height: '80%', background: 'linear-gradient(to bottom, transparent, #00ff41, transparent)' }} />
+        </div>
+        <div className="absolute right-4 top-0 bottom-0 flex items-center gap-1 opacity-30">
+          <div style={{ width: '1px', height: '80%', background: 'linear-gradient(to bottom, transparent, #00ff41, transparent)' }} />
+          <div style={{ width: '2px', height: '100%', background: 'linear-gradient(to bottom, transparent, #00ff00, transparent)' }} />
+        </div>
       </div>
 
       {/* Header 2 - Logo, Time, Date, RTP LIVE Badge */}
       <div
-        className="flex-shrink-0 flex items-center justify-between px-4 relative z-10"
+        className="flex-shrink-0 flex items-center justify-between px-4 relative z-10 overflow-hidden"
         style={{
           height: '45px',
           background: `linear-gradient(90deg, ${darkerPrimary}, ${darkPrimary}, ${darkerPrimary})`,
-          borderBottom: `2px solid ${primaryColor}50`
+          borderBottom: `2px solid #00ff41`
         }}
       >
+        {/* Matrix code rain effect background */}
+        <div
+          className="absolute inset-0 opacity-15"
+          style={{
+            backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 1px, #00ff0015 1px, #00ff0015 2px), repeating-linear-gradient(90deg, transparent, transparent 8px, #00ff4110 8px, #00ff4110 9px)`,
+            backgroundSize: '100% 4px, 10px 100%'
+          }}
+        />
+        {/* Binary overlay texture */}
+        <div
+          className="absolute inset-0 opacity-8"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='0' y='12' font-family='monospace' font-size='10' fill='%2300ff00'%3E01101%3C/text%3E%3C/svg%3E")`,
+            backgroundSize: '60px 20px'
+          }}
+        />
         {/* Logo */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 relative z-10">
           <img
             src={selectedWebsite.logo}
             alt={`${selectedWebsite.name} logo`}
             className="h-9 object-contain"
-            style={{ filter: `drop-shadow(0 0 5px ${primaryColor})` }}
+            style={{ filter: `drop-shadow(0 0 8px #00ff00) drop-shadow(0 0 4px #00ff41)` }}
             onError={(e) => {
               (e.target as HTMLImageElement).src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="80"%3E%3Crect width="200" height="80" fill="%23333"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="white" font-family="Arial" font-size="14"%3E' + selectedWebsite.name + '%3C/text%3E%3C/svg%3E';
             }}
@@ -345,18 +387,18 @@ export default function CasinoMatrixLayout({
         </div>
 
         {/* Time & Date */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 relative z-10">
           <div className="flex items-center gap-3">
             <span
               className="font-bold"
-              style={{ fontSize: '20px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+              style={{ fontSize: '20px', color: '#00ff00', textShadow: '0 0 8px #00ff00, 0 0 4px #00ff41, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000', fontFamily: 'monospace' }}
             >
               {customTimeLabel}
             </span>
-            <span style={{ color: '#ffffff' }}>|</span>
+            <span style={{ color: '#00ff41' }}>|</span>
             <span
               className="font-medium"
-              style={{ fontSize: '18px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+              style={{ fontSize: '18px', color: '#00ff00', textShadow: '0 0 6px #00ff00, 0 0 3px #00ff41, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000', fontFamily: 'monospace' }}
             >
               {getCurrentDate()}
             </span>
@@ -365,11 +407,12 @@ export default function CasinoMatrixLayout({
           <div
             className="flex items-center gap-1.5 px-3 py-1 rounded-full"
             style={{
-              background: `linear-gradient(135deg, ${primaryColor}, ${adjustColor(primaryColor, 20)})`,
-              boxShadow: `0 0 15px ${primaryColor}`
+              background: `linear-gradient(135deg, #00ff00, #00ff41)`,
+              boxShadow: `0 0 15px #00ff00, 0 0 8px #00ff41`,
+              border: '1px solid #00ff00'
             }}
           >
-            <span className="text-xs font-black text-white">RTP LIVE</span>
+            <span className="text-xs font-black" style={{ color: '#000', fontFamily: 'monospace' }}>RTP LIVE</span>
           </div>
         </div>
       </div>

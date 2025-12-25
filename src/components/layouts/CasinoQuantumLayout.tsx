@@ -402,54 +402,149 @@ export default function CasinoQuantumLayout({
 
       {/* Header 1 - Title (55px) */}
       <div
-        className="flex-shrink-0 flex items-center justify-center px-4 relative z-10"
+        className="flex-shrink-0 flex items-center justify-center px-4 relative z-10 overflow-hidden"
         style={{
           height: '55px',
           background: `linear-gradient(90deg, ${darkerPrimary}, ${darkPrimary}, ${darkerPrimary})`,
-          borderBottom: `2px solid ${primaryColor}50`,
+          borderBottom: `2px solid ${primaryColor}`,
           backdropFilter: 'blur(5px)'
         }}
       >
+        {/* Wave pattern effects - sine wave styled borders */}
+        <div
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='55' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 27.5 Q 12.5 15 25 27.5 T 50 27.5 T 75 27.5 T 100 27.5' stroke='${encodeURIComponent(primaryColor)}' stroke-width='1' fill='none' opacity='0.6'/%3E%3Cpath d='M0 20 Q 12.5 8 25 20 T 50 20 T 75 20 T 100 20' stroke='${encodeURIComponent(secondaryColor)}' stroke-width='0.5' fill='none' opacity='0.4'/%3E%3C/svg%3E")`,
+            backgroundSize: '100px 55px',
+            backgroundRepeat: 'repeat-x'
+          }}
+        />
+        {/* Quantum dots effect */}
+        <div className="absolute left-8 top-1/2" style={{ transform: 'translateY(-50%)' }}>
+          <div className="flex gap-1">
+            <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: primaryColor, boxShadow: `0 0 8px ${primaryColor}` }} />
+            <div className="w-1 h-1 rounded-full animate-pulse" style={{ background: secondaryColor, boxShadow: `0 0 6px ${secondaryColor}`, animationDelay: '0.3s' }} />
+            <div className="w-0.5 h-0.5 rounded-full animate-pulse" style={{ background: primaryColor, boxShadow: `0 0 4px ${primaryColor}`, animationDelay: '0.6s' }} />
+          </div>
+        </div>
+        <div className="absolute right-8 top-1/2" style={{ transform: 'translateY(-50%)' }}>
+          <div className="flex gap-1">
+            <div className="w-0.5 h-0.5 rounded-full animate-pulse" style={{ background: primaryColor, boxShadow: `0 0 4px ${primaryColor}`, animationDelay: '0.6s' }} />
+            <div className="w-1 h-1 rounded-full animate-pulse" style={{ background: secondaryColor, boxShadow: `0 0 6px ${secondaryColor}`, animationDelay: '0.3s' }} />
+            <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: primaryColor, boxShadow: `0 0 8px ${primaryColor}` }} />
+          </div>
+        </div>
+        {/* Particle orbit decorations - left */}
+        <div className="absolute left-16 top-1/2" style={{ transform: 'translateY(-50%)' }}>
+          <div className="relative" style={{ width: '40px', height: '40px' }}>
+            <div className="absolute inset-0 rounded-full" style={{ border: `1px solid ${primaryColor}40` }} />
+            <div className="absolute top-0 left-1/2 w-1 h-1 rounded-full" style={{ background: secondaryColor, boxShadow: `0 0 6px ${secondaryColor}`, transform: 'translateX(-50%)' }} />
+            <div className="absolute top-1/2 left-0 w-1 h-1 rounded-full" style={{ background: primaryColor, boxShadow: `0 0 6px ${primaryColor}`, transform: 'translateY(-50%)' }} />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-1.5 h-1.5 rounded-full" style={{ background: primaryColor, boxShadow: `0 0 8px ${primaryColor}` }} />
+            </div>
+          </div>
+        </div>
+        {/* Particle orbit decorations - right */}
+        <div className="absolute right-16 top-1/2" style={{ transform: 'translateY(-50%)' }}>
+          <div className="relative" style={{ width: '40px', height: '40px' }}>
+            <div className="absolute inset-0 rounded-full" style={{ border: `1px solid ${secondaryColor}40` }} />
+            <div className="absolute bottom-0 left-1/2 w-1 h-1 rounded-full" style={{ background: primaryColor, boxShadow: `0 0 6px ${primaryColor}`, transform: 'translateX(-50%)' }} />
+            <div className="absolute top-1/2 right-0 w-1 h-1 rounded-full" style={{ background: secondaryColor, boxShadow: `0 0 6px ${secondaryColor}`, transform: 'translateY(-50%)' }} />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-1.5 h-1.5 rounded-full" style={{ background: secondaryColor, boxShadow: `0 0 8px ${secondaryColor}` }} />
+            </div>
+          </div>
+        </div>
         <h1
-          className={`${getFontSizeClass()} font-black uppercase tracking-wider leading-tight text-center`}
+          className={`${getFontSizeClass()} font-black uppercase tracking-wider leading-tight text-center relative z-10`}
           style={{
             color: '#ffffff',
-            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
+            textShadow: `-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 20px ${primaryColor}, 0 0 10px ${secondaryColor}`
           }}
         >
+          <span style={{ marginRight: '8px' }}>⚛</span>
           {customHeaderText}
+          <span style={{ marginLeft: '8px' }}>⚛</span>
         </h1>
       </div>
 
       {/* Header 2 - Logo, Time, Date, RTP LIVE Badge (45px) */}
       <div
-        className="flex-shrink-0 flex items-center justify-between px-4 relative z-10"
+        className="flex-shrink-0 flex items-center justify-between px-4 relative z-10 overflow-hidden"
         style={{
           height: '45px',
           background: `${darkerPrimary}cc`,
-          borderBottom: `1px solid ${primaryColor}50`,
+          borderBottom: `2px solid ${primaryColor}`,
           backdropFilter: 'blur(5px)'
         }}
       >
-        {/* Logo */}
-        <img
-          src={selectedWebsite.logo}
-          alt={selectedWebsite.name}
-          style={{ height: '35px', filter: `drop-shadow(0 0 10px ${primaryColor}cc)` }}
+        {/* Probability wave patterns - sine wave background */}
+        <div
+          className="absolute inset-0 opacity-15"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='45' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 22.5 Q 10 12.5 20 22.5 T 40 22.5 T 60 22.5 T 80 22.5' stroke='${encodeURIComponent(primaryColor)}' stroke-width='1' fill='none' opacity='0.5'/%3E%3Cpath d='M0 30 Q 10 20 20 30 T 40 30 T 60 30 T 80 30' stroke='${encodeURIComponent(secondaryColor)}' stroke-width='0.5' fill='none' opacity='0.3'/%3E%3C/svg%3E")`,
+            backgroundSize: '80px 45px',
+            backgroundRepeat: 'repeat-x'
+          }}
         />
+        {/* Electron orbit lines as decorative elements */}
+        <div className="absolute left-0 top-1/2" style={{ transform: 'translateY(-50%)', width: '60px', height: '30px' }}>
+          <svg width="60" height="30" viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="30" cy="15" rx="25" ry="10" stroke={primaryColor} strokeWidth="0.5" fill="none" opacity="0.4" />
+            <circle cx="10" cy="15" r="1.5" fill={secondaryColor} opacity="0.8">
+              <animate attributeName="cx" values="10;50;10" dur="3s" repeatCount="indefinite" />
+            </circle>
+          </svg>
+        </div>
+        <div className="absolute right-0 top-1/2" style={{ transform: 'translateY(-50%)', width: '60px', height: '30px' }}>
+          <svg width="60" height="30" viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="30" cy="15" rx="25" ry="10" stroke={secondaryColor} strokeWidth="0.5" fill="none" opacity="0.4" />
+            <circle cx="50" cy="15" r="1.5" fill={primaryColor} opacity="0.8">
+              <animate attributeName="cx" values="50;10;50" dur="3s" repeatCount="indefinite" />
+            </circle>
+          </svg>
+        </div>
+        {/* Quantum dots effect - smaller clusters */}
+        <div className="absolute left-20 top-2">
+          <div className="flex gap-0.5">
+            <div className="w-1 h-1 rounded-full animate-pulse" style={{ background: primaryColor, boxShadow: `0 0 4px ${primaryColor}` }} />
+            <div className="w-0.5 h-0.5 rounded-full animate-pulse" style={{ background: secondaryColor, boxShadow: `0 0 3px ${secondaryColor}`, animationDelay: '0.2s' }} />
+          </div>
+        </div>
+        <div className="absolute right-20 bottom-2">
+          <div className="flex gap-0.5">
+            <div className="w-0.5 h-0.5 rounded-full animate-pulse" style={{ background: primaryColor, boxShadow: `0 0 3px ${primaryColor}`, animationDelay: '0.4s' }} />
+            <div className="w-1 h-1 rounded-full animate-pulse" style={{ background: secondaryColor, boxShadow: `0 0 4px ${secondaryColor}` }} />
+          </div>
+        </div>
+        {/* Logo */}
+        <div className="flex items-center gap-2 relative z-10">
+          <div className="relative">
+            <img
+              src={selectedWebsite.logo}
+              alt={selectedWebsite.name}
+              style={{ height: '35px', filter: `drop-shadow(0 0 10px ${primaryColor}cc)` }}
+            />
+            {/* Particle orbit around logo */}
+            <div className="absolute -top-1 -right-1">
+              <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: secondaryColor, boxShadow: `0 0 6px ${secondaryColor}` }} />
+            </div>
+          </div>
+        </div>
 
         {/* Time & Date */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 relative z-10">
           <span
             className="font-bold"
-            style={{ fontSize: '18px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+            style={{ fontSize: '18px', color: '#ffffff', textShadow: `-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 8px ${primaryColor}` }}
           >
             {customTimeLabel}
           </span>
-          <span style={{ color: '#ffffff' }}>|</span>
+          <span style={{ color: primaryColor, textShadow: `0 0 5px ${primaryColor}` }}>⚛</span>
           <span
             className="font-medium"
-            style={{ fontSize: '16px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+            style={{ fontSize: '16px', color: '#ffffff', textShadow: `-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 6px ${secondaryColor}` }}
           >
             {getCurrentDate()}
           </span>
@@ -457,14 +552,16 @@ export default function CasinoQuantumLayout({
 
         {/* RTP LIVE Badge */}
         <div
-          className="flex items-center gap-1.5 px-3 py-1 rounded"
+          className="flex items-center gap-1.5 px-3 py-1 rounded relative z-10"
           style={{
             background: primaryColor,
-            boxShadow: `0 0 15px ${primaryColor}`
+            boxShadow: `0 0 15px ${primaryColor}, 0 0 8px ${secondaryColor}`,
+            border: `1px solid ${secondaryColor}`
           }}
         >
-          <div className="w-2 h-2 rounded-full bg-white animate-pulse" />
+          <div className="w-2 h-2 rounded-full bg-white animate-pulse" style={{ boxShadow: `0 0 6px ${secondaryColor}` }} />
           <span className="text-xs font-black text-black">RTP LIVE</span>
+          <div className="absolute -top-1 -right-1 w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: secondaryColor, boxShadow: `0 0 6px ${secondaryColor}` }} />
         </div>
       </div>
 

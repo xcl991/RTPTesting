@@ -409,84 +409,128 @@ export default function CasinoMedievalKingdomLayout({
         }}
       />
 
-      {/* Header 1 - Medieval Title with Decorations */}
+      {/* Header 1 - Royal Kingdom Banner (55px) */}
       <div
         className="flex-shrink-0 flex items-center justify-center px-4 relative"
         style={{
           height: '55px',
-          background: `linear-gradient(180deg, ${darkPrimary}e6, ${darkerPrimary}f2)`,
-          border: `3px solid ${primaryColor}`,
+          background: `linear-gradient(180deg, ${darkPrimary}e6, ${darkerPrimary}dd, ${adjustColor(primaryColor, -70)}f2), url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0zm50 0h40v40H50zM0 50h40v40H0zm50 0h40v40H50z' fill='%23000' opacity='0.1'/%3E%3C/svg%3E")`,
+          backgroundBlendMode: 'multiply',
+          border: `4px double ${primaryColor}`,
           borderLeft: 'none',
           borderRight: 'none',
-          boxShadow: `0 10px 30px rgba(0,0,0,0.8), inset 0 2px 0 rgba(255,215,0,0.2), 0 0 40px ${primaryColor}30`
+          boxShadow: `0 10px 30px rgba(0,0,0,0.8), inset 0 3px 0 rgba(255,215,0,0.25), inset 0 -2px 0 rgba(0,0,0,0.3), 0 0 50px ${primaryColor}40`
         }}
       >
-        {/* Decorative elements */}
-        <div className="absolute left-4 text-2xl">⚔️</div>
-        <div className="absolute left-12 text-xl" style={{ color: primaryColor }}>⚜️</div>
+        {/* Torch flames - Left */}
+        <div className="absolute left-4 flex items-center gap-1">
+          <span className="text-2xl animate-pulse" style={{ animationDuration: '1.5s' }}>🔥</span>
+          <div className="flex flex-col items-center">
+            <span className="text-lg" style={{ color: primaryColor }}>🛡</span>
+          </div>
+        </div>
+
+        {/* Royal Crest Left */}
+        <div className="absolute left-20 flex items-center gap-2 opacity-80">
+          <span className="text-lg" style={{ color: secondaryColor }}>👑</span>
+          <span className="text-base" style={{ color: primaryColor }}>⚜️</span>
+        </div>
+
+        {/* Scroll decorative border */}
+        <div className="absolute top-0 left-0 right-0 h-1" style={{ background: `linear-gradient(90deg, transparent, ${primaryColor}60, ${secondaryColor}60, ${primaryColor}60, transparent)` }} />
+        <div className="absolute bottom-0 left-0 right-0 h-1" style={{ background: `linear-gradient(90deg, transparent, ${secondaryColor}60, ${primaryColor}60, ${secondaryColor}60, transparent)` }} />
+
         <h1
           className={`${getFontSizeClass()} font-black uppercase tracking-wider leading-tight text-center`}
           style={{
             color: '#ffffff',
-            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
+            textShadow: `-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 15px ${primaryColor}60`,
+            fontFamily: 'serif'
           }}
         >
           {customHeaderText}
         </h1>
-        <div className="absolute right-12 text-xl" style={{ color: secondaryColor }}>⚜️</div>
-        <div className="absolute right-4 text-2xl">🏰</div>
+
+        {/* Royal Crest Right */}
+        <div className="absolute right-20 flex items-center gap-2 opacity-80">
+          <span className="text-base" style={{ color: secondaryColor }}>⚜️</span>
+          <span className="text-lg" style={{ color: primaryColor }}>⚔️</span>
+        </div>
+
+        {/* Torch flames & Castle - Right */}
+        <div className="absolute right-4 flex items-center gap-1">
+          <div className="flex flex-col items-center">
+            <span className="text-lg" style={{ color: secondaryColor }}>🛡</span>
+          </div>
+          <span className="text-2xl animate-pulse" style={{ animationDuration: '1.5s', animationDelay: '0.7s' }}>🔥</span>
+        </div>
       </div>
 
-      {/* Header 2 - Logo, Time, Date, RTP LIVE Badge */}
+      {/* Header 2 - Royal Court Panel (45px) */}
       <div
-        className="flex-shrink-0 flex items-center justify-between px-4"
+        className="flex-shrink-0 flex items-center justify-between px-4 relative"
         style={{
           height: '45px',
-          background: `linear-gradient(135deg, ${darkPrimary}d9, ${darkerPrimary}e6)`,
-          borderBottom: `2px solid ${primaryColor}50`
+          background: `linear-gradient(135deg, ${darkPrimary}dd, ${darkerPrimary}e6, ${darkPrimary}dd), url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h20v20H0zm30 0h20v20H30zM0 30h20v20H0zm30 0h20v20H30z' fill='%23000' opacity='0.08'/%3E%3C/svg%3E")`,
+          backgroundBlendMode: 'multiply',
+          borderBottom: `3px double ${primaryColor}60`,
+          boxShadow: `inset 0 2px 0 rgba(255,215,0,0.15)`
         }}
       >
-        {/* Logo */}
+        {/* Medieval banner decorative borders */}
+        <div className="absolute top-0 left-0 w-8 h-full" style={{ background: `linear-gradient(to right, ${primaryColor}20, transparent)` }} />
+        <div className="absolute top-0 right-0 w-8 h-full" style={{ background: `linear-gradient(to left, ${secondaryColor}20, transparent)` }} />
+
+        {/* Logo with Shield */}
         <div className="flex items-center gap-2">
-          <span className="text-xl">👑</span>
+          <div className="relative">
+            <span className="text-xl opacity-80" style={{ color: primaryColor }}>🛡</span>
+            <div className="absolute -top-1 -right-1">
+              <span className="text-sm">👑</span>
+            </div>
+          </div>
           <img
             src={selectedWebsite.logo}
             alt={`${selectedWebsite.name} logo`}
             className="h-9 object-contain"
-            style={{ filter: `drop-shadow(0 4px 8px ${primaryColor}80) contrast(1.1)` }}
+            style={{ filter: `drop-shadow(0 4px 8px ${primaryColor}80) contrast(1.15)` }}
             onError={(e) => {
               (e.target as HTMLImageElement).src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="80"%3E%3Crect width="200" height="80" fill="%23333"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="white" font-family="Arial" font-size="14"%3E' + selectedWebsite.name + '%3C/text%3E%3C/svg%3E';
             }}
           />
+          <span className="text-base opacity-70" style={{ color: secondaryColor }}>⚔️</span>
         </div>
 
-        {/* Time & Date */}
+        {/* Time & Date with Royal Badge */}
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-3">
             <span
               className="font-bold"
-              style={{ fontSize: '20px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+              style={{ fontSize: '20px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000', fontFamily: 'serif' }}
             >
               {customTimeLabel}
             </span>
-            <span style={{ color: '#ffffff' }}>|</span>
+            <span style={{ color: primaryColor, opacity: 0.6 }}>⚜️</span>
             <span
               className="font-medium"
-              style={{ fontSize: '18px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+              style={{ fontSize: '18px', color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000', fontFamily: 'serif' }}
             >
               {getCurrentDate()}
             </span>
           </div>
-          {/* RTP LIVE Badge */}
+          {/* RTP LIVE Badge - Royal Crest Style */}
           <div
-            className="flex items-center gap-1.5 px-3 py-1 rounded"
+            className="flex items-center gap-1.5 px-3 py-1 rounded relative"
             style={{
-              background: `linear-gradient(135deg, ${primaryColor}, ${secondaryColor})`,
-              border: '1px solid rgba(255,215,0,0.5)',
-              boxShadow: `0 0 15px ${primaryColor}80`
+              background: `linear-gradient(135deg, ${primaryColor}ee, ${secondaryColor}dd)`,
+              border: `2px solid ${primaryColor}`,
+              boxShadow: `0 4px 12px ${primaryColor}80, inset 0 1px 0 rgba(255,215,0,0.4)`
             }}
           >
-            <span className="text-xs font-black" style={{ color: '#1a0a00' }}>👑 RTP LIVE</span>
+            <span className="text-xs font-black" style={{ color: '#1a0a00', fontFamily: 'serif' }}>👑 RTP LIVE</span>
+            {/* Corner decorations */}
+            <div className="absolute -top-0.5 -left-0.5 w-1.5 h-1.5 border-t-2 border-l-2" style={{ borderColor: secondaryColor }} />
+            <div className="absolute -bottom-0.5 -right-0.5 w-1.5 h-1.5 border-b-2 border-r-2" style={{ borderColor: secondaryColor }} />
           </div>
         </div>
       </div>
