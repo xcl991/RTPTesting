@@ -696,16 +696,14 @@ export default function Header({
           Trik Gacor
         </button>
 
-        {/* Maxwin Info Button - For Single Featured Layout & Custom Layout 2/4/6 */}
-        {(selectedLayout.id === 'singlefeatured' || selectedLayout.id === 'customizable2' || selectedLayout.id === 'customizable4' || selectedLayout.id === 'customizable6') && (
-          <button
-            onClick={() => setIsMaxwinPanelOpen(!isMaxwinPanelOpen)}
-            className={`flex items-center gap-2 ${isMaxwinPanelOpen ? 'bg-purple-500' : 'bg-purple-600 hover:bg-purple-700'} text-white px-4 py-2 rounded-lg transition-colors font-semibold`}
-          >
-            <Sparkles className="w-4 h-4" />
-            Maxwin Info{maxwinConfig.buttonText ? ` - ${maxwinConfig.buttonText}` : ''}
-          </button>
-        )}
+        {/* Maxwin Info Button - For All Layouts */}
+        <button
+          onClick={() => setIsMaxwinPanelOpen(!isMaxwinPanelOpen)}
+          className={`flex items-center gap-2 ${isMaxwinPanelOpen ? 'bg-purple-500' : 'bg-purple-600 hover:bg-purple-700'} text-white px-4 py-2 rounded-lg transition-colors font-semibold`}
+        >
+          <Sparkles className="w-4 h-4" />
+          Maxwin Info{maxwinConfig.buttonText ? ` - ${maxwinConfig.buttonText}` : ''}
+        </button>
 
         {/* Footer Config Button - Only for Customizable Layout */}
         {selectedLayout.id === 'customizable' && (
@@ -968,8 +966,8 @@ export default function Header({
         </div>
       )}
 
-      {/* Maxwin Info Panel - For Single Featured Layout & Custom Layout 2/4/6 */}
-      {isMaxwinPanelOpen && (selectedLayout.id === 'singlefeatured' || selectedLayout.id === 'customizable2' || selectedLayout.id === 'customizable4' || selectedLayout.id === 'customizable6') && (
+      {/* Maxwin Info Panel - For All Layouts */}
+      {isMaxwinPanelOpen && (
         <div className="mt-4 bg-gray-800 border border-gray-700 rounded-lg p-4">
           <h3 className="text-lg font-semibold text-purple-400 mb-4">Konfigurasi Maxwin Info</h3>
 
