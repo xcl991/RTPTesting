@@ -266,6 +266,19 @@ export default function CasinoMatrixLayout({
     }
   };
 
+  // Card Style Helpers
+  const getBlurClass = () => {
+    if (!selectedCardStyle?.blur || selectedCardStyle.blur === 'none') return '';
+    return selectedCardStyle.blur;
+  };
+
+  const getCardContainerStyle = (color: string) => ({
+    background: selectedCardStyle?.background || `linear-gradient(135deg, ${adjustColor(color, -40)} 0%, ${adjustColor(color, -60)} 100%)`,
+    border: selectedCardStyle?.border ? `${selectedCardStyle.border} ${color}` : `3px solid ${color}`,
+    opacity: selectedCardStyle?.opacity || 1,
+    boxShadow: selectedCardStyle?.shadow || `0 0 30px ${color}50, inset 0 0 40px rgba(0,0,0,0.5)`
+  });
+
   const primaryColor = selectedStyle.primaryColor;
   const secondaryColor = selectedStyle.secondaryColor;
   const darkPrimary = adjustColor(primaryColor, -85);
@@ -423,14 +436,22 @@ export default function CasinoMatrixLayout({
       <div className="flex gap-2 p-2 relative z-10" style={{ height: '264px' }}>
         {/* Pragmatic Play */}
         <div
-          className="flex-1 overflow-hidden p-3 relative"
+          className={`flex-1 overflow-hidden p-3 relative ${getBlurClass()}`}
           style={{
-            background: `linear-gradient(135deg, ${darkPrimary}, ${darkerPrimary})`,
-            borderRadius: '4px',
-            border: `1px solid ${primaryColor}40`,
-            boxShadow: `0 0 20px ${primaryColor}20`
+            ...getCardContainerStyle(primaryColor),
+            borderRadius: '20px'
           }}
         >
+          {/* Pattern overlay */}
+          {selectedCardStyle?.pattern && (
+            <div
+              className="absolute inset-0 pointer-events-none rounded-[20px]"
+              style={{
+                backgroundImage: selectedCardStyle.pattern,
+                opacity: 0.1
+              }}
+            />
+          )}
           {/* Matrix rain effect */}
           <div
             className="absolute inset-0 opacity-20"
@@ -511,14 +532,22 @@ export default function CasinoMatrixLayout({
 
         {/* PG Soft */}
         <div
-          className="flex-1 overflow-hidden p-3 relative"
+          className={`flex-1 overflow-hidden p-3 relative ${getBlurClass()}`}
           style={{
-            background: `linear-gradient(135deg, ${darkPrimary}, ${darkerPrimary})`,
-            borderRadius: '4px',
-            border: `1px solid ${primaryColor}40`,
-            boxShadow: `0 0 20px ${primaryColor}20`
+            ...getCardContainerStyle(primaryColor),
+            borderRadius: '20px'
           }}
         >
+          {/* Pattern overlay */}
+          {selectedCardStyle?.pattern && (
+            <div
+              className="absolute inset-0 pointer-events-none rounded-[20px]"
+              style={{
+                backgroundImage: selectedCardStyle.pattern,
+                opacity: 0.1
+              }}
+            />
+          )}
           {/* Matrix rain effect */}
           <div
             className="absolute inset-0 opacity-20"

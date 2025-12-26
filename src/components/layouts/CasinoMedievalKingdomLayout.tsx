@@ -355,6 +355,7 @@ export default function CasinoMedievalKingdomLayout({
   selectedPragmaticGames,
   selectedPgSoftGames,
   getCurrentDate,
+  selectedCardStyle,
   pragmaticTrik,
   pgSoftTrik,
   telegramUsername,
@@ -371,6 +372,19 @@ export default function CasinoMedievalKingdomLayout({
       case 'xlarge': return 'text-3xl';
     }
   };
+
+  // Card Style Helpers
+  const getBlurClass = () => {
+    if (!selectedCardStyle?.blur || selectedCardStyle.blur === 'none') return '';
+    return selectedCardStyle.blur;
+  };
+
+  const getCardContainerStyle = (color: string) => ({
+    background: selectedCardStyle?.background || `linear-gradient(135deg, ${adjustColor(color, -40)} 0%, ${adjustColor(color, -60)} 100%)`,
+    border: selectedCardStyle?.border ? `${selectedCardStyle.border} ${color}` : `3px solid ${color}`,
+    opacity: selectedCardStyle?.opacity || 1,
+    boxShadow: selectedCardStyle?.shadow || `0 0 30px ${color}50, inset 0 0 40px rgba(0,0,0,0.5)`
+  });
 
   // Use selectedStyle colors
   const primaryColor = selectedStyle.primaryColor;
@@ -543,14 +557,22 @@ export default function CasinoMedievalKingdomLayout({
         <div className="flex gap-3" style={{ height: '264px' }}>
           {/* Pragmatic Play Games */}
           <div
-            className="flex-1 overflow-hidden p-3 relative"
+            className={`flex-1 overflow-hidden p-3 relative ${getBlurClass()}`}
             style={{
-              background: `linear-gradient(135deg, ${darkPrimary}d9, ${darkerPrimary}e6)`,
-              borderRadius: '8px',
-              border: `3px double ${primaryColor}`,
-              boxShadow: `0 8px 24px rgba(0,0,0,0.7), inset 0 2px 0 rgba(255,215,0,0.15), 0 0 30px ${primaryColor}20`
+              ...getCardContainerStyle(primaryColor),
+              borderRadius: '20px'
             }}
           >
+            {/* Pattern Overlay */}
+            <div
+              className="absolute inset-0 opacity-10 pointer-events-none"
+              style={{
+                backgroundImage: selectedCardStyle?.pattern || 'none',
+                backgroundSize: '100px 100px',
+                borderRadius: '20px'
+              }}
+            />
+
             {/* Ornamental Corners */}
             <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 opacity-60" style={{ borderColor: secondaryColor }} />
             <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 opacity-60" style={{ borderColor: secondaryColor }} />
@@ -577,14 +599,22 @@ export default function CasinoMedievalKingdomLayout({
 
           {/* PG Soft Games */}
           <div
-            className="flex-1 overflow-hidden p-3 relative"
+            className={`flex-1 overflow-hidden p-3 relative ${getBlurClass()}`}
             style={{
-              background: `linear-gradient(135deg, ${darkPrimary}d9, ${darkerPrimary}e6)`,
-              borderRadius: '8px',
-              border: `3px double ${primaryColor}`,
-              boxShadow: `0 8px 24px rgba(0,0,0,0.7), inset 0 2px 0 rgba(255,215,0,0.15), 0 0 30px ${primaryColor}20`
+              ...getCardContainerStyle(primaryColor),
+              borderRadius: '20px'
             }}
           >
+            {/* Pattern Overlay */}
+            <div
+              className="absolute inset-0 opacity-10 pointer-events-none"
+              style={{
+                backgroundImage: selectedCardStyle?.pattern || 'none',
+                backgroundSize: '100px 100px',
+                borderRadius: '20px'
+              }}
+            />
+
             {/* Ornamental Corners */}
             <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 opacity-60" style={{ borderColor: secondaryColor }} />
             <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 opacity-60" style={{ borderColor: secondaryColor }} />

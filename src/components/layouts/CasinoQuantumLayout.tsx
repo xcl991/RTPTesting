@@ -349,6 +349,7 @@ export default function CasinoQuantumLayout({
   selectedPragmaticGames,
   selectedPgSoftGames,
   getCurrentDate,
+  selectedCardStyle,
   pragmaticTrik,
   pgSoftTrik,
   telegramUsername,
@@ -365,6 +366,19 @@ export default function CasinoQuantumLayout({
       case 'xlarge': return 'text-3xl';
     }
   };
+
+  // Card Style Helpers
+  const getBlurClass = () => {
+    if (!selectedCardStyle?.blur || selectedCardStyle.blur === 'none') return '';
+    return selectedCardStyle.blur;
+  };
+
+  const getCardContainerStyle = (color: string) => ({
+    background: selectedCardStyle?.background || `linear-gradient(135deg, ${adjustColor(color, -40)} 0%, ${adjustColor(color, -60)} 100%)`,
+    border: selectedCardStyle?.border ? `${selectedCardStyle.border} ${color}` : `3px solid ${color}`,
+    opacity: selectedCardStyle?.opacity || 1,
+    boxShadow: selectedCardStyle?.shadow || `0 0 30px ${color}50, inset 0 0 40px rgba(0,0,0,0.5)`
+  });
 
   const primaryColor = selectedStyle.primaryColor;
   const secondaryColor = selectedStyle.secondaryColor;
@@ -575,14 +589,23 @@ export default function CasinoQuantumLayout({
         <div className="flex gap-3" style={{ height: '264px' }}>
           {/* Pragmatic Play Games */}
           <div
-            className="flex-1 overflow-hidden p-3 relative"
+            className={`flex-1 overflow-hidden p-3 relative ${getBlurClass()}`}
             style={{
-              background: `${darkPrimary}99`,
-              borderRadius: '12px',
-              border: `1px solid ${primaryColor}30`,
-              boxShadow: `0 0 20px ${primaryColor}30, inset 0 0 15px rgba(0,0,0,0.5)`
+              ...getCardContainerStyle(primaryColor),
+              borderRadius: '20px'
             }}
           >
+            {/* Pattern Overlay */}
+            {selectedCardStyle?.pattern && (
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  backgroundImage: selectedCardStyle.pattern,
+                  opacity: 0.1,
+                  borderRadius: '20px'
+                }}
+              />
+            )}
             {/* Circuit board pattern overlay */}
             <div
               className="absolute inset-0 opacity-10 rounded-lg"
@@ -621,14 +644,23 @@ export default function CasinoQuantumLayout({
 
           {/* PG Soft Games */}
           <div
-            className="flex-1 overflow-hidden p-3 relative"
+            className={`flex-1 overflow-hidden p-3 relative ${getBlurClass()}`}
             style={{
-              background: `${darkSecondary}99`,
-              borderRadius: '12px',
-              border: `1px solid ${secondaryColor}30`,
-              boxShadow: `0 0 20px ${secondaryColor}30, inset 0 0 15px rgba(0,0,0,0.5)`
+              ...getCardContainerStyle(secondaryColor),
+              borderRadius: '20px'
             }}
           >
+            {/* Pattern Overlay */}
+            {selectedCardStyle?.pattern && (
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  backgroundImage: selectedCardStyle.pattern,
+                  opacity: 0.1,
+                  borderRadius: '20px'
+                }}
+              />
+            )}
             {/* Circuit board pattern overlay */}
             <div
               className="absolute inset-0 opacity-10 rounded-lg"

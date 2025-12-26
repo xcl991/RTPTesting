@@ -343,6 +343,7 @@ export default function CasinoHolographicLayout({
   selectedPragmaticGames,
   selectedPgSoftGames,
   getCurrentDate,
+  selectedCardStyle,
   pragmaticTrik,
   pgSoftTrik,
   telegramUsername,
@@ -359,6 +360,19 @@ export default function CasinoHolographicLayout({
       case 'xlarge': return 'text-3xl';
     }
   };
+
+  // Card Style Helpers
+  const getBlurClass = () => {
+    if (!selectedCardStyle?.blur || selectedCardStyle.blur === 'none') return '';
+    return selectedCardStyle.blur;
+  };
+
+  const getCardContainerStyle = (color: string) => ({
+    background: selectedCardStyle?.background || `linear-gradient(135deg, ${adjustColor(color, -40)} 0%, ${adjustColor(color, -60)} 100%)`,
+    border: selectedCardStyle?.border ? `${selectedCardStyle.border} ${color}` : `3px solid ${color}`,
+    opacity: selectedCardStyle?.opacity || 1,
+    boxShadow: selectedCardStyle?.shadow || `0 0 30px ${color}50, inset 0 0 40px rgba(0,0,0,0.5)`
+  });
 
   const primaryColor = selectedStyle.primaryColor;
   const secondaryColor = selectedStyle.secondaryColor;
@@ -548,15 +562,22 @@ export default function CasinoHolographicLayout({
         <div className="flex gap-3" style={{ height: '264px' }}>
           {/* Pragmatic Games */}
           <div
-            className="flex-1 overflow-hidden p-3 relative"
+            className={`flex-1 overflow-hidden p-3 relative ${getBlurClass()}`}
             style={{
-              background: `linear-gradient(135deg, ${primaryColor}15, ${secondaryColor}10, ${primaryColor}15)`,
-              backdropFilter: 'blur(15px)',
-              borderRadius: '20px',
-              border: `1px solid ${primaryColor}40`,
-              boxShadow: `0 0 30px ${primaryColor}30, inset 0 0 40px rgba(255,255,255,0.05)`
+              ...getCardContainerStyle(primaryColor),
+              borderRadius: '20px'
             }}
           >
+            {/* Pattern overlay */}
+            {selectedCardStyle?.pattern && (
+              <div
+                className="absolute inset-0 pointer-events-none rounded-[20px]"
+                style={{
+                  backgroundImage: selectedCardStyle.pattern,
+                  opacity: 0.1
+                }}
+              />
+            )}
             {/* Holographic corner dots */}
             <div className="absolute top-2 left-2 w-2 h-2 rounded-full" style={{ backgroundColor: primaryColor, boxShadow: `0 0 10px ${primaryColor}` }} />
             <div className="absolute top-2 right-2 w-2 h-2 rounded-full" style={{ backgroundColor: secondaryColor, boxShadow: `0 0 10px ${secondaryColor}` }} />
@@ -582,15 +603,22 @@ export default function CasinoHolographicLayout({
 
           {/* PG Soft Games */}
           <div
-            className="flex-1 overflow-hidden p-3 relative"
+            className={`flex-1 overflow-hidden p-3 relative ${getBlurClass()}`}
             style={{
-              background: `linear-gradient(135deg, ${secondaryColor}15, ${primaryColor}10, ${secondaryColor}15)`,
-              backdropFilter: 'blur(15px)',
-              borderRadius: '20px',
-              border: `1px solid ${secondaryColor}40`,
-              boxShadow: `0 0 30px ${secondaryColor}30, inset 0 0 40px rgba(255,255,255,0.05)`
+              ...getCardContainerStyle(secondaryColor),
+              borderRadius: '20px'
             }}
           >
+            {/* Pattern overlay */}
+            {selectedCardStyle?.pattern && (
+              <div
+                className="absolute inset-0 pointer-events-none rounded-[20px]"
+                style={{
+                  backgroundImage: selectedCardStyle.pattern,
+                  opacity: 0.1
+                }}
+              />
+            )}
             <div className="absolute top-2 left-2 w-2 h-2 rounded-full" style={{ backgroundColor: secondaryColor, boxShadow: `0 0 10px ${secondaryColor}` }} />
             <div className="absolute top-2 right-2 w-2 h-2 rounded-full" style={{ backgroundColor: primaryColor, boxShadow: `0 0 10px ${primaryColor}` }} />
 

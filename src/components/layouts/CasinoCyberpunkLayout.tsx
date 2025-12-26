@@ -355,6 +355,7 @@ export default function CasinoCyberpunkLayout({
   selectedPragmaticGames,
   selectedPgSoftGames,
   getCurrentDate,
+  selectedCardStyle,
   pragmaticTrik,
   pgSoftTrik,
   telegramUsername,
@@ -371,6 +372,19 @@ export default function CasinoCyberpunkLayout({
       case 'xlarge': return 'text-3xl';
     }
   };
+
+  // Card Style Helpers
+  const getBlurClass = () => {
+    if (!selectedCardStyle?.blur || selectedCardStyle.blur === 'none') return '';
+    return selectedCardStyle.blur;
+  };
+
+  const getCardContainerStyle = (color: string) => ({
+    background: selectedCardStyle?.background || `linear-gradient(135deg, ${adjustColor(color, -40)} 0%, ${adjustColor(color, -60)} 100%)`,
+    border: selectedCardStyle?.border ? `${selectedCardStyle.border} ${color}` : `3px solid ${color}`,
+    opacity: selectedCardStyle?.opacity || 1,
+    boxShadow: selectedCardStyle?.shadow || `0 0 30px ${color}50, inset 0 0 40px rgba(0,0,0,0.5)`
+  });
 
   const primaryColor = selectedStyle.primaryColor;
   const secondaryColor = selectedStyle.secondaryColor;
@@ -586,15 +600,22 @@ export default function CasinoCyberpunkLayout({
         <div className="flex gap-3" style={{ height: '264px' }}>
           {/* Pragmatic Games */}
           <div
-            className="flex-1 overflow-hidden p-3 relative"
+            className={`flex-1 overflow-hidden p-3 relative ${getBlurClass()}`}
             style={{
-              background: `linear-gradient(135deg, rgba(0,0,0,0.9), ${primaryColor}15)`,
-              borderRadius: '12px',
-              border: `2px solid ${primaryColor}`,
-              boxShadow: `0 0 30px ${primaryColor}50, inset 0 0 40px rgba(0,0,0,0.5)`,
-              clipPath: 'polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px))'
+              ...getCardContainerStyle(primaryColor),
+              borderRadius: '20px'
             }}
           >
+            {/* Pattern Overlay */}
+            <div
+              className="absolute inset-0 opacity-10 pointer-events-none"
+              style={{
+                backgroundImage: selectedCardStyle?.pattern || 'none',
+                backgroundSize: '100px 100px',
+                borderRadius: '20px'
+              }}
+            />
+
             {/* Scanning effect */}
             <div
               className="absolute inset-0 opacity-20 pointer-events-none"
@@ -624,15 +645,22 @@ export default function CasinoCyberpunkLayout({
 
           {/* PG Soft Games */}
           <div
-            className="flex-1 overflow-hidden p-3 relative"
+            className={`flex-1 overflow-hidden p-3 relative ${getBlurClass()}`}
             style={{
-              background: `linear-gradient(135deg, rgba(0,0,0,0.9), ${primaryColor}15)`,
-              borderRadius: '12px',
-              border: `2px solid ${primaryColor}`,
-              boxShadow: `0 0 30px ${primaryColor}50, inset 0 0 40px rgba(0,0,0,0.5)`,
-              clipPath: 'polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px))'
+              ...getCardContainerStyle(primaryColor),
+              borderRadius: '20px'
             }}
           >
+            {/* Pattern Overlay */}
+            <div
+              className="absolute inset-0 opacity-10 pointer-events-none"
+              style={{
+                backgroundImage: selectedCardStyle?.pattern || 'none',
+                backgroundSize: '100px 100px',
+                borderRadius: '20px'
+              }}
+            />
+
             {/* Scanning effect */}
             <div
               className="absolute inset-0 opacity-20 pointer-events-none"

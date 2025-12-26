@@ -349,6 +349,7 @@ export default function CasinoSpaceStationLayout({
   selectedPragmaticGames,
   selectedPgSoftGames,
   getCurrentDate,
+  selectedCardStyle,
   pragmaticTrik,
   pgSoftTrik,
   telegramUsername,
@@ -365,6 +366,19 @@ export default function CasinoSpaceStationLayout({
       case 'xlarge': return 'text-3xl';
     }
   };
+
+  // Card Style Helpers
+  const getBlurClass = () => {
+    if (!selectedCardStyle?.blur || selectedCardStyle.blur === 'none') return '';
+    return selectedCardStyle.blur;
+  };
+
+  const getCardContainerStyle = (color: string) => ({
+    background: selectedCardStyle?.background || `linear-gradient(135deg, ${adjustColor(color, -40)} 0%, ${adjustColor(color, -60)} 100%)`,
+    border: selectedCardStyle?.border ? `${selectedCardStyle.border} ${color}` : `3px solid ${color}`,
+    opacity: selectedCardStyle?.opacity || 1,
+    boxShadow: selectedCardStyle?.shadow || `0 0 30px ${color}50, inset 0 0 40px rgba(0,0,0,0.5)`
+  });
 
   const primaryColor = selectedStyle.primaryColor;
   const secondaryColor = selectedStyle.secondaryColor;
@@ -531,14 +545,23 @@ export default function CasinoSpaceStationLayout({
         <div className="flex gap-3" style={{ height: '264px' }}>
           {/* Pragmatic Play */}
           <div
-            className="flex-1 overflow-hidden p-3 relative"
+            className={`flex-1 overflow-hidden p-3 relative ${getBlurClass()}`}
             style={{
-              background: `${darkPrimary}99`,
-              borderRadius: '12px',
-              border: `2px solid ${primaryColor}60`,
-              boxShadow: `0 0 30px ${primaryColor}40, inset 0 0 20px rgba(0,50,100,0.3)`
+              ...getCardContainerStyle(primaryColor),
+              borderRadius: '20px'
             }}
           >
+            {/* Pattern Overlay */}
+            {selectedCardStyle?.pattern && (
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  backgroundImage: selectedCardStyle.pattern,
+                  opacity: 0.1,
+                  borderRadius: '20px'
+                }}
+              />
+            )}
             {/* Hexagonal Grid Overlay */}
             <div
               className="absolute inset-0 opacity-20 pointer-events-none"
@@ -589,14 +612,23 @@ export default function CasinoSpaceStationLayout({
 
           {/* PG Soft */}
           <div
-            className="flex-1 overflow-hidden p-3 relative"
+            className={`flex-1 overflow-hidden p-3 relative ${getBlurClass()}`}
             style={{
-              background: `${darkSecondary}99`,
-              borderRadius: '12px',
-              border: `2px solid ${secondaryColor}60`,
-              boxShadow: `0 0 30px ${secondaryColor}40, inset 0 0 20px rgba(0,50,100,0.3)`
+              ...getCardContainerStyle(secondaryColor),
+              borderRadius: '20px'
             }}
           >
+            {/* Pattern Overlay */}
+            {selectedCardStyle?.pattern && (
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  backgroundImage: selectedCardStyle.pattern,
+                  opacity: 0.1,
+                  borderRadius: '20px'
+                }}
+              />
+            )}
             {/* Hexagonal Grid Overlay */}
             <div
               className="absolute inset-0 opacity-20 pointer-events-none"

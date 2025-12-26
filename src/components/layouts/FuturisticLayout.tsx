@@ -342,6 +342,7 @@ export default function FuturisticLayout({
   selectedPragmaticGames,
   selectedPgSoftGames,
   getCurrentDate,
+  selectedCardStyle,
   pragmaticTrik,
   pgSoftTrik,
   telegramUsername,
@@ -358,6 +359,19 @@ export default function FuturisticLayout({
       case 'xlarge': return 'text-3xl';
     }
   };
+
+  // Card Style Helpers
+  const getBlurClass = () => {
+    if (!selectedCardStyle?.blur || selectedCardStyle.blur === 'none') return '';
+    return selectedCardStyle.blur;
+  };
+
+  const getCardContainerStyle = (color: string) => ({
+    background: selectedCardStyle?.background || `linear-gradient(135deg, ${adjustColor(color, -50)}90, ${adjustColor(color, -70)}90)`,
+    border: selectedCardStyle?.border ? `${selectedCardStyle.border} ${color}` : `2px solid ${color}`,
+    opacity: selectedCardStyle?.opacity || 1,
+    boxShadow: selectedCardStyle?.shadow || `0 0 30px ${color}50, inset 0 0 30px ${color}20`
+  });
 
   const primaryColor = selectedStyle.primaryColor;
   const darkPrimary = adjustColor(primaryColor, -50);
@@ -551,15 +565,24 @@ export default function FuturisticLayout({
         <div className="flex gap-3" style={{ height: '264px' }}>
           {/* Pragmatic Games */}
           <div
-            className="flex-1 overflow-hidden p-3 relative"
+            className={`flex-1 overflow-hidden p-3 relative ${getBlurClass()}`}
             style={{
-              background: `linear-gradient(135deg, ${darkPrimary}60, #000000aa)`,
+              ...getCardContainerStyle(primaryColor),
               borderRadius: '8px',
-              border: `2px solid ${primaryColor}50`,
-              clipPath: 'polygon(0 10px, 10px 0, calc(100% - 10px) 0, 100% 10px, 100% calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 0 calc(100% - 10px))',
-              boxShadow: `0 0 30px ${primaryColor}30`
+              clipPath: 'polygon(0 10px, 10px 0, calc(100% - 10px) 0, 100% 10px, 100% calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 0 calc(100% - 10px))'
             }}
           >
+            {/* Pattern Overlay */}
+            {selectedCardStyle?.pattern && selectedCardStyle.pattern !== 'none' && (
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  backgroundImage: selectedCardStyle.pattern,
+                  backgroundRepeat: 'repeat',
+                  opacity: 0.3
+                }}
+              />
+            )}
             <div className="text-center mb-2">
               <h2
                 className="font-black tracking-widest uppercase"
@@ -581,15 +604,24 @@ export default function FuturisticLayout({
 
           {/* PG Soft Games */}
           <div
-            className="flex-1 overflow-hidden p-3 relative"
+            className={`flex-1 overflow-hidden p-3 relative ${getBlurClass()}`}
             style={{
-              background: `linear-gradient(135deg, ${darkPrimary}60, #000000aa)`,
+              ...getCardContainerStyle(primaryColor),
               borderRadius: '8px',
-              border: `2px solid ${primaryColor}50`,
-              clipPath: 'polygon(0 10px, 10px 0, calc(100% - 10px) 0, 100% 10px, 100% calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 0 calc(100% - 10px))',
-              boxShadow: `0 0 30px ${primaryColor}30`
+              clipPath: 'polygon(0 10px, 10px 0, calc(100% - 10px) 0, 100% 10px, 100% calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 0 calc(100% - 10px))'
             }}
           >
+            {/* Pattern Overlay */}
+            {selectedCardStyle?.pattern && selectedCardStyle.pattern !== 'none' && (
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  backgroundImage: selectedCardStyle.pattern,
+                  backgroundRepeat: 'repeat',
+                  opacity: 0.3
+                }}
+              />
+            )}
             <div className="text-center mb-2">
               <h2
                 className="font-black tracking-widest uppercase"

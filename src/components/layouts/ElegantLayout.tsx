@@ -340,6 +340,7 @@ export default function ElegantLayout({
   selectedPragmaticGames,
   selectedPgSoftGames,
   getCurrentDate,
+  selectedCardStyle,
   pragmaticTrik,
   pgSoftTrik,
   telegramUsername,
@@ -356,6 +357,19 @@ export default function ElegantLayout({
       case 'xlarge': return 'text-3xl';
     }
   };
+
+  // Card Style Helpers
+  const getBlurClass = () => {
+    if (!selectedCardStyle?.blur || selectedCardStyle.blur === 'none') return '';
+    return selectedCardStyle.blur;
+  };
+
+  const getCardContainerStyle = (color: string) => ({
+    background: selectedCardStyle?.background || `linear-gradient(135deg, ${adjustColor(color, -40)} 0%, ${adjustColor(color, -60)} 100%)`,
+    border: selectedCardStyle?.border ? `${selectedCardStyle.border} ${color}` : `3px solid ${color}`,
+    opacity: selectedCardStyle?.opacity || 1,
+    boxShadow: selectedCardStyle?.shadow || `0 0 30px ${color}50, inset 0 0 40px rgba(0,0,0,0.5)`
+  });
 
   // Use selectedStyle colors
   const primaryColor = selectedStyle.primaryColor;
@@ -536,14 +550,21 @@ export default function ElegantLayout({
         <div className="flex gap-3" style={{ height: '264px' }}>
           {/* Pragmatic Games */}
           <div
-            className="flex-1 overflow-hidden p-3 relative"
-            style={{
-              background: `linear-gradient(145deg, ${darkPrimary}f2 0%, ${darkerPrimary} 100%)`,
-              borderRadius: '12px',
-              border: `2px solid ${primaryColor}80`,
-              boxShadow: `0 4px 20px ${primaryColor}30, inset 0 2px 10px rgba(255,255,255,0.1)`
-            }}
+            className={`flex-1 overflow-hidden p-3 relative ${getBlurClass()}`}
+            style={{...getCardContainerStyle(primaryColor), borderRadius: '20px'}}
           >
+            {/* Pattern Overlay */}
+            {selectedCardStyle?.pattern && selectedCardStyle.pattern !== 'none' && (
+              <div
+                className="absolute inset-0 pointer-events-none rounded-xl"
+                style={{
+                  backgroundImage: selectedCardStyle.pattern,
+                  backgroundRepeat: 'repeat',
+                  opacity: 0.3
+                }}
+              />
+            )}
+
             {/* Elegant corner decorations */}
             <div className="absolute top-2 left-2 w-2 h-2 rounded-full" style={{ backgroundColor: primaryColor, boxShadow: `0 0 8px ${primaryColor}` }} />
             <div className="absolute top-2 right-2 w-2 h-2 rounded-full" style={{ backgroundColor: primaryColor, boxShadow: `0 0 8px ${primaryColor}` }} />
@@ -569,14 +590,21 @@ export default function ElegantLayout({
 
           {/* PG Soft Games */}
           <div
-            className="flex-1 overflow-hidden p-3 relative"
-            style={{
-              background: `linear-gradient(145deg, ${darkPrimary}f2 0%, ${darkerPrimary} 100%)`,
-              borderRadius: '12px',
-              border: `2px solid ${secondaryColor}80`,
-              boxShadow: `0 4px 20px ${secondaryColor}30, inset 0 2px 10px rgba(255,255,255,0.1)`
-            }}
+            className={`flex-1 overflow-hidden p-3 relative ${getBlurClass()}`}
+            style={{...getCardContainerStyle(secondaryColor), borderRadius: '20px'}}
           >
+            {/* Pattern Overlay */}
+            {selectedCardStyle?.pattern && selectedCardStyle.pattern !== 'none' && (
+              <div
+                className="absolute inset-0 pointer-events-none rounded-xl"
+                style={{
+                  backgroundImage: selectedCardStyle.pattern,
+                  backgroundRepeat: 'repeat',
+                  opacity: 0.3
+                }}
+              />
+            )}
+
             <div className="absolute top-2 left-2 w-2 h-2 rounded-full" style={{ backgroundColor: secondaryColor, boxShadow: `0 0 8px ${secondaryColor}` }} />
             <div className="absolute top-2 right-2 w-2 h-2 rounded-full" style={{ backgroundColor: secondaryColor, boxShadow: `0 0 8px ${secondaryColor}` }} />
 

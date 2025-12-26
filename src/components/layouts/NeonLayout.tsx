@@ -350,6 +350,7 @@ export default function NeonLayout({
   selectedPragmaticGames,
   selectedPgSoftGames,
   getCurrentDate,
+  selectedCardStyle,
   pragmaticTrik,
   pgSoftTrik,
   telegramUsername,
@@ -366,6 +367,19 @@ export default function NeonLayout({
       case 'xlarge': return 'text-3xl';
     }
   };
+
+  // Card Style Helpers
+  const getBlurClass = () => {
+    if (!selectedCardStyle?.blur || selectedCardStyle.blur === 'none') return '';
+    return selectedCardStyle.blur;
+  };
+
+  const getCardContainerStyle = (color: string) => ({
+    background: selectedCardStyle?.background || `linear-gradient(145deg, ${adjustColor(color, -60)}dd, ${adjustColor(color, -80)}dd)`,
+    border: selectedCardStyle?.border ? `${selectedCardStyle.border} ${color}` : `3px solid ${color}`,
+    opacity: selectedCardStyle?.opacity || 1,
+    boxShadow: selectedCardStyle?.shadow || `0 0 40px ${color}80, inset 0 0 30px ${color}20`
+  });
 
   // Use selectedStyle colors
   const primaryColor = selectedStyle.primaryColor;
@@ -510,14 +524,23 @@ export default function NeonLayout({
         <div className="flex gap-3" style={{ height: '264px' }}>
           {/* Pragmatic Games */}
           <div
-            className="flex-1 overflow-hidden p-3 relative"
+            className={`flex-1 overflow-hidden p-3 relative ${getBlurClass()}`}
             style={{
-              background: `linear-gradient(135deg, ${darkPrimary} 0%, ${darkerPrimary} 100%)`,
-              borderRadius: '20px',
-              border: `3px solid ${primaryColor}`,
-              boxShadow: `0 0 30px ${primaryColor}50, inset 0 0 40px rgba(0,0,0,0.5)`
+              ...getCardContainerStyle(primaryColor),
+              borderRadius: '20px'
             }}
           >
+            {/* Pattern Overlay */}
+            {selectedCardStyle?.pattern && selectedCardStyle.pattern !== 'none' && (
+              <div
+                className="absolute inset-0 pointer-events-none rounded-xl"
+                style={{
+                  backgroundImage: selectedCardStyle.pattern,
+                  backgroundRepeat: 'repeat',
+                  opacity: 0.3
+                }}
+              />
+            )}
             {/* Neon corner dots */}
             <div className="absolute top-2 left-2 w-2 h-2 rounded-full" style={{ backgroundColor: primaryColor, boxShadow: `0 0 10px ${primaryColor}` }} />
             <div className="absolute top-2 right-2 w-2 h-2 rounded-full" style={{ backgroundColor: primaryColor, boxShadow: `0 0 10px ${primaryColor}` }} />
@@ -543,14 +566,23 @@ export default function NeonLayout({
 
           {/* PG Soft Games */}
           <div
-            className="flex-1 overflow-hidden p-3 relative"
+            className={`flex-1 overflow-hidden p-3 relative ${getBlurClass()}`}
             style={{
-              background: `linear-gradient(135deg, ${darkPrimary} 0%, ${darkerPrimary} 100%)`,
-              borderRadius: '20px',
-              border: `3px solid ${primaryColor}`,
-              boxShadow: `0 0 30px ${primaryColor}50, inset 0 0 40px rgba(0,0,0,0.5)`
+              ...getCardContainerStyle(primaryColor),
+              borderRadius: '20px'
             }}
           >
+            {/* Pattern Overlay */}
+            {selectedCardStyle?.pattern && selectedCardStyle.pattern !== 'none' && (
+              <div
+                className="absolute inset-0 pointer-events-none rounded-xl"
+                style={{
+                  backgroundImage: selectedCardStyle.pattern,
+                  backgroundRepeat: 'repeat',
+                  opacity: 0.3
+                }}
+              />
+            )}
             <div className="absolute top-2 left-2 w-2 h-2 rounded-full" style={{ backgroundColor: primaryColor, boxShadow: `0 0 10px ${primaryColor}` }} />
             <div className="absolute top-2 right-2 w-2 h-2 rounded-full" style={{ backgroundColor: primaryColor, boxShadow: `0 0 10px ${primaryColor}` }} />
 

@@ -324,6 +324,7 @@ export default function ClassicLayout({
   selectedPragmaticGames,
   selectedPgSoftGames,
   getCurrentDate,
+  selectedCardStyle,
   pragmaticTrik,
   pgSoftTrik,
   telegramUsername,
@@ -340,6 +341,19 @@ export default function ClassicLayout({
       case 'xlarge': return 'text-3xl';
     }
   };
+
+  // Card Style Helpers
+  const getBlurClass = () => {
+    if (!selectedCardStyle?.blur || selectedCardStyle.blur === 'none') return '';
+    return selectedCardStyle.blur;
+  };
+
+  const getCardContainerStyle = (color: string) => ({
+    background: selectedCardStyle?.background || '#1a1a1a',
+    border: selectedCardStyle?.border ? `${selectedCardStyle.border} ${color}` : '4px solid #000',
+    opacity: selectedCardStyle?.opacity || 1,
+    boxShadow: selectedCardStyle?.shadow || '4px 4px 0 #000'
+  });
 
   const primaryColor = selectedStyle.primaryColor;
   const cardSize = 145;
@@ -466,13 +480,20 @@ export default function ClassicLayout({
         <div className="flex gap-3" style={{ height: '264px' }}>
           {/* Pragmatic Games */}
           <div
-            className="flex-1 overflow-hidden p-3 relative"
-            style={{
-              background: '#1a1a1a',
-              border: '4px solid #000',
-              boxShadow: '4px 4px 0 #000'
-            }}
+            className={`flex-1 overflow-hidden p-3 relative ${getBlurClass()}`}
+            style={getCardContainerStyle(primaryColor)}
           >
+            {/* Pattern Overlay */}
+            {selectedCardStyle?.pattern && selectedCardStyle.pattern !== 'none' && (
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  backgroundImage: selectedCardStyle.pattern,
+                  backgroundRepeat: 'repeat',
+                  opacity: 0.3
+                }}
+              />
+            )}
             <div className="text-center mb-2">
               <h2
                 className="font-black tracking-wider"
@@ -494,13 +515,20 @@ export default function ClassicLayout({
 
           {/* PG Soft Games */}
           <div
-            className="flex-1 overflow-hidden p-3 relative"
-            style={{
-              background: '#1a1a1a',
-              border: '4px solid #000',
-              boxShadow: '4px 4px 0 #000'
-            }}
+            className={`flex-1 overflow-hidden p-3 relative ${getBlurClass()}`}
+            style={getCardContainerStyle(primaryColor)}
           >
+            {/* Pattern Overlay */}
+            {selectedCardStyle?.pattern && selectedCardStyle.pattern !== 'none' && (
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  backgroundImage: selectedCardStyle.pattern,
+                  backgroundRepeat: 'repeat',
+                  opacity: 0.3
+                }}
+              />
+            )}
             <div className="text-center mb-2">
               <h2
                 className="font-black tracking-wider"
