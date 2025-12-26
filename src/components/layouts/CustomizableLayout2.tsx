@@ -59,7 +59,7 @@ function GameCard({ game, rtp, style, cardSize, fontConfig }: { game: Game; rtp:
           className="absolute top-1 right-1 px-1.5 py-0.5 rounded text-[10px] font-bold"
           style={{
             backgroundColor: rtp >= 95 ? '#22c55e' : rtp >= 90 ? '#eab308' : '#ef4444',
-            color: 'white',
+            color: fontConfig?.rtpTextColor || 'white',
             textShadow: '0 1px 2px rgba(0,0,0,0.5)'
           }}
         >
@@ -124,7 +124,8 @@ function CompactTrikPanel({
   cardStyle,
   hideFiturGanda = false,
   darkPrimary,
-  darkerPrimary
+  darkerPrimary,
+  fontConfig
 }: {
   trik: TrikConfig;
   providerColor: string;
@@ -132,6 +133,7 @@ function CompactTrikPanel({
   hideFiturGanda?: boolean;
   darkPrimary: string;
   darkerPrimary: string;
+  fontConfig?: FontConfig;
 }) {
   const itemCount = trik.trikItems?.length || 0;
   const totalRows = itemCount + 3;
@@ -167,7 +169,7 @@ function CompactTrikPanel({
         <h3
           className="font-black uppercase tracking-wider"
           style={{
-            color: '#ffffff',
+            color: fontConfig?.trikTextColor || '#ffffff',
             fontSize: `${sizes.title}px`,
             textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
           }}
@@ -188,13 +190,13 @@ function CompactTrikPanel({
         >
           {/* Deposit Kode */}
           <div className="flex-1 text-center">
-            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, color: fontConfig?.trikTextColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               DEPOSIT KODE
             </span>
             <span
               className="font-black leading-tight"
               style={{
-                color: '#ffffff',
+                color: fontConfig?.trikTextColor || '#ffffff',
                 fontSize: `${sizes.depositKode * 0.75}px`,
                 textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
               }}
@@ -211,14 +213,14 @@ function CompactTrikPanel({
               pointerEvents: hideFiturGanda ? 'none' : 'auto'
             }}
           >
-            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, color: fontConfig?.trikTextColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               FITUR GANDA
             </span>
             <span
               className={`font-bold px-2 py-0.5 rounded-full inline-block ${
                 trik.fiturGanda ? 'bg-green-500/20' : 'bg-red-500/20'
               }`}
-              style={{ fontSize: `${sizes.value * 0.85}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+              style={{ fontSize: `${sizes.value * 0.85}px`, color: fontConfig?.trikTextColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
             >
               {trik.fiturGanda ? 'ON' : 'OFF'}
             </span>
@@ -226,10 +228,10 @@ function CompactTrikPanel({
 
           {/* Putaran Bet */}
           <div className="flex-1 text-center">
-            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, color: fontConfig?.trikTextColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               PUTARAN BET
             </span>
-            <span className="font-bold leading-tight" style={{ color: '#ffffff', fontSize: `${sizes.value * 0.85}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+            <span className="font-bold leading-tight" style={{ color: fontConfig?.trikTextColor || '#ffffff', fontSize: `${sizes.value * 0.85}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               {trik.putaranBetMin.toLocaleString()} - {trik.putaranBetMax.toLocaleString()}
             </span>
           </div>
@@ -243,10 +245,10 @@ function CompactTrikPanel({
               className="flex items-center rounded"
               style={{ background: `${darkerPrimary}80`, padding: `${sizes.padding}px ${sizes.padding * 1.5}px` }}
             >
-              <span className="font-semibold flex-1 text-left" style={{ fontSize: `${sizes.itemName}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+              <span className="font-semibold flex-1 text-left" style={{ fontSize: `${sizes.itemName}px`, color: fontConfig?.trikTextColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
                 {item.name}
               </span>
-              <span className="font-bold flex-1 text-center" style={{ color: '#ffffff', fontSize: `${sizes.itemValue}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+              <span className="font-bold flex-1 text-center" style={{ color: fontConfig?.trikTextColor || '#ffffff', fontSize: `${sizes.itemValue}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
                 {item.value}
               </span>
               <div className="flex-1 flex justify-end">
@@ -269,7 +271,7 @@ function CompactTrikPanel({
             <p
               className="font-bold uppercase leading-tight"
               style={{
-                color: '#ffffff',
+                color: fontConfig?.trikTextColor || '#ffffff',
                 textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
                 fontSize: `${sizes.value}px`
               }}
@@ -321,7 +323,7 @@ function GameModal({
         <h2
           className="font-bold"
           style={{
-            color: '#ffffff',
+            color: fontConfig?.modalTitleColor || providerColor,
             fontSize: '18px',
             textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
           }}
@@ -514,6 +516,7 @@ export default function CustomizableLayout2({
                 hideFiturGanda={false}
                 darkPrimary={darkPrimary}
                 darkerPrimary={darkerPrimary}
+                fontConfig={fontConfig}
               />
             </div>
           )}
@@ -526,6 +529,7 @@ export default function CustomizableLayout2({
                 hideFiturGanda={true}
                 darkPrimary={darkPrimary}
                 darkerPrimary={darkerPrimary}
+                fontConfig={fontConfig}
               />
             </div>
           )}
@@ -612,7 +616,7 @@ export default function CustomizableLayout2({
           </svg>
           <span
             className="text-base font-bold"
-            style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+            style={{ color: fontConfig?.telegramColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
           >
             {footerConfig.footer1 || `Join Telegram: @${telegramUsername || selectedWebsite.name.toLowerCase().replace(/[^a-z0-9]/g, '')}`}
           </span>

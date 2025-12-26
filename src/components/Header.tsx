@@ -1152,103 +1152,247 @@ export default function Header({
         <div className="mt-4 bg-gray-800 border border-gray-700 rounded-lg p-4">
           <h3 className="text-lg font-semibold text-sky-400 mb-4">Konfigurasi Font Style</h3>
 
-          <div className="space-y-4">
-            {/* Font Color */}
-            <div className="flex items-center gap-3">
-              <label className="text-white text-sm w-32">Warna Font:</label>
-              <div className="flex items-center gap-2">
-                <input
-                  type="color"
-                  value={fontConfig.color}
-                  onChange={(e) => onFontConfigChange({ ...fontConfig, color: e.target.value })}
-                  className="w-10 h-10 rounded border border-gray-600 cursor-pointer"
-                />
-                <input
-                  type="text"
-                  value={fontConfig.color}
-                  onChange={(e) => onFontConfigChange({ ...fontConfig, color: e.target.value })}
-                  className="w-24 px-2 py-1 bg-gray-700 text-white rounded border border-gray-600 focus:border-sky-500 focus:outline-none text-sm"
-                />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Left Column - Game Title Font */}
+            <div className="space-y-4">
+              <h4 className="text-white font-semibold border-b border-gray-600 pb-2">Judul Game</h4>
+
+              {/* Font Color */}
+              <div className="flex items-center gap-3">
+                <label className="text-white text-sm w-32">Warna Font:</label>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="color"
+                    value={fontConfig.color}
+                    onChange={(e) => onFontConfigChange({ ...fontConfig, color: e.target.value })}
+                    className="w-10 h-10 rounded border border-gray-600 cursor-pointer"
+                  />
+                  <input
+                    type="text"
+                    value={fontConfig.color}
+                    onChange={(e) => onFontConfigChange({ ...fontConfig, color: e.target.value })}
+                    className="w-24 px-2 py-1 bg-gray-700 text-white rounded border border-gray-600 focus:border-sky-500 focus:outline-none text-sm"
+                  />
+                </div>
+              </div>
+
+              {/* Outline Color */}
+              <div className="flex items-center gap-3">
+                <label className="text-white text-sm w-32">Warna Outline:</label>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="color"
+                    value={fontConfig.outlineColor}
+                    onChange={(e) => onFontConfigChange({ ...fontConfig, outlineColor: e.target.value })}
+                    className="w-10 h-10 rounded border border-gray-600 cursor-pointer"
+                  />
+                  <input
+                    type="text"
+                    value={fontConfig.outlineColor}
+                    onChange={(e) => onFontConfigChange({ ...fontConfig, outlineColor: e.target.value })}
+                    className="w-24 px-2 py-1 bg-gray-700 text-white rounded border border-gray-600 focus:border-sky-500 focus:outline-none text-sm"
+                  />
+                </div>
+              </div>
+
+              {/* Outline Width */}
+              <div className="flex items-center gap-3">
+                <label className="text-white text-sm w-32">Ketebalan Outline:</label>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="range"
+                    min="0"
+                    max="5"
+                    step="0.5"
+                    value={fontConfig.outlineWidth}
+                    onChange={(e) => onFontConfigChange({ ...fontConfig, outlineWidth: parseFloat(e.target.value) })}
+                    className="w-32"
+                  />
+                  <span className="text-white text-sm w-12">{fontConfig.outlineWidth}px</span>
+                </div>
+              </div>
+
+              {/* Preview Game Title */}
+              <div className="p-3 bg-gray-900 rounded-lg border border-gray-600">
+                <p className="text-gray-400 text-xs mb-1">Preview Judul Game:</p>
+                <h3
+                  className="text-lg font-bold"
+                  style={{
+                    color: fontConfig.color,
+                    textShadow: fontConfig.outlineWidth > 0
+                      ? `${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, ${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}`
+                      : 'none'
+                  }}
+                >
+                  Gates of Olympus 1000
+                </h3>
               </div>
             </div>
 
-            {/* Outline Color */}
-            <div className="flex items-center gap-3">
-              <label className="text-white text-sm w-32">Warna Outline:</label>
-              <div className="flex items-center gap-2">
-                <input
-                  type="color"
-                  value={fontConfig.outlineColor}
-                  onChange={(e) => onFontConfigChange({ ...fontConfig, outlineColor: e.target.value })}
-                  className="w-10 h-10 rounded border border-gray-600 cursor-pointer"
-                />
-                <input
-                  type="text"
-                  value={fontConfig.outlineColor}
-                  onChange={(e) => onFontConfigChange({ ...fontConfig, outlineColor: e.target.value })}
-                  className="w-24 px-2 py-1 bg-gray-700 text-white rounded border border-gray-600 focus:border-sky-500 focus:outline-none text-sm"
-                />
+            {/* Right Column - Other Font Colors */}
+            <div className="space-y-4">
+              <h4 className="text-white font-semibold border-b border-gray-600 pb-2">Warna Elemen Lain</h4>
+
+              {/* Telegram Color */}
+              <div className="flex items-center gap-3">
+                <label className="text-white text-sm w-32">Warna Telegram:</label>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="color"
+                    value={fontConfig.telegramColor}
+                    onChange={(e) => onFontConfigChange({ ...fontConfig, telegramColor: e.target.value })}
+                    className="w-10 h-10 rounded border border-gray-600 cursor-pointer"
+                  />
+                  <input
+                    type="text"
+                    value={fontConfig.telegramColor}
+                    onChange={(e) => onFontConfigChange({ ...fontConfig, telegramColor: e.target.value })}
+                    className="w-24 px-2 py-1 bg-gray-700 text-white rounded border border-gray-600 focus:border-sky-500 focus:outline-none text-sm"
+                  />
+                </div>
+              </div>
+
+              {/* Modal Title Color */}
+              <div className="flex items-center gap-3">
+                <label className="text-white text-sm w-32">Judul Provider:</label>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="color"
+                    value={fontConfig.modalTitleColor}
+                    onChange={(e) => onFontConfigChange({ ...fontConfig, modalTitleColor: e.target.value })}
+                    className="w-10 h-10 rounded border border-gray-600 cursor-pointer"
+                  />
+                  <input
+                    type="text"
+                    value={fontConfig.modalTitleColor}
+                    onChange={(e) => onFontConfigChange({ ...fontConfig, modalTitleColor: e.target.value })}
+                    className="w-24 px-2 py-1 bg-gray-700 text-white rounded border border-gray-600 focus:border-sky-500 focus:outline-none text-sm"
+                  />
+                </div>
+              </div>
+
+              {/* Trik Text Color */}
+              <div className="flex items-center gap-3">
+                <label className="text-white text-sm w-32">Text Trik Panel:</label>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="color"
+                    value={fontConfig.trikTextColor}
+                    onChange={(e) => onFontConfigChange({ ...fontConfig, trikTextColor: e.target.value })}
+                    className="w-10 h-10 rounded border border-gray-600 cursor-pointer"
+                  />
+                  <input
+                    type="text"
+                    value={fontConfig.trikTextColor}
+                    onChange={(e) => onFontConfigChange({ ...fontConfig, trikTextColor: e.target.value })}
+                    className="w-24 px-2 py-1 bg-gray-700 text-white rounded border border-gray-600 focus:border-sky-500 focus:outline-none text-sm"
+                  />
+                </div>
+              </div>
+
+              {/* RTP Text Color */}
+              <div className="flex items-center gap-3">
+                <label className="text-white text-sm w-32">Text RTP %:</label>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="color"
+                    value={fontConfig.rtpTextColor}
+                    onChange={(e) => onFontConfigChange({ ...fontConfig, rtpTextColor: e.target.value })}
+                    className="w-10 h-10 rounded border border-gray-600 cursor-pointer"
+                  />
+                  <input
+                    type="text"
+                    value={fontConfig.rtpTextColor}
+                    onChange={(e) => onFontConfigChange({ ...fontConfig, rtpTextColor: e.target.value })}
+                    className="w-24 px-2 py-1 bg-gray-700 text-white rounded border border-gray-600 focus:border-sky-500 focus:outline-none text-sm"
+                  />
+                </div>
+              </div>
+
+              {/* Preview Other Colors */}
+              <div className="p-3 bg-gray-900 rounded-lg border border-gray-600 space-y-2">
+                <p className="text-gray-400 text-xs mb-1">Preview:</p>
+                <p style={{ color: fontConfig.telegramColor }} className="text-sm font-bold">@TelegramUsername</p>
+                <p style={{ color: fontConfig.modalTitleColor }} className="text-sm font-bold">PRAGMATIC PLAY</p>
+                <p style={{ color: fontConfig.trikTextColor }} className="text-sm">Deposit: 7777</p>
+                <p style={{ color: fontConfig.rtpTextColor }} className="text-sm font-bold">RTP: 97.5%</p>
               </div>
             </div>
+          </div>
 
-            {/* Outline Width */}
-            <div className="flex items-center gap-3">
-              <label className="text-white text-sm w-32">Ketebalan Outline:</label>
-              <div className="flex items-center gap-2">
-                <input
-                  type="range"
-                  min="0"
-                  max="5"
-                  step="0.5"
-                  value={fontConfig.outlineWidth}
-                  onChange={(e) => onFontConfigChange({ ...fontConfig, outlineWidth: parseFloat(e.target.value) })}
-                  className="w-32"
-                />
-                <span className="text-white text-sm w-12">{fontConfig.outlineWidth}px</span>
-              </div>
-            </div>
-
-            {/* Preview */}
-            <div className="mt-4 p-4 bg-gray-900 rounded-lg border border-gray-600">
-              <p className="text-gray-400 text-xs mb-2">Preview:</p>
-              <h3
-                className="text-xl font-bold"
-                style={{
-                  color: fontConfig.color,
-                  textShadow: fontConfig.outlineWidth > 0
-                    ? `${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, ${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}`
-                    : 'none'
-                }}
-              >
-                Gates of Olympus 1000
-              </h3>
-            </div>
-
-            {/* Preset Buttons */}
+          {/* Preset Buttons */}
+          <div className="mt-6 pt-4 border-t border-gray-600">
+            <p className="text-gray-400 text-sm mb-2">Preset Cepat:</p>
             <div className="flex flex-wrap gap-2">
               <button
-                onClick={() => onFontConfigChange({ color: '#ffffff', outlineColor: '#000000', outlineWidth: 0 })}
+                onClick={() => onFontConfigChange({
+                  color: '#ffffff',
+                  outlineColor: '#000000',
+                  outlineWidth: 0,
+                  telegramColor: '#00f0ff',
+                  modalTitleColor: '#ffd700',
+                  trikTextColor: '#ffffff',
+                  rtpTextColor: '#00ff00'
+                })}
                 className="px-3 py-1 bg-gray-700 hover:bg-gray-600 text-white text-sm rounded transition-colors"
               >
                 Reset Default
               </button>
               <button
-                onClick={() => onFontConfigChange({ color: '#ffffff', outlineColor: '#000000', outlineWidth: 2 })}
+                onClick={() => onFontConfigChange({
+                  color: '#ffffff',
+                  outlineColor: '#000000',
+                  outlineWidth: 2,
+                  telegramColor: '#00f0ff',
+                  modalTitleColor: '#ffd700',
+                  trikTextColor: '#ffffff',
+                  rtpTextColor: '#00ff00'
+                })}
                 className="px-3 py-1 bg-gray-700 hover:bg-gray-600 text-white text-sm rounded transition-colors"
               >
                 White + Black Outline
               </button>
               <button
-                onClick={() => onFontConfigChange({ color: '#ffd700', outlineColor: '#000000', outlineWidth: 2 })}
+                onClick={() => onFontConfigChange({
+                  color: '#ffd700',
+                  outlineColor: '#000000',
+                  outlineWidth: 2,
+                  telegramColor: '#ffd700',
+                  modalTitleColor: '#ffd700',
+                  trikTextColor: '#ffd700',
+                  rtpTextColor: '#ffd700'
+                })}
                 className="px-3 py-1 bg-gray-700 hover:bg-gray-600 text-yellow-400 text-sm rounded transition-colors"
               >
-                Gold + Black Outline
+                All Gold
               </button>
               <button
-                onClick={() => onFontConfigChange({ color: '#00f0ff', outlineColor: '#000000', outlineWidth: 1.5 })}
+                onClick={() => onFontConfigChange({
+                  color: '#00f0ff',
+                  outlineColor: '#000000',
+                  outlineWidth: 1.5,
+                  telegramColor: '#00f0ff',
+                  modalTitleColor: '#00f0ff',
+                  trikTextColor: '#00f0ff',
+                  rtpTextColor: '#00f0ff'
+                })}
                 className="px-3 py-1 bg-gray-700 hover:bg-gray-600 text-cyan-400 text-sm rounded transition-colors"
               >
-                Cyan + Black Outline
+                All Cyan
+              </button>
+              <button
+                onClick={() => onFontConfigChange({
+                  color: '#ff4444',
+                  outlineColor: '#000000',
+                  outlineWidth: 2,
+                  telegramColor: '#ff4444',
+                  modalTitleColor: '#ff4444',
+                  trikTextColor: '#ff4444',
+                  rtpTextColor: '#ff4444'
+                })}
+                className="px-3 py-1 bg-gray-700 hover:bg-gray-600 text-red-400 text-sm rounded transition-colors"
+              >
+                All Red
               </button>
             </div>
           </div>

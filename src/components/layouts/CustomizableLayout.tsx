@@ -59,7 +59,7 @@ function GameCard3x1({ game, rtp, style, cardSize, darkPrimary, fontConfig }: { 
           className="absolute top-1 right-1 px-1.5 py-0.5 rounded text-[10px] font-bold"
           style={{
             backgroundColor: rtp >= 95 ? '#22c55e' : rtp >= 90 ? '#eab308' : '#ef4444',
-            color: 'white',
+            color: fontConfig?.rtpTextColor || 'white',
             textShadow: '0 1px 2px rgba(0,0,0,0.5)'
           }}
         >
@@ -123,13 +123,15 @@ function AdaptiveTrikPanel({
   providerColor,
   cardStyle,
   hideFiturGanda = false,
-  darkerPrimary
+  darkerPrimary,
+  fontConfig
 }: {
   trik: TrikConfig;
   providerColor: string;
   cardStyle: CardStyleOption;
   hideFiturGanda?: boolean;
   darkerPrimary: string;
+  fontConfig?: FontConfig;
 }) {
   // Hitung total rows untuk menentukan font size
   const itemCount = trik.trikItems?.length || 0;
@@ -167,7 +169,7 @@ function AdaptiveTrikPanel({
         <h3
           className="font-black uppercase tracking-wider"
           style={{
-            color: '#ffffff',
+            color: fontConfig?.trikTextColor || '#ffffff',
             fontSize: `${sizes.title}px`,
             textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
           }}
@@ -190,14 +192,14 @@ function AdaptiveTrikPanel({
           <div className="flex-1 text-center">
             <span
               className="block leading-tight"
-              style={{ fontSize: `${sizes.label * 0.9}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+              style={{ fontSize: `${sizes.label * 0.9}px`, color: fontConfig?.trikTextColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
             >
               DEPOSIT KODE
             </span>
             <span
               className="font-black leading-tight"
               style={{
-                color: '#ffffff',
+                color: fontConfig?.trikTextColor || '#ffffff',
                 fontSize: `${sizes.depositKode * 0.7}px`,
                 textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
               }}
@@ -216,7 +218,7 @@ function AdaptiveTrikPanel({
           >
             <span
               className="block leading-tight"
-              style={{ fontSize: `${sizes.label * 0.9}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+              style={{ fontSize: `${sizes.label * 0.9}px`, color: fontConfig?.trikTextColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
             >
               FITUR GANDA
             </span>
@@ -224,7 +226,7 @@ function AdaptiveTrikPanel({
               className={`font-bold px-2 py-0.5 rounded-full inline-block ${
                 trik.fiturGanda ? 'bg-green-500/20' : 'bg-red-500/20'
               }`}
-              style={{ fontSize: `${sizes.value * 0.85}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+              style={{ fontSize: `${sizes.value * 0.85}px`, color: fontConfig?.trikTextColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
             >
               {trik.fiturGanda ? 'ON' : 'OFF'}
             </span>
@@ -234,13 +236,13 @@ function AdaptiveTrikPanel({
           <div className="flex-1 text-center">
             <span
               className="block leading-tight"
-              style={{ fontSize: `${sizes.label * 0.9}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+              style={{ fontSize: `${sizes.label * 0.9}px`, color: fontConfig?.trikTextColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
             >
               PUTARAN BET
             </span>
             <span
               className="font-bold leading-tight"
-              style={{ color: '#ffffff', fontSize: `${sizes.value * 0.85}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+              style={{ color: fontConfig?.trikTextColor || '#ffffff', fontSize: `${sizes.value * 0.85}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
             >
               {trik.putaranBetMin.toLocaleString()} - {trik.putaranBetMax.toLocaleString()}
             </span>
@@ -258,14 +260,14 @@ function AdaptiveTrikPanel({
               {/* Item Name - Left */}
               <span
                 className="font-semibold flex-1 text-left"
-                style={{ fontSize: `${sizes.itemName}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+                style={{ fontSize: `${sizes.itemName}px`, color: fontConfig?.trikTextColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
               >
                 {item.name}
               </span>
               {/* Value - Center */}
               <span
                 className="font-bold flex-1 text-center"
-                style={{ color: '#ffffff', fontSize: `${sizes.itemValue}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+                style={{ color: fontConfig?.trikTextColor || '#ffffff', fontSize: `${sizes.itemValue}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
               >
                 {item.value}
               </span>
@@ -290,7 +292,7 @@ function AdaptiveTrikPanel({
             <p
               className="font-bold uppercase leading-tight"
               style={{
-                color: '#ffffff',
+                color: fontConfig?.trikTextColor || '#ffffff',
                 textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
                 fontSize: `${sizes.value}px`
               }}
@@ -363,9 +365,9 @@ function ProviderSection3x1({
           <h2
             className="font-bold"
             style={{
-              color: providerColor,
+              color: fontConfig?.modalTitleColor || providerColor,
               fontSize: '18px',
-              textShadow: `0 0 15px ${providerColor}80`
+              textShadow: `0 0 15px ${fontConfig?.modalTitleColor || providerColor}80`
             }}
           >
             {title}
@@ -400,6 +402,7 @@ function ProviderSection3x1({
             cardStyle={cardStyle}
             hideFiturGanda={hideFiturGanda}
             darkerPrimary={darkerPrimary}
+            fontConfig={fontConfig}
           />
         </div>
       )}
@@ -581,12 +584,12 @@ export default function CustomizableLayout({
             borderTop: `1px solid ${selectedStyle.primaryColor}40`
           }}
         >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill={selectedStyle.primaryColor}>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill={fontConfig?.telegramColor || selectedStyle.primaryColor}>
             <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 11.944 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
           </svg>
           <span
             className="text-sm font-bold"
-            style={{ color: selectedStyle.primaryColor }}
+            style={{ color: fontConfig?.telegramColor || selectedStyle.primaryColor }}
           >
             {footerConfig.footer1 || `Join Telegram: @${telegramUsername || selectedWebsite.name.toLowerCase().replace(/[^a-z0-9]/g, '')}`}
           </span>

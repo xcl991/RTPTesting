@@ -76,7 +76,7 @@ function GlassGameCard({ game, rtp, style, cardSize, fontConfig }: { game: Game;
               : rtp >= 90
                 ? 'linear-gradient(135deg, #eab308, #ca8a04)'
                 : 'linear-gradient(135deg, #ef4444, #dc2626)',
-            color: 'white',
+            color: fontConfig?.rtpTextColor || 'white',
             boxShadow: `0 2px 10px ${darkPrimary}80`
           }}
         >
@@ -145,12 +145,14 @@ function HolographicTrikPanel({
   trik,
   providerColor,
   hideFiturGanda = false,
-  style
+  style,
+  fontConfig
 }: {
   trik: TrikConfig;
   providerColor: string;
   hideFiturGanda?: boolean;
   style: RTPStyle;
+  fontConfig?: FontConfig;
 }) {
   const itemCount = trik.trikItems?.length || 0;
   const totalRows = itemCount + 3;
@@ -196,7 +198,7 @@ function HolographicTrikPanel({
         <h3
           className="font-black uppercase tracking-wider relative z-10"
           style={{
-            color: 'white',
+            color: fontConfig?.trikTextColor || 'white',
             fontSize: `${sizes.title}px`,
             textShadow: `0 0 20px ${providerColor}, 0 2px 4px rgba(0,0,0,0.5)`
           }}
@@ -221,13 +223,13 @@ function HolographicTrikPanel({
         >
           {/* Deposit Kode */}
           <div className="flex-1 text-center">
-            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, color: fontConfig?.trikTextColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               DEPOSIT KODE
             </span>
             <span
               className="font-black leading-tight"
               style={{
-                color: '#ffffff',
+                color: fontConfig?.trikTextColor || '#ffffff',
                 fontSize: `${sizes.depositKode * 0.7}px`,
                 textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
               }}
@@ -244,14 +246,14 @@ function HolographicTrikPanel({
               pointerEvents: hideFiturGanda ? 'none' : 'auto'
             }}
           >
-            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, color: fontConfig?.trikTextColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               FITUR GANDA
             </span>
             <span
               className={`font-bold px-2 py-0.5 rounded-full inline-block ${
                 trik.fiturGanda ? 'bg-green-500/30' : 'bg-red-500/30'
               }`}
-              style={{ fontSize: `${sizes.value * 0.85}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+              style={{ fontSize: `${sizes.value * 0.85}px`, color: fontConfig?.trikTextColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
             >
               {trik.fiturGanda ? 'ON' : 'OFF'}
             </span>
@@ -259,10 +261,10 @@ function HolographicTrikPanel({
 
           {/* Putaran Bet */}
           <div className="flex-1 text-center">
-            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, color: fontConfig?.trikTextColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               PUTARAN BET
             </span>
-            <span className="font-bold leading-tight" style={{ fontSize: `${sizes.value * 0.85}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+            <span className="font-bold leading-tight" style={{ fontSize: `${sizes.value * 0.85}px`, color: fontConfig?.trikTextColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               {trik.putaranBetMin.toLocaleString()} - {trik.putaranBetMax.toLocaleString()}
             </span>
           </div>
@@ -280,10 +282,10 @@ function HolographicTrikPanel({
                 border: '1px solid rgba(255,255,255,0.08)'
               }}
             >
-              <span className="font-semibold flex-1 text-left" style={{ fontSize: `${sizes.itemName}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+              <span className="font-semibold flex-1 text-left" style={{ fontSize: `${sizes.itemName}px`, color: fontConfig?.trikTextColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
                 {item.name}
               </span>
-              <span className="font-bold flex-1 text-center" style={{ color: '#ffffff', fontSize: `${sizes.itemValue}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+              <span className="font-bold flex-1 text-center" style={{ color: fontConfig?.trikTextColor || '#ffffff', fontSize: `${sizes.itemValue}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
                 {item.value}
               </span>
               <div className="flex-1 flex justify-end">
@@ -306,7 +308,7 @@ function HolographicTrikPanel({
             <p
               className="font-bold uppercase leading-tight"
               style={{
-                color: '#ffffff',
+                color: fontConfig?.trikTextColor || '#ffffff',
                 fontSize: `${sizes.value}px`,
                 textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
               }}
@@ -366,7 +368,7 @@ function GlassGameModal({
         <h2
           className="font-bold"
           style={{
-            color: '#ffffff',
+            color: fontConfig?.modalTitleColor || providerColor,
             fontSize: '18px',
             textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
           }}
@@ -546,6 +548,7 @@ export default function CustomizableLayout4({
                 providerColor="#ffd700"
                 hideFiturGanda={false}
                 style={selectedStyle}
+                fontConfig={fontConfig}
               />
             </div>
           )}
@@ -556,6 +559,7 @@ export default function CustomizableLayout4({
                 providerColor="#00f0ff"
                 hideFiturGanda={true}
                 style={selectedStyle}
+                fontConfig={fontConfig}
               />
             </div>
           )}
@@ -639,7 +643,7 @@ export default function CustomizableLayout4({
           <svg width="20" height="20" viewBox="0 0 24 24" fill="white" style={{ opacity: 0.8 }}>
             <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 11.944 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
           </svg>
-          <span className="text-base font-bold" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+          <span className="text-base font-bold" style={{ color: fontConfig?.telegramColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
             {footerConfig.footer1 || `Join Telegram: @${telegramUsername || selectedWebsite.name.toLowerCase().replace(/[^a-z0-9]/g, '')}`}
           </span>
         </div>

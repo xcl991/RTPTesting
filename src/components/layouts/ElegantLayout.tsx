@@ -12,17 +12,18 @@ function adjustColor(hex: string, percent: number): string {
 }
 
 // RTP Badge Component
-function RTPBadge({ rtp }: { rtp: number }) {
+function RTPBadge({ rtp, fontConfig }: { rtp: number; fontConfig?: FontConfig }) {
   const bgColor = rtp >= 95 ? '#22c55e' : rtp >= 90 ? '#eab308' : '#ef4444';
 
   return (
     <div
-      className="px-2 py-1 font-black text-[11px] text-white"
+      className="px-2 py-1 font-black text-[11px]"
       style={{
         background: `linear-gradient(135deg, ${bgColor}, ${bgColor}dd)`,
         borderRadius: '4px',
         boxShadow: `0 0 10px ${bgColor}, 0 2px 4px rgba(0,0,0,0.5)`,
-        border: '1px solid rgba(255,255,255,0.3)'
+        border: '1px solid rgba(255,255,255,0.3)',
+        color: fontConfig?.rtpTextColor || 'white'
       }}
     >
       {rtp}% HOT
@@ -67,7 +68,7 @@ function ElegantGameCard({ game, rtp, primaryColor, cardSize, fontConfig }: Eleg
         />
         {/* RTP Badge */}
         <div className="absolute top-1 right-1">
-          <RTPBadge rtp={rtp} />
+          <RTPBadge rtp={rtp} fontConfig={fontConfig} />
         </div>
         {/* Elegant overlay effect */}
         <div
@@ -135,13 +136,15 @@ function ElegantTrikPanel({
   providerColor,
   primaryColor,
   hideFiturGanda = false,
-  cardStyle
+  cardStyle,
+  fontConfig
 }: {
   trik: TrikConfig;
   providerColor: string;
   primaryColor: string;
   hideFiturGanda?: boolean;
   cardStyle?: CardStyleOption;
+  fontConfig?: FontConfig;
 }) {
   const itemCount = trik.trikItems?.length || 0;
   const totalRows = itemCount + 4;
@@ -192,7 +195,7 @@ function ElegantTrikPanel({
         <h3
           className="font-bold uppercase tracking-wider"
           style={{
-            color: '#ffffff',
+            color: fontConfig?.trikTextColor || '#ffffff',
             fontSize: `${sizes.title}px`,
             textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
           }}
@@ -218,13 +221,13 @@ function ElegantTrikPanel({
         >
           {/* Deposit Kode */}
           <div className="flex-1 text-center">
-            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9 + 3}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9 + 3}px`, color: fontConfig?.trikTextColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               DEPOSIT KODE
             </span>
             <span
               className="font-black leading-tight"
               style={{
-                color: '#ffffff',
+                color: fontConfig?.trikTextColor || '#ffffff',
                 fontSize: `${sizes.depositKode * 0.7 + 3}px`,
                 textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
               }}
@@ -241,13 +244,13 @@ function ElegantTrikPanel({
               pointerEvents: hideFiturGanda ? 'none' : 'auto'
             }}
           >
-            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9 + 3}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9 + 3}px`, color: fontConfig?.trikTextColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               FITUR GANDA
             </span>
             <span
               className="font-bold inline-block"
               style={{
-                color: '#ffffff',
+                color: fontConfig?.trikTextColor || '#ffffff',
                 fontSize: `${sizes.value * 0.85 + 3}px`,
                 textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
               }}
@@ -258,12 +261,12 @@ function ElegantTrikPanel({
 
           {/* Putaran Bet */}
           <div className="flex-1 text-center">
-            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9 + 3}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9 + 3}px`, color: fontConfig?.trikTextColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               PUTARAN BET
             </span>
             <span
               className="font-bold leading-tight"
-              style={{ color: '#ffffff', fontSize: `${sizes.value * 0.85 + 3}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+              style={{ color: fontConfig?.trikTextColor || '#ffffff', fontSize: `${sizes.value * 0.85 + 3}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
             >
               {trik.putaranBetMin.toLocaleString()} - {trik.putaranBetMax.toLocaleString()}
             </span>
@@ -283,12 +286,12 @@ function ElegantTrikPanel({
                 borderLeft: `2px solid ${providerColor}80`
               }}
             >
-              <span className="font-semibold flex-1 text-left" style={{ fontSize: `${sizes.itemName}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+              <span className="font-semibold flex-1 text-left" style={{ fontSize: `${sizes.itemName}px`, color: fontConfig?.trikTextColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
                 {item.name}
               </span>
               <span
                 className="font-bold flex-1 text-center"
-                style={{ color: '#ffffff', fontSize: `${sizes.itemValue}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+                style={{ color: fontConfig?.trikTextColor || '#ffffff', fontSize: `${sizes.itemValue}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
               >
                 {item.value}
               </span>
@@ -312,7 +315,7 @@ function ElegantTrikPanel({
             <p
               className="font-semibold uppercase leading-tight"
               style={{
-                color: '#ffffff',
+                color: fontConfig?.trikTextColor || '#ffffff',
                 fontSize: `${sizes.value}px`,
                 textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
               }}
@@ -591,7 +594,7 @@ export default function ElegantLayout({
               <h2
                 className="font-bold tracking-wider uppercase"
                 style={{
-                  color: '#ffffff',
+                  color: fontConfig?.modalTitleColor || '#ffffff',
                   fontSize: '18px',
                   textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
                 }}
@@ -630,7 +633,7 @@ export default function ElegantLayout({
               <h2
                 className="font-bold tracking-wider uppercase"
                 style={{
-                  color: '#ffffff',
+                  color: fontConfig?.modalTitleColor || '#ffffff',
                   fontSize: '18px',
                   textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
                 }}
@@ -656,6 +659,7 @@ export default function ElegantLayout({
                   providerColor={primaryColor}
                   primaryColor={primaryColor}
                   cardStyle={selectedCardStyle}
+                  fontConfig={fontConfig}
                 />
               </div>
             )}
@@ -667,6 +671,7 @@ export default function ElegantLayout({
                   primaryColor={primaryColor}
                   hideFiturGanda={true}
                   cardStyle={selectedCardStyle}
+                  fontConfig={fontConfig}
                 />
               </div>
             )}
@@ -784,7 +789,7 @@ export default function ElegantLayout({
           </svg>
           <span
             className="text-sm font-semibold"
-            style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+            style={{ color: fontConfig?.telegramColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
           >
             {footerConfig?.footer1 || `@${telegramUsername || selectedWebsite.name.toLowerCase().replace(/[^a-z0-9]/g, '')}`}
           </span>

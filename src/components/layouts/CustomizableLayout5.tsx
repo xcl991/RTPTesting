@@ -42,7 +42,7 @@ const CardSuits = ({ color = '#ffd700', size = 16 }: { color?: string; size?: nu
 );
 
 // Poker Chip Badge
-function PokerChipBadge({ value, color }: { value: string; color: string }) {
+function PokerChipBadge({ value, color, fontConfig }: { value: string; color: string; fontConfig?: FontConfig }) {
   return (
     <div
       className="relative flex items-center justify-center"
@@ -61,7 +61,7 @@ function PokerChipBadge({ value, color }: { value: string; color: string }) {
           height: '22px',
           borderRadius: '50%',
           backgroundColor: color,
-          color: '#fff',
+          color: fontConfig?.rtpTextColor || '#fff',
           border: '2px solid #fff'
         }}
       >
@@ -106,7 +106,7 @@ function PokerGameCard({ game, rtp, cardSize, accentColor, fontConfig }: { game:
         />
         {/* RTP Poker Chip */}
         <div className="absolute top-1 right-1">
-          <PokerChipBadge value={`${rtp}`} color={rtpColor} />
+          <PokerChipBadge value={`${rtp}`} color={rtpColor} fontConfig={fontConfig} />
         </div>
         {/* Overlay gradient */}
         <div
@@ -174,13 +174,15 @@ function PokerTrikPanel({
   providerColor,
   primaryColor,
   accentColor,
-  hideFiturGanda = false
+  hideFiturGanda = false,
+  fontConfig
 }: {
   trik: TrikConfig;
   providerColor: string;
   primaryColor: string;
   accentColor: string;
   hideFiturGanda?: boolean;
+  fontConfig?: FontConfig;
 }) {
   const itemCount = trik.trikItems?.length || 0;
   const totalRows = itemCount + 4;
@@ -225,7 +227,7 @@ function PokerTrikPanel({
           <h3
             className="font-black uppercase tracking-wider"
             style={{
-              color: '#ffffff',
+              color: fontConfig?.trikTextColor || '#ffffff',
               fontSize: `${sizes.title}px`,
               textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
             }}
@@ -316,10 +318,10 @@ function PokerTrikPanel({
                 borderLeft: `4px solid ${accentColor}`
               }}
             >
-              <span className="font-semibold flex-1 text-left" style={{ fontSize: `${sizes.itemName}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+              <span className="font-semibold flex-1 text-left" style={{ fontSize: `${sizes.itemName}px`, color: fontConfig?.trikTextColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
                 {item.name}
               </span>
-              <span className="font-bold flex-1 text-center" style={{ fontSize: `${sizes.itemValue}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+              <span className="font-bold flex-1 text-center" style={{ fontSize: `${sizes.itemValue}px`, color: fontConfig?.trikTextColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
                 {item.value}
               </span>
               <div className="flex-1 flex justify-end">
@@ -342,7 +344,7 @@ function PokerTrikPanel({
           >
             <p
               className="font-bold uppercase leading-tight"
-              style={{ fontSize: `${sizes.value}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+              style={{ fontSize: `${sizes.value}px`, color: fontConfig?.trikTextColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
             >
               {trik.customText}
             </p>
@@ -415,7 +417,7 @@ function PokerProviderSection({
             <h2
               className="font-black tracking-wider"
               style={{
-                color: '#ffffff',
+                color: fontConfig?.modalTitleColor || '#ffffff',
                 fontSize: '22px',
                 textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
               }}
@@ -450,6 +452,7 @@ function PokerProviderSection({
             primaryColor={primaryColor}
             accentColor={accentColor}
             hideFiturGanda={hideFiturGanda}
+            fontConfig={fontConfig}
           />
         </div>
       )}
@@ -621,7 +624,7 @@ export default function CustomizableLayout5({
           </svg>
           <span
             className="text-sm font-bold"
-            style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+            style={{ color: fontConfig?.telegramColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
           >
             {footerConfig.footer1 || `Join: @${telegramUsername || selectedWebsite.name.toLowerCase().replace(/[^a-z0-9]/g, '')}`}
           </span>

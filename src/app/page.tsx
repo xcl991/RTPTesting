@@ -160,7 +160,11 @@ export default function Home() {
   const [fontConfig, setFontConfig] = useState<FontConfig>({
     color: '#ffffff',
     outlineColor: '#000000',
-    outlineWidth: 0
+    outlineWidth: 0,
+    telegramColor: '#00f0ff',
+    modalTitleColor: '#ffd700',
+    trikTextColor: '#ffffff',
+    rtpTextColor: '#00ff00'
   });
 
   // Telegram Username

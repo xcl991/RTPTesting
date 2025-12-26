@@ -33,16 +33,17 @@ function adjustColor(hex: string, percent: number): string {
 }
 
 // RTP Badge - Futuristic Style
-function FuturisticRtpBadge({ rtp, primaryColor }: { rtp: number; primaryColor: string }) {
+function FuturisticRtpBadge({ rtp, primaryColor, fontConfig }: { rtp: number; primaryColor: string; fontConfig?: FontConfig }) {
   const bgColor = rtp >= 95 ? '#22c55e' : rtp >= 90 ? '#eab308' : '#ef4444';
   return (
     <div
-      className="px-2 py-1 font-black text-[11px] text-white"
+      className="px-2 py-1 font-black text-[11px]"
       style={{
         background: `linear-gradient(135deg, ${bgColor}, ${bgColor}99)`,
         borderRadius: '0 0 0 8px',
         clipPath: 'polygon(0 0, 100% 0, 100% 100%, 10% 100%)',
-        boxShadow: `0 0 15px ${bgColor}`
+        boxShadow: `0 0 15px ${bgColor}`,
+        color: fontConfig?.rtpTextColor || 'white'
       }}
     >
       {rtp}%
@@ -90,7 +91,7 @@ function FuturisticGameCard({ game, rtp, cardSize, primaryColor, fontConfig }: {
           }}
         />
         <div className="absolute top-0 right-0">
-          <FuturisticRtpBadge rtp={rtp} primaryColor={primaryColor} />
+          <FuturisticRtpBadge rtp={rtp} primaryColor={primaryColor} fontConfig={fontConfig} />
         </div>
       </div>
 
@@ -150,12 +151,14 @@ function FuturisticTrikPanel({
   trik,
   primaryColor,
   hideFiturGanda = false,
-  cardStyle
+  cardStyle,
+  fontConfig
 }: {
   trik: TrikConfig;
   primaryColor: string;
   hideFiturGanda?: boolean;
   cardStyle?: CardStyleOption;
+  fontConfig?: FontConfig;
 }) {
   const itemCount = trik.trikItems?.length || 0;
   const totalRows = itemCount + 4;
@@ -207,7 +210,7 @@ function FuturisticTrikPanel({
         <h3
           className="font-black uppercase tracking-widest"
           style={{
-            color: '#ffffff',
+            color: fontConfig?.trikTextColor || '#ffffff',
             fontSize: `${sizes.title}px`,
             textShadow: `0 0 10px ${primaryColor}, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000`,
             fontFamily: 'monospace'
@@ -234,13 +237,13 @@ function FuturisticTrikPanel({
         >
           {/* Deposit Kode */}
           <div className="flex-1 text-center">
-            <span className="block leading-tight uppercase tracking-wider" style={{ fontSize: `${sizes.label * 0.9 + 3}px`, color: primaryColor, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000', fontFamily: 'monospace' }}>
+            <span className="block leading-tight uppercase tracking-wider" style={{ fontSize: `${sizes.label * 0.9 + 3}px`, color: fontConfig?.trikTextColor || primaryColor, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000', fontFamily: 'monospace' }}>
               DEPOSIT KODE
             </span>
             <span
               className="font-black leading-tight"
               style={{
-                color: '#ffffff',
+                color: fontConfig?.trikTextColor || '#ffffff',
                 fontSize: `${sizes.depositKode * 0.7 + 3}px`,
                 textShadow: `0 0 10px ${primaryColor}, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000`,
                 fontFamily: 'monospace'
@@ -258,13 +261,13 @@ function FuturisticTrikPanel({
               pointerEvents: hideFiturGanda ? 'none' : 'auto'
             }}
           >
-            <span className="block leading-tight uppercase tracking-wider" style={{ fontSize: `${sizes.label * 0.9 + 3}px`, color: primaryColor, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000', fontFamily: 'monospace' }}>
+            <span className="block leading-tight uppercase tracking-wider" style={{ fontSize: `${sizes.label * 0.9 + 3}px`, color: fontConfig?.trikTextColor || primaryColor, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000', fontFamily: 'monospace' }}>
               FITUR GANDA
             </span>
             <span
               className="font-bold inline-block"
               style={{
-                color: trik.fiturGanda ? '#00ff88' : '#ff4444',
+                color: fontConfig?.trikTextColor || (trik.fiturGanda ? '#00ff88' : '#ff4444'),
                 fontSize: `${sizes.value * 0.85 + 3}px`,
                 textShadow: trik.fiturGanda ? '0 0 10px #00ff88' : '0 0 10px #ff4444',
                 fontFamily: 'monospace'
@@ -276,12 +279,12 @@ function FuturisticTrikPanel({
 
           {/* Putaran Bet */}
           <div className="flex-1 text-center">
-            <span className="block leading-tight uppercase tracking-wider" style={{ fontSize: `${sizes.label * 0.9 + 3}px`, color: primaryColor, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000', fontFamily: 'monospace' }}>
+            <span className="block leading-tight uppercase tracking-wider" style={{ fontSize: `${sizes.label * 0.9 + 3}px`, color: fontConfig?.trikTextColor || primaryColor, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000', fontFamily: 'monospace' }}>
               PUTARAN BET
             </span>
             <span
               className="font-bold leading-tight"
-              style={{ color: '#ffffff', fontSize: `${sizes.value * 0.85 + 3}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000', fontFamily: 'monospace' }}
+              style={{ color: fontConfig?.trikTextColor || '#ffffff', fontSize: `${sizes.value * 0.85 + 3}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000', fontFamily: 'monospace' }}
             >
               {trik.putaranBetMin.toLocaleString()} - {trik.putaranBetMax.toLocaleString()}
             </span>
@@ -302,12 +305,12 @@ function FuturisticTrikPanel({
                 borderRight: `2px solid ${primaryColor}`
               }}
             >
-              <span className="font-semibold flex-1 text-left uppercase" style={{ fontSize: `${sizes.itemName}px`, color: primaryColor, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000', fontFamily: 'monospace' }}>
+              <span className="font-semibold flex-1 text-left uppercase" style={{ fontSize: `${sizes.itemName}px`, color: fontConfig?.trikTextColor || primaryColor, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000', fontFamily: 'monospace' }}>
                 {item.name}
               </span>
               <span
                 className="font-bold flex-1 text-center"
-                style={{ color: '#ffffff', fontSize: `${sizes.itemValue}px`, textShadow: `0 0 5px ${primaryColor}`, fontFamily: 'monospace' }}
+                style={{ color: fontConfig?.trikTextColor || '#ffffff', fontSize: `${sizes.itemValue}px`, textShadow: `0 0 5px ${primaryColor}`, fontFamily: 'monospace' }}
               >
                 {item.value}
               </span>
@@ -331,7 +334,7 @@ function FuturisticTrikPanel({
             <p
               className="font-bold uppercase leading-tight tracking-widest"
               style={{
-                color: '#ffffff',
+                color: fontConfig?.trikTextColor || '#ffffff',
                 fontSize: `${sizes.value}px`,
                 textShadow: `0 0 10px ${primaryColor}`,
                 fontFamily: 'monospace'
@@ -602,7 +605,7 @@ export default function FuturisticLayout({
               <h2
                 className="font-black tracking-widest uppercase"
                 style={{
-                  color: '#ffffff',
+                  color: fontConfig?.modalTitleColor || '#ffffff',
                   fontSize: '20px',
                   textShadow: `0 0 15px ${primaryColor}, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000`
                 }}
@@ -641,7 +644,7 @@ export default function FuturisticLayout({
               <h2
                 className="font-black tracking-widest uppercase"
                 style={{
-                  color: '#ffffff',
+                  color: fontConfig?.modalTitleColor || '#ffffff',
                   fontSize: '20px',
                   textShadow: `0 0 15px ${primaryColor}, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000`
                 }}
@@ -666,6 +669,7 @@ export default function FuturisticLayout({
                   trik={pragmaticTrik}
                   primaryColor={primaryColor}
                   cardStyle={selectedCardStyle}
+                  fontConfig={fontConfig}
                 />
               </div>
             )}
@@ -676,6 +680,7 @@ export default function FuturisticLayout({
                   primaryColor={primaryColor}
                   hideFiturGanda={true}
                   cardStyle={selectedCardStyle}
+                  fontConfig={fontConfig}
                 />
               </div>
             )}
@@ -766,7 +771,7 @@ export default function FuturisticLayout({
           </svg>
           <span
             className="text-sm font-bold tracking-wider"
-            style={{ color: '#ffffff', textShadow: `0 0 10px ${primaryColor}` }}
+            style={{ color: fontConfig?.telegramColor || '#ffffff', textShadow: `0 0 10px ${primaryColor}` }}
           >
             {footerConfig?.footer1 || `Join: @${telegramUsername || selectedWebsite.name.toLowerCase().replace(/[^a-z0-9]/g, '')}`}
           </span>

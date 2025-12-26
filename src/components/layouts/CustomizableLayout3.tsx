@@ -66,7 +66,7 @@ function NeonGameCard({ game, rtp, style, cardSize, darkPrimary, darkerPrimary, 
           className="absolute top-1 right-1 px-2 py-0.5 text-[10px] font-bold"
           style={{
             backgroundColor: rtp >= 95 ? '#22c55e' : rtp >= 90 ? '#eab308' : '#ef4444',
-            color: 'white',
+            color: fontConfig?.rtpTextColor || 'white',
             boxShadow: `0 0 10px ${rtp >= 95 ? '#22c55e' : rtp >= 90 ? '#eab308' : '#ef4444'}`,
             clipPath: 'polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%)'
           }}
@@ -138,13 +138,15 @@ function CyberpunkTrikPanel({
   providerColor,
   hideFiturGanda = false,
   darkPrimary,
-  darkerPrimary
+  darkerPrimary,
+  fontConfig
 }: {
   trik: TrikConfig;
   providerColor: string;
   hideFiturGanda?: boolean;
   darkPrimary: string;
   darkerPrimary: string;
+  fontConfig?: FontConfig;
 }) {
   const itemCount = trik.trikItems?.length || 0;
   const totalRows = itemCount + 4;
@@ -188,7 +190,7 @@ function CyberpunkTrikPanel({
         <h3
           className="font-black uppercase tracking-widest"
           style={{
-            color: '#ffffff',
+            color: fontConfig?.trikTextColor || '#ffffff',
             fontSize: `${sizes.title}px`,
             textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
             letterSpacing: '0.2em'
@@ -224,13 +226,13 @@ function CyberpunkTrikPanel({
         >
           {/* Deposit Kode */}
           <div className="flex-1 text-center">
-            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, color: fontConfig?.trikTextColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               DEPOSIT KODE
             </span>
             <span
               className="font-black leading-tight"
               style={{
-                color: '#ffffff',
+                color: fontConfig?.trikTextColor || '#ffffff',
                 fontSize: `${sizes.depositKode * 0.7}px`,
                 textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
               }}
@@ -247,7 +249,7 @@ function CyberpunkTrikPanel({
               pointerEvents: hideFiturGanda ? 'none' : 'auto'
             }}
           >
-            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, color: fontConfig?.trikTextColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               FITUR GANDA
             </span>
             <span
@@ -256,7 +258,7 @@ function CyberpunkTrikPanel({
               }`}
               style={{
                 fontSize: `${sizes.value * 0.85}px`,
-                color: '#ffffff',
+                color: fontConfig?.trikTextColor || '#ffffff',
                 textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
               }}
             >
@@ -266,13 +268,13 @@ function CyberpunkTrikPanel({
 
           {/* Putaran Bet */}
           <div className="flex-1 text-center">
-            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9}px`, color: fontConfig?.trikTextColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               PUTARAN BET
             </span>
             <span
               className="font-bold leading-tight"
               style={{
-                color: '#ffffff',
+                color: fontConfig?.trikTextColor || '#ffffff',
                 fontSize: `${sizes.value * 0.85}px`,
                 textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
               }}
@@ -295,10 +297,10 @@ function CyberpunkTrikPanel({
                 borderRight: `3px solid ${providerColor}`
               }}
             >
-              <span className="font-semibold flex-1 text-left" style={{ fontSize: `${sizes.itemName}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+              <span className="font-semibold flex-1 text-left" style={{ fontSize: `${sizes.itemName}px`, color: fontConfig?.trikTextColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
                 {item.name}
               </span>
-              <span className="font-bold flex-1 text-center" style={{ color: '#ffffff', fontSize: `${sizes.itemValue}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+              <span className="font-bold flex-1 text-center" style={{ color: fontConfig?.trikTextColor || '#ffffff', fontSize: `${sizes.itemValue}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
                 {item.value}
               </span>
               <div className="flex-1 flex justify-end">
@@ -322,7 +324,7 @@ function CyberpunkTrikPanel({
             <p
               className="font-bold uppercase leading-tight"
               style={{
-                color: '#ffffff',
+                color: fontConfig?.trikTextColor || '#ffffff',
                 textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
                 fontSize: `${sizes.value}px`
               }}
@@ -395,7 +397,7 @@ function NeonProviderSection({
           <h2
             className="font-black tracking-wider"
             style={{
-              color: '#ffffff',
+              color: fontConfig?.modalTitleColor || providerColor,
               fontSize: '18px',
               textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
             }}
@@ -430,6 +432,7 @@ function NeonProviderSection({
             hideFiturGanda={hideFiturGanda}
             darkPrimary={darkPrimary}
             darkerPrimary={darkerPrimary}
+            fontConfig={fontConfig}
           />
         </div>
       )}
@@ -615,7 +618,7 @@ export default function CustomizableLayout3({
           <span
             className="text-sm font-bold"
             style={{
-              color: '#ffffff',
+              color: fontConfig?.telegramColor || '#ffffff',
               textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
             }}
           >

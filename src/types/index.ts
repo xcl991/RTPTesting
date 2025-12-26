@@ -113,7 +113,11 @@ export interface FooterConfig {
 }
 
 export interface FontConfig {
-  color: string; // Warna font (e.g., "#ffffff")
+  color: string; // Warna font untuk judul game (e.g., "#ffffff")
   outlineColor: string; // Warna outline/stroke (e.g., "#000000")
   outlineWidth: number; // Ketebalan outline (0-5 px)
+  telegramColor: string; // Warna font untuk Telegram (e.g., "#00f0ff")
+  modalTitleColor: string; // Warna font untuk judul provider modal (e.g., "#ffd700")
+  trikTextColor: string; // Warna font untuk text di panel trik (e.g., "#ffffff")
+  rtpTextColor: string; // Warna font untuk RTP percentage (e.g., "#00ff00")
 }

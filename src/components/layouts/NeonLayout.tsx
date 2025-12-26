@@ -43,17 +43,18 @@ const SlotSymbols = () => (
 );
 
 // Jackpot Badge
-function JackpotBadge({ rtp }: { rtp: number }) {
+function JackpotBadge({ rtp, fontConfig }: { rtp: number; fontConfig?: FontConfig }) {
   const bgColor = rtp >= 95 ? '#22c55e' : rtp >= 90 ? '#eab308' : '#ef4444';
 
   return (
     <div
-      className="px-2 py-1 font-black text-[11px] text-white"
+      className="px-2 py-1 font-black text-[11px]"
       style={{
         background: `linear-gradient(135deg, ${bgColor}, ${bgColor}dd)`,
         borderRadius: '4px',
         boxShadow: `0 0 10px ${bgColor}, 0 2px 4px rgba(0,0,0,0.5)`,
-        border: '1px solid rgba(255,255,255,0.3)'
+        border: '1px solid rgba(255,255,255,0.3)',
+        color: fontConfig?.rtpTextColor || 'white'
       }}
     >
       {rtp}% HOT
@@ -96,7 +97,7 @@ function NeonGameCard({ game, rtp, cardSize, glowColor, fontConfig }: { game: Ga
         />
         {/* RTP Badge */}
         <div className="absolute top-1 right-1">
-          <JackpotBadge rtp={rtp} />
+          <JackpotBadge rtp={rtp} fontConfig={fontConfig} />
         </div>
         {/* Glow overlay effect */}
         <div
@@ -162,12 +163,14 @@ function NeonTrikPanel({
   trik,
   providerColor,
   hideFiturGanda = false,
-  cardStyle
+  cardStyle,
+  fontConfig
 }: {
   trik: TrikConfig;
   providerColor: string;
   hideFiturGanda?: boolean;
   cardStyle?: CardStyleOption;
+  fontConfig?: FontConfig;
 }) {
   const itemCount = trik.trikItems?.length || 0;
   const totalRows = itemCount + 4;
@@ -220,7 +223,7 @@ function NeonTrikPanel({
           <h3
             className="font-black uppercase tracking-wider"
             style={{
-              color: '#ffffff',
+              color: fontConfig?.trikTextColor || '#ffffff',
               fontSize: `${sizes.title}px`,
               textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
             }}
@@ -248,13 +251,13 @@ function NeonTrikPanel({
         >
           {/* Deposit Kode */}
           <div className="flex-1 text-center">
-            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9 + 3}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9 + 3}px`, color: fontConfig?.trikTextColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               DEPOSIT KODE
             </span>
             <span
               className="font-black leading-tight"
               style={{
-                color: '#ffffff',
+                color: fontConfig?.trikTextColor || '#ffffff',
                 fontSize: `${sizes.depositKode * 0.7 + 3}px`,
                 textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
               }}
@@ -271,13 +274,13 @@ function NeonTrikPanel({
               pointerEvents: hideFiturGanda ? 'none' : 'auto'
             }}
           >
-            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9 + 3}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9 + 3}px`, color: fontConfig?.trikTextColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               FITUR GANDA
             </span>
             <span
               className="font-bold inline-block"
               style={{
-                color: '#ffffff',
+                color: fontConfig?.trikTextColor || '#ffffff',
                 fontSize: `${sizes.value * 0.85 + 3}px`,
                 textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
               }}
@@ -288,12 +291,12 @@ function NeonTrikPanel({
 
           {/* Putaran Bet */}
           <div className="flex-1 text-center">
-            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9 + 3}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+            <span className="block leading-tight" style={{ fontSize: `${sizes.label * 0.9 + 3}px`, color: fontConfig?.trikTextColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
               PUTARAN BET
             </span>
             <span
               className="font-bold leading-tight"
-              style={{ color: '#ffffff', fontSize: `${sizes.value * 0.85 + 3}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+              style={{ color: fontConfig?.trikTextColor || '#ffffff', fontSize: `${sizes.value * 0.85 + 3}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
             >
               {trik.putaranBetMin.toLocaleString()} - {trik.putaranBetMax.toLocaleString()}
             </span>
@@ -313,12 +316,12 @@ function NeonTrikPanel({
                 borderLeft: `3px solid ${providerColor}`
               }}
             >
-              <span className="font-semibold flex-1 text-left" style={{ fontSize: `${sizes.itemName}px`, color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+              <span className="font-semibold flex-1 text-left" style={{ fontSize: `${sizes.itemName}px`, color: fontConfig?.trikTextColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
                 {item.name}
               </span>
               <span
                 className="font-bold flex-1 text-center"
-                style={{ color: '#ffffff', fontSize: `${sizes.itemValue}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+                style={{ color: fontConfig?.trikTextColor || '#ffffff', fontSize: `${sizes.itemValue}px`, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
               >
                 {item.value}
               </span>
@@ -342,7 +345,7 @@ function NeonTrikPanel({
             <p
               className="font-bold uppercase leading-tight"
               style={{
-                color: '#ffffff',
+                color: fontConfig?.trikTextColor || '#ffffff',
                 fontSize: `${sizes.value}px`,
                 textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
               }}
@@ -566,7 +569,7 @@ export default function NeonLayout({
               <h2
                 className="font-black tracking-wider"
                 style={{
-                  color: '#ffffff',
+                  color: fontConfig?.modalTitleColor || '#ffffff',
                   fontSize: '20px',
                   textShadow: `-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 10px ${primaryColor}`
                 }}
@@ -607,7 +610,7 @@ export default function NeonLayout({
               <h2
                 className="font-black tracking-wider"
                 style={{
-                  color: '#ffffff',
+                  color: fontConfig?.modalTitleColor || '#ffffff',
                   fontSize: '20px',
                   textShadow: `-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 10px ${primaryColor}`
                 }}
@@ -632,6 +635,7 @@ export default function NeonLayout({
                   trik={pragmaticTrik}
                   providerColor={primaryColor}
                   cardStyle={selectedCardStyle}
+                  fontConfig={fontConfig}
                 />
               </div>
             )}
@@ -642,6 +646,7 @@ export default function NeonLayout({
                   providerColor={primaryColor}
                   hideFiturGanda={true}
                   cardStyle={selectedCardStyle}
+                  fontConfig={fontConfig}
                 />
               </div>
             )}
@@ -749,7 +754,7 @@ export default function NeonLayout({
           </svg>
           <span
             className="text-sm font-bold"
-            style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
+            style={{ color: fontConfig?.telegramColor || '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
           >
             {footerConfig?.footer1 || `Join: @${telegramUsername || selectedWebsite.name.toLowerCase().replace(/[^a-z0-9]/g, '')}`}
           </span>
