@@ -1,6 +1,6 @@
 'use client';
 
-import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, MaxwinConfig } from '@/types';
+import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, MaxwinConfig, FontConfig } from '@/types';
 
 interface CasinoCyberpunkLayoutProps {
   selectedWebsite: WebsiteOption;
@@ -20,6 +20,7 @@ interface CasinoCyberpunkLayoutProps {
   defaultLayoutSize: DefaultLayoutSizeConfig;
   footerConfig?: FooterConfig;
   maxwinConfig?: MaxwinConfig;
+  fontConfig?: FontConfig;
 }
 
 // Helper function to create darker/lighter colors from hex
@@ -51,7 +52,7 @@ function RTPBadge({ rtp }: { rtp: number }) {
 }
 
 // Cyberpunk Game Card
-function CyberpunkGameCard({ game, rtp, cardSize, primaryColor }: { game: Game; rtp: number; cardSize: number; primaryColor: string }) {
+function CyberpunkGameCard({ game, rtp, cardSize, primaryColor, fontConfig }: { game: Game; rtp: number; cardSize: number; primaryColor: string; fontConfig?: FontConfig }) {
   const darkPrimary = adjustColor(primaryColor, -40);
   const darkerPrimary = adjustColor(primaryColor, -60);
 
@@ -102,8 +103,10 @@ function CyberpunkGameCard({ game, rtp, cardSize, primaryColor }: { game: Game; 
         <h3
           className="text-xs font-black tracking-wider truncate"
           style={{
-            color: '#ffffff',
-            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
+            color: fontConfig?.color || '#ffffff',
+            textShadow: fontConfig?.outlineWidth && fontConfig.outlineWidth > 0
+              ? `${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, ${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}`
+              : 'none',
             fontFamily: 'monospace'
           }}
         >
@@ -374,7 +377,8 @@ export default function CasinoCyberpunkLayout({
   customHeaderText,
   headerFontSize,
   footerConfig,
-  maxwinConfig
+  maxwinConfig,
+  fontConfig
 }: CasinoCyberpunkLayoutProps) {
   const getFontSizeClass = () => {
     switch (headerFontSize) {
@@ -653,7 +657,7 @@ export default function CasinoCyberpunkLayout({
             </div>
             <div className="flex gap-2 justify-center relative z-10">
               {pragmaticGamesWithRtp.map((game, index) => (
-                <CyberpunkGameCard key={`pragmatic-${index}`} game={game} rtp={game.rtp} cardSize={cardSize} primaryColor={primaryColor} />
+                <CyberpunkGameCard key={`pragmatic-${index}`} game={game} rtp={game.rtp} cardSize={cardSize} primaryColor={primaryColor} fontConfig={fontConfig} />
               ))}
             </div>
           </div>
@@ -698,7 +702,7 @@ export default function CasinoCyberpunkLayout({
             </div>
             <div className="flex gap-2 justify-center relative z-10">
               {pgSoftGamesWithRtp.map((game, index) => (
-                <CyberpunkGameCard key={`pgsoft-${index}`} game={game} rtp={game.rtp} cardSize={cardSize} primaryColor={primaryColor} />
+                <CyberpunkGameCard key={`pgsoft-${index}`} game={game} rtp={game.rtp} cardSize={cardSize} primaryColor={primaryColor} fontConfig={fontConfig} />
               ))}
             </div>
           </div>

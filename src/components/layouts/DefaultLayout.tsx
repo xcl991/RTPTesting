@@ -1,6 +1,6 @@
 'use client';
 
-import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, MaxwinConfig } from '@/types';
+import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, MaxwinConfig, FontConfig } from '@/types';
 
 interface DefaultLayoutProps {
   selectedWebsite: WebsiteOption;
@@ -20,6 +20,7 @@ interface DefaultLayoutProps {
   defaultLayoutSize: DefaultLayoutSizeConfig;
   footerConfig?: FooterConfig;
   maxwinConfig?: MaxwinConfig;
+  fontConfig?: FontConfig;
 }
 
 // Helper function to create darker/lighter colors from hex
@@ -50,7 +51,7 @@ function RtpBadge({ rtp }: { rtp: number }) {
 }
 
 // Default Game Card
-function DefaultGameCard({ game, rtp, cardSize, primaryColor }: { game: Game; rtp: number; cardSize: number; primaryColor: string }) {
+function DefaultGameCard({ game, rtp, cardSize, primaryColor, fontConfig }: { game: Game; rtp: number; cardSize: number; primaryColor: string; fontConfig?: FontConfig }) {
   const darkPrimary = adjustColor(primaryColor, -40);
   const darkerPrimary = adjustColor(primaryColor, -60);
 
@@ -92,8 +93,10 @@ function DefaultGameCard({ game, rtp, cardSize, primaryColor }: { game: Game; rt
         <h3
           className="text-[13px] font-bold leading-tight"
           style={{
-            color: '#ffffff',
-            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
+            color: fontConfig?.color || '#ffffff',
+            textShadow: fontConfig?.outlineWidth && fontConfig.outlineWidth > 0
+              ? `${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, ${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}`
+              : 'none',
             overflow: 'hidden',
             height: '28px',
             display: '-webkit-box',
@@ -328,7 +331,8 @@ export default function DefaultLayout({
   customHeaderText,
   headerFontSize,
   footerConfig,
-  maxwinConfig
+  maxwinConfig,
+  fontConfig
 }: DefaultLayoutProps) {
   const getFontSizeClass = () => {
     switch (headerFontSize) {
@@ -491,7 +495,7 @@ export default function DefaultLayout({
             </div>
             <div className="flex gap-2 justify-center">
               {pragmaticGamesWithRtp.map((game, index) => (
-                <DefaultGameCard key={`pragmatic-${index}`} game={game} rtp={game.rtp} cardSize={cardSize} primaryColor={primaryColor} />
+                <DefaultGameCard key={`pragmatic-${index}`} game={game} rtp={game.rtp} cardSize={cardSize} primaryColor={primaryColor} fontConfig={fontConfig} />
               ))}
             </div>
           </div>
@@ -529,7 +533,7 @@ export default function DefaultLayout({
             </div>
             <div className="flex gap-2 justify-center">
               {pgSoftGamesWithRtp.map((game, index) => (
-                <DefaultGameCard key={`pgsoft-${index}`} game={game} rtp={game.rtp} cardSize={cardSize} primaryColor={primaryColor} />
+                <DefaultGameCard key={`pgsoft-${index}`} game={game} rtp={game.rtp} cardSize={cardSize} primaryColor={primaryColor} fontConfig={fontConfig} />
               ))}
             </div>
           </div>

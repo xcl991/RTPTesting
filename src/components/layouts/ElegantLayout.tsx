@@ -1,6 +1,6 @@
 'use client';
 
-import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, MaxwinConfig } from '@/types';
+import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, MaxwinConfig, FontConfig } from '@/types';
 
 // Helper function to create darker/lighter colors from hex
 function adjustColor(hex: string, percent: number): string {
@@ -36,9 +36,10 @@ interface ElegantGameCardProps {
   rtp: number;
   primaryColor: string;
   cardSize: number;
+  fontConfig?: FontConfig;
 }
 
-function ElegantGameCard({ game, rtp, primaryColor, cardSize }: ElegantGameCardProps) {
+function ElegantGameCard({ game, rtp, primaryColor, cardSize, fontConfig }: ElegantGameCardProps) {
   const darkPrimary = adjustColor(primaryColor, -40);
   const darkerPrimary = adjustColor(primaryColor, -60);
 
@@ -88,8 +89,10 @@ function ElegantGameCard({ game, rtp, primaryColor, cardSize }: ElegantGameCardP
         <h3
           className="text-[13px] font-semibold leading-tight"
           style={{
-            color: '#ffffff',
-            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
+            color: fontConfig?.color || '#ffffff',
+            textShadow: fontConfig?.outlineWidth && fontConfig.outlineWidth > 0
+              ? `${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, ${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}`
+              : '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
             overflow: 'hidden',
             height: '28px',
             display: '-webkit-box',
@@ -341,6 +344,7 @@ interface ElegantLayoutProps {
   defaultLayoutSize: DefaultLayoutSizeConfig;
   footerConfig?: FooterConfig;
   maxwinConfig?: MaxwinConfig;
+  fontConfig?: FontConfig;
 }
 
 export default function ElegantLayout({
@@ -357,7 +361,8 @@ export default function ElegantLayout({
   customHeaderText,
   headerFontSize,
   footerConfig,
-  maxwinConfig
+  maxwinConfig,
+  fontConfig
 }: ElegantLayoutProps) {
   const getFontSizeClass = () => {
     switch (headerFontSize) {
@@ -596,7 +601,7 @@ export default function ElegantLayout({
             </div>
             <div className="flex gap-2 justify-center">
               {pragmaticGamesWithRtp.map((game, index) => (
-                <ElegantGameCard key={`pragmatic-${index}`} game={game} rtp={game.rtp} primaryColor={primaryColor} cardSize={cardSize} />
+                <ElegantGameCard key={`pragmatic-${index}`} game={game} rtp={game.rtp} primaryColor={primaryColor} cardSize={cardSize} fontConfig={fontConfig} />
               ))}
             </div>
           </div>
@@ -635,7 +640,7 @@ export default function ElegantLayout({
             </div>
             <div className="flex gap-2 justify-center">
               {pgSoftGamesWithRtp.map((game, index) => (
-                <ElegantGameCard key={`pgsoft-${index}`} game={game} rtp={game.rtp} primaryColor={secondaryColor} cardSize={cardSize} />
+                <ElegantGameCard key={`pgsoft-${index}`} game={game} rtp={game.rtp} primaryColor={secondaryColor} cardSize={cardSize} fontConfig={fontConfig} />
               ))}
             </div>
           </div>

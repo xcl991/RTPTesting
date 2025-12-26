@@ -1,6 +1,6 @@
 'use client';
 
-import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, MaxwinConfig } from '@/types';
+import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, MaxwinConfig, FontConfig } from '@/types';
 
 interface CustomizableLayout6Props {
   selectedWebsite: WebsiteOption;
@@ -20,6 +20,7 @@ interface CustomizableLayout6Props {
   defaultLayoutSize: DefaultLayoutSizeConfig;
   footerConfig: FooterConfig;
   maxwinConfig: MaxwinConfig;
+  fontConfig?: FontConfig;
 }
 
 // Helper function to create darker/lighter colors from hex
@@ -61,7 +62,7 @@ function JackpotBadge({ rtp }: { rtp: number }) {
 }
 
 // Vegas Slot Game Card
-function VegasGameCard({ game, rtp, cardSize, primaryColor, accentColor }: { game: Game; rtp: number; cardSize: number; primaryColor: string; accentColor: string }) {
+function VegasGameCard({ game, rtp, cardSize, primaryColor, accentColor, fontConfig }: { game: Game; rtp: number; cardSize: number; primaryColor: string; accentColor: string; fontConfig?: FontConfig }) {
   const darkPrimary = adjustColor(primaryColor, -40);
   const darkerPrimary = adjustColor(primaryColor, -60);
 
@@ -117,13 +118,15 @@ function VegasGameCard({ game, rtp, cardSize, primaryColor, accentColor }: { gam
         <h3
           className="text-[13px] font-bold leading-tight"
           style={{
-            color: primaryColor,
-            textShadow: `0 0 5px ${primaryColor}, 0 0 10px ${primaryColor}50`,
             overflow: 'hidden',
             height: '28px',
             display: '-webkit-box',
             WebkitLineClamp: 2,
-            WebkitBoxOrient: 'vertical'
+            WebkitBoxOrient: 'vertical',
+            color: fontConfig?.color || primaryColor,
+            textShadow: fontConfig?.outlineWidth && fontConfig.outlineWidth > 0
+              ? `${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, ${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}`
+              : `0 0 5px ${primaryColor}, 0 0 10px ${primaryColor}50`
           }}
         >
           {game.name}
@@ -361,7 +364,8 @@ export default function CustomizableLayout6({
   customHeaderText,
   headerFontSize,
   footerConfig,
-  maxwinConfig
+  maxwinConfig,
+  fontConfig
 }: CustomizableLayout6Props) {
   const getFontSizeClass = () => {
     switch (headerFontSize) {
@@ -514,7 +518,7 @@ export default function CustomizableLayout6({
             </div>
             <div className="flex gap-2 justify-center">
               {pragmaticGamesWithRtp.map((game, index) => (
-                <VegasGameCard key={`pragmatic-${index}`} game={game} rtp={game.rtp} cardSize={cardSize} primaryColor={primaryColor} accentColor={accentColor} />
+                <VegasGameCard key={`pragmatic-${index}`} game={game} rtp={game.rtp} cardSize={cardSize} primaryColor={primaryColor} accentColor={accentColor} fontConfig={fontConfig} />
               ))}
             </div>
           </div>
@@ -546,7 +550,7 @@ export default function CustomizableLayout6({
             </div>
             <div className="flex gap-2 justify-center">
               {pgSoftGamesWithRtp.map((game, index) => (
-                <VegasGameCard key={`pgsoft-${index}`} game={game} rtp={game.rtp} cardSize={cardSize} primaryColor={primaryColor} accentColor={primaryColor} />
+                <VegasGameCard key={`pgsoft-${index}`} game={game} rtp={game.rtp} cardSize={cardSize} primaryColor={primaryColor} accentColor={primaryColor} fontConfig={fontConfig} />
               ))}
             </div>
           </div>

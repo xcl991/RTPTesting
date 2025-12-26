@@ -1,6 +1,6 @@
 'use client';
 
-import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, MaxwinConfig } from '@/types';
+import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, MaxwinConfig, FontConfig } from '@/types';
 
 // Helper function to create darker/lighter colors from hex
 function adjustColor(hex: string, percent: number): string {
@@ -257,6 +257,7 @@ interface CasinoMatrixLayoutProps {
   defaultLayoutSize: DefaultLayoutSizeConfig;
   footerConfig?: FooterConfig;
   maxwinConfig?: MaxwinConfig;
+  fontConfig?: FontConfig;
 }
 
 export default function CasinoMatrixLayout({
@@ -276,7 +277,8 @@ export default function CasinoMatrixLayout({
   headerFontSize,
   defaultLayoutSize,
   footerConfig,
-  maxwinConfig
+  maxwinConfig,
+  fontConfig
 }: CasinoMatrixLayoutProps) {
   const getFontSizeClass = () => {
     switch (headerFontSize) {
@@ -544,7 +546,12 @@ export default function CasinoMatrixLayout({
                   </div>
 
                   <div className="text-center">
-                    <div className="text-xs font-bold truncate" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+                    <div className="text-xs font-bold truncate" style={{
+                      color: fontConfig?.color || '#ffffff',
+                      textShadow: fontConfig?.outlineWidth && fontConfig.outlineWidth > 0
+                        ? `${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, ${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}`
+                        : 'none'
+                    }}>
                       {game.name.toUpperCase()}
                     </div>
                   </div>
@@ -640,7 +647,12 @@ export default function CasinoMatrixLayout({
                   </div>
 
                   <div className="text-center">
-                    <div className="text-xs font-bold truncate" style={{ color: '#ffffff', textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}>
+                    <div className="text-xs font-bold truncate" style={{
+                      color: fontConfig?.color || '#ffffff',
+                      textShadow: fontConfig?.outlineWidth && fontConfig.outlineWidth > 0
+                        ? `${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, ${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}`
+                        : 'none'
+                    }}>
                       {game.name.toUpperCase()}
                     </div>
                   </div>

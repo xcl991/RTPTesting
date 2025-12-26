@@ -1,6 +1,6 @@
 'use client';
 
-import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig } from '@/types';
+import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, FontConfig } from '@/types';
 
 // Helper function to create darker/lighter colors from hex
 function adjustColor(hex: string, percent: number): string {
@@ -28,10 +28,11 @@ interface CustomizableLayout3Props {
   headerFontSize: 'small' | 'medium' | 'large' | 'xlarge';
   defaultLayoutSize: DefaultLayoutSizeConfig;
   footerConfig: FooterConfig;
+  fontConfig?: FontConfig;
 }
 
 // Neon Game Card dengan glow effect
-function NeonGameCard({ game, rtp, style, cardSize, darkPrimary, darkerPrimary }: { game: Game; rtp: number; style: RTPStyle; cardSize: number; darkPrimary: string; darkerPrimary: string }) {
+function NeonGameCard({ game, rtp, style, cardSize, darkPrimary, darkerPrimary, fontConfig }: { game: Game; rtp: number; style: RTPStyle; cardSize: number; darkPrimary: string; darkerPrimary: string; fontConfig?: FontConfig }) {
   return (
     <div
       className="relative overflow-hidden"
@@ -91,13 +92,15 @@ function NeonGameCard({ game, rtp, style, cardSize, darkPrimary, darkerPrimary }
         <h3
           className="text-[10px] font-bold leading-tight"
           style={{
-            color: style.secondaryColor,
-            textShadow: `0 0 5px ${style.secondaryColor}, 0 0 10px ${style.secondaryColor}50`,
             overflow: 'hidden',
             height: '22px',
             display: '-webkit-box',
             WebkitLineClamp: 2,
-            WebkitBoxOrient: 'vertical'
+            WebkitBoxOrient: 'vertical',
+            color: fontConfig?.color || style.secondaryColor,
+            textShadow: fontConfig?.outlineWidth && fontConfig.outlineWidth > 0
+              ? `${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, ${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}`
+              : `0 0 5px ${style.secondaryColor}, 0 0 10px ${style.secondaryColor}50`
           }}
         >
           {game.name}
@@ -343,7 +346,8 @@ function NeonProviderSection({
   trikPanelWidth,
   hideFiturGanda = false,
   darkPrimary,
-  darkerPrimary
+  darkerPrimary,
+  fontConfig
 }: {
   title: string;
   games: Game[];
@@ -354,6 +358,7 @@ function NeonProviderSection({
   hideFiturGanda?: boolean;
   darkPrimary: string;
   darkerPrimary: string;
+  fontConfig?: FontConfig;
 }) {
   const displayGames = games.slice(0, 3).map(game => ({
     ...game,
@@ -410,6 +415,7 @@ function NeonProviderSection({
               cardSize={cardSize}
               darkPrimary={darkPrimary}
               darkerPrimary={darkerPrimary}
+              fontConfig={fontConfig}
             />
           ))}
         </div>
@@ -445,7 +451,8 @@ export default function CustomizableLayout3({
   customHeaderText,
   headerFontSize,
   defaultLayoutSize,
-  footerConfig
+  footerConfig,
+  fontConfig
 }: CustomizableLayout3Props) {
   const primaryColor = selectedStyle.primaryColor;
   const secondaryColor = selectedStyle.secondaryColor;
@@ -575,6 +582,7 @@ export default function CustomizableLayout3({
           trikPanelWidth={defaultLayoutSize.trikPanelWidth}
           darkPrimary={darkPrimary}
           darkerPrimary={darkerPrimary}
+          fontConfig={fontConfig}
         />
 
         <NeonProviderSection
@@ -587,6 +595,7 @@ export default function CustomizableLayout3({
           hideFiturGanda={true}
           darkPrimary={darkPrimary}
           darkerPrimary={darkerPrimary}
+          fontConfig={fontConfig}
         />
       </div>
 

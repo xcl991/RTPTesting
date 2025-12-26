@@ -1,6 +1,6 @@
 'use client';
 
-import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, MaxwinConfig } from '@/types';
+import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, MaxwinConfig, FontConfig } from '@/types';
 
 interface CasinoMedievalKingdomLayoutProps {
   selectedWebsite: WebsiteOption;
@@ -20,6 +20,7 @@ interface CasinoMedievalKingdomLayoutProps {
   defaultLayoutSize: DefaultLayoutSizeConfig;
   footerConfig?: FooterConfig;
   maxwinConfig?: MaxwinConfig;
+  fontConfig?: FontConfig;
 }
 
 // Helper function to create darker/lighter colors from hex
@@ -54,7 +55,7 @@ function PatternDisplay({ pattern, size }: { pattern: string; size: number }) {
 }
 
 // Medieval Game Card
-function MedievalGameCard({ game, rtp, cardSize, primaryColor, secondaryColor }: { game: Game; rtp: number; cardSize: number; primaryColor: string; secondaryColor: string }) {
+function MedievalGameCard({ game, rtp, cardSize, primaryColor, secondaryColor, fontConfig }: { game: Game; rtp: number; cardSize: number; primaryColor: string; secondaryColor: string; fontConfig?: FontConfig }) {
   const darkPrimary = adjustColor(primaryColor, -40);
   const darkerPrimary = adjustColor(primaryColor, -60);
 
@@ -136,8 +137,10 @@ function MedievalGameCard({ game, rtp, cardSize, primaryColor, secondaryColor }:
         <h3
           className="text-[13px] font-bold leading-tight"
           style={{
-            color: '#ffffff',
-            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
+            color: fontConfig?.color || '#ffffff',
+            textShadow: fontConfig?.outlineWidth && fontConfig.outlineWidth > 0
+              ? `${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, ${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}`
+              : 'none',
             fontFamily: 'serif',
             overflow: 'hidden',
             height: '28px',
@@ -374,7 +377,8 @@ export default function CasinoMedievalKingdomLayout({
   customHeaderText,
   headerFontSize,
   footerConfig,
-  maxwinConfig
+  maxwinConfig,
+  fontConfig
 }: CasinoMedievalKingdomLayoutProps) {
   const getFontSizeClass = () => {
     switch (headerFontSize) {
@@ -607,7 +611,7 @@ export default function CasinoMedievalKingdomLayout({
             </div>
             <div className="flex gap-2 justify-center">
               {pragmaticGamesWithRtp.map((game, index) => (
-                <MedievalGameCard key={`pragmatic-${index}`} game={game} rtp={game.rtp} cardSize={cardSize} primaryColor={primaryColor} secondaryColor={secondaryColor} />
+                <MedievalGameCard key={`pragmatic-${index}`} game={game} rtp={game.rtp} cardSize={cardSize} primaryColor={primaryColor} secondaryColor={secondaryColor} fontConfig={fontConfig} />
               ))}
             </div>
           </div>
@@ -649,7 +653,7 @@ export default function CasinoMedievalKingdomLayout({
             </div>
             <div className="flex gap-2 justify-center">
               {pgSoftGamesWithRtp.map((game, index) => (
-                <MedievalGameCard key={`pgsoft-${index}`} game={game} rtp={game.rtp} cardSize={cardSize} primaryColor={primaryColor} secondaryColor={secondaryColor} />
+                <MedievalGameCard key={`pgsoft-${index}`} game={game} rtp={game.rtp} cardSize={cardSize} primaryColor={primaryColor} secondaryColor={secondaryColor} fontConfig={fontConfig} />
               ))}
             </div>
           </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig } from '@/types';
+import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, FontConfig } from '@/types';
 
 interface CustomizableLayout5Props {
   selectedWebsite: WebsiteOption;
@@ -19,6 +19,7 @@ interface CustomizableLayout5Props {
   headerFontSize: 'small' | 'medium' | 'large' | 'xlarge';
   defaultLayoutSize: DefaultLayoutSizeConfig;
   footerConfig: FooterConfig;
+  fontConfig?: FontConfig;
 }
 
 // Helper function to create darker/lighter colors from hex
@@ -71,7 +72,7 @@ function PokerChipBadge({ value, color }: { value: string; color: string }) {
 }
 
 // Poker Game Card
-function PokerGameCard({ game, rtp, cardSize, accentColor }: { game: Game; rtp: number; cardSize: number; accentColor: string }) {
+function PokerGameCard({ game, rtp, cardSize, accentColor, fontConfig }: { game: Game; rtp: number; cardSize: number; accentColor: string; fontConfig?: FontConfig }) {
   const rtpColor = rtp >= 95 ? '#22c55e' : rtp >= 90 ? '#eab308' : '#ef4444';
 
   return (
@@ -127,13 +128,15 @@ function PokerGameCard({ game, rtp, cardSize, accentColor }: { game: Game; rtp: 
         <h3
           className="text-[13px] font-bold leading-tight"
           style={{
-            color: accentColor,
             overflow: 'hidden',
             height: '31px',
             display: '-webkit-box',
             WebkitLineClamp: 2,
             WebkitBoxOrient: 'vertical',
-            textShadow: `0 0 10px ${accentColor}80`
+            color: fontConfig?.color || accentColor,
+            textShadow: fontConfig?.outlineWidth && fontConfig.outlineWidth > 0
+              ? `${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, ${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}`
+              : `0 0 10px ${accentColor}80`
           }}
         >
           {game.name}
@@ -359,7 +362,8 @@ function PokerProviderSection({
   accentColor,
   trik,
   trikPanelWidth,
-  hideFiturGanda = false
+  hideFiturGanda = false,
+  fontConfig
 }: {
   title: string;
   games: Game[];
@@ -369,6 +373,7 @@ function PokerProviderSection({
   trik: TrikConfig;
   trikPanelWidth: number;
   hideFiturGanda?: boolean;
+  fontConfig?: FontConfig;
 }) {
   const displayGames = games.slice(0, 3).map(game => ({
     ...game,
@@ -430,6 +435,7 @@ function PokerProviderSection({
               rtp={game.rtp}
               cardSize={cardSize}
               accentColor={accentColor}
+              fontConfig={fontConfig}
             />
           ))}
         </div>
@@ -464,7 +470,8 @@ export default function CustomizableLayout5({
   customHeaderText,
   headerFontSize,
   defaultLayoutSize,
-  footerConfig
+  footerConfig,
+  fontConfig
 }: CustomizableLayout5Props) {
   const getFontSizeClass = () => {
     switch (headerFontSize) {
@@ -582,6 +589,7 @@ export default function CustomizableLayout5({
           accentColor={accentColor}
           trik={pragmaticTrik}
           trikPanelWidth={defaultLayoutSize.trikPanelWidth}
+          fontConfig={fontConfig}
         />
 
         <PokerProviderSection
@@ -593,6 +601,7 @@ export default function CustomizableLayout5({
           trik={pgSoftTrik}
           trikPanelWidth={defaultLayoutSize.trikPanelWidth}
           hideFiturGanda={true}
+          fontConfig={fontConfig}
         />
       </div>
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, MaxwinConfig } from '@/types';
+import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, MaxwinConfig, FontConfig } from '@/types';
 
 interface CasinoQuantumLayoutProps {
   selectedWebsite: WebsiteOption;
@@ -20,6 +20,7 @@ interface CasinoQuantumLayoutProps {
   defaultLayoutSize: DefaultLayoutSizeConfig;
   footerConfig?: FooterConfig;
   maxwinConfig?: MaxwinConfig;
+  fontConfig?: FontConfig;
 }
 
 // Helper function to create darker/lighter colors from hex
@@ -265,7 +266,7 @@ function QuantumTrikPanel({
 }
 
 // Quantum Game Card Component
-function QuantumGameCard({ game, rtp, primaryColor, secondaryColor, quantumId, darkBackground }: { game: Game; rtp: number; primaryColor: string; secondaryColor: string; quantumId: string; darkBackground: string }) {
+function QuantumGameCard({ game, rtp, primaryColor, secondaryColor, quantumId, darkBackground, fontConfig }: { game: Game; rtp: number; primaryColor: string; secondaryColor: string; quantumId: string; darkBackground: string; fontConfig?: FontConfig }) {
   return (
     <div
       className="relative group cursor-pointer"
@@ -336,9 +337,11 @@ function QuantumGameCard({ game, rtp, primaryColor, secondaryColor, quantumId, d
 
         <div className="text-center">
           <div className="text-xs font-bold mb-1 truncate" style={{
-            color: '#ffffff',
+            color: fontConfig?.color || '#ffffff',
             fontFamily: 'monospace',
-            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
+            textShadow: fontConfig?.outlineWidth && fontConfig.outlineWidth > 0
+              ? `${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, ${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}`
+              : 'none'
           }}>
             {game.name.toUpperCase()}
           </div>
@@ -379,7 +382,8 @@ export default function CasinoQuantumLayout({
   customHeaderText,
   headerFontSize,
   footerConfig,
-  maxwinConfig
+  maxwinConfig,
+  fontConfig
 }: CasinoQuantumLayoutProps) {
   const getFontSizeClass = () => {
     switch (headerFontSize) {
@@ -663,6 +667,7 @@ export default function CasinoQuantumLayout({
                   secondaryColor={secondaryColor}
                   quantumId={`Q${(index + 1).toString().padStart(3, '0')}`}
                   darkBackground={darkPrimary}
+                  fontConfig={fontConfig}
                 />
               ))}
             </div>
@@ -718,6 +723,7 @@ export default function CasinoQuantumLayout({
                   secondaryColor={primaryColor}
                   quantumId={`Q${(index + 101).toString().padStart(3, '0')}`}
                   darkBackground={darkSecondary}
+                  fontConfig={fontConfig}
                 />
               ))}
             </div>

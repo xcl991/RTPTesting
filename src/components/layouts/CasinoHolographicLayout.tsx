@@ -1,6 +1,6 @@
 'use client';
 
-import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, MaxwinConfig } from '@/types';
+import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, MaxwinConfig, FontConfig } from '@/types';
 
 // Helper function to create darker/lighter colors from hex
 function adjustColor(hex: string, percent: number): string {
@@ -31,7 +31,7 @@ function JackpotBadge({ rtp }: { rtp: number }) {
 }
 
 // Holographic Game Card
-function HolographicGameCard({ game, rtp, cardSize, primaryColor, secondaryColor }: { game: Game; rtp: number; cardSize: number; primaryColor: string; secondaryColor: string }) {
+function HolographicGameCard({ game, rtp, cardSize, primaryColor, secondaryColor, fontConfig }: { game: Game; rtp: number; cardSize: number; primaryColor: string; secondaryColor: string; fontConfig?: FontConfig }) {
   return (
     <div
       className="relative overflow-hidden"
@@ -83,8 +83,10 @@ function HolographicGameCard({ game, rtp, cardSize, primaryColor, secondaryColor
         <h3
           className="text-[13px] font-bold leading-tight"
           style={{
-            color: '#ffffff',
-            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
+            color: fontConfig?.color || '#ffffff',
+            textShadow: fontConfig?.outlineWidth && fontConfig.outlineWidth > 0
+              ? `${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, ${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}`
+              : 'none',
             overflow: 'hidden',
             height: '28px',
             display: '-webkit-box',
@@ -355,6 +357,7 @@ interface CasinoHolographicLayoutProps {
   defaultLayoutSize: DefaultLayoutSizeConfig;
   footerConfig?: FooterConfig;
   maxwinConfig?: MaxwinConfig;
+  fontConfig?: FontConfig;
 }
 
 export default function CasinoHolographicLayout({
@@ -371,7 +374,8 @@ export default function CasinoHolographicLayout({
   customHeaderText,
   headerFontSize,
   footerConfig,
-  maxwinConfig
+  maxwinConfig,
+  fontConfig
 }: CasinoHolographicLayoutProps) {
   const getFontSizeClass = () => {
     switch (headerFontSize) {
@@ -620,7 +624,7 @@ export default function CasinoHolographicLayout({
             </div>
             <div className="flex gap-2 justify-center">
               {pragmaticGamesWithRtp.map((game, index) => (
-                <HolographicGameCard key={`pragmatic-${index}`} game={game} rtp={game.rtp} cardSize={cardSize} primaryColor={primaryColor} secondaryColor={secondaryColor} />
+                <HolographicGameCard key={`pragmatic-${index}`} game={game} rtp={game.rtp} cardSize={cardSize} primaryColor={primaryColor} secondaryColor={secondaryColor} fontConfig={fontConfig} />
               ))}
             </div>
           </div>
@@ -660,7 +664,7 @@ export default function CasinoHolographicLayout({
             </div>
             <div className="flex gap-2 justify-center">
               {pgSoftGamesWithRtp.map((game, index) => (
-                <HolographicGameCard key={`pgsoft-${index}`} game={game} rtp={game.rtp} cardSize={cardSize} primaryColor={secondaryColor} secondaryColor={primaryColor} />
+                <HolographicGameCard key={`pgsoft-${index}`} game={game} rtp={game.rtp} cardSize={cardSize} primaryColor={secondaryColor} secondaryColor={primaryColor} fontConfig={fontConfig} />
               ))}
             </div>
           </div>

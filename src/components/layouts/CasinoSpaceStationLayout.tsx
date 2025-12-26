@@ -1,6 +1,6 @@
 'use client';
 
-import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, MaxwinConfig } from '@/types';
+import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, MaxwinConfig, FontConfig } from '@/types';
 
 interface CasinoSpaceStationLayoutProps {
   selectedWebsite: WebsiteOption;
@@ -20,6 +20,7 @@ interface CasinoSpaceStationLayoutProps {
   defaultLayoutSize: DefaultLayoutSizeConfig;
   footerConfig?: FooterConfig;
   maxwinConfig?: MaxwinConfig;
+  fontConfig?: FontConfig;
 }
 
 // Helper function to create darker/lighter colors from hex
@@ -32,7 +33,7 @@ function adjustColor(hex: string, percent: number): string {
 }
 
 // Space Game Card Component
-function SpaceGameCard({ game, rtp, primaryColor, secondaryColor, bayNumber, darkBackground }: { game: Game; rtp: number; primaryColor: string; secondaryColor: string; bayNumber: number; darkBackground: string }) {
+function SpaceGameCard({ game, rtp, primaryColor, secondaryColor, bayNumber, darkBackground, fontConfig }: { game: Game; rtp: number; primaryColor: string; secondaryColor: string; bayNumber: number; darkBackground: string; fontConfig?: FontConfig }) {
   return (
     <div
       className="relative overflow-hidden"
@@ -105,9 +106,11 @@ function SpaceGameCard({ game, rtp, primaryColor, secondaryColor, bayNumber, dar
         {/* Game Name */}
         <div className="text-center">
           <div className="text-xs font-bold mb-1 truncate" style={{
-            color: '#ffffff',
+            color: fontConfig?.color || '#ffffff',
             fontFamily: 'monospace',
-            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
+            textShadow: fontConfig?.outlineWidth && fontConfig.outlineWidth > 0
+              ? `${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, ${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}`
+              : 'none'
           }}>
             {game.name.toUpperCase()}
           </div>
@@ -379,7 +382,8 @@ export default function CasinoSpaceStationLayout({
   customHeaderText,
   headerFontSize,
   footerConfig,
-  maxwinConfig
+  maxwinConfig,
+  fontConfig
 }: CasinoSpaceStationLayoutProps) {
   const getFontSizeClass = () => {
     switch (headerFontSize) {
@@ -631,6 +635,7 @@ export default function CasinoSpaceStationLayout({
                   secondaryColor={secondaryColor}
                   bayNumber={index + 1}
                   darkBackground={darkerPrimary}
+                  fontConfig={fontConfig}
                 />
               ))}
             </div>
@@ -698,6 +703,7 @@ export default function CasinoSpaceStationLayout({
                   secondaryColor={primaryColor}
                   bayNumber={index + 101}
                   darkBackground={adjustColor(secondaryColor, -90)}
+                  fontConfig={fontConfig}
                 />
               ))}
             </div>

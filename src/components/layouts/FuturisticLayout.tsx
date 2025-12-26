@@ -1,6 +1,6 @@
 'use client';
 
-import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, MaxwinConfig } from '@/types';
+import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, MaxwinConfig, FontConfig } from '@/types';
 
 interface FuturisticLayoutProps {
   selectedWebsite: WebsiteOption;
@@ -20,6 +20,7 @@ interface FuturisticLayoutProps {
   defaultLayoutSize: DefaultLayoutSizeConfig;
   footerConfig?: FooterConfig;
   maxwinConfig?: MaxwinConfig;
+  fontConfig?: FontConfig;
 }
 
 // Helper function to create darker/lighter colors from hex
@@ -50,7 +51,7 @@ function FuturisticRtpBadge({ rtp, primaryColor }: { rtp: number; primaryColor: 
 }
 
 // Futuristic Game Card
-function FuturisticGameCard({ game, rtp, cardSize, primaryColor }: { game: Game; rtp: number; cardSize: number; primaryColor: string }) {
+function FuturisticGameCard({ game, rtp, cardSize, primaryColor, fontConfig }: { game: Game; rtp: number; cardSize: number; primaryColor: string; fontConfig?: FontConfig }) {
   const darkPrimary = adjustColor(primaryColor, -50);
 
   return (
@@ -103,8 +104,10 @@ function FuturisticGameCard({ game, rtp, cardSize, primaryColor }: { game: Game;
         <h3
           className="text-[13px] font-bold leading-tight uppercase tracking-wide"
           style={{
-            color: '#ffffff',
-            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
+            color: fontConfig?.color || '#ffffff',
+            textShadow: fontConfig?.outlineWidth && fontConfig.outlineWidth > 0
+              ? `${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, ${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}`
+              : 'none',
             overflow: 'hidden',
             height: '28px',
             display: '-webkit-box',
@@ -357,7 +360,8 @@ export default function FuturisticLayout({
   customHeaderText,
   headerFontSize,
   footerConfig,
-  maxwinConfig
+  maxwinConfig,
+  fontConfig
 }: FuturisticLayoutProps) {
   const getFontSizeClass = () => {
     switch (headerFontSize) {
@@ -608,7 +612,7 @@ export default function FuturisticLayout({
             </div>
             <div className="flex gap-2 justify-center">
               {pragmaticGamesWithRtp.map((game, index) => (
-                <FuturisticGameCard key={`pragmatic-${index}`} game={game} rtp={game.rtp} cardSize={cardSize} primaryColor={primaryColor} />
+                <FuturisticGameCard key={`pragmatic-${index}`} game={game} rtp={game.rtp} cardSize={cardSize} primaryColor={primaryColor} fontConfig={fontConfig} />
               ))}
             </div>
           </div>
@@ -647,7 +651,7 @@ export default function FuturisticLayout({
             </div>
             <div className="flex gap-2 justify-center">
               {pgSoftGamesWithRtp.map((game, index) => (
-                <FuturisticGameCard key={`pgsoft-${index}`} game={game} rtp={game.rtp} cardSize={cardSize} primaryColor={primaryColor} />
+                <FuturisticGameCard key={`pgsoft-${index}`} game={game} rtp={game.rtp} cardSize={cardSize} primaryColor={primaryColor} fontConfig={fontConfig} />
               ))}
             </div>
           </div>

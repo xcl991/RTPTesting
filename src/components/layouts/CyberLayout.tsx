@@ -1,6 +1,6 @@
 'use client';
 
-import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, MaxwinConfig } from '@/types';
+import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, MaxwinConfig, FontConfig } from '@/types';
 
 // Helper function to create darker/lighter colors from hex
 function adjustColor(hex: string, percent: number): string {
@@ -34,7 +34,7 @@ function PatternDisplay({ pattern, size }: { pattern: string; size: number }) {
 }
 
 // Cyber Game Card with clipped corners
-function CyberGameCard({ game, rtp, cardSize, primaryColor }: { game: Game; rtp: number; cardSize: number; primaryColor: string }) {
+function CyberGameCard({ game, rtp, cardSize, primaryColor, fontConfig }: { game: Game; rtp: number; cardSize: number; primaryColor: string; fontConfig?: FontConfig }) {
   const isHot = rtp >= 95;
   const darkPrimary = adjustColor(primaryColor, -60);
 
@@ -101,8 +101,10 @@ function CyberGameCard({ game, rtp, cardSize, primaryColor }: { game: Game; rtp:
         <h3
           className="text-sm font-bold leading-tight"
           style={{
-            color: '#ffffff',
-            textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
+            color: fontConfig?.color || '#ffffff',
+            textShadow: fontConfig?.outlineWidth && fontConfig.outlineWidth > 0
+              ? `${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, ${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}`
+              : '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
             overflow: 'hidden',
             height: '28px',
             display: '-webkit-box',
@@ -331,6 +333,7 @@ interface CyberLayoutProps {
   defaultLayoutSize: DefaultLayoutSizeConfig;
   footerConfig?: FooterConfig;
   maxwinConfig?: MaxwinConfig;
+  fontConfig?: FontConfig;
 }
 
 export default function CyberLayout({
@@ -347,7 +350,8 @@ export default function CyberLayout({
   customHeaderText,
   headerFontSize,
   footerConfig,
-  maxwinConfig
+  maxwinConfig,
+  fontConfig
 }: CyberLayoutProps) {
   const getFontSizeClass = () => {
     switch (headerFontSize) {
@@ -582,7 +586,7 @@ export default function CyberLayout({
             </div>
             <div className="flex gap-2 justify-center relative z-10">
               {pragmaticGamesWithRtp.map((game, index) => (
-                <CyberGameCard key={`pragmatic-${index}`} game={game} rtp={game.rtp} cardSize={cardSize} primaryColor={primaryColor} />
+                <CyberGameCard key={`pragmatic-${index}`} game={game} rtp={game.rtp} cardSize={cardSize} primaryColor={primaryColor} fontConfig={fontConfig} />
               ))}
             </div>
           </div>
@@ -627,7 +631,7 @@ export default function CyberLayout({
             </div>
             <div className="flex gap-2 justify-center relative z-10">
               {pgSoftGamesWithRtp.map((game, index) => (
-                <CyberGameCard key={`pgsoft-${index}`} game={game} rtp={game.rtp} cardSize={cardSize} primaryColor={primaryColor} />
+                <CyberGameCard key={`pgsoft-${index}`} game={game} rtp={game.rtp} cardSize={cardSize} primaryColor={primaryColor} fontConfig={fontConfig} />
               ))}
             </div>
           </div>

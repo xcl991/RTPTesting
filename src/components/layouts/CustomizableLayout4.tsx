@@ -1,6 +1,6 @@
 'use client';
 
-import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, MaxwinConfig } from '@/types';
+import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, MaxwinConfig, FontConfig } from '@/types';
 
 // Helper function to create darker/lighter colors from hex
 function adjustColor(hex: string, percent: number): string {
@@ -29,10 +29,11 @@ interface CustomizableLayout4Props {
   defaultLayoutSize: DefaultLayoutSizeConfig;
   footerConfig: FooterConfig;
   maxwinConfig?: MaxwinConfig;
+  fontConfig?: FontConfig;
 }
 
 // Glassmorphism Game Card
-function GlassGameCard({ game, rtp, style, cardSize }: { game: Game; rtp: number; style: RTPStyle; cardSize: number }) {
+function GlassGameCard({ game, rtp, style, cardSize, fontConfig }: { game: Game; rtp: number; style: RTPStyle; cardSize: number; fontConfig?: FontConfig }) {
   const darkPrimary = adjustColor(style.primaryColor, -70);
 
   return (
@@ -91,13 +92,17 @@ function GlassGameCard({ game, rtp, style, cardSize }: { game: Game; rtp: number
         }}
       >
         <h3
-          className="text-white font-bold text-[11px] leading-tight"
+          className="font-bold text-[11px] leading-tight"
           style={{
             overflow: 'hidden',
             height: '22px',
             display: '-webkit-box',
             WebkitLineClamp: 2,
-            WebkitBoxOrient: 'vertical'
+            WebkitBoxOrient: 'vertical',
+            color: fontConfig?.color || '#ffffff',
+            textShadow: fontConfig?.outlineWidth && fontConfig.outlineWidth > 0
+              ? `${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, ${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}`
+              : 'none'
           }}
         >
           {game.name}
@@ -321,13 +326,15 @@ function GlassGameModal({
   games,
   providerColor,
   style,
-  cardSize
+  cardSize,
+  fontConfig
 }: {
   title: string;
   games: Game[];
   providerColor: string;
   style: RTPStyle;
   cardSize: number;
+  fontConfig?: FontConfig;
 }) {
   const displayGames = games.slice(0, 3).map(game => ({
     ...game,
@@ -385,6 +392,7 @@ function GlassGameModal({
             rtp={game.rtp}
             style={style}
             cardSize={cardSize}
+            fontConfig={fontConfig}
           />
         ))}
       </div>
@@ -406,7 +414,8 @@ export default function CustomizableLayout4({
   customHeaderText,
   headerFontSize,
   footerConfig,
-  maxwinConfig
+  maxwinConfig,
+  fontConfig
 }: CustomizableLayout4Props) {
   const getFontSizeClass = () => {
     switch (headerFontSize) {
@@ -516,6 +525,7 @@ export default function CustomizableLayout4({
             providerColor="#ffd700"
             style={selectedStyle}
             cardSize={cardSize}
+            fontConfig={fontConfig}
           />
           <GlassGameModal
             title="PG SOFT"
@@ -523,6 +533,7 @@ export default function CustomizableLayout4({
             providerColor="#00f0ff"
             style={selectedStyle}
             cardSize={cardSize}
+            fontConfig={fontConfig}
           />
         </div>
 

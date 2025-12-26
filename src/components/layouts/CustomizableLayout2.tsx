@@ -1,6 +1,6 @@
 'use client';
 
-import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, MaxwinConfig } from '@/types';
+import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, MaxwinConfig, FontConfig } from '@/types';
 
 // Helper function to create darker/lighter colors from hex
 function adjustColor(hex: string, percent: number): string {
@@ -29,10 +29,11 @@ interface CustomizableLayout2Props {
   defaultLayoutSize: DefaultLayoutSizeConfig;
   footerConfig: FooterConfig;
   maxwinConfig?: MaxwinConfig;
+  fontConfig?: FontConfig;
 }
 
 // Game Card untuk layout 2 - ukuran lebih kecil untuk 3 game per provider
-function GameCard({ game, rtp, style, cardSize }: { game: Game; rtp: number; style: RTPStyle; cardSize: number }) {
+function GameCard({ game, rtp, style, cardSize, fontConfig }: { game: Game; rtp: number; style: RTPStyle; cardSize: number; fontConfig?: FontConfig }) {
   return (
     <div
       className="relative overflow-hidden rounded-lg shadow-lg"
@@ -74,13 +75,17 @@ function GameCard({ game, rtp, style, cardSize }: { game: Game; rtp: number; sty
         }}
       >
         <h3
-          className="text-white font-bold text-[11px] leading-tight"
+          className="font-bold text-[11px] leading-tight"
           style={{
             overflow: 'hidden',
             height: '22px',
             display: '-webkit-box',
             WebkitLineClamp: 2,
-            WebkitBoxOrient: 'vertical'
+            WebkitBoxOrient: 'vertical',
+            color: fontConfig?.color || '#ffffff',
+            textShadow: fontConfig?.outlineWidth && fontConfig.outlineWidth > 0
+              ? `${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, ${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}`
+              : 'none'
           }}
         >
           {game.name}
@@ -286,7 +291,8 @@ function GameModal({
   style,
   cardStyle,
   cardSize,
-  darkPrimary
+  darkPrimary,
+  fontConfig
 }: {
   title: string;
   games: Game[];
@@ -295,6 +301,7 @@ function GameModal({
   cardStyle: CardStyleOption;
   cardSize: number;
   darkPrimary: string;
+  fontConfig?: FontConfig;
 }) {
   const displayGames = games.slice(0, 3).map(game => ({
     ...game,
@@ -332,6 +339,7 @@ function GameModal({
             rtp={game.rtp}
             style={style}
             cardSize={cardSize}
+            fontConfig={fontConfig}
           />
         ))}
       </div>
@@ -353,7 +361,8 @@ export default function CustomizableLayout2({
   customHeaderText,
   headerFontSize,
   footerConfig,
-  maxwinConfig
+  maxwinConfig,
+  fontConfig
 }: CustomizableLayout2Props) {
   const getFontSizeClass = () => {
     switch (headerFontSize) {
@@ -480,6 +489,7 @@ export default function CustomizableLayout2({
             cardStyle={selectedCardStyle}
             cardSize={cardSize}
             darkPrimary={darkPrimary}
+            fontConfig={fontConfig}
           />
           <GameModal
             title="PG SOFT"
@@ -489,6 +499,7 @@ export default function CustomizableLayout2({
             cardStyle={selectedCardStyle}
             cardSize={cardSize}
             darkPrimary={darkPrimary}
+            fontConfig={fontConfig}
           />
         </div>
 
