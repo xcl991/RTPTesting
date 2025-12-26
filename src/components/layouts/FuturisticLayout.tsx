@@ -366,12 +366,15 @@ export default function FuturisticLayout({
     return selectedCardStyle.blur;
   };
 
-  const getCardContainerStyle = (color: string) => ({
-    background: selectedCardStyle?.background || `linear-gradient(135deg, ${adjustColor(color, -50)}90, ${adjustColor(color, -70)}90)`,
-    border: selectedCardStyle?.border ? `${selectedCardStyle.border} ${color}` : `2px solid ${color}`,
-    opacity: selectedCardStyle?.opacity || 1,
-    boxShadow: selectedCardStyle?.shadow || `0 0 30px ${color}50, inset 0 0 30px ${color}20`
-  });
+  const getCardContainerStyle = (color: string) => {
+    const themeBackground = `linear-gradient(135deg, ${adjustColor(color, -30)}ee 0%, ${adjustColor(color, -50)}ee 50%, ${adjustColor(color, -60)}ee 100%)`;
+    return {
+      background: selectedCardStyle?.background === 'theme' ? themeBackground : (selectedCardStyle?.background || `linear-gradient(135deg, ${adjustColor(color, -50)}90, ${adjustColor(color, -70)}90)`),
+      border: selectedCardStyle?.border ? `${selectedCardStyle.border} ${color}` : `2px solid ${color}`,
+      opacity: selectedCardStyle?.opacity || 1,
+      boxShadow: selectedCardStyle?.shadow || `0 0 30px ${color}50, inset 0 0 30px ${color}20`
+    };
+  };
 
   const primaryColor = selectedStyle.primaryColor;
   const darkPrimary = adjustColor(primaryColor, -50);

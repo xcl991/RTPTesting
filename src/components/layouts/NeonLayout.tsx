@@ -374,12 +374,15 @@ export default function NeonLayout({
     return selectedCardStyle.blur;
   };
 
-  const getCardContainerStyle = (color: string) => ({
-    background: selectedCardStyle?.background || `linear-gradient(145deg, ${adjustColor(color, -60)}dd, ${adjustColor(color, -80)}dd)`,
-    border: selectedCardStyle?.border ? `${selectedCardStyle.border} ${color}` : `3px solid ${color}`,
-    opacity: selectedCardStyle?.opacity || 1,
-    boxShadow: selectedCardStyle?.shadow || `0 0 40px ${color}80, inset 0 0 30px ${color}20`
-  });
+  const getCardContainerStyle = (color: string) => {
+    const themeBackground = `linear-gradient(135deg, ${adjustColor(color, -30)}ee 0%, ${adjustColor(color, -50)}ee 50%, ${adjustColor(color, -60)}ee 100%)`;
+    return {
+      background: selectedCardStyle?.background === 'theme' ? themeBackground : (selectedCardStyle?.background || `linear-gradient(145deg, ${adjustColor(color, -60)}dd, ${adjustColor(color, -80)}dd)`),
+      border: selectedCardStyle?.border ? `${selectedCardStyle.border} ${color}` : `3px solid ${color}`,
+      opacity: selectedCardStyle?.opacity || 1,
+      boxShadow: selectedCardStyle?.shadow || `0 0 40px ${color}80, inset 0 0 30px ${color}20`
+    };
+  };
 
   // Use selectedStyle colors
   const primaryColor = selectedStyle.primaryColor;

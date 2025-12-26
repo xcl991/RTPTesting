@@ -348,12 +348,15 @@ export default function ClassicLayout({
     return selectedCardStyle.blur;
   };
 
-  const getCardContainerStyle = (color: string) => ({
-    background: selectedCardStyle?.background || '#1a1a1a',
-    border: selectedCardStyle?.border ? `${selectedCardStyle.border} ${color}` : '4px solid #000',
-    opacity: selectedCardStyle?.opacity || 1,
-    boxShadow: selectedCardStyle?.shadow || '4px 4px 0 #000'
-  });
+  const getCardContainerStyle = (color: string) => {
+    const themeBackground = `linear-gradient(135deg, ${adjustColor(color, -30)}ee 0%, ${adjustColor(color, -50)}ee 50%, ${adjustColor(color, -60)}ee 100%)`;
+    return {
+      background: selectedCardStyle?.background === 'theme' ? themeBackground : (selectedCardStyle?.background || '#1a1a1a'),
+      border: selectedCardStyle?.border ? `${selectedCardStyle.border} ${color}` : '4px solid #000',
+      opacity: selectedCardStyle?.opacity || 1,
+      boxShadow: selectedCardStyle?.shadow || '4px 4px 0 #000'
+    };
+  };
 
   const primaryColor = selectedStyle.primaryColor;
   const cardSize = 145;
