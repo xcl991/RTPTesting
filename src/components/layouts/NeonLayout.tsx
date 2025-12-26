@@ -158,11 +158,13 @@ function PatternDisplay({ pattern, size }: { pattern: string; size: number }) {
 function NeonTrikPanel({
   trik,
   providerColor,
-  hideFiturGanda = false
+  hideFiturGanda = false,
+  cardStyle
 }: {
   trik: TrikConfig;
   providerColor: string;
   hideFiturGanda?: boolean;
+  cardStyle?: CardStyleOption;
 }) {
   const itemCount = trik.trikItems?.length || 0;
   const totalRows = itemCount + 4;
@@ -180,14 +182,22 @@ function NeonTrikPanel({
 
   return (
     <div
-      className="h-full overflow-hidden flex flex-col relative"
+      className={`h-full overflow-hidden flex flex-col relative ${cardStyle?.blur || ''}`}
       style={{
-        background: `linear-gradient(135deg, ${darkColor} 0%, ${darkerColor} 50%, ${adjustColor(providerColor, -70)} 100%)`,
-        borderRadius: '16px',
-        border: `3px solid ${providerColor}`,
-        boxShadow: `0 0 20px ${providerColor}60, inset 0 0 30px rgba(0,0,0,0.5)`
+        background: cardStyle?.background === 'theme'
+          ? `linear-gradient(135deg, ${adjustColor(providerColor, -30)}ee 0%, ${adjustColor(providerColor, -50)}ee 50%, ${adjustColor(providerColor, -60)}ee 100%)`
+          : (cardStyle?.background || `linear-gradient(135deg, ${darkColor} 0%, ${darkerColor} 50%, ${adjustColor(providerColor, -70)} 100%)`),
+        border: cardStyle?.border ? `${cardStyle.border} ${providerColor}` : `3px solid ${providerColor}`,
+        opacity: cardStyle?.opacity || 1,
+        boxShadow: cardStyle?.shadow || `0 0 20px ${providerColor}60, inset 0 0 30px rgba(0,0,0,0.5)`,
+        borderRadius: '16px'
       }}
     >
+      {/* Pattern Overlay */}
+      {cardStyle?.pattern && cardStyle.pattern !== 'none' && (
+        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: cardStyle.pattern, backgroundRepeat: 'repeat', opacity: 0.3, borderRadius: '16px' }} />
+      )}
+
       {/* Animated neon border effect */}
       <div
         className="absolute inset-0 pointer-events-none rounded-[13px]"
@@ -617,6 +627,7 @@ export default function NeonLayout({
                 <NeonTrikPanel
                   trik={pragmaticTrik}
                   providerColor={primaryColor}
+                  cardStyle={selectedCardStyle}
                 />
               </div>
             )}
@@ -626,6 +637,7 @@ export default function NeonLayout({
                   trik={pgSoftTrik}
                   providerColor={primaryColor}
                   hideFiturGanda={true}
+                  cardStyle={selectedCardStyle}
                 />
               </div>
             )}
@@ -636,13 +648,21 @@ export default function NeonLayout({
       {/* Maxwin Info Panel */}
       {maxwinConfig?.enabled && (
         <div
-          className="mx-4 mb-2 rounded-xl p-3 relative"
+          className={`mx-4 mb-2 rounded-xl p-3 relative ${selectedCardStyle?.blur || ''}`}
           style={{
-            background: `linear-gradient(135deg, ${darkerPrimary} 0%, ${adjustColor(primaryColor, -70)} 100%)`,
-            border: `3px solid ${primaryColor}`,
-            boxShadow: `0 0 20px ${primaryColor}60, 0 0 40px ${primaryColor}30, inset 0 0 30px rgba(0,0,0,0.5)`
+            background: selectedCardStyle?.background === 'theme'
+              ? `linear-gradient(135deg, ${adjustColor(primaryColor, -30)}ee 0%, ${adjustColor(primaryColor, -50)}ee 50%, ${adjustColor(primaryColor, -60)}ee 100%)`
+              : (selectedCardStyle?.background || `linear-gradient(135deg, ${darkerPrimary} 0%, ${adjustColor(primaryColor, -70)} 100%)`),
+            border: selectedCardStyle?.border ? `${selectedCardStyle.border} ${primaryColor}` : `3px solid ${primaryColor}`,
+            opacity: selectedCardStyle?.opacity || 1,
+            boxShadow: selectedCardStyle?.shadow || `0 0 20px ${primaryColor}60, 0 0 40px ${primaryColor}30, inset 0 0 30px rgba(0,0,0,0.5)`
           }}
         >
+          {/* Pattern Overlay */}
+          {selectedCardStyle?.pattern && selectedCardStyle.pattern !== 'none' && (
+            <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: selectedCardStyle.pattern, backgroundRepeat: 'repeat', opacity: 0.3, borderRadius: '0.75rem' }} />
+          )}
+
           {/* Neon corner lights */}
           <div className="absolute top-2 left-2 w-2 h-2 rounded-full" style={{ backgroundColor: primaryColor, boxShadow: `0 0 10px ${primaryColor}, 0 0 20px ${primaryColor}` }} />
           <div className="absolute top-2 right-2 w-2 h-2 rounded-full" style={{ backgroundColor: primaryColor, boxShadow: `0 0 10px ${primaryColor}, 0 0 20px ${primaryColor}` }} />

@@ -159,13 +159,15 @@ function MedievalTrikPanel({
   providerColor,
   primaryColor,
   secondaryColor,
-  hideFiturGanda = false
+  hideFiturGanda = false,
+  cardStyle
 }: {
   trik: TrikConfig;
   providerColor: string;
   primaryColor: string;
   secondaryColor: string;
   hideFiturGanda?: boolean;
+  cardStyle?: CardStyleOption;
 }) {
   const itemCount = trik.trikItems?.length || 0;
   const totalRows = itemCount + 4;
@@ -181,21 +183,31 @@ function MedievalTrikPanel({
   const darkPrimary = adjustColor(primaryColor, -40);
   const darkerPrimary = adjustColor(primaryColor, -60);
 
+  // Card Style Support
+  const getBlurClass = () => {
+    if (!cardStyle?.blur || cardStyle.blur === 'none') return '';
+    return cardStyle.blur;
+  };
+
+  const themeBackground = `linear-gradient(135deg, ${darkPrimary} 0%, ${darkerPrimary} 50%, ${adjustColor(primaryColor, -70)} 100%)`;
+  const defaultBackground = `linear-gradient(135deg, ${darkPrimary} 0%, ${darkerPrimary} 50%, ${adjustColor(primaryColor, -70)} 100%)`;
+
   return (
     <div
-      className="h-full overflow-hidden flex flex-col relative"
+      className={`h-full overflow-hidden flex flex-col relative ${getBlurClass()}`}
       style={{
-        background: `linear-gradient(135deg, ${darkPrimary} 0%, ${darkerPrimary} 50%, ${adjustColor(primaryColor, -70)} 100%)`,
+        background: cardStyle?.background === 'theme' ? themeBackground : (cardStyle?.background || defaultBackground),
         borderRadius: '8px',
-        border: `3px double ${providerColor}`,
-        boxShadow: `0 8px 24px rgba(0,0,0,0.7), inset 0 2px 0 rgba(255,215,0,0.15), 0 0 30px ${providerColor}20`
+        border: cardStyle?.border ? `${cardStyle.border} ${providerColor}` : `3px double ${providerColor}`,
+        opacity: cardStyle?.opacity || 1,
+        boxShadow: cardStyle?.shadow ? (cardStyle.shadow.includes('0 0 20px') ? `${cardStyle.shadow} ${providerColor}` : cardStyle.shadow) : `0 8px 24px rgba(0,0,0,0.7), inset 0 2px 0 rgba(255,215,0,0.15), 0 0 30px ${providerColor}20`
       }}
     >
-      {/* Stone Texture */}
+      {/* Pattern Overlay */}
       <div
         className="absolute inset-0 opacity-10 pointer-events-none"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0zm50 0h40v40H50zM0 50h40v40H0zm50 0h40v40H50z' fill='%23000' opacity='0.1'/%3E%3C/svg%3E")`,
+          backgroundImage: cardStyle?.pattern || `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0zm50 0h40v40H50zM0 50h40v40H0zm50 0h40v40H50z' fill='%23000' opacity='0.1'/%3E%3C/svg%3E")`,
           backgroundSize: '50px 50px',
           borderRadius: '8px'
         }}
@@ -653,6 +665,7 @@ export default function CasinoMedievalKingdomLayout({
                   providerColor={primaryColor}
                   primaryColor={primaryColor}
                   secondaryColor={secondaryColor}
+                  cardStyle={selectedCardStyle}
                 />
               </div>
             )}
@@ -664,6 +677,7 @@ export default function CasinoMedievalKingdomLayout({
                   primaryColor={primaryColor}
                   secondaryColor={secondaryColor}
                   hideFiturGanda={true}
+                  cardStyle={selectedCardStyle}
                 />
               </div>
             )}
@@ -674,18 +688,19 @@ export default function CasinoMedievalKingdomLayout({
       {/* Maxwin Info Panel */}
       {maxwinConfig?.enabled && (
         <div
-          className="mx-4 mb-2 rounded-xl p-3 relative"
+          className={`mx-4 mb-2 rounded-xl p-3 relative ${getBlurClass()}`}
           style={{
-            background: `linear-gradient(135deg, ${darkPrimary}d9, ${darkerPrimary}e6, ${darkPrimary}d9)`,
-            border: `3px double ${primaryColor}`,
-            boxShadow: `0 8px 24px rgba(0,0,0,0.7), inset 0 2px 0 rgba(255,215,0,0.15), 0 0 30px ${primaryColor}20`
+            background: selectedCardStyle?.background === 'theme' ? `linear-gradient(135deg, ${darkPrimary}d9, ${darkerPrimary}e6, ${darkPrimary}d9)` : (selectedCardStyle?.background || `linear-gradient(135deg, ${darkPrimary}d9, ${darkerPrimary}e6, ${darkPrimary}d9)`),
+            border: selectedCardStyle?.border ? `${selectedCardStyle.border} ${primaryColor}` : `3px double ${primaryColor}`,
+            opacity: selectedCardStyle?.opacity || 1,
+            boxShadow: selectedCardStyle?.shadow ? (selectedCardStyle.shadow.includes('0 0 20px') ? `${selectedCardStyle.shadow} ${primaryColor}` : selectedCardStyle.shadow) : `0 8px 24px rgba(0,0,0,0.7), inset 0 2px 0 rgba(255,215,0,0.15), 0 0 30px ${primaryColor}20`
           }}
         >
-          {/* Stone Texture */}
+          {/* Pattern Overlay */}
           <div
             className="absolute inset-0 opacity-10 pointer-events-none"
             style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0zm50 0h40v40H50zM0 50h40v40H0zm50 0h40v40H50z' fill='%23000' opacity='0.1'/%3E%3C/svg%3E")`,
+              backgroundImage: selectedCardStyle?.pattern || `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0zm50 0h40v40H50zM0 50h40v40H0zm50 0h40v40H50z' fill='%23000' opacity='0.1'/%3E%3C/svg%3E")`,
               backgroundSize: '50px 50px',
               borderRadius: '8px'
             }}

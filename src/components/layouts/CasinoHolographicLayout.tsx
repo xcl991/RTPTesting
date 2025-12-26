@@ -127,13 +127,15 @@ function HolographicTrikPanel({
   providerColor,
   primaryColor,
   secondaryColor,
-  hideFiturGanda = false
+  hideFiturGanda = false,
+  cardStyle
 }: {
   trik: TrikConfig;
   providerColor: string;
   primaryColor: string;
   secondaryColor: string;
   hideFiturGanda?: boolean;
+  cardStyle?: CardStyleOption;
 }) {
   const itemCount = trik.trikItems?.length || 0;
   const totalRows = itemCount + 4;
@@ -147,17 +149,36 @@ function HolographicTrikPanel({
 
   const sizes = getFontSize();
 
+  // Apply card style with theme fallbacks
+  const themeBackground = `linear-gradient(135deg, ${primaryColor}15, ${secondaryColor}15, ${primaryColor}15)`;
+  const containerBackground = cardStyle?.background === 'theme' ? themeBackground : (cardStyle?.background || themeBackground);
+  const containerBorder = cardStyle?.border ? `${cardStyle.border} ${providerColor}` : `1px solid ${providerColor}60`;
+  const containerShadow = cardStyle?.shadow ? (cardStyle.shadow.includes('0 0 20px') ? `${cardStyle.shadow} ${providerColor}` : cardStyle.shadow) : `0 0 20px ${providerColor}40, inset 0 0 30px rgba(255,255,255,0.05)`;
+  const containerOpacity = cardStyle?.opacity || 1;
+  const blurClass = cardStyle?.blur && cardStyle.blur !== 'none' ? cardStyle.blur : '';
+
   return (
     <div
-      className="h-full overflow-hidden flex flex-col relative"
+      className={`h-full overflow-hidden flex flex-col relative ${blurClass}`}
       style={{
-        background: `linear-gradient(135deg, ${primaryColor}15, ${secondaryColor}15, ${primaryColor}15)`,
+        background: containerBackground,
         borderRadius: '16px',
-        border: `1px solid ${providerColor}60`,
-        boxShadow: `0 0 20px ${providerColor}40, inset 0 0 30px rgba(255,255,255,0.05)`,
-        backdropFilter: 'blur(15px)'
+        border: containerBorder,
+        boxShadow: containerShadow,
+        backdropFilter: 'blur(15px)',
+        opacity: containerOpacity
       }}
     >
+      {/* Pattern overlay */}
+      {cardStyle?.pattern && (
+        <div
+          className="absolute inset-0 pointer-events-none rounded-[16px]"
+          style={{
+            backgroundImage: cardStyle.pattern,
+            opacity: 0.1
+          }}
+        />
+      )}
       {/* Holographic shimmer effect */}
       <div
         className="absolute inset-0 pointer-events-none rounded-[13px]"
@@ -655,6 +676,7 @@ export default function CasinoHolographicLayout({
                   providerColor={primaryColor}
                   primaryColor={primaryColor}
                   secondaryColor={secondaryColor}
+                  cardStyle={selectedCardStyle}
                 />
               </div>
             )}
@@ -666,6 +688,7 @@ export default function CasinoHolographicLayout({
                   primaryColor={secondaryColor}
                   secondaryColor={primaryColor}
                   hideFiturGanda={true}
+                  cardStyle={selectedCardStyle}
                 />
               </div>
             )}
@@ -676,15 +699,26 @@ export default function CasinoHolographicLayout({
       {/* Maxwin Info Panel */}
       {maxwinConfig?.enabled && (
         <div
-          className="mx-4 mb-2 rounded-xl p-3 relative overflow-hidden"
+          className={`mx-4 mb-2 rounded-xl p-3 relative overflow-hidden ${getBlurClass()}`}
           style={{
-            background: `linear-gradient(135deg, ${primaryColor}15, ${secondaryColor}15, ${primaryColor}15)`,
+            background: selectedCardStyle?.background === 'theme' ? `linear-gradient(135deg, ${primaryColor}15, ${secondaryColor}15, ${primaryColor}15)` : (selectedCardStyle?.background || `linear-gradient(135deg, ${primaryColor}15, ${secondaryColor}15, ${primaryColor}15)`),
             backdropFilter: 'blur(15px)',
-            border: `2px solid transparent`,
-            borderImage: `linear-gradient(90deg, ${primaryColor}, #ff00ff, ${secondaryColor}, #00ffff, ${primaryColor}) 1`,
-            boxShadow: `0 0 30px ${primaryColor}30, 0 0 60px ${secondaryColor}20, inset 0 0 30px rgba(255,255,255,0.05)`
+            border: selectedCardStyle?.border ? `${selectedCardStyle.border} ${primaryColor}` : `2px solid transparent`,
+            borderImage: selectedCardStyle?.border ? undefined : `linear-gradient(90deg, ${primaryColor}, #ff00ff, ${secondaryColor}, #00ffff, ${primaryColor}) 1`,
+            boxShadow: selectedCardStyle?.shadow ? (selectedCardStyle.shadow.includes('0 0 20px') ? `${selectedCardStyle.shadow} ${primaryColor}` : selectedCardStyle.shadow) : `0 0 30px ${primaryColor}30, 0 0 60px ${secondaryColor}20, inset 0 0 30px rgba(255,255,255,0.05)`,
+            opacity: selectedCardStyle?.opacity || 1
           }}
         >
+          {/* Pattern overlay */}
+          {selectedCardStyle?.pattern && (
+            <div
+              className="absolute inset-0 pointer-events-none rounded-xl"
+              style={{
+                backgroundImage: selectedCardStyle.pattern,
+                opacity: 0.1
+              }}
+            />
+          )}
           {/* Holographic shimmer overlay */}
           <div
             className="absolute inset-0 pointer-events-none opacity-40"

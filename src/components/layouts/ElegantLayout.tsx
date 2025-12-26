@@ -131,12 +131,14 @@ function ElegantTrikPanel({
   trik,
   providerColor,
   primaryColor,
-  hideFiturGanda = false
+  hideFiturGanda = false,
+  cardStyle
 }: {
   trik: TrikConfig;
   providerColor: string;
   primaryColor: string;
   hideFiturGanda?: boolean;
+  cardStyle?: CardStyleOption;
 }) {
   const itemCount = trik.trikItems?.length || 0;
   const totalRows = itemCount + 4;
@@ -154,14 +156,22 @@ function ElegantTrikPanel({
 
   return (
     <div
-      className="h-full overflow-hidden flex flex-col relative"
+      className={`h-full overflow-hidden flex flex-col relative ${cardStyle?.blur || ''}`}
       style={{
-        background: `linear-gradient(145deg, ${darkPrimary}f2 0%, ${darkerPrimary} 100%)`,
-        borderRadius: '12px',
-        border: `2px solid ${providerColor}80`,
-        boxShadow: `0 4px 20px ${providerColor}30, inset 0 2px 10px rgba(255,255,255,0.1)`
+        background: cardStyle?.background === 'theme'
+          ? `linear-gradient(135deg, ${adjustColor(providerColor, -30)}ee 0%, ${adjustColor(providerColor, -50)}ee 50%, ${adjustColor(providerColor, -60)}ee 100%)`
+          : (cardStyle?.background || `linear-gradient(145deg, ${darkPrimary}f2 0%, ${darkerPrimary} 100%)`),
+        border: cardStyle?.border ? `${cardStyle.border} ${providerColor}` : `2px solid ${providerColor}80`,
+        opacity: cardStyle?.opacity || 1,
+        boxShadow: cardStyle?.shadow || `0 4px 20px ${providerColor}30, inset 0 2px 10px rgba(255,255,255,0.1)`,
+        borderRadius: '12px'
       }}
     >
+      {/* Pattern Overlay */}
+      {cardStyle?.pattern && cardStyle.pattern !== 'none' && (
+        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: cardStyle.pattern, backgroundRepeat: 'repeat', opacity: 0.3, borderRadius: '12px' }} />
+      )}
+
       {/* Elegant border effect */}
       <div
         className="absolute inset-0 pointer-events-none rounded-[10px]"
@@ -640,6 +650,7 @@ export default function ElegantLayout({
                   trik={pragmaticTrik}
                   providerColor={primaryColor}
                   primaryColor={primaryColor}
+                  cardStyle={selectedCardStyle}
                 />
               </div>
             )}
@@ -650,6 +661,7 @@ export default function ElegantLayout({
                   providerColor={secondaryColor}
                   primaryColor={primaryColor}
                   hideFiturGanda={true}
+                  cardStyle={selectedCardStyle}
                 />
               </div>
             )}
@@ -660,13 +672,21 @@ export default function ElegantLayout({
       {/* Maxwin Info Panel */}
       {maxwinConfig?.enabled && (
         <div
-          className="mx-4 mb-2 rounded-xl p-3 relative"
+          className={`mx-4 mb-2 rounded-xl p-3 relative ${selectedCardStyle?.blur || ''}`}
           style={{
-            background: `linear-gradient(145deg, ${darkPrimary}f2 0%, ${darkerPrimary} 100%)`,
-            border: `2px solid ${primaryColor}80`,
-            boxShadow: `0 4px 20px ${primaryColor}30, inset 0 2px 10px rgba(255,255,255,0.1)`
+            background: selectedCardStyle?.background === 'theme'
+              ? `linear-gradient(135deg, ${adjustColor(primaryColor, -30)}ee 0%, ${adjustColor(primaryColor, -50)}ee 50%, ${adjustColor(primaryColor, -60)}ee 100%)`
+              : (selectedCardStyle?.background || `linear-gradient(145deg, ${darkPrimary}f2 0%, ${darkerPrimary} 100%)`),
+            border: selectedCardStyle?.border ? `${selectedCardStyle.border} ${primaryColor}` : `2px solid ${primaryColor}80`,
+            opacity: selectedCardStyle?.opacity || 1,
+            boxShadow: selectedCardStyle?.shadow || `0 4px 20px ${primaryColor}30, inset 0 2px 10px rgba(255,255,255,0.1)`
           }}
         >
+          {/* Pattern Overlay */}
+          {selectedCardStyle?.pattern && selectedCardStyle.pattern !== 'none' && (
+            <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: selectedCardStyle.pattern, backgroundRepeat: 'repeat', opacity: 0.3, borderRadius: '0.75rem' }} />
+          )}
+
           {/* Elegant corner decorations */}
           <div className="absolute top-2 left-2 w-2 h-2 rounded-full" style={{ backgroundColor: primaryColor, boxShadow: `0 0 8px ${primaryColor}` }} />
           <div className="absolute top-2 right-2 w-2 h-2 rounded-full" style={{ backgroundColor: primaryColor, boxShadow: `0 0 8px ${primaryColor}` }} />

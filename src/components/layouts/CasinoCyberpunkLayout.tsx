@@ -147,12 +147,14 @@ function CyberpunkTrikPanel({
   trik,
   providerColor,
   primaryColor,
-  hideFiturGanda = false
+  hideFiturGanda = false,
+  cardStyle
 }: {
   trik: TrikConfig;
   providerColor: string;
   primaryColor: string;
   hideFiturGanda?: boolean;
+  cardStyle?: CardStyleOption;
 }) {
   const itemCount = trik.trikItems?.length || 0;
   const totalRows = itemCount + 4;
@@ -168,22 +170,32 @@ function CyberpunkTrikPanel({
   const darkPrimary = adjustColor(primaryColor, -40);
   const darkerPrimary = adjustColor(primaryColor, -60);
 
+  // Card Style Support
+  const getBlurClass = () => {
+    if (!cardStyle?.blur || cardStyle.blur === 'none') return '';
+    return cardStyle.blur;
+  };
+
+  const themeBackground = `linear-gradient(135deg, rgba(0,0,0,0.9), ${primaryColor}15)`;
+  const defaultBackground = `linear-gradient(135deg, rgba(0,0,0,0.9), ${primaryColor}15)`;
+
   return (
     <div
-      className="h-full overflow-hidden flex flex-col relative"
+      className={`h-full overflow-hidden flex flex-col relative ${getBlurClass()}`}
       style={{
-        background: `linear-gradient(135deg, rgba(0,0,0,0.9), ${primaryColor}15)`,
+        background: cardStyle?.background === 'theme' ? themeBackground : (cardStyle?.background || defaultBackground),
         borderRadius: '8px',
-        border: `2px solid ${providerColor}`,
-        boxShadow: `0 0 20px ${providerColor}60, inset 0 0 20px rgba(0,0,0,0.5)`,
+        border: cardStyle?.border ? `${cardStyle.border} ${providerColor}` : `2px solid ${providerColor}`,
+        opacity: cardStyle?.opacity || 1,
+        boxShadow: cardStyle?.shadow ? (cardStyle.shadow.includes('0 0 20px') ? `${cardStyle.shadow} ${providerColor}` : cardStyle.shadow) : `0 0 20px ${providerColor}60, inset 0 0 20px rgba(0,0,0,0.5)`,
         clipPath: 'polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px))'
       }}
     >
-      {/* Grid Pattern Overlay */}
+      {/* Pattern Overlay */}
       <div
         className="absolute inset-0 opacity-10 pointer-events-none"
         style={{
-          backgroundImage: `linear-gradient(${providerColor}40 1px, transparent 1px), linear-gradient(90deg, ${providerColor}40 1px, transparent 1px)`,
+          backgroundImage: cardStyle?.pattern || `linear-gradient(${providerColor}40 1px, transparent 1px), linear-gradient(90deg, ${providerColor}40 1px, transparent 1px)`,
           backgroundSize: '20px 20px'
         }}
       />
@@ -701,6 +713,7 @@ export default function CasinoCyberpunkLayout({
                   trik={pragmaticTrik}
                   providerColor={primaryColor}
                   primaryColor={primaryColor}
+                  cardStyle={selectedCardStyle}
                 />
               </div>
             )}
@@ -711,6 +724,7 @@ export default function CasinoCyberpunkLayout({
                   providerColor={primaryColor}
                   primaryColor={primaryColor}
                   hideFiturGanda={true}
+                  cardStyle={selectedCardStyle}
                 />
               </div>
             )}
@@ -721,19 +735,20 @@ export default function CasinoCyberpunkLayout({
       {/* Maxwin Info Panel */}
       {maxwinConfig?.enabled && (
         <div
-          className="mx-4 mb-2 rounded-xl p-3 relative"
+          className={`mx-4 mb-2 rounded-xl p-3 relative ${getBlurClass()}`}
           style={{
-            background: `linear-gradient(135deg, rgba(0,0,0,0.95), ${primaryColor}20, rgba(0,0,0,0.95))`,
-            border: `2px solid ${primaryColor}`,
-            boxShadow: `0 0 30px ${primaryColor}60, 0 0 15px #ff00ff40, inset 0 0 40px rgba(0,0,0,0.5)`,
+            background: selectedCardStyle?.background === 'theme' ? `linear-gradient(135deg, rgba(0,0,0,0.95), ${primaryColor}20, rgba(0,0,0,0.95))` : (selectedCardStyle?.background || `linear-gradient(135deg, rgba(0,0,0,0.95), ${primaryColor}20, rgba(0,0,0,0.95))`),
+            border: selectedCardStyle?.border ? `${selectedCardStyle.border} ${primaryColor}` : `2px solid ${primaryColor}`,
+            opacity: selectedCardStyle?.opacity || 1,
+            boxShadow: selectedCardStyle?.shadow ? (selectedCardStyle.shadow.includes('0 0 20px') ? `${selectedCardStyle.shadow} ${primaryColor}` : selectedCardStyle.shadow) : `0 0 30px ${primaryColor}60, 0 0 15px #ff00ff40, inset 0 0 40px rgba(0,0,0,0.5)`,
             clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))'
           }}
         >
-          {/* Grid Pattern Overlay */}
+          {/* Pattern Overlay */}
           <div
             className="absolute inset-0 opacity-10 pointer-events-none"
             style={{
-              backgroundImage: `linear-gradient(#ff00ff40 1px, transparent 1px), linear-gradient(90deg, #00ffff40 1px, transparent 1px)`,
+              backgroundImage: selectedCardStyle?.pattern || `linear-gradient(#ff00ff40 1px, transparent 1px), linear-gradient(90deg, #00ffff40 1px, transparent 1px)`,
               backgroundSize: '20px 20px'
             }}
           />

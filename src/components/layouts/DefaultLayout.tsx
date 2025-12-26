@@ -134,11 +134,13 @@ function PatternDisplay({ pattern, size }: { pattern: string; size: number }) {
 function DefaultTrikPanel({
   trik,
   primaryColor,
-  hideFiturGanda = false
+  hideFiturGanda = false,
+  cardStyle
 }: {
   trik: TrikConfig;
   primaryColor: string;
   hideFiturGanda?: boolean;
+  cardStyle?: CardStyleOption;
 }) {
   const itemCount = trik.trikItems?.length || 0;
   const totalRows = itemCount + 4;
@@ -156,14 +158,20 @@ function DefaultTrikPanel({
 
   return (
     <div
-      className="h-full overflow-hidden flex flex-col relative"
+      className={`h-full overflow-hidden flex flex-col relative ${cardStyle?.blur || ''}`}
       style={{
-        background: `linear-gradient(135deg, ${darkPrimary} 0%, ${darkerPrimary} 50%, ${adjustColor(primaryColor, -70)} 100%)`,
-        borderRadius: '16px',
-        border: `3px solid ${primaryColor}`,
-        boxShadow: `0 0 20px ${primaryColor}60, inset 0 0 30px rgba(0,0,0,0.5)`
+        background: cardStyle?.background === 'theme'
+          ? `linear-gradient(135deg, ${adjustColor(primaryColor, -30)}ee 0%, ${adjustColor(primaryColor, -50)}ee 50%, ${adjustColor(primaryColor, -60)}ee 100%)`
+          : (cardStyle?.background || `linear-gradient(135deg, ${darkPrimary} 0%, ${darkerPrimary} 50%, ${adjustColor(primaryColor, -70)} 100%)`),
+        border: cardStyle?.border ? `${cardStyle.border} ${primaryColor}` : `3px solid ${primaryColor}`,
+        opacity: cardStyle?.opacity || 1,
+        boxShadow: cardStyle?.shadow ? (cardStyle.shadow.includes('0 0 20px') ? `${cardStyle.shadow} ${primaryColor}` : cardStyle.shadow) : `0 0 20px ${primaryColor}60, inset 0 0 30px rgba(0,0,0,0.5)`,
+        borderRadius: '16px'
       }}
     >
+      {cardStyle?.pattern && cardStyle.pattern !== 'none' && (
+        <div className="absolute inset-0 pointer-events-none rounded-xl" style={{ backgroundImage: cardStyle.pattern, backgroundRepeat: 'repeat', opacity: 0.3 }} />
+      )}
       {/* Header */}
       <div
         className="text-center flex-shrink-0 relative"
@@ -535,6 +543,7 @@ export default function DefaultLayout({
                 <DefaultTrikPanel
                   trik={pragmaticTrik}
                   primaryColor={primaryColor}
+                  cardStyle={selectedCardStyle}
                 />
               </div>
             )}
@@ -544,6 +553,7 @@ export default function DefaultLayout({
                   trik={pgSoftTrik}
                   primaryColor={primaryColor}
                   hideFiturGanda={true}
+                  cardStyle={selectedCardStyle}
                 />
               </div>
             )}
@@ -554,13 +564,19 @@ export default function DefaultLayout({
       {/* Maxwin Info Panel */}
       {maxwinConfig?.enabled && (
         <div
-          className="mx-4 mb-2 rounded-xl p-3"
+          className={`mx-4 mb-2 rounded-xl p-3 relative ${getBlurClass()}`}
           style={{
-            background: `linear-gradient(145deg, ${adjustColor(primaryColor, -60)}f0, ${adjustColor(primaryColor, -70)}f0)`,
-            border: `2px solid ${primaryColor}40`,
-            boxShadow: `0 4px 15px ${primaryColor}20`
+            background: selectedCardStyle?.background === 'theme'
+              ? `linear-gradient(135deg, ${adjustColor(primaryColor, -30)}ee 0%, ${adjustColor(primaryColor, -50)}ee 50%, ${adjustColor(primaryColor, -60)}ee 100%)`
+              : (selectedCardStyle?.background || `linear-gradient(145deg, ${adjustColor(primaryColor, -60)}f0, ${adjustColor(primaryColor, -70)}f0)`),
+            border: selectedCardStyle?.border ? `${selectedCardStyle.border} ${primaryColor}` : `2px solid ${primaryColor}40`,
+            opacity: selectedCardStyle?.opacity || 1,
+            boxShadow: selectedCardStyle?.shadow ? (selectedCardStyle.shadow.includes('0 0 20px') ? `${selectedCardStyle.shadow} ${primaryColor}` : selectedCardStyle.shadow) : `0 4px 15px ${primaryColor}20`
           }}
         >
+          {selectedCardStyle?.pattern && selectedCardStyle.pattern !== 'none' && (
+            <div className="absolute inset-0 pointer-events-none rounded-xl" style={{ backgroundImage: selectedCardStyle.pattern, backgroundRepeat: 'repeat', opacity: 0.3 }} />
+          )}
           {/* Heading 1 */}
           <div className="text-center mb-2">
             <h2

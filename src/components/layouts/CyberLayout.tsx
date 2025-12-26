@@ -122,12 +122,14 @@ function CyberTrikPanel({
   trik,
   providerColor,
   primaryColor,
-  hideFiturGanda = false
+  hideFiturGanda = false,
+  cardStyle
 }: {
   trik: TrikConfig;
   providerColor: string;
   primaryColor: string;
   hideFiturGanda?: boolean;
+  cardStyle?: CardStyleOption;
 }) {
   const itemCount = trik.trikItems?.length || 0;
   const totalRows = itemCount + 4;
@@ -144,14 +146,22 @@ function CyberTrikPanel({
 
   return (
     <div
-      className="h-full overflow-hidden flex flex-col relative"
+      className={`h-full overflow-hidden flex flex-col relative ${cardStyle?.blur || ''}`}
       style={{
-        background: darkPrimary,
+        background: cardStyle?.background === 'theme'
+          ? `linear-gradient(135deg, ${adjustColor(providerColor, -30)}ee 0%, ${adjustColor(providerColor, -50)}ee 50%, ${adjustColor(providerColor, -60)}ee 100%)`
+          : (cardStyle?.background || darkPrimary),
         clipPath: 'polygon(0 15px, 15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%)',
-        border: `2px solid ${providerColor}`,
-        boxShadow: `0 0 15px ${providerColor}40`
+        border: cardStyle?.border ? `${cardStyle.border} ${providerColor}` : `2px solid ${providerColor}`,
+        opacity: cardStyle?.opacity || 1,
+        boxShadow: cardStyle?.shadow || `0 0 15px ${providerColor}40`
       }}
     >
+      {/* Pattern Overlay */}
+      {cardStyle?.pattern && cardStyle.pattern !== 'none' && (
+        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: cardStyle.pattern, backgroundRepeat: 'repeat', opacity: 0.3, clipPath: 'polygon(0 15px, 15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%)' }} />
+      )}
+
       {/* Circuit pattern overlay */}
       <div
         className="absolute inset-0 pointer-events-none opacity-5"
@@ -632,6 +642,7 @@ export default function CyberLayout({
                   trik={pragmaticTrik}
                   providerColor={primaryColor}
                   primaryColor={primaryColor}
+                  cardStyle={selectedCardStyle}
                 />
               </div>
             )}
@@ -642,6 +653,7 @@ export default function CyberLayout({
                   providerColor={primaryColor}
                   primaryColor={primaryColor}
                   hideFiturGanda={true}
+                  cardStyle={selectedCardStyle}
                 />
               </div>
             )}
@@ -652,14 +664,22 @@ export default function CyberLayout({
       {/* Maxwin Info Panel */}
       {maxwinConfig?.enabled && (
         <div
-          className="mx-4 mb-2 p-3 relative"
+          className={`mx-4 mb-2 p-3 relative ${selectedCardStyle?.blur || ''}`}
           style={{
-            background: darkPrimary,
+            background: selectedCardStyle?.background === 'theme'
+              ? `linear-gradient(135deg, ${adjustColor(primaryColor, -30)}ee 0%, ${adjustColor(primaryColor, -50)}ee 50%, ${adjustColor(primaryColor, -60)}ee 100%)`
+              : (selectedCardStyle?.background || darkPrimary),
             clipPath: 'polygon(0 15px, 15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%)',
-            border: `2px solid ${primaryColor}`,
-            boxShadow: `0 0 15px ${primaryColor}40`
+            border: selectedCardStyle?.border ? `${selectedCardStyle.border} ${primaryColor}` : `2px solid ${primaryColor}`,
+            opacity: selectedCardStyle?.opacity || 1,
+            boxShadow: selectedCardStyle?.shadow || `0 0 15px ${primaryColor}40`
           }}
         >
+          {/* Pattern Overlay */}
+          {selectedCardStyle?.pattern && selectedCardStyle.pattern !== 'none' && (
+            <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: selectedCardStyle.pattern, backgroundRepeat: 'repeat', opacity: 0.3, clipPath: 'polygon(0 15px, 15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%)' }} />
+          )}
+
           {/* Warning stripes pattern */}
           <div
             className="absolute inset-0 opacity-10 pointer-events-none"

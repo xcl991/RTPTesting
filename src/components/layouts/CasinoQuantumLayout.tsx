@@ -58,12 +58,14 @@ function QuantumTrikPanel({
   trik,
   providerColor,
   primaryColor,
-  hideFiturGanda = false
+  hideFiturGanda = false,
+  cardStyle
 }: {
   trik: TrikConfig;
   providerColor: string;
   primaryColor: string;
   hideFiturGanda?: boolean;
+  cardStyle?: CardStyleOption;
 }) {
   const itemCount = trik.trikItems?.length || 0;
   const totalRows = itemCount + 4;
@@ -79,16 +81,37 @@ function QuantumTrikPanel({
   const darkPrimary = adjustColor(primaryColor, -80);
   const darkerPrimary = adjustColor(primaryColor, -90);
 
+  // Card Style Helpers
+  const getBlurClass = () => {
+    if (!cardStyle?.blur || cardStyle.blur === 'none') return '';
+    return cardStyle.blur;
+  };
+
+  const themeBackground = `linear-gradient(135deg, ${darkPrimary}e6, ${primaryColor}15)`;
+  const cardContainerStyle = {
+    background: cardStyle?.background === 'theme' ? themeBackground : (cardStyle?.background || `linear-gradient(135deg, ${darkPrimary}e6, ${primaryColor}15)`),
+    border: cardStyle?.border ? `${cardStyle.border} ${providerColor}` : `1px solid ${providerColor}60`,
+    opacity: cardStyle?.opacity || 1,
+    boxShadow: cardStyle?.shadow ? (cardStyle.shadow.includes('0 0 20px') ? `${cardStyle.shadow} ${providerColor}` : cardStyle.shadow) : `0 0 20px ${providerColor}40, inset 0 0 15px rgba(0,0,0,0.5)`,
+    borderRadius: '8px'
+  };
+
   return (
     <div
-      className="h-full overflow-hidden flex flex-col relative"
-      style={{
-        background: `linear-gradient(135deg, ${darkPrimary}e6, ${primaryColor}15)`,
-        borderRadius: '8px',
-        border: `1px solid ${providerColor}60`,
-        boxShadow: `0 0 20px ${providerColor}40, inset 0 0 15px rgba(0,0,0,0.5)`
-      }}
+      className={`h-full overflow-hidden flex flex-col relative ${getBlurClass()}`}
+      style={cardContainerStyle}
     >
+      {/* Pattern Overlay */}
+      {cardStyle?.pattern && (
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: cardStyle.pattern,
+            opacity: 0.1,
+            borderRadius: '8px'
+          }}
+        />
+      )}
       {/* Circuit Board Pattern */}
       <div
         className="absolute inset-0 opacity-20 rounded-lg"
@@ -710,6 +733,7 @@ export default function CasinoQuantumLayout({
                   trik={pragmaticTrik}
                   providerColor={primaryColor}
                   primaryColor={primaryColor}
+                  cardStyle={selectedCardStyle}
                 />
               </div>
             )}
@@ -720,6 +744,7 @@ export default function CasinoQuantumLayout({
                   providerColor={secondaryColor}
                   primaryColor={secondaryColor}
                   hideFiturGanda={true}
+                  cardStyle={selectedCardStyle}
                 />
               </div>
             )}
@@ -729,13 +754,25 @@ export default function CasinoQuantumLayout({
         {/* Maxwin Info Panel */}
         {maxwinConfig?.enabled && (
           <div
-            className="mx-4 mb-2 rounded-xl p-3 relative overflow-hidden"
+            className={`mx-4 mb-2 rounded-xl p-3 relative overflow-hidden ${getBlurClass()}`}
             style={{
-              background: `linear-gradient(135deg, ${darkPrimary}e6, ${primaryColor}15)`,
-              border: `1px solid ${primaryColor}60`,
-              boxShadow: `0 0 20px ${primaryColor}40, inset 0 0 15px rgba(0,0,0,0.5)`
+              background: selectedCardStyle?.background === 'theme' ? `linear-gradient(135deg, ${darkPrimary}e6, ${primaryColor}15)` : (selectedCardStyle?.background || `linear-gradient(135deg, ${darkPrimary}e6, ${primaryColor}15)`),
+              border: selectedCardStyle?.border ? `${selectedCardStyle.border} ${primaryColor}` : `1px solid ${primaryColor}60`,
+              opacity: selectedCardStyle?.opacity || 1,
+              boxShadow: selectedCardStyle?.shadow ? (selectedCardStyle.shadow.includes('0 0 20px') ? `${selectedCardStyle.shadow} ${primaryColor}` : selectedCardStyle.shadow) : `0 0 20px ${primaryColor}40, inset 0 0 15px rgba(0,0,0,0.5)`
             }}
           >
+            {/* Pattern Overlay */}
+            {selectedCardStyle?.pattern && (
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  backgroundImage: selectedCardStyle.pattern,
+                  opacity: 0.1,
+                  borderRadius: '12px'
+                }}
+              />
+            )}
             {/* Circuit Board Pattern */}
             <div
               className="absolute inset-0 opacity-20 rounded-lg"

@@ -37,11 +37,13 @@ function PatternDisplay({ pattern, size }: { pattern: string; size: number }) {
 function MatrixTrikPanel({
   trik,
   providerColor,
-  hideFiturGanda = false
+  hideFiturGanda = false,
+  cardStyle
 }: {
   trik: TrikConfig;
   providerColor: string;
   hideFiturGanda?: boolean;
+  cardStyle?: CardStyleOption;
 }) {
   const itemCount = trik.trikItems?.length || 0;
   const totalRows = itemCount + 4;
@@ -57,17 +59,36 @@ function MatrixTrikPanel({
   const darkGreen = adjustColor('#00ff00', -85);
   const darkerGreen = adjustColor('#00ff00', -95);
 
+  // Apply card style with theme fallbacks
+  const themeBackground = `linear-gradient(135deg, ${darkerGreen}, ${darkGreen})`;
+  const containerBackground = cardStyle?.background === 'theme' ? themeBackground : (cardStyle?.background || themeBackground);
+  const containerBorder = cardStyle?.border ? `${cardStyle.border} ${providerColor}` : `1px solid ${providerColor}40`;
+  const containerShadow = cardStyle?.shadow ? (cardStyle.shadow.includes('0 0 20px') ? `${cardStyle.shadow} ${providerColor}` : cardStyle.shadow) : `0 0 20px ${providerColor}20`;
+  const containerOpacity = cardStyle?.opacity || 1;
+  const blurClass = cardStyle?.blur && cardStyle.blur !== 'none' ? cardStyle.blur : '';
+
   return (
     <div
-      className="h-full overflow-hidden flex flex-col relative"
+      className={`h-full overflow-hidden flex flex-col relative ${blurClass}`}
       style={{
-        background: `linear-gradient(135deg, ${darkerGreen}, ${darkGreen})`,
+        background: containerBackground,
         borderRadius: '4px',
-        border: `1px solid ${providerColor}40`,
-        boxShadow: `0 0 20px ${providerColor}20`,
-        fontFamily: 'monospace'
+        border: containerBorder,
+        boxShadow: containerShadow,
+        fontFamily: 'monospace',
+        opacity: containerOpacity
       }}
     >
+      {/* Pattern overlay */}
+      {cardStyle?.pattern && (
+        <div
+          className="absolute inset-0 pointer-events-none rounded"
+          style={{
+            backgroundImage: cardStyle.pattern,
+            opacity: 0.1
+          }}
+        />
+      )}
       {/* Matrix rain effect */}
       <div
         className="absolute inset-0 opacity-20"
@@ -638,6 +659,7 @@ export default function CasinoMatrixLayout({
               <MatrixTrikPanel
                 trik={pragmaticTrik}
                 providerColor={primaryColor}
+                cardStyle={selectedCardStyle}
               />
             </div>
           )}
@@ -647,6 +669,7 @@ export default function CasinoMatrixLayout({
                 trik={pgSoftTrik}
                 providerColor={primaryColor}
                 hideFiturGanda={true}
+                cardStyle={selectedCardStyle}
               />
             </div>
           )}
@@ -656,14 +679,25 @@ export default function CasinoMatrixLayout({
       {/* Maxwin Info Panel */}
       {maxwinConfig?.enabled && (
         <div
-          className="mx-4 mb-2 rounded p-3 relative"
+          className={`mx-4 mb-2 rounded p-3 relative ${getBlurClass()}`}
           style={{
-            background: `linear-gradient(135deg, ${darkerPrimary}, ${darkPrimary})`,
-            border: `2px solid ${primaryColor}`,
-            boxShadow: `0 0 20px ${primaryColor}40, inset 0 0 20px ${primaryColor}10`,
-            fontFamily: 'monospace'
+            background: selectedCardStyle?.background === 'theme' ? `linear-gradient(135deg, ${darkerPrimary}, ${darkPrimary})` : (selectedCardStyle?.background || `linear-gradient(135deg, ${darkerPrimary}, ${darkPrimary})`),
+            border: selectedCardStyle?.border ? `${selectedCardStyle.border} ${primaryColor}` : `2px solid ${primaryColor}`,
+            boxShadow: selectedCardStyle?.shadow ? (selectedCardStyle.shadow.includes('0 0 20px') ? `${selectedCardStyle.shadow} ${primaryColor}` : selectedCardStyle.shadow) : `0 0 20px ${primaryColor}40, inset 0 0 20px ${primaryColor}10`,
+            fontFamily: 'monospace',
+            opacity: selectedCardStyle?.opacity || 1
           }}
         >
+          {/* Pattern overlay */}
+          {selectedCardStyle?.pattern && (
+            <div
+              className="absolute inset-0 pointer-events-none rounded"
+              style={{
+                backgroundImage: selectedCardStyle.pattern,
+                opacity: 0.1
+              }}
+            />
+          )}
           {/* Matrix rain effect background */}
           <div
             className="absolute inset-0 pointer-events-none opacity-20"

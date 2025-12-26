@@ -140,11 +140,13 @@ function PatternDisplay({ pattern, size }: { pattern: string; size: number }) {
 function ClassicTrikPanel({
   trik,
   primaryColor,
-  hideFiturGanda = false
+  hideFiturGanda = false,
+  cardStyle
 }: {
   trik: TrikConfig;
   primaryColor: string;
   hideFiturGanda?: boolean;
+  cardStyle?: CardStyleOption;
 }) {
   const itemCount = trik.trikItems?.length || 0;
   const totalRows = itemCount + 4;
@@ -160,14 +162,20 @@ function ClassicTrikPanel({
 
   return (
     <div
-      className="h-full overflow-hidden flex flex-col relative"
+      className={`h-full overflow-hidden flex flex-col relative ${cardStyle?.blur || ''}`}
       style={{
-        background: '#1a1a1a',
-        border: '4px solid #000',
-        boxShadow: '6px 6px 0 #000',
+        background: cardStyle?.background === 'theme'
+          ? `linear-gradient(135deg, ${adjustColor(primaryColor, -30)}ee 0%, ${adjustColor(primaryColor, -50)}ee 50%, ${adjustColor(primaryColor, -60)}ee 100%)`
+          : (cardStyle?.background || '#1a1a1a'),
+        border: cardStyle?.border ? `${cardStyle.border} ${primaryColor}` : '4px solid #000',
+        opacity: cardStyle?.opacity || 1,
+        boxShadow: cardStyle?.shadow ? (cardStyle.shadow.includes('0 0 20px') ? `${cardStyle.shadow} ${primaryColor}` : cardStyle.shadow) : '6px 6px 0 #000',
         borderRadius: '4px'
       }}
     >
+      {cardStyle?.pattern && cardStyle.pattern !== 'none' && (
+        <div className="absolute inset-0 pointer-events-none rounded-xl" style={{ backgroundImage: cardStyle.pattern, backgroundRepeat: 'repeat', opacity: 0.3 }} />
+      )}
       {/* Header */}
       <div
         className="text-center flex-shrink-0 relative"
@@ -560,6 +568,7 @@ export default function ClassicLayout({
                 <ClassicTrikPanel
                   trik={pragmaticTrik}
                   primaryColor={primaryColor}
+                  cardStyle={selectedCardStyle}
                 />
               </div>
             )}
@@ -569,6 +578,7 @@ export default function ClassicLayout({
                   trik={pgSoftTrik}
                   primaryColor={primaryColor}
                   hideFiturGanda={true}
+                  cardStyle={selectedCardStyle}
                 />
               </div>
             )}
@@ -579,14 +589,20 @@ export default function ClassicLayout({
       {/* Maxwin Info Panel */}
       {maxwinConfig?.enabled && (
         <div
-          className="mx-4 mb-2 p-3"
+          className={`mx-4 mb-2 p-3 relative ${getBlurClass()}`}
           style={{
-            background: '#1a1a1a',
-            border: '4px solid #000',
-            boxShadow: '6px 6px 0 #000',
+            background: selectedCardStyle?.background === 'theme'
+              ? `linear-gradient(135deg, ${adjustColor(primaryColor, -30)}ee 0%, ${adjustColor(primaryColor, -50)}ee 50%, ${adjustColor(primaryColor, -60)}ee 100%)`
+              : (selectedCardStyle?.background || '#1a1a1a'),
+            border: selectedCardStyle?.border ? `${selectedCardStyle.border} ${primaryColor}` : '4px solid #000',
+            opacity: selectedCardStyle?.opacity || 1,
+            boxShadow: selectedCardStyle?.shadow ? (selectedCardStyle.shadow.includes('0 0 20px') ? `${selectedCardStyle.shadow} ${primaryColor}` : selectedCardStyle.shadow) : '6px 6px 0 #000',
             borderRadius: '4px'
           }}
         >
+          {selectedCardStyle?.pattern && selectedCardStyle.pattern !== 'none' && (
+            <div className="absolute inset-0 pointer-events-none rounded-xl" style={{ backgroundImage: selectedCardStyle.pattern, backgroundRepeat: 'repeat', opacity: 0.3 }} />
+          )}
           {/* Heading 1 */}
           <div className="text-center mb-2">
             <h2
