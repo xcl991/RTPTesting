@@ -24,7 +24,7 @@ import CustomizableLayout3 from './layouts/CustomizableLayout3';
 import CustomizableLayout4 from './layouts/CustomizableLayout4';
 import CustomizableLayout5 from './layouts/CustomizableLayout5';
 import CustomizableLayout6 from './layouts/CustomizableLayout6';
-import { RTPStyle, WebsiteOption, Game, LayoutOption, TextureOption, CardStyleOption, TrikConfig, MaxwinConfig, DefaultLayoutSizeConfig, FooterConfig } from '@/types';
+import { RTPStyle, WebsiteOption, Game, LayoutOption, TextureOption, CardStyleOption, TrikConfig, MaxwinConfig, DefaultLayoutSizeConfig, FooterConfig, FontConfig } from '@/types';
 
 interface RTPPreviewProps {
   selectedWebsite: WebsiteOption;
@@ -51,6 +51,7 @@ interface RTPPreviewProps {
   headerFontSize: 'small' | 'medium' | 'large' | 'xlarge';
   defaultLayoutSize: DefaultLayoutSizeConfig;
   footerConfig: FooterConfig;
+  fontConfig: FontConfig;
   // Screenshot actions
   onPrepareImage?: () => void;
   onDownload?: () => void;
@@ -89,6 +90,7 @@ const RTPPreview = forwardRef<HTMLDivElement, RTPPreviewProps>(({
   headerFontSize,
   defaultLayoutSize,
   footerConfig,
+  fontConfig,
   onPrepareImage,
   onDownload,
   onCopy,
@@ -127,7 +129,8 @@ const RTPPreview = forwardRef<HTMLDivElement, RTPPreviewProps>(({
     headerFontSize,
     defaultLayoutSize,
     footerConfig,
-    maxwinConfig
+    maxwinConfig,
+    fontConfig
   };
 
   // All layouts now use 1000x1000 (1:1 ratio)

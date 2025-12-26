@@ -6,7 +6,7 @@ import Header from '@/components/Header';
 import RTPPreview from '@/components/RTPPreview';
 import GameSelectorModal from '@/components/GameSelectorModal';
 import { WEBSITES, RTP_STYLES, BACKGROUND_CATEGORIES, GAMES_PRAGMATIC, GAMES_PGSOFT, LAYOUT_OPTIONS, TEXTURE_OPTIONS, CARD_STYLE_OPTIONS } from '@/data/games';
-import { WebsiteOption, RTPStyle, Game, LayoutOption, TextureOption, CardStyleOption, TrikConfig, MaxwinConfig, DefaultLayoutSizeConfig, FooterConfig } from '@/types';
+import { WebsiteOption, RTPStyle, Game, LayoutOption, TextureOption, CardStyleOption, TrikConfig, MaxwinConfig, DefaultLayoutSizeConfig, FooterConfig, FontConfig } from '@/types';
 
 // Gold Tier Games - WAJIB muncul minimal 1 setiap acak
 const GOLD_TIER_PRAGMATIC = [
@@ -154,6 +154,13 @@ export default function Home() {
     footer1: '',
     subFooter1: 'Ikuti trik & kode unik untuk mencapai jackpot maximal!',
     footer2: ''
+  });
+
+  // Font Config for all layouts
+  const [fontConfig, setFontConfig] = useState<FontConfig>({
+    color: '#ffffff',
+    outlineColor: '#000000',
+    outlineWidth: 0
   });
 
   // Telegram Username
@@ -909,6 +916,8 @@ export default function Home() {
           onDefaultLayoutSizeChange={getCurrentLayoutSizeSetter()}
           footerConfig={footerConfig}
           onFooterConfigChange={setFooterConfig}
+          fontConfig={fontConfig}
+          onFontConfigChange={setFontConfig}
         />
 
         {/* Main Content */}
@@ -1099,6 +1108,7 @@ export default function Home() {
               headerFontSize={headerFontSize}
               defaultLayoutSize={getCurrentLayoutSize()}
               footerConfig={footerConfig}
+              fontConfig={fontConfig}
               onPrepareImage={prepareImage}
               onDownload={downloadImage}
               onCopy={copyToClipboard}

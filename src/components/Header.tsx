@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { ChevronDown, Shuffle, Clock, Image, Palette, Hash, Layout, Search, Layers, ChevronRight, Sparkles, X, Check, ListChecks, Plus, Trash2 } from 'lucide-react';
 import { WEBSITES, RTP_STYLES, TIME_SLOTS, LAYOUT_OPTIONS, TEXTURE_OPTIONS, CARD_STYLE_OPTIONS, BACKGROUND_CATEGORIES } from '@/data/games';
-import { WebsiteOption, RTPStyle, TimeSlot, LayoutOption, TextureOption, CardStyleOption, BackgroundCategory, TrikConfig, TrikItem, Game, MaxwinConfig, DefaultLayoutSizeConfig, FooterConfig } from '@/types';
+import { WebsiteOption, RTPStyle, TimeSlot, LayoutOption, TextureOption, CardStyleOption, BackgroundCategory, TrikConfig, TrikItem, Game, MaxwinConfig, DefaultLayoutSizeConfig, FooterConfig, FontConfig } from '@/types';
 
 interface HeaderProps {
   selectedWebsite: WebsiteOption;
@@ -53,6 +53,8 @@ interface HeaderProps {
   onDefaultLayoutSizeChange: (config: DefaultLayoutSizeConfig) => void;
   footerConfig: FooterConfig;
   onFooterConfigChange: (config: FooterConfig) => void;
+  fontConfig: FontConfig;
+  onFontConfigChange: (config: FontConfig) => void;
 }
 
 export default function Header({
@@ -102,7 +104,9 @@ export default function Header({
   defaultLayoutSize,
   onDefaultLayoutSizeChange,
   footerConfig,
-  onFooterConfigChange
+  onFooterConfigChange,
+  fontConfig,
+  onFontConfigChange
 }: HeaderProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isLayoutDropdownOpen, setIsLayoutDropdownOpen] = useState(false);
@@ -116,6 +120,7 @@ export default function Header({
   const [isMaxwinPanelOpen, setIsMaxwinPanelOpen] = useState(false);
   const [isFontSizeDropdownOpen, setIsFontSizeDropdownOpen] = useState(false);
   const [isFooterPanelOpen, setIsFooterPanelOpen] = useState(false);
+  const [isFontPanelOpen, setIsFontPanelOpen] = useState(false);
   const [websiteSearch, setWebsiteSearch] = useState('');
   const websiteInputRef = useRef<HTMLInputElement>(null);
 
@@ -718,6 +723,19 @@ export default function Header({
             Footer Config
           </button>
         )}
+
+        {/* Font Style Button */}
+        <button
+          onClick={() => setIsFontPanelOpen(!isFontPanelOpen)}
+          className={`flex items-center gap-2 ${isFontPanelOpen ? 'bg-sky-500' : 'bg-sky-600 hover:bg-sky-700'} text-white px-4 py-2 rounded-lg transition-colors font-semibold`}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+            <polyline points="4 7 4 4 20 4 20 7"></polyline>
+            <line x1="9" y1="20" x2="15" y2="20"></line>
+            <line x1="12" y1="4" x2="12" y2="20"></line>
+          </svg>
+          Font Style
+        </button>
       </div>
 
       {/* Trik Gacor Panel */}
@@ -1124,6 +1142,114 @@ export default function Header({
                 <p className="text-gray-400 text-xs">{footerConfig.subFooter1 || '(Sub Footer kosong)'}</p>
                 <p className="text-gray-500 text-xs">{footerConfig.footer2 || '(Footer 2 kosong)'}</p>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Font Style Panel */}
+      {isFontPanelOpen && (
+        <div className="mt-4 bg-gray-800 border border-gray-700 rounded-lg p-4">
+          <h3 className="text-lg font-semibold text-sky-400 mb-4">Konfigurasi Font Style</h3>
+
+          <div className="space-y-4">
+            {/* Font Color */}
+            <div className="flex items-center gap-3">
+              <label className="text-white text-sm w-32">Warna Font:</label>
+              <div className="flex items-center gap-2">
+                <input
+                  type="color"
+                  value={fontConfig.color}
+                  onChange={(e) => onFontConfigChange({ ...fontConfig, color: e.target.value })}
+                  className="w-10 h-10 rounded border border-gray-600 cursor-pointer"
+                />
+                <input
+                  type="text"
+                  value={fontConfig.color}
+                  onChange={(e) => onFontConfigChange({ ...fontConfig, color: e.target.value })}
+                  className="w-24 px-2 py-1 bg-gray-700 text-white rounded border border-gray-600 focus:border-sky-500 focus:outline-none text-sm"
+                />
+              </div>
+            </div>
+
+            {/* Outline Color */}
+            <div className="flex items-center gap-3">
+              <label className="text-white text-sm w-32">Warna Outline:</label>
+              <div className="flex items-center gap-2">
+                <input
+                  type="color"
+                  value={fontConfig.outlineColor}
+                  onChange={(e) => onFontConfigChange({ ...fontConfig, outlineColor: e.target.value })}
+                  className="w-10 h-10 rounded border border-gray-600 cursor-pointer"
+                />
+                <input
+                  type="text"
+                  value={fontConfig.outlineColor}
+                  onChange={(e) => onFontConfigChange({ ...fontConfig, outlineColor: e.target.value })}
+                  className="w-24 px-2 py-1 bg-gray-700 text-white rounded border border-gray-600 focus:border-sky-500 focus:outline-none text-sm"
+                />
+              </div>
+            </div>
+
+            {/* Outline Width */}
+            <div className="flex items-center gap-3">
+              <label className="text-white text-sm w-32">Ketebalan Outline:</label>
+              <div className="flex items-center gap-2">
+                <input
+                  type="range"
+                  min="0"
+                  max="5"
+                  step="0.5"
+                  value={fontConfig.outlineWidth}
+                  onChange={(e) => onFontConfigChange({ ...fontConfig, outlineWidth: parseFloat(e.target.value) })}
+                  className="w-32"
+                />
+                <span className="text-white text-sm w-12">{fontConfig.outlineWidth}px</span>
+              </div>
+            </div>
+
+            {/* Preview */}
+            <div className="mt-4 p-4 bg-gray-900 rounded-lg border border-gray-600">
+              <p className="text-gray-400 text-xs mb-2">Preview:</p>
+              <h3
+                className="text-xl font-bold"
+                style={{
+                  color: fontConfig.color,
+                  textShadow: fontConfig.outlineWidth > 0
+                    ? `${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, ${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}`
+                    : 'none'
+                }}
+              >
+                Gates of Olympus 1000
+              </h3>
+            </div>
+
+            {/* Preset Buttons */}
+            <div className="flex flex-wrap gap-2">
+              <button
+                onClick={() => onFontConfigChange({ color: '#ffffff', outlineColor: '#000000', outlineWidth: 0 })}
+                className="px-3 py-1 bg-gray-700 hover:bg-gray-600 text-white text-sm rounded transition-colors"
+              >
+                Reset Default
+              </button>
+              <button
+                onClick={() => onFontConfigChange({ color: '#ffffff', outlineColor: '#000000', outlineWidth: 2 })}
+                className="px-3 py-1 bg-gray-700 hover:bg-gray-600 text-white text-sm rounded transition-colors"
+              >
+                White + Black Outline
+              </button>
+              <button
+                onClick={() => onFontConfigChange({ color: '#ffd700', outlineColor: '#000000', outlineWidth: 2 })}
+                className="px-3 py-1 bg-gray-700 hover:bg-gray-600 text-yellow-400 text-sm rounded transition-colors"
+              >
+                Gold + Black Outline
+              </button>
+              <button
+                onClick={() => onFontConfigChange({ color: '#00f0ff', outlineColor: '#000000', outlineWidth: 1.5 })}
+                className="px-3 py-1 bg-gray-700 hover:bg-gray-600 text-cyan-400 text-sm rounded transition-colors"
+              >
+                Cyan + Black Outline
+              </button>
             </div>
           </div>
         </div>

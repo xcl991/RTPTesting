@@ -111,3 +111,9 @@ export interface FooterConfig {
   subFooter1: string; // Sub footer (e.g., "Hubungi kami untuk info lebih lanjut")
   footer2: string; // Footer kedua (e.g., "© 2024 All Rights Reserved")
 }
+
+export interface FontConfig {
+  color: string; // Warna font (e.g., "#ffffff")
+  outlineColor: string; // Warna outline/stroke (e.g., "#000000")
+  outlineWidth: number; // Ketebalan outline (0-5 px)
+}

@@ -1,7 +1,7 @@
 'use client';
 
 import TrikPanel from '../TrikPanel';
-import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig } from '@/types';
+import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig, DefaultLayoutSizeConfig, FooterConfig, FontConfig } from '@/types';
 
 // Helper function to create darker/lighter colors from hex
 function adjustColor(hex: string, percent: number): string {
@@ -29,10 +29,11 @@ interface CustomizableLayoutProps {
   headerFontSize: 'small' | 'medium' | 'large' | 'xlarge';
   defaultLayoutSize: DefaultLayoutSizeConfig;
   footerConfig: FooterConfig;
+  fontConfig?: FontConfig;
 }
 
 // Custom Game Card untuk layout 3x1 - Dikecilkan 10%
-function GameCard3x1({ game, rtp, style, cardSize, darkPrimary }: { game: Game; rtp: number; style: RTPStyle; cardSize: number; darkPrimary: string }) {
+function GameCard3x1({ game, rtp, style, cardSize, darkPrimary, fontConfig }: { game: Game; rtp: number; style: RTPStyle; cardSize: number; darkPrimary: string; fontConfig?: FontConfig }) {
   return (
     <div
       className="relative overflow-hidden rounded-lg shadow-lg"
@@ -74,13 +75,17 @@ function GameCard3x1({ game, rtp, style, cardSize, darkPrimary }: { game: Game; 
         }}
       >
         <h3
-          className="text-white font-bold text-[12px] leading-tight"
+          className="font-bold text-[12px] leading-tight"
           style={{
             overflow: 'hidden',
             height: '30px',
             display: '-webkit-box',
             WebkitLineClamp: 2,
-            WebkitBoxOrient: 'vertical'
+            WebkitBoxOrient: 'vertical',
+            color: fontConfig?.color || '#ffffff',
+            textShadow: fontConfig?.outlineWidth && fontConfig.outlineWidth > 0
+              ? `${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px ${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, ${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}, -${fontConfig.outlineWidth}px -${fontConfig.outlineWidth}px 0 ${fontConfig.outlineColor}`
+              : 'none'
           }}
         >
           {game.name}
@@ -311,7 +316,8 @@ function ProviderSection3x1({
   hideFiturGanda = false,
   darkPrimary,
   darkSecondary,
-  darkerPrimary
+  darkerPrimary,
+  fontConfig
 }: {
   title: string;
   games: Game[];
@@ -324,6 +330,7 @@ function ProviderSection3x1({
   darkPrimary: string;
   darkSecondary: string;
   darkerPrimary: string;
+  fontConfig?: FontConfig;
 }) {
   // Ambil hanya 3 game untuk grid 3x1
   const displayGames = games.slice(0, 3).map(game => ({
@@ -375,6 +382,7 @@ function ProviderSection3x1({
               style={style}
               cardSize={cardSize}
               darkPrimary={darkPrimary}
+              fontConfig={fontConfig}
             />
           ))}
         </div>
@@ -413,7 +421,8 @@ export default function CustomizableLayout({
   customHeaderText,
   headerFontSize,
   defaultLayoutSize,
-  footerConfig
+  footerConfig,
+  fontConfig
 }: CustomizableLayoutProps) {
   // Extract theme colors and create darker variants
   const primaryColor = selectedStyle.primaryColor;
@@ -542,6 +551,7 @@ export default function CustomizableLayout({
           darkPrimary={darkPrimary}
           darkSecondary={darkSecondary}
           darkerPrimary={darkerPrimary}
+          fontConfig={fontConfig}
         />
 
         {/* PG Soft Section */}
@@ -557,6 +567,7 @@ export default function CustomizableLayout({
           darkPrimary={darkPrimary}
           darkSecondary={darkSecondary}
           darkerPrimary={darkerPrimary}
+          fontConfig={fontConfig}
         />
       </div>
 
