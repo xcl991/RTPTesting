@@ -74,7 +74,7 @@ function GameCard3x1({ game, rtp, style, cardSize, darkPrimary }: { game: Game; 
         }}
       >
         <h3
-          className="text-white font-bold text-[12px] leading-tight"
+          className="text-white font-bold text-[10px] leading-tight"
           style={{
             overflow: 'hidden',
             height: '22px',
