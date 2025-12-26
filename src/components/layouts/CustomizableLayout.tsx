@@ -77,7 +77,7 @@ function GameCard3x1({ game, rtp, style, cardSize, darkPrimary }: { game: Game; 
           className="text-white font-bold text-[12px] leading-tight"
           style={{
             overflow: 'hidden',
-            height: '24px',
+            height: '30px',
             display: '-webkit-box',
             WebkitLineClamp: 2,
             WebkitBoxOrient: 'vertical'
