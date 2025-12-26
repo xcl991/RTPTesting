@@ -456,34 +456,14 @@ export default function CasinoCyberpunkLayout({
         </div>
 
         <h1
-          className={`${getFontSizeClass()} font-black uppercase tracking-wider leading-tight text-center relative`}
+          className={`${getFontSizeClass()} font-black uppercase tracking-wider leading-tight text-center`}
           style={{
             color: '#ffffff',
-            textShadow: `-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 2px 0 0 #ff00ff, -2px 0 0 #00ffff, 0 0 20px ${primaryColor}`,
+            textShadow: `-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 20px ${primaryColor}`,
             fontFamily: 'monospace',
             letterSpacing: '0.15em'
           }}
         >
-          <span style={{
-            position: 'absolute',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            color: '#ff00ff',
-            opacity: 0.5,
-            clipPath: 'polygon(0 0, 100% 0, 100% 45%, 0 45%)'
-          }}>
-            {customHeaderText}
-          </span>
-          <span style={{
-            position: 'absolute',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            color: '#00ffff',
-            opacity: 0.5,
-            clipPath: 'polygon(0 55%, 100% 55%, 100% 100%, 0 100%)'
-          }}>
-            {customHeaderText}
-          </span>
           {customHeaderText}
         </h1>
 
